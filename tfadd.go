@@ -83,6 +83,12 @@ func (v *Resource) addAttributeNestedTypeAttributes(buf *strings.Builder, name s
 		buf.WriteString(strings.Repeat(" ", indent))
 		buf.WriteString(fmt.Sprintf("%s = {\n", name))
 
+		// This shouldn't happen in real usage; state always has all values (set
+		// to null as needed), but it protects against panics in tests (and any
+		// really weird and unlikely cases).
+		if !stateVal.Type().HasAttribute(name) {
+			return nil
+		}
 		nestedVal := stateVal.GetAttr(name)
 		if err := v.addAttributes(buf, nestedVal, schema.AttributeNestedType.Attributes, indent+2); err != nil {
 			return err
