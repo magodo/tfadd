@@ -1,4 +1,4 @@
-package tfadd
+package tpl
 
 import (
 	"strings"
@@ -11,19 +11,17 @@ import (
 )
 
 func Test_Add(t *testing.T) {
-	v := Resource{
-		StateResource: &tfstate.StateResource{
-			Address: "test_instance.foo",
-			Value: cty.ObjectVal(map[string]cty.Value{
-				"ami": cty.StringVal("ami-123456789"),
-				"disks": cty.ObjectVal(map[string]cty.Value{
-					"mount_point": cty.StringVal("/mnt/foo"),
-					"size":        cty.StringVal("50GB"),
-				}),
+	res := &tfstate.StateResource{
+		Address: "test_instance.foo",
+		Value: cty.ObjectVal(map[string]cty.Value{
+			"ami": cty.StringVal("ami-123456789"),
+			"disks": cty.ObjectVal(map[string]cty.Value{
+				"mount_point": cty.StringVal("/mnt/foo"),
+				"size":        cty.StringVal("50GB"),
 			}),
-		},
+		}),
 	}
-	b, err := v.Add(addTestSchema(tfjson.SchemaNestingModeSingle))
+	b, err := StateToTpl(res, addTestSchema(tfjson.SchemaNestingModeSingle))
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -106,12 +104,10 @@ password = "i am secret"
 		},
 	}
 
-	v := Resource{}
-
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
 			var buf strings.Builder
-			if err := v.addAttributes(&buf, test.val, test.attrs, 0); err != nil {
+			if err := addAttributes(&buf, test.val, test.attrs, 0); err != nil {
 				t.Errorf("unexpected error")
 			}
 			if buf.String() != test.expected {
@@ -123,7 +119,6 @@ password = "i am secret"
 
 func TestAdd_addBlocks(t *testing.T) {
 	t.Run("NestingSingle", func(t *testing.T) {
-		v := Resource{}
 		val := cty.ObjectVal(map[string]cty.Value{
 			"root_block_device": cty.ObjectVal(map[string]cty.Value{
 				"volume_type": cty.StringVal("foo"),
@@ -131,7 +126,7 @@ func TestAdd_addBlocks(t *testing.T) {
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeSingle)
 		var buf strings.Builder
-		v.addBlocks(&buf, val, schema.NestedBlocks, 0)
+		addBlocks(&buf, val, schema.NestedBlocks, 0)
 
 		expected := `root_block_device {
   volume_type = "foo"
@@ -144,7 +139,6 @@ func TestAdd_addBlocks(t *testing.T) {
 	})
 
 	t.Run("NestingList", func(t *testing.T) {
-		v := Resource{}
 		val := cty.ObjectVal(map[string]cty.Value{
 			"root_block_device": cty.ListVal([]cty.Value{
 				cty.ObjectVal(map[string]cty.Value{
@@ -157,7 +151,7 @@ func TestAdd_addBlocks(t *testing.T) {
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeList)
 		var buf strings.Builder
-		v.addBlocks(&buf, val, schema.NestedBlocks, 0)
+		addBlocks(&buf, val, schema.NestedBlocks, 0)
 
 		expected := `root_block_device {
   volume_type = "foo"
@@ -173,7 +167,6 @@ root_block_device {
 	})
 
 	t.Run("NestingSet", func(t *testing.T) {
-		v := Resource{}
 		val := cty.ObjectVal(map[string]cty.Value{
 			"root_block_device": cty.SetVal([]cty.Value{
 				cty.ObjectVal(map[string]cty.Value{
@@ -186,7 +179,7 @@ root_block_device {
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeSet)
 		var buf strings.Builder
-		v.addBlocks(&buf, val, schema.NestedBlocks, 0)
+		addBlocks(&buf, val, schema.NestedBlocks, 0)
 
 		expected := `root_block_device {
   volume_type = "bar"
@@ -202,7 +195,6 @@ root_block_device {
 	})
 
 	t.Run("NestingMap", func(t *testing.T) {
-		v := Resource{}
 		val := cty.ObjectVal(map[string]cty.Value{
 			"root_block_device": cty.MapVal(map[string]cty.Value{
 				"1": cty.ObjectVal(map[string]cty.Value{
@@ -215,7 +207,7 @@ root_block_device {
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeMap)
 		var buf strings.Builder
-		v.addBlocks(&buf, val, schema.NestedBlocks, 0)
+		addBlocks(&buf, val, schema.NestedBlocks, 0)
 
 		expected := `root_block_device "1" {
   volume_type = "foo"

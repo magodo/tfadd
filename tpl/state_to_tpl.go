@@ -1,4 +1,4 @@
-package tfadd
+package tpl
 
 import (
 	"fmt"
@@ -12,28 +12,24 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-type Resource struct {
-	*tfstate.StateResource
-}
-
-func (v *Resource) Add(schema *tfjson.SchemaBlock) ([]byte, error) {
+func StateToTpl(r *tfstate.StateResource, schema *tfjson.SchemaBlock) ([]byte, error) {
 	var buf strings.Builder
-	addr, err := parseAddress(v.Address)
+	addr, err := parseAddress(r.Address)
 	if err != nil {
 		return nil, fmt.Errorf("parsing resource address: %v", err)
 	}
 	buf.WriteString(fmt.Sprintf("resource %q %q {\n", addr.Type, addr.Name))
-	if err := v.addAttributes(&buf, v.Value, schema.Attributes, 2); err != nil {
+	if err := addAttributes(&buf, r.Value, schema.Attributes, 2); err != nil {
 		return nil, err
 	}
-	if err := v.addBlocks(&buf, v.Value, schema.NestedBlocks, 2); err != nil {
+	if err := addBlocks(&buf, r.Value, schema.NestedBlocks, 2); err != nil {
 		return nil, err
 	}
 	buf.WriteString("}")
 	return hclwrite.Format([]byte(buf.String())), nil
 }
 
-func (v *Resource) addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*tfjson.SchemaAttribute, indent int) error {
+func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*tfjson.SchemaAttribute, indent int) error {
 	if len(attrs) == 0 {
 		return nil
 	}
@@ -48,7 +44,7 @@ func (v *Resource) addAttributes(buf *strings.Builder, stateVal cty.Value, attrs
 		name := keys[i]
 		attrS := attrs[name]
 		if attrS.AttributeNestedType != nil {
-			if err := v.addAttributeNestedTypeAttributes(buf, name, attrS, stateVal, indent); err != nil {
+			if err := addAttributeNestedTypeAttributes(buf, name, attrS, stateVal, indent); err != nil {
 				return err
 			}
 			continue
@@ -77,7 +73,7 @@ func (v *Resource) addAttributes(buf *strings.Builder, stateVal cty.Value, attrs
 	return nil
 }
 
-func (v *Resource) addAttributeNestedTypeAttributes(buf *strings.Builder, name string, schema *tfjson.SchemaAttribute, stateVal cty.Value, indent int) error {
+func addAttributeNestedTypeAttributes(buf *strings.Builder, name string, schema *tfjson.SchemaAttribute, stateVal cty.Value, indent int) error {
 	switch schema.AttributeNestedType.NestingMode {
 	case tfjson.SchemaNestingModeSingle:
 		buf.WriteString(strings.Repeat(" ", indent))
@@ -90,7 +86,7 @@ func (v *Resource) addAttributeNestedTypeAttributes(buf *strings.Builder, name s
 			return nil
 		}
 		nestedVal := stateVal.GetAttr(name)
-		if err := v.addAttributes(buf, nestedVal, schema.AttributeNestedType.Attributes, indent+2); err != nil {
+		if err := addAttributes(buf, nestedVal, schema.AttributeNestedType.Attributes, indent+2); err != nil {
 			return err
 		}
 		buf.WriteString("}\n")
@@ -107,7 +103,7 @@ func (v *Resource) addAttributeNestedTypeAttributes(buf *strings.Builder, name s
 			buf.WriteString(strings.Repeat(" ", indent+2))
 
 			buf.WriteString("{\n")
-			if err := v.addAttributes(buf, listVals[i], schema.AttributeNestedType.Attributes, indent+4); err != nil {
+			if err := addAttributes(buf, listVals[i], schema.AttributeNestedType.Attributes, indent+4); err != nil {
 				return err
 			}
 			buf.WriteString(strings.Repeat(" ", indent+2))
@@ -134,7 +130,7 @@ func (v *Resource) addAttributeNestedTypeAttributes(buf *strings.Builder, name s
 			buf.WriteString(fmt.Sprintf("%s = {", key))
 
 			buf.WriteString("\n")
-			if err := v.addAttributes(buf, vals[key], schema.AttributeNestedType.Attributes, indent+4); err != nil {
+			if err := addAttributes(buf, vals[key], schema.AttributeNestedType.Attributes, indent+4); err != nil {
 				return err
 			}
 			buf.WriteString(strings.Repeat(" ", indent+2))
@@ -150,7 +146,7 @@ func (v *Resource) addAttributeNestedTypeAttributes(buf *strings.Builder, name s
 	}
 }
 
-func (v *Resource) addBlocks(buf *strings.Builder, stateVal cty.Value, blocks map[string]*tfjson.SchemaBlockType, indent int) error {
+func addBlocks(buf *strings.Builder, stateVal cty.Value, blocks map[string]*tfjson.SchemaBlockType, indent int) error {
 	if len(blocks) == 0 {
 		return nil
 	}
@@ -170,7 +166,7 @@ func (v *Resource) addBlocks(buf *strings.Builder, stateVal cty.Value, blocks ma
 			continue
 		}
 		blockVal := stateVal.GetAttr(name)
-		if err := v.addNestedBlock(buf, name, blockS, blockVal, indent); err != nil {
+		if err := addNestedBlock(buf, name, blockS, blockVal, indent); err != nil {
 			return err
 		}
 	}
@@ -178,17 +174,17 @@ func (v *Resource) addBlocks(buf *strings.Builder, stateVal cty.Value, blocks ma
 	return nil
 }
 
-func (v *Resource) addNestedBlock(buf *strings.Builder, name string, schema *tfjson.SchemaBlockType, stateVal cty.Value, indent int) error {
+func addNestedBlock(buf *strings.Builder, name string, schema *tfjson.SchemaBlockType, stateVal cty.Value, indent int) error {
 	switch schema.NestingMode {
 	case tfjson.SchemaNestingModeSingle, tfjson.SchemaNestingModeGroup:
 		buf.WriteString(strings.Repeat(" ", indent))
 		buf.WriteString(fmt.Sprintf("%s {", name))
 
 		buf.WriteString("\n")
-		if err := v.addAttributes(buf, stateVal, schema.Block.Attributes, indent+2); err != nil {
+		if err := addAttributes(buf, stateVal, schema.Block.Attributes, indent+2); err != nil {
 			return err
 		}
-		if err := v.addBlocks(buf, stateVal, schema.Block.NestedBlocks, indent+2); err != nil {
+		if err := addBlocks(buf, stateVal, schema.Block.NestedBlocks, indent+2); err != nil {
 			return err
 		}
 		buf.WriteString("}\n")
@@ -198,10 +194,10 @@ func (v *Resource) addNestedBlock(buf *strings.Builder, name string, schema *tfj
 		for i := range listVals {
 			buf.WriteString(strings.Repeat(" ", indent))
 			buf.WriteString(fmt.Sprintf("%s {\n", name))
-			if err := v.addAttributes(buf, listVals[i], schema.Block.Attributes, indent+2); err != nil {
+			if err := addAttributes(buf, listVals[i], schema.Block.Attributes, indent+2); err != nil {
 				return err
 			}
-			if err := v.addBlocks(buf, listVals[i], schema.Block.NestedBlocks, indent+2); err != nil {
+			if err := addBlocks(buf, listVals[i], schema.Block.NestedBlocks, indent+2); err != nil {
 				return err
 			}
 			buf.WriteString("}\n")
@@ -219,10 +215,10 @@ func (v *Resource) addNestedBlock(buf *strings.Builder, name string, schema *tfj
 			buf.WriteString(fmt.Sprintf("%s %q {", name, key))
 			buf.WriteString("\n")
 
-			if err := v.addAttributes(buf, vals[key], schema.Block.Attributes, indent+2); err != nil {
+			if err := addAttributes(buf, vals[key], schema.Block.Attributes, indent+2); err != nil {
 				return err
 			}
-			if err := v.addBlocks(buf, vals[key], schema.Block.NestedBlocks, indent+2); err != nil {
+			if err := addBlocks(buf, vals[key], schema.Block.NestedBlocks, indent+2); err != nil {
 				return err
 			}
 			buf.WriteString(strings.Repeat(" ", indent))
@@ -255,17 +251,4 @@ func ctyCollectionValues(val cty.Value) []cty.Value {
 	}
 
 	return ret
-}
-
-type ResourceAddr struct {
-	Type string
-	Name string
-}
-
-func parseAddress(addr string) (*ResourceAddr, error) {
-	segs := strings.Split(addr, ".")
-	if len(segs) != 2 {
-		return nil, fmt.Errorf("invalid resource address found: %s", addr)
-	}
-	return &ResourceAddr{Type: segs[0], Name: segs[1]}, nil
 }
