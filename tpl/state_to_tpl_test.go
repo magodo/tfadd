@@ -32,7 +32,6 @@ func Test_Add(t *testing.T) {
     mount_point = "/mnt/foo"
     size        = "50GB"
   }
-  id = null
 }`
 	if string(b) != expected {
 		t.Errorf("wrong result: %s", cmp.Diff(expected, string(b)))
@@ -142,7 +141,6 @@ boot_disk = null
 disks = null
 ids = null
 locations = null
-password = null
 tags = null
 `,
 		},

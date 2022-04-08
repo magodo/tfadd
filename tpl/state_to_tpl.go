@@ -8,7 +8,6 @@ import (
 	"github.com/hashicorp/hcl/v2/hclwrite"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/magodo/tfstate"
-	"github.com/magodo/tfstate/terraform/jsonschema"
 	"github.com/zclconf/go-cty/cty"
 )
 
@@ -59,15 +58,16 @@ func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*t
 
 		// Exclude computed-only attributes
 		if attrS.Required || attrS.Optional {
+			// This shouldn't happen in real usage; state always has all values (set
+			// to null as needed), but it protects against panics in tests (and any
+			// really weird and unlikely cases).
+			if !stateVal.Type().HasAttribute(name) {
+				continue
+			}
 			buf.WriteString(strings.Repeat(" ", indent))
 			buf.WriteString(fmt.Sprintf("%s = ", name))
-
 			var val cty.Value
-			if stateVal.Type().HasAttribute(name) {
-				val = stateVal.GetAttr(name)
-			} else {
-				val = jsonschema.SchemaAttributeEmptyValue(attrS)
-			}
+			val = stateVal.GetAttr(name)
 			val, _ = val.Unmark()
 			tok := hclwrite.TokensForValue(val)
 			if _, err := tok.WriteTo(buf); err != nil {
