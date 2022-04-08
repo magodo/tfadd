@@ -175,6 +175,47 @@ func TestTuneForBlock(t *testing.T) {
 }`,
 		},
 		{
+			name: "optional attributes with null value",
+			schema: SchemaBlock{
+				Attributes: map[string]*SchemaAttribute{
+					"number": {
+						AttributeType: cty.Number,
+						Optional:      true,
+					},
+					"bool": {
+						AttributeType: cty.Bool,
+						Optional:      true,
+					},
+					"string": {
+						AttributeType: cty.String,
+						Optional:      true,
+					},
+					"list": {
+						AttributeType: cty.List(cty.Number),
+						Optional:      true,
+					},
+					"set": {
+						AttributeType: cty.Set(cty.Number),
+						Optional:      true,
+					},
+					"map": {
+						AttributeType: cty.Map(cty.Number),
+						Optional:      true,
+					},
+				},
+			},
+			input: `resource "foo" "test" {
+  number = null
+  bool = null
+  string = null
+  list = null
+  set = null
+  map = null
+}`,
+			expect: `resource "foo" "test" {
+}`,
+		},
+		{
 			name: "O+C attributes that has ExactlyOneOf defined",
 			schema: SchemaBlock{
 				Attributes: map[string]*SchemaAttribute{
@@ -270,6 +311,36 @@ func TestTuneForBlock(t *testing.T) {
 			expect: `resource "foo" "test" {
   req {}
   opt {}
+}`,
+		},
+		{
+			name: "Blocks with absent",
+			schema: SchemaBlock{
+				NestedBlocks: map[string]*SchemaBlockType{
+					"req": {
+						NestingMode: NestingSingle,
+						Required:    true,
+					},
+					"opt": {
+						NestingMode: NestingSingle,
+						Optional:    true,
+					},
+					"comp": {
+						NestingMode: NestingSingle,
+						Computed:    true,
+					},
+					"oc": {
+						NestingMode: NestingSingle,
+						Optional:    true,
+						Computed:    true,
+					},
+				},
+			},
+			input: `resource "foo" "test" {
+  req {}
+}`,
+			expect: `resource "foo" "test" {
+  req {}
 }`,
 		},
 	}

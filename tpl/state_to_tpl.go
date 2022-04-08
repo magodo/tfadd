@@ -30,7 +30,7 @@ func StateToTpl(r *tfstate.StateResource, schema *tfjson.SchemaBlock) ([]byte, e
 }
 
 func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*tfjson.SchemaAttribute, indent int) error {
-	if len(attrs) == 0 {
+	if len(attrs) == 0 || stateVal.IsNull() {
 		return nil
 	}
 
@@ -44,7 +44,14 @@ func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*t
 		name := keys[i]
 		attrS := attrs[name]
 		if attrS.AttributeNestedType != nil {
-			if err := addAttributeNestedTypeAttributes(buf, name, attrS, stateVal, indent); err != nil {
+			// This shouldn't happen in real usage; state always has all values (set
+			// to null as needed), but it protects against panics in tests (and any
+			// really weird and unlikely cases).
+			if !stateVal.Type().HasAttribute(name) {
+				continue
+			}
+			nestedVal := stateVal.GetAttr(name)
+			if err := addAttributeNestedTypeAttributes(buf, name, attrS, nestedVal, indent); err != nil {
 				return err
 			}
 			continue
@@ -74,31 +81,31 @@ func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*t
 }
 
 func addAttributeNestedTypeAttributes(buf *strings.Builder, name string, schema *tfjson.SchemaAttribute, stateVal cty.Value, indent int) error {
+	buf.WriteString(strings.Repeat(" ", indent))
+	buf.WriteString(fmt.Sprintf("%s = ", name))
+	if stateVal.IsNull() {
+		stateVal, _ = stateVal.Unmark()
+		tok := hclwrite.TokensForValue(stateVal)
+		if _, err := tok.WriteTo(buf); err != nil {
+			return err
+		}
+		buf.WriteString("\n")
+		return nil
+	}
 	switch schema.AttributeNestedType.NestingMode {
 	case tfjson.SchemaNestingModeSingle:
-		buf.WriteString(strings.Repeat(" ", indent))
-		buf.WriteString(fmt.Sprintf("%s = {\n", name))
+		buf.WriteString("{\n")
 
-		// This shouldn't happen in real usage; state always has all values (set
-		// to null as needed), but it protects against panics in tests (and any
-		// really weird and unlikely cases).
-		if !stateVal.Type().HasAttribute(name) {
-			return nil
-		}
-		nestedVal := stateVal.GetAttr(name)
-		if err := addAttributes(buf, nestedVal, schema.AttributeNestedType.Attributes, indent+2); err != nil {
+		if err := addAttributes(buf, stateVal, schema.AttributeNestedType.Attributes, indent+2); err != nil {
 			return err
 		}
 		buf.WriteString("}\n")
 		return nil
 
 	case tfjson.SchemaNestingModeList, tfjson.SchemaNestingModeSet:
-		buf.WriteString(strings.Repeat(" ", indent))
-		buf.WriteString(fmt.Sprintf("%s = [", name))
+		buf.WriteString("[\n")
 
-		buf.WriteString("\n")
-
-		listVals := ctyCollectionValues(stateVal.GetAttr(name))
+		listVals := ctyCollectionValues(stateVal)
 		for i := range listVals {
 			buf.WriteString(strings.Repeat(" ", indent+2))
 
@@ -114,12 +121,9 @@ func addAttributeNestedTypeAttributes(buf *strings.Builder, name string, schema 
 		return nil
 
 	case tfjson.SchemaNestingModeMap:
-		buf.WriteString(strings.Repeat(" ", indent))
-		buf.WriteString(fmt.Sprintf("%s = {", name))
+		buf.WriteString("{\n")
 
-		buf.WriteString("\n")
-
-		vals := stateVal.GetAttr(name).AsValueMap()
+		vals := stateVal.AsValueMap()
 		keys := make([]string, 0, len(vals))
 		for key := range vals {
 			keys = append(keys, key)
@@ -147,7 +151,7 @@ func addAttributeNestedTypeAttributes(buf *strings.Builder, name string, schema 
 }
 
 func addBlocks(buf *strings.Builder, stateVal cty.Value, blocks map[string]*tfjson.SchemaBlockType, indent int) error {
-	if len(blocks) == 0 {
+	if len(blocks) == 0 || stateVal.IsNull() {
 		return nil
 	}
 
@@ -175,6 +179,9 @@ func addBlocks(buf *strings.Builder, stateVal cty.Value, blocks map[string]*tfjs
 }
 
 func addNestedBlock(buf *strings.Builder, name string, schema *tfjson.SchemaBlockType, stateVal cty.Value, indent int) error {
+	if stateVal.IsNull() {
+		return nil
+	}
 	switch schema.NestingMode {
 	case tfjson.SchemaNestingModeSingle, tfjson.SchemaNestingModeGroup:
 		buf.WriteString(strings.Repeat(" ", indent))

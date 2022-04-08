@@ -68,7 +68,7 @@ func tuneForBlock(rb *hclwrite.Body, sch *SchemaBlock, parentAttrNames []string)
 			}
 		}
 
-		// For optional only attributes, remove it from the output config if it holds the default value
+		// For optional only attributes, remove it from the output config if it either holds the default value or is null.
 		attrExpr, diags := hclwrite.ParseConfig(attrVal.BuildTokens(nil).Bytes(), "generate_attr", hcl.InitialPos)
 		if diags.HasErrors() {
 			return fmt.Errorf(`building attribute %q attribute: %s`, attrName, diags.Error())
@@ -83,6 +83,12 @@ func tuneForBlock(rb *hclwrite.Body, sch *SchemaBlock, parentAttrNames []string)
 			return fmt.Errorf(`evaluating value of HCL expression %q: %s`, string(attrValLit), diags.Error())
 		}
 
+		if aval.IsNull() {
+			rb.RemoveAttribute(attrName)
+			continue
+		}
+
+		// Non null attribute, continue checking whether it equals to the default value.
 		var dval cty.Value
 		switch schAttr.AttributeType {
 		case cty.Number:

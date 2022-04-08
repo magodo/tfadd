@@ -43,7 +43,7 @@ func TestAdd_addAttributes(t *testing.T) {
 	attrs := map[string]*tfjson.SchemaAttribute{
 		"ami": {
 			AttributeType: cty.Number,
-			Required:      true,
+			Optional:      true,
 		},
 		"boot_disk": {
 			AttributeType: cty.String,
@@ -53,6 +53,18 @@ func TestAdd_addAttributes(t *testing.T) {
 			AttributeType: cty.String,
 			Optional:      true,
 			Sensitive:     true,
+		},
+		"tags": {
+			AttributeType: cty.Map(cty.String),
+			Optional:      true,
+		},
+		"locations": {
+			AttributeType: cty.List(cty.String),
+			Optional:      true,
+		},
+		"ids": {
+			AttributeType: cty.Set(cty.String),
+			Optional:      true,
 		},
 		"disks": {
 			AttributeNestedType: &tfjson.SchemaNestedAttributeType{
@@ -64,7 +76,7 @@ func TestAdd_addAttributes(t *testing.T) {
 					},
 					"mount_point": {
 						AttributeType: cty.String,
-						Required:      true,
+						Optional:      true,
 					},
 				},
 			},
@@ -88,6 +100,11 @@ func TestAdd_addAttributes(t *testing.T) {
 				"ami":       cty.NumberIntVal(123456),
 				"boot_disk": cty.NullVal(cty.String),
 				"password":  cty.StringVal("i am secret"),
+				"tags": cty.MapVal(map[string]cty.Value{
+					"foo": cty.StringVal("bar"),
+				}),
+				"ids":       cty.SetVal([]cty.Value{cty.StringVal("999")}),
+				"locations": cty.ListVal([]cty.Value{cty.StringVal("Shanghai")}),
 				"disks": cty.ObjectVal(map[string]cty.Value{
 					"size":        cty.NumberIntVal(50),
 					"mount_point": cty.NullVal(cty.String),
@@ -99,7 +116,34 @@ disks = {
   mount_point = null
   size = 50
 }
+ids = ["999"]
+locations = ["Shanghai"]
 password = "i am secret"
+tags = {
+  foo = "bar"
+}
+`,
+		},
+		"null attributes": {
+			attrs,
+			cty.ObjectVal(map[string]cty.Value{
+				"ami":       cty.NullVal(cty.Number),
+				"boot_disk": cty.NullVal(cty.String),
+				"tags":      cty.NullVal(cty.Map(cty.String)),
+				"ids":       cty.NullVal(cty.Set(cty.String)),
+				"locations": cty.NullVal(cty.List(cty.String)),
+				"disks": cty.NullVal(cty.Object(map[string]cty.Type{
+					"size":        cty.Number,
+					"mount_point": cty.String,
+				})),
+			}),
+			`ami = null
+boot_disk = null
+disks = null
+ids = null
+locations = null
+password = null
+tags = null
 `,
 		},
 	}
@@ -123,6 +167,9 @@ func TestAdd_addBlocks(t *testing.T) {
 			"root_block_device": cty.ObjectVal(map[string]cty.Value{
 				"volume_type": cty.StringVal("foo"),
 			}),
+			"network_rules": cty.NullVal(cty.Object(map[string]cty.Type{
+				"ip_address": cty.String,
+			})),
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeSingle)
 		var buf strings.Builder
@@ -148,6 +195,11 @@ func TestAdd_addBlocks(t *testing.T) {
 					"volume_type": cty.StringVal("bar"),
 				}),
 			}),
+			"network_rules": cty.NullVal(
+				cty.List(cty.Object(map[string]cty.Type{
+					"ip_address": cty.String,
+				})),
+			),
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeList)
 		var buf strings.Builder
@@ -176,6 +228,11 @@ root_block_device {
 					"volume_type": cty.StringVal("bar"),
 				}),
 			}),
+			"network_rules": cty.NullVal(
+				cty.Set(cty.Object(map[string]cty.Type{
+					"ip_address": cty.String,
+				})),
+			),
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeSet)
 		var buf strings.Builder
@@ -204,6 +261,11 @@ root_block_device {
 					"volume_type": cty.StringVal("bar"),
 				}),
 			}),
+			"network_rules": cty.NullVal(
+				cty.Map(cty.Object(map[string]cty.Type{
+					"ip_address": cty.String,
+				})),
+			),
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeMap)
 		var buf strings.Builder
