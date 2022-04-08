@@ -4,10 +4,13 @@ go 1.18
 
 require (
 	github.com/google/go-cmp v0.5.7
+	github.com/hashicorp/go-multierror v1.1.1
+	github.com/hashicorp/hc-install v0.3.1
 	github.com/hashicorp/hcl/v2 v2.11.1
+	github.com/hashicorp/terraform-exec v0.16.0
 	github.com/hashicorp/terraform-json v0.13.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.13.0
-	github.com/magodo/tfstate v0.0.0-20220405052909-2778b4ccc97b
+	github.com/magodo/tfstate v0.0.0-20220408030443-7ee47e2774da
 	github.com/stretchr/testify v1.7.0
 	github.com/zclconf/go-cty v1.10.0
 )
@@ -21,7 +24,6 @@ require (
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-cty v1.4.1-0.20200414143053-d3edf31b6320 // indirect
 	github.com/hashicorp/go-hclog v1.2.0 // indirect
-	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-uuid v1.0.2 // indirect
 	github.com/hashicorp/go-version v1.4.0 // indirect
 	github.com/hashicorp/logutils v1.0.0 // indirect
