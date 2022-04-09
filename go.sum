@@ -152,6 +152,8 @@ github.com/kylelemons/godebug v1.1.0 h1:RPNrshWIDI6G2gRW9EHilWtl7Z6Sb1BR0xunSBf0
 github.com/kylelemons/godebug v1.1.0/go.mod h1:9/0rRGxNHcop5bhtWyNeEfOS8JIWk580+fNqagV/RAw=
 github.com/magodo/tfstate v0.0.0-20220408030443-7ee47e2774da h1:Sjmmi1wKvyBiD/2eqo2FAZHGsEEE3grocFzpQaIvpKM=
 github.com/magodo/tfstate v0.0.0-20220408030443-7ee47e2774da/go.mod h1:BW96zQS6A92qWVONOjviK73K0HlKdt5ufNBioGnOaEs=
+github.com/magodo/tfstate v0.0.0-20220409052014-9b9568dda918 h1:yZ5ZEMSKZNCM7KpivKhDNNQEZYSDxg0Wyi5p0hQ8dVo=
+github.com/magodo/tfstate v0.0.0-20220409052014-9b9568dda918/go.mod h1:BW96zQS6A92qWVONOjviK73K0HlKdt5ufNBioGnOaEs=
 github.com/matryer/is v1.2.0/go.mod h1:2fLPjFQM9rhQ15aVEtbuwhJinnOqrmgXPNdZsdwlWXA=
 github.com/mattn/go-colorable v0.1.4 h1:snbPLB8fVfU9iwbbo30TPtbLRzwWu6aJS6Xh4eaaviA=
 github.com/mattn/go-colorable v0.1.4/go.mod h1:U0ppj6V5qS13XJ6of8GYAs25YV2eR4EVcfRqFIhoBtE=

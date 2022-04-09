@@ -24,7 +24,7 @@ func StateToTpl(r *tfstate.StateResource, schema *tfjson.SchemaBlock) ([]byte, e
 	if err := addBlocks(&buf, r.Value, schema.NestedBlocks, 2); err != nil {
 		return nil, err
 	}
-	buf.WriteString("}")
+	buf.WriteString("}\n")
 	return hclwrite.Format([]byte(buf.String())), nil
 }
 

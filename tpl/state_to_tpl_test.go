@@ -10,7 +10,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func Test_Add(t *testing.T) {
+func Test_StateToTpl(t *testing.T) {
 	res := &tfstate.StateResource{
 		Address: "test_instance.foo",
 		Value: cty.ObjectVal(map[string]cty.Value{
@@ -32,7 +32,8 @@ func Test_Add(t *testing.T) {
     mount_point = "/mnt/foo"
     size        = "50GB"
   }
-}`
+}
+`
 	if string(b) != expected {
 		t.Errorf("wrong result: %s", cmp.Diff(expected, string(b)))
 	}

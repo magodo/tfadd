@@ -10,7 +10,7 @@ require (
 	github.com/hashicorp/terraform-exec v0.16.0
 	github.com/hashicorp/terraform-json v0.13.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.13.0
-	github.com/magodo/tfstate v0.0.0-20220408030443-7ee47e2774da
+	github.com/magodo/tfstate v0.0.0-20220409052014-9b9568dda918
 	github.com/stretchr/testify v1.7.0
 	github.com/zclconf/go-cty v1.10.0
 )

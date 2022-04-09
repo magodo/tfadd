@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/hc-install/fs"
 	"github.com/hashicorp/hc-install/product"
 	"github.com/hashicorp/terraform-exec/tfexec"
+	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/magodo/tfadd/providers/azurerm"
 	"github.com/magodo/tfadd/schema/legacy"
 	"github.com/magodo/tfadd/tpl"
@@ -46,15 +47,19 @@ func main() {
 	}
 	state, err := tfstate.FromJSONState(rawState, pschs)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(fmt.Sprintf("from json state: %v", err))
 	}
 
 	var errs error
 	templates := []byte{}
 	for _, res := range state.Values.RootModule.Resources {
+		if res.Mode != tfjson.ManagedResourceMode {
+			log.Printf("\tSkipping %s, since it is not a managed resource\n", res.Address)
+			continue
+		}
 		psch, ok := pschs.Schemas[res.ProviderName]
 		if !ok {
-			log.Printf("\tSkipping %s, since can't find the provider schema for %s\n", res.ProviderName, res.Address)
+			log.Printf("\tSkipping %s, since can't find the provider schema for %s\n", res.Address, res.ProviderName)
 			continue
 		}
 		rsch, ok := psch.ResourceSchemas[res.Type]
