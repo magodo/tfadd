@@ -24,7 +24,10 @@ EOF
 }
 
 main() {
-    declare -A target_locations=(["azurerm"]="internal/tools")
+    declare -A target_locations=(
+        ["azurerm"]="internal/tools"
+        ["aws"]="internal"
+    )
 
     while :; do
         case $1 in

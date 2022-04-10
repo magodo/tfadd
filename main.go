@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/hc-install/product"
 	"github.com/hashicorp/terraform-exec/tfexec"
 	tfjson "github.com/hashicorp/terraform-json"
+	"github.com/magodo/tfadd/providers/aws"
 	"github.com/magodo/tfadd/providers/azurerm"
 	"github.com/magodo/tfadd/schema/legacy"
 	"github.com/magodo/tfadd/tpl"
@@ -18,6 +19,7 @@ import (
 
 var sdkProviderSchemas = map[string]legacy.ProviderSchema{
 	"registry.terraform.io/hashicorp/azurerm": azurerm.ProviderSchemaInfo,
+	"registry.terraform.io/hashicorp/aws":     aws.ProviderSchemaInfo,
 }
 
 func main() {
