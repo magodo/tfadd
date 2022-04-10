@@ -17,18 +17,12 @@ Options:
     -h|--help           show this message
 
 Arguments:
-    provider_name       The name of the provider (e.g. azurerm)
     provider_dir        The path to the provider repo
     provider_version    The version of the provider (e.g. v1.0.0)
 EOF
 }
 
 main() {
-    declare -A target_locations=(
-        ["azurerm"]="internal/tools"
-        ["aws"]="internal"
-    )
-
     while :; do
         case $1 in
             -h|--help)
@@ -47,20 +41,27 @@ main() {
     done
 
     local expect_n_arg
-    expect_n_arg=3
+    expect_n_arg=2
     [[ $# = "$expect_n_arg" ]] || die "wrong arguments (expected: $expect_n_arg, got: $#)"
 
-    provider_name=$1
-    provider_dir=$2
-    provider_version=$3
+    provider_dir=$1
+    provider_version=$2
 
     [[ -d $provider_dir ]] || die "no such directory: $provider_dir"
-    [[ -z ${target_locations[$provider_name]} ]] && die "unknown provider name: $provider_name"
 
-    target_location="$provider_dir/${target_locations[$provider_name]}"
-
-    cp -r "$MYDIR/$provider_name/main.go" "$target_location"
     pushd $provider_dir > /dev/null
+
+    command -v jq > /dev/null || die "jq is not available, please install it"
+    provider_name=$(go mod edit -json | jq .Module.Path | tr -d '"' | sed -n 's;^.\+terraform-provider-\(.\+\)$;\1;p')
+    case $provider_name in
+        google)
+            google_pre_hook
+            ;;
+    esac
+
+    target_location="./internal/tfadd"
+    mkdir -p $target_location
+    cp -r "$MYDIR/$provider_name/main.go" "$target_location"
     git checkout "$provider_version" || die "failed to checkout provider version $provider_version"
     go mod tidy || die "failed to run go mod tidy"
     go mod vendor || die "failed to run go mod vendor"
@@ -88,7 +89,13 @@ func init() {
 	}
 }
 EOF
+
     popd > /dev/null
+}
+
+google_pre_hook() {
+    # Remove the scripts directory as it will fail `go mod tidy` as one of the imported package is not public
+    mv scripts .scripts.del
 }
 
 main "$@"
