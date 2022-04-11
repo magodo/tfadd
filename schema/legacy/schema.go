@@ -12,6 +12,9 @@ import "github.com/zclconf/go-cty/cty"
 // 4. removing any other attributes
 
 type ProviderSchema struct {
+	// The provder version. This is defined in the vcs.
+	Version string
+
 	ResourceSchemas map[string]*Schema `json:"resource_schemas,omitempty"`
 }
 

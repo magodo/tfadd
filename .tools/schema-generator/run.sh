@@ -77,8 +77,6 @@ import (
 	"os"
 )
 
-var ProviderVersion = "${provider_version#v}"
-
 var ProviderSchemaInfo legacy.ProviderSchema
 
 func init() {
@@ -87,6 +85,7 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
+    ProviderSchemaInfo.Version = "${provider_version#v}"
 }
 EOF
 
