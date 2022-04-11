@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"text/template"
 
 	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/hc-install/fs"
@@ -54,9 +55,9 @@ func (s *setupCommand) Run(args []string) int {
 	}
 
 	type info struct {
-		name    string
-		source  string
-		version string
+		Name    string
+		Source  string
+		Version string
 	}
 
 	var infos []info
@@ -67,12 +68,27 @@ func (s *setupCommand) Run(args []string) int {
 			return 1
 		}
 		infos = append(infos, info{
-			name: p,
-			source: "hashicorp/" + p,
-			version: "v" // TODO,
+			Name:    p,
+			Source:  "hashicorp/" + p,
+			Version: pinfo.Version,
 		})
-
 	}
+
+	if err := template.Must(template.New("setup").Parse(`terraform {
+  required_providers {
+  {{- range . }}
+	{{.Name}} = {
+	  source = "hashicorp/{{.Name}}"
+	  version = "{{.Version}}"
+	}
+  {{- end }}
+  }
+}
+`)).Execute(os.Stdout, infos); err != nil {
+		fmt.Fprintf(os.Stderr, err.Error())
+		return 1
+	}
+	return 0
 }
 
 func (s *setupCommand) Synopsis() string {

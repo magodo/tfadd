@@ -17,8 +17,10 @@ The goal of this tool is to improve the [import experience](https://learn.hashic
 The typical usage is to use `tfadd` together with `terraform import`:
 
 1. Prepare an empty [workspace](https://www.terraform.io/language/state/workspaces) (e.g. an empty directory for *local* backend)
-1. Identify the existing resources to be managed via `terraform`, import them via `terraform import`
-1. Run `tfadd` to generate the configuration
+1. (`tfadd` only) Run `tfadd setup [providers...] > terraform.tf` to populate the Terraform setting to pin the provider version
+1. Run `terraform init` to initialize the providers
+1. Identify the existing resources to be managed via `terraform`, write down the empty resource block and import them via `terraform import`
+1. (`tfadd` only) Run `tfadd` to generate the configuration
 
 Currently, the tool supports the following providers:
 
