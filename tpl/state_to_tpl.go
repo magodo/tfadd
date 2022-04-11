@@ -2,6 +2,7 @@ package tpl
 
 import (
 	"fmt"
+	addr2 "github.com/magodo/tfadd/addr"
 	"sort"
 	"strings"
 
@@ -13,7 +14,7 @@ import (
 
 func StateToTpl(r *tfstate.StateResource, schema *tfjson.SchemaBlock) ([]byte, error) {
 	var buf strings.Builder
-	addr, err := parseAddress(r.Address)
+	addr, err := addr2.ParseAddress(r.Address)
 	if err != nil {
 		return nil, fmt.Errorf("parsing resource address: %v", err)
 	}

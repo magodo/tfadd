@@ -1,4 +1,4 @@
-package tpl
+package addr
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ type ResourceAddr struct {
 	Name string
 }
 
-func parseAddress(addr string) (*ResourceAddr, error) {
+func ParseAddress(addr string) (*ResourceAddr, error) {
 	segs := strings.Split(addr, ".")
 	if len(segs) != 2 {
 		return nil, fmt.Errorf("invalid resource address found: %s", addr)
