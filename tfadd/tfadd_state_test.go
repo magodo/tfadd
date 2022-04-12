@@ -16,7 +16,20 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const (
+	// Controls whether to run the e2e test.
+	ENV_TFADD_E2E = "TFADD_E2E"
+
+	// Once set, ignore the `tfadd init` and `terraform init`, but you should ensure the `dev_overrides` is set properly in the .terraformrc.
+	// This is mainly to avoid downloading the providers from (or even interacting with) registry, for poor souls that have bad networking (like me)...
+	ENV_TFADD_DEV_PROVIDER = "TFADD_DEV_PROVIDER"
+)
+
 func TestTFAdd_state(t *testing.T) {
+	if os.Getenv(ENV_TFADD_E2E) == "" {
+		t.Skipf("Skipping e2e test as %q is not set", ENV_TFADD_E2E)
+	}
+
 	const testfixture string = "./testdata/tfadd_state"
 
 	// Ensure terraform executable
@@ -137,9 +150,7 @@ resource "azurerm_resource_group" "b" {
 			require.NoError(t, err)
 
 			ctx := context.Background()
-			// I'm having poor network, `TFADD_DEV_PROVIDER` indicates that I've setup the dev_overrides for the affected providers
-			// to avoid downloading the providers from (or even interacting with) registry.
-			if os.Getenv("TFADD_DEV_PROVIDER") == "" {
+			if os.Getenv(ENV_TFADD_DEV_PROVIDER) == "" {
 				b, err := Init([]string{"azurerm", "google", "aws"})
 				require.NoError(t, err)
 				require.NoError(t, os.WriteFile(filepath.Join(wsp, "terraform.tf"), b, 0644))
