@@ -46,11 +46,6 @@ func TestTFAdd_state(t *testing.T) {
 			expectError: regexp.MustCompile("^no state$"),
 		},
 		{
-			name:        "invalid state",
-			statefile:   "invalid",
-			expectError: regexp.MustCompile("^show state:"),
-		},
-		{
 			name:      "generate all supported resources in the state, with tunning",
 			statefile: "azurerm_resource_groups",
 			expect: `resource "azurerm_resource_group" "a" {
