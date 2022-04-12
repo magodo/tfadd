@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/magodo/tfadd/addr"
 	"text/template"
+
+	"github.com/magodo/tfadd/addr"
 
 	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/terraform-exec/tfexec"
@@ -14,22 +15,28 @@ import (
 	"github.com/magodo/tfstate"
 )
 
-type runConfig struct {
-	full   bool
-	target *addr.ResourceAddr
+type stateConfig struct {
+	// Whether the generated config contains all the non-computed properties?
+	// Set via Full option.
+	full bool
+
+	// Only generate for the specified one or more target addresses.
+	// Set via Target option.
+	targets   []addr.ResourceAddr
+	targetMap map[addr.ResourceAddr]bool
 }
 
-var defaultStateConfig = runConfig{full: false}
+var defaultStateConfig = stateConfig{
+	full: false,
 
-func Run(ctx context.Context, tf *tfexec.Terraform, opts ...RunOption) ([]byte, error) {
+	targets:   []addr.ResourceAddr{},
+	targetMap: map[addr.ResourceAddr]bool{},
+}
+
+func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]byte, error) {
 	cfg := defaultStateConfig
 	for _, o := range opts {
-		if o, ok := o.(FailableOption); ok {
-			if err := o.Error(); err != nil {
-				return nil, fmt.Errorf("invalid option: %v", err)
-			}
-		}
-		o.configureRun(&cfg)
+		o.configureState(&cfg)
 	}
 
 	rawState, err := tf.Show(ctx)
@@ -48,12 +55,18 @@ func Run(ctx context.Context, tf *tfexec.Terraform, opts ...RunOption) ([]byte, 
 		return nil, fmt.Errorf("from json state: %v", err)
 	}
 
+	// templateMap is only used when -target is specified.
+	// It is mainly used caching the template and later sort it to the same order as option order in CLI.
+	templateMap := map[addr.ResourceAddr][]byte{}
+	hasTarget := len(cfg.targets) != 0
+
 	var errs error
 	templates := []byte{}
+
 	for _, res := range state.Values.RootModule.Resources {
-		if cfg.target != nil {
-			addr := addr.ResourceAddr{Type: res.Type, Name: res.Name}
-			if *cfg.target != addr {
+		raddr := addr.ResourceAddr{Type: res.Type, Name: res.Name}
+		if hasTarget {
+			if !cfg.targetMap[raddr] {
 				continue
 			}
 		}
@@ -82,13 +95,23 @@ func Run(ctx context.Context, tf *tfexec.Terraform, opts ...RunOption) ([]byte, 
 				errs = multierror.Append(errs, fmt.Errorf("tune template for %s: %v", res.Type, err))
 			}
 		}
-		templates = append(templates, b...)
+		if hasTarget {
+			templateMap[raddr] = b
+		} else {
+			templates = append(templates, b...)
+		}
+	}
+
+	if hasTarget {
+		for _, raddr := range cfg.targets {
+			templates = append(templates, templateMap[raddr]...)
+		}
 	}
 
 	return templates, errs
 }
 
-func Setup(providers []string) ([]byte, error) {
+func Init(providers []string) ([]byte, error) {
 	if len(providers) == 0 {
 		return nil, nil
 	}

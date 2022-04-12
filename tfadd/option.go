@@ -4,15 +4,11 @@ import (
 	"github.com/magodo/tfadd/addr"
 )
 
-type FailableOption interface {
-	Error() error
+type StateOption interface {
+	configureState(*stateConfig)
 }
 
-type RunOption interface {
-	configureRun(*runConfig)
-}
-
-var _ RunOption = fullOption(true)
+var _ StateOption = fullOption(true)
 
 type fullOption bool
 
@@ -20,30 +16,24 @@ func Full(b bool) fullOption {
 	return fullOption(b)
 }
 
-func (opt fullOption) configureRun(cfg *runConfig) {
+func (opt fullOption) configureState(cfg *stateConfig) {
 	cfg.full = bool(opt)
 }
 
-var _ RunOption = targetOption{}
-var _ FailableOption = targetOption{}
+var _ StateOption = targetOption{}
 
-type targetOption struct {
-	err  error
-	addr *addr.ResourceAddr
-}
+type targetOption addr.ResourceAddr
 
 func Target(raddr string) targetOption {
-	addr, err := addr.ParseAddress(raddr)
-	return targetOption{
-		err:  err,
-		addr: addr,
+	// Validation for the resource address is guaranteed in flag parsing.
+	addr, _ := addr.ParseAddress(raddr)
+	return targetOption(*addr)
+}
+
+func (opt targetOption) configureState(cfg *stateConfig) {
+	raddr := addr.ResourceAddr(opt)
+	if !cfg.targetMap[raddr] {
+		cfg.targets = append(cfg.targets, raddr)
+		cfg.targetMap[raddr] = true
 	}
-}
-
-func (opt targetOption) configureRun(cfg *runConfig) {
-	cfg.target = opt.addr
-}
-
-func (opt targetOption) Error() error {
-	return opt.err
 }

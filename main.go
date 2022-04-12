@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/hc-install/fs"
 	"github.com/hashicorp/hc-install/product"
 	"github.com/hashicorp/terraform-exec/tfexec"
+	"github.com/magodo/tfadd/addr"
 	"github.com/magodo/tfadd/tfadd"
 	"github.com/mitchellh/cli"
 )
@@ -23,19 +24,19 @@ func defaultFlagSet(name string) *flag.FlagSet {
 	return f
 }
 
-type setupCommand struct{}
+type initCommand struct{}
 
-func (s *setupCommand) Help() string {
+func (s *initCommand) Help() string {
 	helpText := `
-Usage: tfadd [global options] setup [options] [providers]
+Usage: tfadd [global options] init [options] [providers]
 
   Generate Terraform setting that pins the provider versions to standard output.
 `
 	return strings.TrimSpace(helpText)
 }
 
-func (s *setupCommand) Run(args []string) int {
-	b, err := tfadd.Setup(args)
+func (s *initCommand) Run(args []string) int {
+	b, err := tfadd.Init(args)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error())
 		return 1
@@ -47,31 +48,47 @@ func (s *setupCommand) Run(args []string) int {
 	return 0
 }
 
-func (s *setupCommand) Synopsis() string {
+func (s *initCommand) Synopsis() string {
 	return "Setup the Terraform setting"
 }
 
-type runCommand struct{}
+type stateCommand struct{}
 
-func (r *runCommand) Help() string {
+func (r *stateCommand) Help() string {
 	helpText := `
-Usage: tfadd [global options] run [options]
+Usage: tfadd [global options] state [options]
 
   Generates resource template from Terraform state to standard output.
 
 Options:
 
   -full               Output all non-computed properties in the generated config
-  -target=addr        Only generate for the specified resource
+  -target=addr        Only generate for the specified resource, can be specified multiple times
 `
 	return strings.TrimSpace(helpText)
 }
 
-func (r *runCommand) Run(args []string) int {
-	fset := defaultFlagSet("run")
+type targetFlag []string
+
+func (f *targetFlag) String() string {
+	return fmt.Sprint(*f)
+}
+
+func (f *targetFlag) Set(value string) error {
+	*f = append(*f, value)
+	_, err := addr.ParseAddress(value)
+	return err
+}
+
+func (r *stateCommand) Run(args []string) int {
+	var targets targetFlag
+	fset := defaultFlagSet("state")
 	flagFull := fset.Bool("full", false, "Whether to generate all non-computed properties")
-	flagTarget := fset.String("target", "", "Only generate for the specified resource")
-	fset.Parse(args)
+	fset.Var(&targets, "target", "Only generate for the specified resource")
+	if err := fset.Parse(args); err != nil {
+		fmt.Fprintf(os.Stderr, err.Error())
+		return 1
+	}
 
 	ctx := context.TODO()
 	av := fs.AnyVersion{
@@ -87,11 +104,11 @@ func (r *runCommand) Run(args []string) int {
 		fmt.Fprintf(os.Stderr, err.Error())
 		return 1
 	}
-	opts := []tfadd.RunOption{tfadd.Full(*flagFull)}
-	if *flagTarget != "" {
-		opts = append(opts, tfadd.Target(*flagTarget))
+	opts := []tfadd.StateOption{tfadd.Full(*flagFull)}
+	for _, target := range targets {
+		opts = append(opts, tfadd.Target(target))
 	}
-	templates, err := tfadd.Run(ctx, tf, opts...)
+	templates, err := tfadd.State(ctx, tf, opts...)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error())
 		return 1
@@ -100,7 +117,7 @@ func (r *runCommand) Run(args []string) int {
 	return 0
 }
 
-func (r *runCommand) Synopsis() string {
+func (r *stateCommand) Synopsis() string {
 	return "Generate Terraform configuration"
 }
 
@@ -108,8 +125,8 @@ func main() {
 	c := cli.NewCLI("tfadd", "dev")
 	c.Args = os.Args[1:]
 	c.Commands = map[string]cli.CommandFactory{
-		"run":   func() (cli.Command, error) { return &runCommand{}, nil },
-		"setup": func() (cli.Command, error) { return &setupCommand{}, nil },
+		"state": func() (cli.Command, error) { return &stateCommand{}, nil },
+		"init":  func() (cli.Command, error) { return &initCommand{}, nil },
 	}
 
 	exitStatus, err := c.Run()
