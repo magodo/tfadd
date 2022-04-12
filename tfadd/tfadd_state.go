@@ -1,10 +1,8 @@
 package tfadd
 
 import (
-	"bytes"
 	"context"
 	"fmt"
-	"text/template"
 
 	"github.com/magodo/tfadd/addr"
 
@@ -26,15 +24,17 @@ type stateConfig struct {
 	targetMap map[addr.ResourceAddr]bool
 }
 
-var defaultStateConfig = stateConfig{
-	full: false,
+func defaultStateConfig() stateConfig {
+	return stateConfig{
+		full: false,
 
-	targets:   []addr.ResourceAddr{},
-	targetMap: map[addr.ResourceAddr]bool{},
+		targets:   []addr.ResourceAddr{},
+		targetMap: map[addr.ResourceAddr]bool{},
+	}
 }
 
 func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]byte, error) {
-	cfg := defaultStateConfig
+	cfg := defaultStateConfig()
 	for _, o := range opts {
 		o.configureState(&cfg)
 	}
@@ -109,45 +109,4 @@ func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]by
 	}
 
 	return templates, errs
-}
-
-func Init(providers []string) ([]byte, error) {
-	if len(providers) == 0 {
-		return nil, nil
-	}
-
-	type info struct {
-		Name    string
-		Source  string
-		Version string
-	}
-
-	var infos []info
-	for _, p := range providers {
-		pinfo, ok := sdkProviderSchemas["registry.terraform.io/hashicorp/"+p]
-		if !ok {
-			return nil, fmt.Errorf("Unsupported provider %q\n", p)
-		}
-		infos = append(infos, info{
-			Name:    p,
-			Source:  "hashicorp/" + p,
-			Version: pinfo.Version,
-		})
-	}
-
-	out := bytes.Buffer{}
-	if err := template.Must(template.New("setup").Parse(`terraform {
-  required_providers {
-  {{- range . }}
-	{{.Name}} = {
-	  source = "hashicorp/{{.Name}}"
-	  version = "{{.Version}}"
-	}
-  {{- end }}
-  }
-}
-`)).Execute(&out, infos); err != nil {
-		return nil, err
-	}
-	return out.Bytes(), nil
 }
