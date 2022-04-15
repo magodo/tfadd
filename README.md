@@ -24,9 +24,11 @@ The typical usage is to use `tfadd` together with `terraform import`:
 
 Currently, the tool supports the following providers:
 
-- registry.terraform.io/hashicorp/aws
-- registry.terraform.io/hashicorp/google
-- registry.terraform.io/hashicorp/azurerm
+|Name|Version|
+|-|-|
+|registry.terraform.io/hashicorp/aws|v4.10.0|
+|registry.terraform.io/hashicorp/azurerm|v3.2.0|
+|registry.terraform.io/hashicorp/google|v4.17.0|
 
 ## Limitation
 
