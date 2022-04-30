@@ -42,7 +42,7 @@ func run() error {
 		schemas[name] = &tfschema.Schema{Block: tfschema.FromProviderSchemaMap(res.Schema)}
 	}
 
-	b, err := json.Marshal(tfschema.ProviderSchema{ResourceSchemas: schemas})
+	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")
 	if err != nil {
 		return err
 	}

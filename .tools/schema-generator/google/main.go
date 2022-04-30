@@ -14,7 +14,7 @@ func main() {
 	for name, rs := range google.Provider().ResourcesMap {
 		schemas[name] = &tfschema.Schema{Block: tfschema.FromProviderSchemaMap(rs.Schema)}
 	}
-	b, err := json.Marshal(tfschema.ProviderSchema{ResourceSchemas: schemas})
+	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")
 	if err != nil {
 		log.Fatal(err)
 	}
