@@ -16487,7 +16487,8 @@ func init() {
           },
           "column_delimiter": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "default": ","
           },
           "compression_codec": {
             "type": "string",
@@ -16511,11 +16512,13 @@ func init() {
           },
           "escape_character": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "default": "\\"
           },
           "first_row_as_header": {
             "type": "bool",
-            "optional": true
+            "optional": true,
+            "default": false
           },
           "folder": {
             "type": "string",
@@ -16531,7 +16534,8 @@ func init() {
           },
           "null_value": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "default": ""
           },
           "parameters": {
             "type": [
@@ -16542,7 +16546,8 @@ func init() {
           },
           "quote_character": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "default": "\""
           },
           "row_delimiter": {
             "type": "string",
@@ -31857,6 +31862,98 @@ func init() {
               "map",
               "string"
             ],
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_healthcare_dicom_service": {
+      "block": {
+        "attributes": {
+          "authentication": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "audience": [
+                    "list",
+                    "string"
+                  ],
+                  "authority": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "private_endpoint": {
+            "type": [
+              "set",
+              [
+                "object",
+                {
+                  "id": "string",
+                  "name": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "service_url": {
+            "type": "string",
+            "computed": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "workspace_id": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
             "optional": true
           }
         }
@@ -51008,6 +51105,56 @@ func init() {
         }
       }
     },
+    "azurerm_mssql_managed_instance_vulnerability_assessment": {
+      "block": {
+        "attributes": {
+          "managed_instance_id": {
+            "type": "string",
+            "required": true
+          },
+          "storage_account_access_key": {
+            "type": "string",
+            "optional": true
+          },
+          "storage_container_path": {
+            "type": "string",
+            "required": true
+          },
+          "storage_container_sas_key": {
+            "type": "string",
+            "optional": true
+          }
+        },
+        "block_types": {
+          "recurring_scans": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "email_subscription_admins": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "emails": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
+          }
+        }
+      }
+    },
     "azurerm_mssql_outbound_firewall_rule": {
       "block": {
         "attributes": {
@@ -58702,6 +58849,35 @@ func init() {
         }
       }
     },
+    "azurerm_sentinel_data_connector_aws_s3": {
+      "block": {
+        "attributes": {
+          "aws_role_arn": {
+            "type": "string",
+            "required": true
+          },
+          "destination_table": {
+            "type": "string",
+            "required": true
+          },
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "sqs_urls": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true
+          }
+        }
+      }
+    },
     "azurerm_sentinel_data_connector_azure_active_directory": {
       "block": {
         "attributes": {
@@ -61544,6 +61720,57 @@ func init() {
         }
       }
     },
+    "azurerm_spring_cloud_builder": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "spring_cloud_service_id": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "build_pack_group": {
+            "nesting_mode": 4,
+            "block": {
+              "attributes": {
+                "build_pack_ids": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "name": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "required": true
+          },
+          "stack": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "id": {
+                  "type": "string",
+                  "required": true
+                },
+                "version": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "required": true
+          }
+        }
+      }
+    },
     "azurerm_spring_cloud_certificate": {
       "block": {
         "attributes": {
@@ -61578,6 +61805,80 @@ func init() {
           "thumbprint": {
             "type": "string",
             "computed": true
+          }
+        }
+      }
+    },
+    "azurerm_spring_cloud_configuration_service": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "spring_cloud_service_id": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "repository": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "host_key": {
+                  "type": "string",
+                  "optional": true
+                },
+                "host_key_algorithm": {
+                  "type": "string",
+                  "optional": true
+                },
+                "label": {
+                  "type": "string",
+                  "required": true
+                },
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "password": {
+                  "type": "string",
+                  "optional": true
+                },
+                "patterns": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "required": true
+                },
+                "private_key": {
+                  "type": "string",
+                  "optional": true
+                },
+                "search_paths": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "strict_host_key_checking": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "uri": {
+                  "type": "string",
+                  "required": true
+                },
+                "username": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
           }
         }
       }
@@ -62970,6 +63271,11 @@ func init() {
             "optional": true,
             "default": true
           },
+          "cross_tenant_replication_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
           "edge_zone": {
             "type": "string",
             "optional": true
@@ -63494,7 +63800,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 },
                 "logging": {
                   "nesting_mode": 3,
@@ -63522,7 +63829,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 },
                 "minute_metrics": {
                   "nesting_mode": 3,
@@ -63546,7 +63854,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 }
               }
             },
@@ -65216,6 +65525,13 @@ func init() {
             "type": "string",
             "required": true
           },
+          "property_columns": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
           "queue_name": {
             "type": "string",
             "required": true
@@ -65239,6 +65555,13 @@ func init() {
           "stream_analytics_job_name": {
             "type": "string",
             "required": true
+          },
+          "system_property_columns": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
           }
         },
         "block_types": {
@@ -77100,5 +77423,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.4.0"
+    ProviderSchemaInfo.Version = "3.5.0"
 }

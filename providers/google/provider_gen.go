@@ -1947,6 +1947,14 @@ func init() {
     "google_apigee_instance": {
       "block": {
         "attributes": {
+          "consumer_accept_list": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true,
+            "computed": true
+          },
           "description": {
             "type": "string",
             "optional": true
@@ -1985,6 +1993,10 @@ func init() {
             "computed": true
           },
           "port": {
+            "type": "string",
+            "computed": true
+          },
+          "service_attachment": {
             "type": "string",
             "computed": true
           }
@@ -13973,7 +13985,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 },
                 "min_node_cpus": {
@@ -13984,7 +13997,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 },
                 "on_host_maintenance": {
@@ -13996,7 +14010,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 },
                 "preemptible": {
@@ -14008,7 +14023,21 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
+                  ]
+                },
+                "provisioning_model": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true,
+                  "at_least_one_of": [
+                    "scheduling.0.on_host_maintenance",
+                    "scheduling.0.automatic_restart",
+                    "scheduling.0.preemptible",
+                    "scheduling.0.node_affinities",
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 }
               },
@@ -14040,7 +14069,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 }
               }
@@ -14687,7 +14717,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 },
                 "min_node_cpus": {
@@ -14699,7 +14730,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 },
                 "on_host_maintenance": {
@@ -14711,7 +14743,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 },
                 "preemptible": {
@@ -14723,7 +14756,21 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
+                  ]
+                },
+                "provisioning_model": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true,
+                  "at_least_one_of": [
+                    "scheduling.0.on_host_maintenance",
+                    "scheduling.0.automatic_restart",
+                    "scheduling.0.preemptible",
+                    "scheduling.0.node_affinities",
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 }
               },
@@ -14756,7 +14803,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 }
               }
@@ -15656,7 +15704,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 },
                 "min_node_cpus": {
@@ -15667,7 +15716,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 },
                 "on_host_maintenance": {
@@ -15679,7 +15729,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 },
                 "preemptible": {
@@ -15691,7 +15742,21 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
+                  ]
+                },
+                "provisioning_model": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true,
+                  "at_least_one_of": [
+                    "scheduling.0.on_host_maintenance",
+                    "scheduling.0.automatic_restart",
+                    "scheduling.0.preemptible",
+                    "scheduling.0.node_affinities",
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 }
               },
@@ -15723,7 +15788,8 @@ func init() {
                     "scheduling.0.automatic_restart",
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
-                    "scheduling.0.min_node_cpus"
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model"
                   ]
                 }
               }
@@ -45339,6 +45405,113 @@ func init() {
                         "key_id": "string"
                       }
                     ]
+                  ],
+                  "x509_description": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "additional_extensions": [
+                          "list",
+                          [
+                            "object",
+                            {
+                              "critical": "bool",
+                              "object_id": [
+                                "list",
+                                [
+                                  "object",
+                                  {
+                                    "object_id_path": [
+                                      "list",
+                                      "number"
+                                    ]
+                                  }
+                                ]
+                              ],
+                              "value": "string"
+                            }
+                          ]
+                        ],
+                        "aia_ocsp_servers": [
+                          "list",
+                          "string"
+                        ],
+                        "ca_options": [
+                          "list",
+                          [
+                            "object",
+                            {
+                              "is_ca": "bool",
+                              "max_issuer_path_length": "number"
+                            }
+                          ]
+                        ],
+                        "key_usage": [
+                          "list",
+                          [
+                            "object",
+                            {
+                              "base_key_usage": [
+                                "list",
+                                [
+                                  "object",
+                                  {
+                                    "cert_sign": "bool",
+                                    "content_commitment": "bool",
+                                    "crl_sign": "bool",
+                                    "data_encipherment": "bool",
+                                    "decipher_only": "bool",
+                                    "digital_signature": "bool",
+                                    "encipher_only": "bool",
+                                    "key_agreement": "bool",
+                                    "key_encipherment": "bool"
+                                  }
+                                ]
+                              ],
+                              "extended_key_usage": [
+                                "list",
+                                [
+                                  "object",
+                                  {
+                                    "client_auth": "bool",
+                                    "code_signing": "bool",
+                                    "email_protection": "bool",
+                                    "ocsp_signing": "bool",
+                                    "server_auth": "bool",
+                                    "time_stamping": "bool"
+                                  }
+                                ]
+                              ],
+                              "unknown_extended_key_usages": [
+                                "list",
+                                [
+                                  "object",
+                                  {
+                                    "object_id_path": [
+                                      "list",
+                                      "number"
+                                    ]
+                                  }
+                                ]
+                              ]
+                            }
+                          ]
+                        ],
+                        "policy_ids": [
+                          "list",
+                          [
+                            "object",
+                            {
+                              "object_id_path": [
+                                "list",
+                                "number"
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    ]
                   ]
                 }
               ]
@@ -45350,6 +45523,10 @@ func init() {
             "optional": true
           },
           "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "issuer_certificate_authority": {
             "type": "string",
             "computed": true
           },
@@ -45375,6 +45552,13 @@ func init() {
           },
           "pem_certificate": {
             "type": "string",
+            "computed": true
+          },
+          "pem_certificate_chain": {
+            "type": [
+              "list",
+              "string"
+            ],
             "computed": true
           },
           "pem_certificates": {
@@ -45773,6 +45957,11 @@ func init() {
           "create_time": {
             "type": "string",
             "computed": true
+          },
+          "deletion_protection": {
+            "type": "bool",
+            "optional": true,
+            "default": true
           },
           "gcs_bucket": {
             "type": "string",
@@ -47987,6 +48176,11 @@ func init() {
             "computed": true
           },
           "reserved_ip_range": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "secondary_ip_range": {
             "type": "string",
             "optional": true,
             "computed": true
@@ -51938,5 +52132,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.19.0"
+    ProviderSchemaInfo.Version = "4.20.0"
 }
