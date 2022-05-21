@@ -49,16 +49,20 @@ func tuneForBlock(rb *hclwrite.Body, sch *SchemaBlock, parentAttrNames []string)
 		}
 
 		if schAttr.Computed {
-			// Especially, we will keep O+C attribute who has "ExactlyOneOf" constraint, but only keep one.
-			// The one got picked is the first one in alphabetic order.
-			// TODO: We should tackle more cases for different kinds of constraints.
-			if schAttr.Optional && len(schAttr.ExactlyOneOf) != 0 {
-				l := make([]string, len(schAttr.ExactlyOneOf))
-				copy(l, schAttr.ExactlyOneOf)
-				sort.Strings(l)
+			if schAttr.Optional {
+				if len(schAttr.ExactlyOneOf) != 0 {
+					// For O+C attribute that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
+					l := make([]string, len(schAttr.ExactlyOneOf))
+					copy(l, schAttr.ExactlyOneOf)
+					sort.Strings(l)
 
-				addrs := append(parentAttrNames, attrName)
-				if l[0] != strings.Join(addrs, ".0.") {
+					addrs := append(parentAttrNames, attrName)
+					if l[0] != strings.Join(addrs, ".0.") {
+						rb.RemoveAttribute(attrName)
+						continue
+					}
+				} else if len(schAttr.AtLeastOneOf) == 0 {
+					// For O+C attribute that has "AtLeastOneOf" constraint, keep it.
 					rb.RemoveAttribute(attrName)
 					continue
 				}
@@ -140,11 +144,34 @@ func tuneForBlock(rb *hclwrite.Body, sch *SchemaBlock, parentAttrNames []string)
 	}
 
 	for _, blkVal := range rb.Blocks() {
-		if sch.NestedBlocks[blkVal.Type()].Computed {
-			rb.RemoveBlock(blkVal)
-			continue
+		scht := sch.NestedBlocks[blkVal.Type()]
+
+		if scht.Computed {
+			if scht.Optional {
+				if len(scht.ExactlyOneOf) != 0 {
+					// For O+C block that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
+					l := make([]string, len(scht.ExactlyOneOf))
+					copy(l, scht.ExactlyOneOf)
+					sort.Strings(l)
+
+					addrs := append(parentAttrNames, blkVal.Type())
+					if l[0] != strings.Join(addrs, ".0.") {
+						rb.RemoveBlock(blkVal)
+						continue
+					}
+				} else if len(scht.AtLeastOneOf) == 0 {
+					// For O+C block that has "AtLeastOneOf" constraint, keep it.
+					rb.RemoveBlock(blkVal)
+					continue
+				}
+			} else {
+				// Computed only
+				rb.RemoveBlock(blkVal)
+				continue
+			}
 		}
-		if err := tuneForBlock(blkVal.Body(), sch.NestedBlocks[blkVal.Type()].Block, append(parentAttrNames, blkVal.Type())); err != nil {
+
+		if err := tuneForBlock(blkVal.Body(), scht.Block, append(parentAttrNames, blkVal.Type())); err != nil {
 			return err
 		}
 	}

@@ -280,6 +280,33 @@ func TestTuneForBlock(t *testing.T) {
 }`,
 		},
 		{
+			name: "O+C attributes that has AtLeastOneOf defined",
+			schema: SchemaBlock{
+				Attributes: map[string]*SchemaAttribute{
+					"attr1": {
+						AttributeType: cty.Number,
+						Optional:      true,
+						Computed:      true,
+						AtLeastOneOf:  []string{"attr1", "attr2"},
+					},
+					"attr2": {
+						AttributeType: cty.Number,
+						Optional:      true,
+						Computed:      true,
+						AtLeastOneOf:  []string{"attr1", "attr2"},
+					},
+				},
+			},
+			input: `resource "foo" "test" {
+  attr1 = 1
+  attr2 = 2
+}`,
+			expect: `resource "foo" "test" {
+  attr1 = 1
+  attr2 = 2
+}`,
+		},
+		{
 			name: "Blocks",
 			schema: SchemaBlock{
 				NestedBlocks: map[string]*SchemaBlockType{
@@ -341,6 +368,97 @@ func TestTuneForBlock(t *testing.T) {
 }`,
 			expect: `resource "foo" "test" {
   req {}
+}`,
+		},
+		{
+			name: "O+C blocks that has ExactlyOneOf defined",
+			schema: SchemaBlock{
+				NestedBlocks: map[string]*SchemaBlockType{
+					"blk1": {
+						NestingMode:  NestingSingle,
+						Optional:     true,
+						Computed:     true,
+						ExactlyOneOf: []string{"blk1", "blk2"},
+					},
+					"blk2": {
+						NestingMode:  NestingSingle,
+						Optional:     true,
+						Computed:     true,
+						ExactlyOneOf: []string{"blk1", "blk2"},
+					},
+				},
+			},
+			input: `resource "foo" "test" {
+  blk1 {}
+  blk2 {}
+}`,
+			expect: `resource "foo" "test" {
+  blk1 {}
+}`,
+		},
+		{
+			name: "O+C blocks that has ExactlyOneOf defined in nested block",
+			schema: SchemaBlock{
+				NestedBlocks: map[string]*SchemaBlockType{
+					"blk": {
+						NestingMode: NestingSingle,
+						Required:    true,
+						Block: &SchemaBlock{
+							NestedBlocks: map[string]*SchemaBlockType{
+								"blk1": {
+									NestingMode:  NestingSingle,
+									Optional:     true,
+									Computed:     true,
+									ExactlyOneOf: []string{"blk.0.blk1", "blk.0.blk2"},
+								},
+								"blk2": {
+									NestingMode:  NestingSingle,
+									Optional:     true,
+									Computed:     true,
+									ExactlyOneOf: []string{"blk.0.blk1", "blk.0.blk2"},
+								},
+							},
+						},
+					},
+				},
+			},
+			input: `resource "foo" "test" {
+  blk {
+    blk1 {}
+    blk2 {}
+  }
+}`,
+			expect: `resource "foo" "test" {
+  blk {
+    blk1 {}
+  }
+}`,
+		},
+		{
+			name: "O+C blocks that has AtLeastOneOf defined",
+			schema: SchemaBlock{
+				NestedBlocks: map[string]*SchemaBlockType{
+					"blk1": {
+						NestingMode:  NestingSingle,
+						Optional:     true,
+						Computed:     true,
+						AtLeastOneOf: []string{"blk1", "blk2"},
+					},
+					"blk2": {
+						NestingMode:  NestingSingle,
+						Optional:     true,
+						Computed:     true,
+						AtLeastOneOf: []string{"blk1", "blk2"},
+					},
+				},
+			},
+			input: `resource "foo" "test" {
+  blk1 {}
+  blk2 {}
+}`,
+			expect: `resource "foo" "test" {
+  blk1 {}
+  blk2 {}
 }`,
 		},
 	}
