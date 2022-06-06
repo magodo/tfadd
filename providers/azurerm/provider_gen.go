@@ -72,6 +72,10 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "domain_configuration_type": {
+            "type": "string",
+            "optional": true
+          },
           "domain_name": {
             "type": "string",
             "required": true
@@ -9349,6 +9353,11 @@ func init() {
             "type": "string",
             "required": true
           },
+          "policy_type": {
+            "type": "string",
+            "optional": true,
+            "default": "V1"
+          },
           "recovery_vault_name": {
             "type": "string",
             "required": true
@@ -9371,6 +9380,14 @@ func init() {
                 "frequency": {
                   "type": "string",
                   "required": true
+                },
+                "hour_duration": {
+                  "type": "number",
+                  "optional": true
+                },
+                "hour_interval": {
+                  "type": "number",
+                  "optional": true
                 },
                 "time": {
                   "type": "string",
@@ -9543,7 +9560,8 @@ func init() {
           },
           "source_vm_id": {
             "type": "string",
-            "required": true
+            "optional": true,
+            "computed": true
           }
         }
       }
@@ -10751,7 +10769,11 @@ func init() {
           },
           "isolated_network_enabled": {
             "type": "bool",
-            "optional": true
+            "optional": true,
+            "computed": true,
+            "conflicts_with": [
+              "public_network_access_enabled"
+            ]
           },
           "location": {
             "type": "string",
@@ -10764,6 +10786,14 @@ func init() {
           "name": {
             "type": "string",
             "required": true
+          },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "conflicts_with": [
+              "isolated_network_enabled"
+            ]
           },
           "resource_group_name": {
             "type": "string",
@@ -11850,6 +11880,70 @@ func init() {
             "conflicts_with": [
               "cdn_managed_https"
             ]
+          }
+        }
+      }
+    },
+    "azurerm_cdn_frontdoor_endpoint": {
+      "block": {
+        "attributes": {
+          "cdn_frontdoor_profile_id": {
+            "type": "string",
+            "required": true
+          },
+          "enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "host_name": {
+            "type": "string",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_cdn_frontdoor_profile": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true
+          },
+          "resource_guid": {
+            "type": "string",
+            "computed": true
+          },
+          "response_timeout_seconds": {
+            "type": "number",
+            "optional": true,
+            "default": 120
+          },
+          "sku_name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
           }
         }
       }
@@ -16053,7 +16147,22 @@ func init() {
           },
           "script": {
             "type": "string",
-            "required": true
+            "optional": true,
+            "at_least_one_of": [
+              "script",
+              "script_lines"
+            ]
+          },
+          "script_lines": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true,
+            "at_least_one_of": [
+              "script",
+              "script_lines"
+            ]
           }
         },
         "block_types": {
@@ -16218,6 +16327,46 @@ func init() {
                 "name": {
                   "type": "string",
                   "required": true
+                }
+              },
+              "block_types": {
+                "dataset": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "linked_service": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
                 }
               }
             },
@@ -19977,22 +20126,62 @@ func init() {
           },
           "pipeline_name": {
             "type": "string",
-            "required": true
+            "optional": true,
+            "computed": true,
+            "exactly_one_of": [
+              "pipeline",
+              "pipeline_name"
+            ]
           },
           "pipeline_parameters": {
             "type": [
               "map",
               "string"
             ],
-            "optional": true
+            "optional": true,
+            "computed": true,
+            "conflicts_with": [
+              "pipeline"
+            ]
           },
           "start_time": {
             "type": "string",
             "optional": true,
             "computed": true
+          },
+          "time_zone": {
+            "type": "string",
+            "optional": true
           }
         },
         "block_types": {
+          "pipeline": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "parameters": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "conflicts_with": [
+              "pipeline_parameters"
+            ],
+            "exactly_one_of": [
+              "pipeline",
+              "pipeline_name"
+            ]
+          },
           "schedule": {
             "nesting_mode": 3,
             "block": {
@@ -40538,7 +40727,10 @@ func init() {
                 },
                 "disk_encryption_set_id": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "conflicts_with": [
+                    "os_disk.0.secure_vm_disk_encryption_set_id"
+                  ]
                 },
                 "disk_size_gb": {
                   "type": "number",
@@ -40549,6 +40741,17 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "computed": true
+                },
+                "secure_vm_disk_encryption_set_id": {
+                  "type": "string",
+                  "optional": true,
+                  "conflicts_with": [
+                    "os_disk.0.disk_encryption_set_id"
+                  ]
+                },
+                "security_encryption_type": {
+                  "type": "string",
+                  "optional": true
                 },
                 "storage_account_type": {
                   "type": "string",
@@ -41184,12 +41387,26 @@ func init() {
                 },
                 "disk_encryption_set_id": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "conflicts_with": [
+                    "os_disk.0.secure_vm_disk_encryption_set_id"
+                  ]
                 },
                 "disk_size_gb": {
                   "type": "number",
                   "optional": true,
                   "computed": true
+                },
+                "secure_vm_disk_encryption_set_id": {
+                  "type": "string",
+                  "optional": true,
+                  "conflicts_with": [
+                    "os_disk.0.disk_encryption_set_id"
+                  ]
+                },
+                "security_encryption_type": {
+                  "type": "string",
+                  "optional": true
                 },
                 "storage_account_type": {
                   "type": "string",
@@ -41469,6 +41686,11 @@ func init() {
               "string"
             ],
             "optional": true
+          },
+          "zip_deploy_file": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           }
         },
         "block_types": {
@@ -42621,6 +42843,11 @@ func init() {
               "string"
             ],
             "optional": true
+          },
+          "zip_deploy_file": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           }
         },
         "block_types": {
@@ -44164,7 +44391,7 @@ func init() {
           "sku": {
             "type": "string",
             "optional": true,
-            "default": "PerGB2018"
+            "computed": true
           },
           "tags": {
             "type": [
@@ -46411,7 +46638,10 @@ func init() {
           },
           "disk_encryption_set_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "conflicts_with": [
+              "secure_vm_disk_encryption_set_id"
+            ]
           },
           "disk_iops_read_only": {
             "type": "number",
@@ -46498,6 +46728,17 @@ func init() {
           "resource_group_name": {
             "type": "string",
             "required": true
+          },
+          "secure_vm_disk_encryption_set_id": {
+            "type": "string",
+            "optional": true,
+            "conflicts_with": [
+              "disk_encryption_set_id"
+            ]
+          },
+          "security_type": {
+            "type": "string",
+            "optional": true
           },
           "source_resource_id": {
             "type": "string",
@@ -51676,6 +51917,24 @@ func init() {
         }
       }
     },
+    "azurerm_mssql_server_dns_alias": {
+      "block": {
+        "attributes": {
+          "dns_record": {
+            "type": "string",
+            "computed": true
+          },
+          "mssql_server_id": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
     "azurerm_mssql_server_extended_auditing_policy": {
       "block": {
         "attributes": {
@@ -53035,6 +53294,11 @@ func init() {
           "name": {
             "type": "string",
             "required": true
+          },
+          "network_features": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           },
           "pool_name": {
             "type": "string",
@@ -57100,6 +57364,33 @@ func init() {
           }
         },
         "block_types": {
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          },
           "patch_schedule": {
             "nesting_mode": 3,
             "block": {
@@ -61833,6 +62124,73 @@ func init() {
         }
       }
     },
+    "azurerm_spring_cloud_api_portal": {
+      "block": {
+        "attributes": {
+          "gateway_ids": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true
+          },
+          "https_only_enabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "instance_count": {
+            "type": "number",
+            "optional": true,
+            "default": 1
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "spring_cloud_service_id": {
+            "type": "string",
+            "required": true
+          },
+          "url": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "sso": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "client_id": {
+                  "type": "string",
+                  "optional": true
+                },
+                "client_secret": {
+                  "type": "string",
+                  "optional": true
+                },
+                "issuer_uri": {
+                  "type": "string",
+                  "optional": true
+                },
+                "scope": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
     "azurerm_spring_cloud_app": {
       "block": {
         "attributes": {
@@ -62091,6 +62449,57 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": true
+          }
+        }
+      }
+    },
+    "azurerm_spring_cloud_build_deployment": {
+      "block": {
+        "attributes": {
+          "build_result_id": {
+            "type": "string",
+            "required": true
+          },
+          "environment_variables": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "instance_count": {
+            "type": "number",
+            "optional": true,
+            "default": 1
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "spring_cloud_app_id": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "quota": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "cpu": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
+                "memory": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
           }
         }
       }
@@ -62570,6 +62979,79 @@ func init() {
         }
       }
     },
+    "azurerm_spring_cloud_gateway_route_config": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "spring_cloud_app_id": {
+            "type": "string",
+            "optional": true
+          },
+          "spring_cloud_gateway_id": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "route": {
+            "nesting_mode": 4,
+            "block": {
+              "attributes": {
+                "classification_tags": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "filters": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "order": {
+                  "type": "number",
+                  "optional": true
+                },
+                "predicates": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "sso_validation_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "title": {
+                  "type": "string",
+                  "optional": true
+                },
+                "token_relay": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "uri": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
     "azurerm_spring_cloud_java_deployment": {
       "block": {
         "attributes": {
@@ -62629,6 +63111,10 @@ func init() {
     "azurerm_spring_cloud_service": {
       "block": {
         "attributes": {
+          "build_agent_pool_size": {
+            "type": "string",
+            "optional": true
+          },
           "location": {
             "type": "string",
             "required": true
@@ -62689,6 +63175,11 @@ func init() {
               "string"
             ],
             "optional": true
+          },
+          "zone_redundant": {
+            "type": "bool",
+            "optional": true,
+            "default": false
           }
         },
         "block_types": {
@@ -65279,7 +65770,8 @@ func init() {
         "attributes": {
           "access_tier": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "computed": true
           },
           "enabled_protocol": {
             "type": "string",
@@ -71207,6 +71699,13 @@ func init() {
             "type": "number",
             "optional": true
           },
+          "egress_nat_rule_ids": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true
+          },
           "enable_bgp": {
             "type": "bool",
             "optional": true,
@@ -71220,6 +71719,13 @@ func init() {
             "type": "bool",
             "optional": true,
             "computed": true
+          },
+          "ingress_nat_rule_ids": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true
           },
           "local_azure_ip_address_enabled": {
             "type": "bool",
@@ -71688,6 +72194,11 @@ func init() {
     "azurerm_vpn_gateway": {
       "block": {
         "attributes": {
+          "bgp_route_translation_for_nat_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
           "location": {
             "type": "string",
             "required": true
@@ -71971,6 +72482,22 @@ func init() {
                 }
               },
               "block_types": {
+                "custom_bgp_address": {
+                  "nesting_mode": 4,
+                  "block": {
+                    "attributes": {
+                      "ip_address": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "ip_configuration_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
                 "ipsec_policy": {
                   "nesting_mode": 3,
                   "block": {
@@ -72023,17 +72550,27 @@ func init() {
         "attributes": {
           "external_address_space_mappings": {
             "type": [
-              "set",
+              "list",
               "string"
             ],
-            "required": true
+            "optional": true,
+            "computed": true,
+            "exactly_one_of": [
+              "external_mapping",
+              "external_address_space_mappings"
+            ]
           },
           "internal_address_space_mappings": {
             "type": [
-              "set",
+              "list",
               "string"
             ],
-            "required": true
+            "optional": true,
+            "computed": true,
+            "exactly_one_of": [
+              "internal_mapping",
+              "internal_address_space_mappings"
+            ]
           },
           "ip_configuration_id": {
             "type": "string",
@@ -72060,6 +72597,50 @@ func init() {
           "vpn_gateway_id": {
             "type": "string",
             "required": true
+          }
+        },
+        "block_types": {
+          "external_mapping": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "address_space": {
+                  "type": "string",
+                  "required": true
+                },
+                "port_range": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "exactly_one_of": [
+              "external_mapping",
+              "external_address_space_mappings"
+            ]
+          },
+          "internal_mapping": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "address_space": {
+                  "type": "string",
+                  "required": true
+                },
+                "port_range": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "exactly_one_of": [
+              "internal_mapping",
+              "internal_address_space_mappings"
+            ]
           }
         }
       }
@@ -72254,6 +72835,52 @@ func init() {
               }
             },
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_vpn_server_configuration_policy_group": {
+      "block": {
+        "attributes": {
+          "is_default": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "priority": {
+            "type": "number",
+            "optional": true,
+            "default": 0
+          },
+          "vpn_server_configuration_id": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "policy": {
+            "nesting_mode": 4,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                },
+                "value": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "required": true
           }
         }
       }
@@ -72835,7 +73462,7 @@ func init() {
                 }
               }
             },
-            "required": true
+            "optional": true
           }
         }
       }
@@ -74954,7 +75581,10 @@ func init() {
                 },
                 "disk_encryption_set_id": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "conflicts_with": [
+                    "os_disk.0.secure_vm_disk_encryption_set_id"
+                  ]
                 },
                 "disk_size_gb": {
                   "type": "number",
@@ -74965,6 +75595,17 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "computed": true
+                },
+                "secure_vm_disk_encryption_set_id": {
+                  "type": "string",
+                  "optional": true,
+                  "conflicts_with": [
+                    "os_disk.0.disk_encryption_set_id"
+                  ]
+                },
+                "security_encryption_type": {
+                  "type": "string",
+                  "optional": true
                 },
                 "storage_account_type": {
                   "type": "string",
@@ -75628,12 +76269,26 @@ func init() {
                 },
                 "disk_encryption_set_id": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "conflicts_with": [
+                    "os_disk.0.secure_vm_disk_encryption_set_id"
+                  ]
                 },
                 "disk_size_gb": {
                   "type": "number",
                   "optional": true,
                   "computed": true
+                },
+                "secure_vm_disk_encryption_set_id": {
+                  "type": "string",
+                  "optional": true,
+                  "conflicts_with": [
+                    "os_disk.0.disk_encryption_set_id"
+                  ]
+                },
+                "security_encryption_type": {
+                  "type": "string",
+                  "optional": true
                 },
                 "storage_account_type": {
                   "type": "string",
@@ -75933,6 +76588,11 @@ func init() {
               "string"
             ],
             "optional": true
+          },
+          "zip_deploy_file": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           }
         },
         "block_types": {
@@ -77101,6 +77761,11 @@ func init() {
               "string"
             ],
             "optional": true
+          },
+          "zip_deploy_file": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           }
         },
         "block_types": {
@@ -78144,5 +78809,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.7.0"
+    ProviderSchemaInfo.Version = "3.9.0"
 }

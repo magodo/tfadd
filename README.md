@@ -27,7 +27,7 @@ Currently, the tool supports the following providers:
 |Name|Version|
 |-|-|
 |registry.terraform.io/hashicorp/aws|v4.15.1|
-|registry.terraform.io/hashicorp/azurerm|v3.7.0|
+|registry.terraform.io/hashicorp/azurerm|v3.9.0|
 |registry.terraform.io/hashicorp/google|v4.20.0|
 
 ## Limitation
