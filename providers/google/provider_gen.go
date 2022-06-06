@@ -3649,6 +3649,197 @@ func init() {
         }
       }
     },
+    "google_bigquery_connection": {
+      "block": {
+        "attributes": {
+          "connection_id": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "friendly_name": {
+            "type": "string",
+            "optional": true
+          },
+          "has_credential": {
+            "type": "bool",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          }
+        },
+        "block_types": {
+          "aws": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "access_role": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "iam_role_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "identity": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "cloud_sql",
+              "aws",
+              "azure",
+              "cloud_spanner",
+              "cloud_resource"
+            ]
+          },
+          "azure": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "application": {
+                  "type": "string",
+                  "computed": true
+                },
+                "client_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "customer_tenant_id": {
+                  "type": "string",
+                  "required": true
+                },
+                "object_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "redirect_uri": {
+                  "type": "string",
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "cloud_sql",
+              "aws",
+              "azure",
+              "cloud_spanner",
+              "cloud_resource"
+            ]
+          },
+          "cloud_resource": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "service_account_id": {
+                  "type": "string",
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "cloud_sql",
+              "aws",
+              "azure",
+              "cloud_spanner",
+              "cloud_resource"
+            ]
+          },
+          "cloud_spanner": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "database": {
+                  "type": "string",
+                  "required": true
+                },
+                "use_parallelism": {
+                  "type": "bool",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "cloud_sql",
+              "aws",
+              "azure",
+              "cloud_spanner",
+              "cloud_resource"
+            ]
+          },
+          "cloud_sql": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "database": {
+                  "type": "string",
+                  "required": true
+                },
+                "instance_id": {
+                  "type": "string",
+                  "required": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              },
+              "block_types": {
+                "credential": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "password": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "username": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "cloud_sql",
+              "aws",
+              "azure",
+              "cloud_spanner",
+              "cloud_resource"
+            ]
+          }
+        }
+      }
+    },
     "google_bigquery_data_transfer_config": {
       "block": {
         "attributes": {
@@ -6622,6 +6813,133 @@ func init() {
         }
       }
     },
+    "google_certificate_manager_certificate": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "scope": {
+            "type": "string",
+            "optional": true,
+            "default": "DEFAULT"
+          }
+        },
+        "block_types": {
+          "managed": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "dns_authorizations": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "domains": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "state": {
+                  "type": "string",
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "self_managed",
+              "managed"
+            ]
+          },
+          "self_managed": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "certificate_pem": {
+                  "type": "string",
+                  "required": true
+                },
+                "private_key_pem": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "self_managed",
+              "managed"
+            ]
+          }
+        }
+      }
+    },
+    "google_certificate_manager_dns_authorization": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "dns_resource_record": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "data": "string",
+                  "name": "string",
+                  "type": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "domain": {
+            "type": "string",
+            "required": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          }
+        }
+      }
+    },
     "google_cloud_asset_folder_feed": {
       "block": {
         "attributes": {
@@ -7581,6 +7899,14 @@ func init() {
                 "revision_name": {
                   "type": "string",
                   "optional": true
+                },
+                "tag": {
+                  "type": "string",
+                  "optional": true
+                },
+                "url": {
+                  "type": "string",
+                  "computed": true
                 }
               }
             },
@@ -8928,6 +9254,247 @@ func init() {
         }
       }
     },
+    "google_clouddeploy_delivery_pipeline": {
+      "block": {
+        "attributes": {
+          "annotations": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "condition": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "pipeline_ready_condition": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "status": "bool",
+                        "update_time": "string"
+                      }
+                    ]
+                  ],
+                  "targets_present_condition": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "missing_targets": [
+                          "list",
+                          "string"
+                        ],
+                        "status": "bool",
+                        "update_time": "string"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "uid": {
+            "type": "string",
+            "computed": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "serial_pipeline": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "stages": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "profiles": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "target_id": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_clouddeploy_target": {
+      "block": {
+        "attributes": {
+          "annotations": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "require_approval": {
+            "type": "bool",
+            "optional": true
+          },
+          "target_id": {
+            "type": "string",
+            "computed": true
+          },
+          "uid": {
+            "type": "string",
+            "computed": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "anthos_cluster": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "membership": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "conflicts_with": [
+              "gke"
+            ]
+          },
+          "execution_configs": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "artifact_storage": {
+                  "type": "string",
+                  "optional": true
+                },
+                "service_account": {
+                  "type": "string",
+                  "optional": true
+                },
+                "usages": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                },
+                "worker_pool": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "gke": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "cluster": {
+                  "type": "string",
+                  "optional": true
+                },
+                "internal_ip": {
+                  "type": "bool",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "conflicts_with": [
+              "anthos_cluster"
+            ]
+          }
+        }
+      }
+    },
     "google_cloudfunctions_function": {
       "block": {
         "attributes": {
@@ -8947,6 +9514,15 @@ func init() {
             "type": "string",
             "optional": true
           },
+          "docker_registry": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "docker_repository": {
+            "type": "string",
+            "optional": true
+          },
           "entry_point": {
             "type": "string",
             "optional": true
@@ -8958,6 +9534,11 @@ func init() {
             ],
             "optional": true
           },
+          "https_trigger_security_level": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
           "https_trigger_url": {
             "type": "string",
             "optional": true,
@@ -8967,6 +9548,10 @@ func init() {
             "type": "string",
             "optional": true,
             "default": "ALLOW_ALL"
+          },
+          "kms_key_name": {
+            "type": "string",
+            "optional": true
           },
           "labels": {
             "type": [
@@ -12198,6 +12783,26 @@ func init() {
             "type": "string",
             "optional": true
           }
+        },
+        "block_types": {
+          "service_directory_registrations": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "namespace": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
+                "service": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
+          }
         }
       }
     },
@@ -15107,6 +15712,10 @@ func init() {
                 "minimal_action": {
                   "type": "string",
                   "required": true
+                },
+                "most_disruptive_allowed_action": {
+                  "type": "string",
+                  "optional": true
                 },
                 "replacement_method": {
                   "type": "string",
@@ -18781,6 +19390,10 @@ func init() {
                   "type": "string",
                   "required": true
                 },
+                "most_disruptive_allowed_action": {
+                  "type": "string",
+                  "optional": true
+                },
                 "replacement_method": {
                   "type": "string",
                   "optional": true
@@ -18852,6 +19465,10 @@ func init() {
             "optional": true,
             "computed": true
           },
+          "psc_target_service": {
+            "type": "string",
+            "optional": true
+          },
           "region": {
             "type": "string",
             "required": true
@@ -18881,10 +19498,9 @@ func init() {
               }
             },
             "optional": true,
-            "exactly_one_of": [
-              "app_engine",
-              "cloud_function",
-              "cloud_run"
+            "conflicts_with": [
+              "cloud_run",
+              "cloud_function"
             ]
           },
           "cloud_function": {
@@ -18910,10 +19526,9 @@ func init() {
               }
             },
             "optional": true,
-            "exactly_one_of": [
-              "app_engine",
-              "cloud_function",
-              "cloud_run"
+            "conflicts_with": [
+              "cloud_run",
+              "app_engine"
             ]
           },
           "cloud_run": {
@@ -18943,10 +19558,9 @@ func init() {
               }
             },
             "optional": true,
-            "exactly_one_of": [
-              "cloud_run",
-              "cloud_function",
-              "app_engine"
+            "conflicts_with": [
+              "app_engine",
+              "cloud_function"
             ]
           }
         }
@@ -20915,6 +21529,11 @@ func init() {
             ],
             "optional": true
           },
+          "enable_dynamic_port_allocation": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
           "enable_endpoint_independent_mapping": {
             "type": "bool",
             "optional": true,
@@ -21177,7 +21796,8 @@ func init() {
                 },
                 "description": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "default": ""
                 },
                 "preview": {
                   "type": "bool",
@@ -21196,7 +21816,8 @@ func init() {
                     "attributes": {
                       "versioned_expr": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "default": ""
                       }
                     },
                     "block_types": {
@@ -21268,6 +21889,13 @@ func init() {
           },
           "description": {
             "type": "string",
+            "optional": true
+          },
+          "domain_names": {
+            "type": [
+              "list",
+              "string"
+            ],
             "optional": true
           },
           "enable_proxy_protocol": {
@@ -24942,6 +25570,22 @@ func init() {
                   },
                   "required": true
                 },
+                "proxy_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "secret_arn": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "secret_version": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
                 "root_volume": {
                   "nesting_mode": 3,
                   "block": {
@@ -25423,6 +26067,22 @@ func init() {
                 }
               },
               "block_types": {
+                "proxy_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "resource_group_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "secret_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
                 "root_volume": {
                   "nesting_mode": 3,
                   "block": {
@@ -26012,6 +26672,20 @@ func init() {
                       "start_time": {
                         "type": "string",
                         "required": true
+                      }
+                    },
+                    "block_types": {
+                      "exclusion_options": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "scope": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
                       }
                     }
                   },
@@ -26623,7 +27297,8 @@ func init() {
                 },
                 "master_ipv4_cidr_block": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 },
                 "peering_name": {
                   "type": "string",
@@ -29136,6 +29811,103 @@ func init() {
           },
           "zone": {
             "type": "string",
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_dataplex_lake": {
+      "block": {
+        "attributes": {
+          "asset_status": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "active_assets": "number",
+                  "security_policy_applying_assets": "number",
+                  "update_time": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "metastore_status": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "endpoint": "string",
+                  "message": "string",
+                  "state": "string",
+                  "update_time": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "service_account": {
+            "type": "string",
+            "computed": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "uid": {
+            "type": "string",
+            "computed": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "metastore": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "service": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
             "optional": true
           }
         }
@@ -33968,7 +34740,11 @@ func init() {
               "list",
               "string"
             ],
-            "required": true
+            "optional": true,
+            "exactly_one_of": [
+              "rrdatas",
+              "routing_policy"
+            ]
           },
           "ttl": {
             "type": "number",
@@ -33977,6 +34753,66 @@ func init() {
           "type": {
             "type": "string",
             "required": true
+          }
+        },
+        "block_types": {
+          "routing_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "geo": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "location": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "rrdatas": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "exactly_one_of": [
+                    "routing_policy.0.wrr",
+                    "routing_policy.0.geo"
+                  ]
+                },
+                "wrr": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "rrdatas": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "weight": {
+                        "type": "number",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "exactly_one_of": [
+                    "routing_policy.0.wrr",
+                    "routing_policy.0.geo"
+                  ]
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "rrdatas",
+              "routing_policy"
+            ]
           }
         }
       }
@@ -39025,6 +39861,20 @@ func init() {
             ],
             "optional": true
           },
+          "maintenance_schedule": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "end_time": "string",
+                  "schedule_deadline_time": "string",
+                  "start_time": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
           "memcache_full_version": {
             "type": "string",
             "computed": true
@@ -39078,6 +39928,70 @@ func init() {
           }
         },
         "block_types": {
+          "maintenance_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "create_time": {
+                  "type": "string",
+                  "computed": true
+                },
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "update_time": {
+                  "type": "string",
+                  "computed": true
+                }
+              },
+              "block_types": {
+                "weekly_maintenance_window": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "day": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "duration": {
+                        "type": "string",
+                        "required": true
+                      }
+                    },
+                    "block_types": {
+                      "start_time": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "hours": {
+                              "type": "number",
+                              "optional": true
+                            },
+                            "minutes": {
+                              "type": "number",
+                              "optional": true
+                            },
+                            "nanos": {
+                              "type": "number",
+                              "optional": true
+                            },
+                            "seconds": {
+                              "type": "number",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "required": true
+                      }
+                    }
+                  },
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          },
           "memcache_parameters": {
             "nesting_mode": 3,
             "block": {
@@ -40293,6 +41207,11 @@ func init() {
     "google_monitoring_uptime_check_config": {
       "block": {
         "attributes": {
+          "checker_type": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
           "display_name": {
             "type": "string",
             "required": true
@@ -45963,6 +46882,10 @@ func init() {
             "optional": true,
             "default": true
           },
+          "desired_state": {
+            "type": "string",
+            "optional": true
+          },
           "gcs_bucket": {
             "type": "string",
             "optional": true
@@ -49922,6 +50845,18 @@ func init() {
                 }
               },
               "block_types": {
+                "active_directory_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "domain": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
                 "backup_configuration": {
                   "nesting_mode": 3,
                   "block": {
@@ -50803,7 +51738,7 @@ func init() {
           "content": {
             "type": "string",
             "optional": true,
-            "conflicts_with": [
+            "exactly_one_of": [
               "source"
             ]
           },
@@ -50875,7 +51810,7 @@ func init() {
           "source": {
             "type": "string",
             "optional": true,
-            "conflicts_with": [
+            "exactly_one_of": [
               "content"
             ]
           },
@@ -52132,5 +53067,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.20.0"
+    ProviderSchemaInfo.Version = "4.23.0"
 }
