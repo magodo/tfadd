@@ -7013,7 +7013,8 @@ func init() {
                 },
                 "request_timeout": {
                   "type": "number",
-                  "optional": true
+                  "optional": true,
+                  "default": 30
                 },
                 "trusted_root_certificate_names": {
                   "type": [
@@ -7475,7 +7476,7 @@ func init() {
                 },
                 "priority": {
                   "type": "number",
-                  "optional": true
+                  "required": true
                 },
                 "redirect_configuration_id": {
                   "type": "string",
@@ -10998,6 +10999,81 @@ func init() {
         }
       }
     },
+    "azurerm_capacity_reservation": {
+      "block": {
+        "attributes": {
+          "capacity_reservation_group_id": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "zone": {
+            "type": "string",
+            "optional": true
+          }
+        },
+        "block_types": {
+          "sku": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "capacity": {
+                  "type": "number",
+                  "required": true
+                },
+                "name": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "required": true
+          }
+        }
+      }
+    },
+    "azurerm_capacity_reservation_group": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "zones": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true
+          }
+        }
+      }
+    },
     "azurerm_cdn_endpoint": {
       "block": {
         "attributes": {
@@ -11944,6 +12020,20 @@ func init() {
               "string"
             ],
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_cdn_frontdoor_rule_set": {
+      "block": {
+        "attributes": {
+          "cdn_frontdoor_profile_id": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
           }
         }
       }
@@ -14767,6 +14857,18 @@ func init() {
     "azurerm_cosmosdb_cassandra_cluster": {
       "block": {
         "attributes": {
+          "authentication_method": {
+            "type": "string",
+            "optional": true,
+            "default": "Cassandra"
+          },
+          "client_certificate_pems": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
           "default_admin_password": {
             "type": "string",
             "required": true
@@ -14775,6 +14877,20 @@ func init() {
             "type": "string",
             "required": true
           },
+          "external_gossip_certificate_pems": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          "external_seed_node_ip_addresses": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
           "location": {
             "type": "string",
             "required": true
@@ -14782,6 +14898,11 @@ func init() {
           "name": {
             "type": "string",
             "required": true
+          },
+          "repair_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
           },
           "resource_group_name": {
             "type": "string",
@@ -14792,6 +14913,33 @@ func init() {
               "map",
               "string"
             ],
+            "optional": true
+          },
+          "version": {
+            "type": "string",
+            "optional": true,
+            "default": "3.11"
+          }
+        },
+        "block_types": {
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
             "optional": true
           }
         }
@@ -32679,9 +32827,23 @@ func init() {
     "azurerm_hpc_cache": {
       "block": {
         "attributes": {
+          "automatically_rotate_key_to_latest_enabled": {
+            "type": "bool",
+            "optional": true,
+            "required_with": [
+              "key_vault_key_id"
+            ]
+          },
           "cache_size_in_gb": {
             "type": "number",
             "required": true
+          },
+          "key_vault_key_id": {
+            "type": "string",
+            "optional": true,
+            "required_with": [
+              "identity"
+            ]
           },
           "location": {
             "type": "string",
@@ -32905,6 +33067,25 @@ func init() {
                     "list",
                     "string"
                   ],
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "required": true
+                },
+                "type": {
+                  "type": "string",
                   "required": true
                 }
               }
@@ -78809,5 +78990,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.9.0"
+    ProviderSchemaInfo.Version = "3.10.0"
 }
