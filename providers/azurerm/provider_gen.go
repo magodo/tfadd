@@ -33877,7 +33877,7 @@ func init() {
           },
           "id_properties": {
             "type": [
-              "set",
+              "list",
               "string"
             ],
             "required": true
@@ -78990,5 +78990,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.10.0"
+    ProviderSchemaInfo.Version = "3.11.0"
 }
