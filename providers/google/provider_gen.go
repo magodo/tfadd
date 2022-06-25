@@ -734,6 +734,13 @@ func init() {
                         "nesting_mode": 3,
                         "block": {
                           "attributes": {
+                            "external_resources": {
+                              "type": [
+                                "list",
+                                "string"
+                              ],
+                              "optional": true
+                            },
                             "resources": {
                               "type": [
                                 "list",
@@ -965,6 +972,13 @@ func init() {
                         "nesting_mode": 3,
                         "block": {
                           "attributes": {
+                            "external_resources": {
+                              "type": [
+                                "list",
+                                "string"
+                              ],
+                              "optional": true
+                            },
                             "resources": {
                               "type": [
                                 "list",
@@ -1242,6 +1256,13 @@ func init() {
                               "nesting_mode": 3,
                               "block": {
                                 "attributes": {
+                                  "external_resources": {
+                                    "type": [
+                                      "list",
+                                      "string"
+                                    ],
+                                    "optional": true
+                                  },
                                   "resources": {
                                     "type": [
                                       "list",
@@ -1458,6 +1479,13 @@ func init() {
                               "nesting_mode": 3,
                               "block": {
                                 "attributes": {
+                                  "external_resources": {
+                                    "type": [
+                                      "list",
+                                      "string"
+                                    ],
+                                    "optional": true
+                                  },
                                   "resources": {
                                     "type": [
                                       "list",
@@ -5276,6 +5304,10 @@ func init() {
                   "optional": true,
                   "default": "NONE"
                 },
+                "connection_id": {
+                  "type": "string",
+                  "optional": true
+                },
                 "ignore_unknown_values": {
                   "type": "bool",
                   "optional": true
@@ -8475,6 +8507,10 @@ func init() {
             ],
             "optional": true
           },
+          "include_build_logs": {
+            "type": "string",
+            "optional": true
+          },
           "included_files": {
             "type": [
               "list",
@@ -10179,7 +10215,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 },
                 "gke_cluster": {
@@ -10201,7 +10238,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 }
               },
@@ -10229,7 +10267,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 },
                 "encryption_config": {
@@ -10255,7 +10294,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 },
                 "maintenance_window": {
@@ -10289,7 +10329,52 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
+                  ]
+                },
+                "master_authorized_networks_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enabled": {
+                        "type": "bool",
+                        "required": true
+                      }
+                    },
+                    "block_types": {
+                      "cidr_blocks": {
+                        "nesting_mode": 4,
+                        "block": {
+                          "attributes": {
+                            "cidr_block": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "display_name": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "config.0.node_count",
+                    "config.0.node_config",
+                    "config.0.software_config",
+                    "config.0.private_environment_config",
+                    "config.0.web_server_network_access_control",
+                    "config.0.database_config",
+                    "config.0.web_server_config",
+                    "config.0.encryption_config",
+                    "config.0.maintenance_window",
+                    "config.0.workloads_config",
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 },
                 "node_config": {
@@ -10298,6 +10383,11 @@ func init() {
                     "attributes": {
                       "disk_size_gb": {
                         "type": "number",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "enable_ip_masq_agent": {
+                        "type": "bool",
                         "optional": true,
                         "computed": true
                       },
@@ -10372,7 +10462,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 },
                 "private_environment_config": {
@@ -10389,6 +10480,7 @@ func init() {
                           "config.0.private_environment_config.0.cloud_sql_ipv4_cidr_block",
                           "config.0.private_environment_config.0.web_server_ipv4_cidr_block",
                           "config.0.private_environment_config.0.cloud_composer_network_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.enable_privately_used_public_ips",
                           "config.0.private_environment_config.0.cloud_composer_connection_subnetwork"
                         ]
                       },
@@ -10402,6 +10494,7 @@ func init() {
                           "config.0.private_environment_config.0.cloud_sql_ipv4_cidr_block",
                           "config.0.private_environment_config.0.web_server_ipv4_cidr_block",
                           "config.0.private_environment_config.0.cloud_composer_network_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.enable_privately_used_public_ips",
                           "config.0.private_environment_config.0.cloud_composer_connection_subnetwork"
                         ]
                       },
@@ -10415,6 +10508,7 @@ func init() {
                           "config.0.private_environment_config.0.cloud_sql_ipv4_cidr_block",
                           "config.0.private_environment_config.0.web_server_ipv4_cidr_block",
                           "config.0.private_environment_config.0.cloud_composer_network_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.enable_privately_used_public_ips",
                           "config.0.private_environment_config.0.cloud_composer_connection_subnetwork"
                         ]
                       },
@@ -10428,6 +10522,21 @@ func init() {
                           "config.0.private_environment_config.0.cloud_sql_ipv4_cidr_block",
                           "config.0.private_environment_config.0.web_server_ipv4_cidr_block",
                           "config.0.private_environment_config.0.cloud_composer_network_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.enable_privately_used_public_ips",
+                          "config.0.private_environment_config.0.cloud_composer_connection_subnetwork"
+                        ]
+                      },
+                      "enable_privately_used_public_ips": {
+                        "type": "bool",
+                        "optional": true,
+                        "computed": true,
+                        "at_least_one_of": [
+                          "config.0.private_environment_config.0.enable_private_endpoint",
+                          "config.0.private_environment_config.0.master_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.cloud_sql_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.web_server_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.cloud_composer_network_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.enable_privately_used_public_ips",
                           "config.0.private_environment_config.0.cloud_composer_connection_subnetwork"
                         ]
                       },
@@ -10441,6 +10550,7 @@ func init() {
                           "config.0.private_environment_config.0.cloud_sql_ipv4_cidr_block",
                           "config.0.private_environment_config.0.web_server_ipv4_cidr_block",
                           "config.0.private_environment_config.0.cloud_composer_network_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.enable_privately_used_public_ips",
                           "config.0.private_environment_config.0.cloud_composer_connection_subnetwork"
                         ]
                       },
@@ -10454,6 +10564,7 @@ func init() {
                           "config.0.private_environment_config.0.cloud_sql_ipv4_cidr_block",
                           "config.0.private_environment_config.0.web_server_ipv4_cidr_block",
                           "config.0.private_environment_config.0.cloud_composer_network_ipv4_cidr_block",
+                          "config.0.private_environment_config.0.enable_privately_used_public_ips",
                           "config.0.private_environment_config.0.cloud_composer_connection_subnetwork"
                         ]
                       }
@@ -10472,7 +10583,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 },
                 "software_config": {
@@ -10578,7 +10690,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 },
                 "web_server_config": {
@@ -10604,7 +10717,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 },
                 "web_server_network_access_control": {
@@ -10643,7 +10757,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 },
                 "workloads_config": {
@@ -10737,7 +10852,8 @@ func init() {
                     "config.0.encryption_config",
                     "config.0.maintenance_window",
                     "config.0.workloads_config",
-                    "config.0.environment_size"
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
                   ]
                 }
               }
@@ -11139,6 +11255,36 @@ func init() {
                 }
               },
               "block_types": {
+                "cache_key_policy": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "include_http_headers": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true,
+                        "at_least_one_of": [
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_http_headers"
+                        ]
+                      },
+                      "query_string_whitelist": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true,
+                        "at_least_one_of": [
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_http_headers"
+                        ]
+                      }
+                    }
+                  },
+                  "optional": true
+                },
                 "negative_caching_policy": {
                   "nesting_mode": 3,
                   "block": {
@@ -11401,7 +11547,23 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
+                        ]
+                      },
+                      "include_named_cookies": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true,
+                        "at_least_one_of": [
+                          "cdn_policy.0.cache_key_policy.0.include_host",
+                          "cdn_policy.0.cache_key_policy.0.include_protocol",
+                          "cdn_policy.0.cache_key_policy.0.include_query_string",
+                          "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       },
                       "include_protocol": {
@@ -11412,7 +11574,8 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       },
                       "include_query_string": {
@@ -11423,7 +11586,8 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       },
                       "query_string_blacklist": {
@@ -11437,7 +11601,8 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       },
                       "query_string_whitelist": {
@@ -11451,7 +11616,8 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       }
                     }
@@ -16675,8 +16841,17 @@ func init() {
             "type": "string",
             "optional": true
           },
+          "enable_ula_internal_ipv6": {
+            "type": "bool",
+            "optional": true
+          },
           "gateway_ipv4": {
             "type": "string",
+            "computed": true
+          },
+          "internal_ipv6_range": {
+            "type": "string",
+            "optional": true,
             "computed": true
           },
           "mtu": {
@@ -17727,7 +17902,23 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
+                        ]
+                      },
+                      "include_named_cookies": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true,
+                        "at_least_one_of": [
+                          "cdn_policy.0.cache_key_policy.0.include_host",
+                          "cdn_policy.0.cache_key_policy.0.include_protocol",
+                          "cdn_policy.0.cache_key_policy.0.include_query_string",
+                          "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       },
                       "include_protocol": {
@@ -17738,7 +17929,8 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       },
                       "include_query_string": {
@@ -17749,7 +17941,8 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       },
                       "query_string_blacklist": {
@@ -17763,7 +17956,8 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       },
                       "query_string_whitelist": {
@@ -17777,7 +17971,8 @@ func init() {
                           "cdn_policy.0.cache_key_policy.0.include_protocol",
                           "cdn_policy.0.cache_key_policy.0.include_query_string",
                           "cdn_policy.0.cache_key_policy.0.query_string_blacklist",
-                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist"
+                          "cdn_policy.0.cache_key_policy.0.query_string_whitelist",
+                          "cdn_policy.0.cache_key_policy.0.include_named_cookies"
                         ]
                       }
                     }
@@ -21786,6 +21981,25 @@ func init() {
           }
         },
         "block_types": {
+          "advanced_options_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "json_parsing": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
+                "log_level": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
+          },
           "rule": {
             "nesting_mode": 4,
             "block": {
@@ -26810,7 +27024,6 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true,
             "conflicts_with": [
               "enable_autopilot"
             ]
@@ -26904,6 +27117,11 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "computed": true
+                },
+                "spot": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
                 },
                 "tags": {
                   "type": [
@@ -27172,6 +27390,11 @@ func init() {
                         "type": "string",
                         "optional": true,
                         "computed": true
+                      },
+                      "spot": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
                       },
                       "tags": {
                         "type": [
@@ -27608,6 +27831,11 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "computed": true
+                },
+                "spot": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
                 },
                 "tags": {
                   "type": [
@@ -34468,6 +34696,10 @@ func init() {
     "google_dns_managed_zone": {
       "block": {
         "attributes": {
+          "creation_time": {
+            "type": "string",
+            "computed": true
+          },
           "description": {
             "type": "string",
             "optional": true,
@@ -34488,6 +34720,10 @@ func init() {
               "string"
             ],
             "optional": true
+          },
+          "managed_zone_id": {
+            "type": "number",
+            "computed": true
           },
           "name": {
             "type": "string",
@@ -34813,6 +35049,51 @@ func init() {
               "rrdatas",
               "routing_policy"
             ]
+          }
+        }
+      }
+    },
+    "google_document_ai_processor": {
+      "block": {
+        "attributes": {
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "kms_key_name": {
+            "type": "string",
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "type": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
+    "google_document_ai_processor_default_version": {
+      "block": {
+        "attributes": {
+          "processor": {
+            "type": "string",
+            "required": true
+          },
+          "version": {
+            "type": "string",
+            "required": true
           }
         }
       }
@@ -40445,6 +40726,13 @@ func init() {
             "type": "string",
             "optional": true,
             "computed": true
+          },
+          "user_labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
           }
         },
         "block_types": {
@@ -40737,6 +41025,13 @@ func init() {
             "type": "string",
             "optional": true,
             "computed": true
+          },
+          "user_labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
           }
         },
         "block_types": {
@@ -41259,6 +41554,25 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "default": "CONTAINS_STRING"
+                }
+              },
+              "block_types": {
+                "json_path_matcher": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "json_matcher": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "EXACT_MATCH"
+                      },
+                      "json_path": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
                 }
               }
             },
@@ -51308,6 +51622,28 @@ func init() {
             "type": "string",
             "optional": true
           }
+        },
+        "block_types": {
+          "sql_server_user_details": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "disabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                },
+                "server_roles": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          }
         }
       }
     },
@@ -53067,5 +53403,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.23.0"
+    ProviderSchemaInfo.Version = "4.26.0"
 }
