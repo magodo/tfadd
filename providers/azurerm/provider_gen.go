@@ -295,6 +295,35 @@ func init() {
         }
       }
     },
+    "azurerm_active_directory_domain_service_trust": {
+      "block": {
+        "attributes": {
+          "domain_service_id": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "password": {
+            "type": "string",
+            "required": true
+          },
+          "trusted_domain_dns_ips": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true
+          },
+          "trusted_domain_fqdn": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
     "azurerm_advanced_threat_protection": {
       "block": {
         "attributes": {
@@ -7476,7 +7505,7 @@ func init() {
                 },
                 "priority": {
                   "type": "number",
-                  "required": true
+                  "optional": true
                 },
                 "redirect_configuration_id": {
                   "type": "string",
@@ -8274,6 +8303,81 @@ func init() {
             "type": "number",
             "optional": true,
             "default": 30
+          }
+        }
+      }
+    },
+    "azurerm_application_insights_workbook_template": {
+      "block": {
+        "attributes": {
+          "author": {
+            "type": "string",
+            "optional": true
+          },
+          "localized": {
+            "type": "string",
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "priority": {
+            "type": "number",
+            "optional": true,
+            "default": 0
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "template_data": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "galleries": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "category": {
+                  "type": "string",
+                  "required": true
+                },
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "order": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 0
+                },
+                "resource_type": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "Azure Monitor"
+                },
+                "type": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "workbook"
+                }
+              }
+            },
+            "required": true
           }
         }
       }
@@ -9704,8 +9808,7 @@ func init() {
           },
           "storage_account_id": {
             "type": "string",
-            "optional": true,
-            "computed": true
+            "optional": true
           },
           "tags": {
             "type": [
@@ -10804,6 +10907,11 @@ func init() {
             "type": "string",
             "required": true
           },
+          "streaming_endpoint_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
           "tags": {
             "type": [
               "map",
@@ -10908,6 +11016,18 @@ func init() {
           "microsoft_app_id": {
             "type": "string",
             "required": true
+          },
+          "microsoft_app_msi_id": {
+            "type": "string",
+            "optional": true
+          },
+          "microsoft_app_tenant_id": {
+            "type": "string",
+            "optional": true
+          },
+          "microsoft_app_type": {
+            "type": "string",
+            "optional": true
           },
           "name": {
             "type": "string",
@@ -13225,6 +13345,10 @@ func init() {
                   "type": "number",
                   "required": true
                 },
+                "cpu_limit": {
+                  "type": "number",
+                  "optional": true
+                },
                 "environment_variables": {
                   "type": [
                     "map",
@@ -13240,6 +13364,10 @@ func init() {
                   "type": "number",
                   "required": true
                 },
+                "memory_limit": {
+                  "type": "number",
+                  "optional": true
+                },
                 "name": {
                   "type": "string",
                   "required": true
@@ -13254,6 +13382,22 @@ func init() {
               },
               "block_types": {
                 "gpu": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "count": {
+                        "type": "number",
+                        "optional": true
+                      },
+                      "sku": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "gpu_limit": {
                   "nesting_mode": 3,
                   "block": {
                     "attributes": {
@@ -13306,6 +13450,13 @@ func init() {
                         "nesting_mode": 3,
                         "block": {
                           "attributes": {
+                            "http_headers": {
+                              "type": [
+                                "map",
+                                "string"
+                              ],
+                              "optional": true
+                            },
                             "path": {
                               "type": "string",
                               "optional": true
@@ -13380,6 +13531,13 @@ func init() {
                         "nesting_mode": 3,
                         "block": {
                           "attributes": {
+                            "http_headers": {
+                              "type": [
+                                "map",
+                                "string"
+                              ],
+                              "optional": true
+                            },
                             "path": {
                               "type": "string",
                               "optional": true
@@ -14953,6 +15111,14 @@ func init() {
             "optional": true,
             "default": true
           },
+          "backup_storage_customer_key_uri": {
+            "type": "string",
+            "optional": true
+          },
+          "base64_encoded_yaml_fragment": {
+            "type": "string",
+            "optional": true
+          },
           "cassandra_cluster_id": {
             "type": "string",
             "required": true
@@ -14965,9 +15131,18 @@ func init() {
             "type": "number",
             "optional": true
           },
+          "disk_sku": {
+            "type": "string",
+            "optional": true,
+            "default": "P30"
+          },
           "location": {
             "type": "string",
             "required": true
+          },
+          "managed_disk_customer_key_uri": {
+            "type": "string",
+            "optional": true
           },
           "name": {
             "type": "string",
@@ -16061,6 +16236,10 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": true
+          },
+          "purview_id": {
+            "type": "string",
+            "optional": true
           },
           "resource_group_name": {
             "type": "string",
@@ -19985,7 +20164,8 @@ func init() {
               "list",
               "string"
             ],
-            "optional": true
+            "optional": true,
+            "computed": true
           },
           "name": {
             "type": "string",
@@ -20815,6 +20995,38 @@ func init() {
                 }
               }
             },
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_data_protection_resource_guard": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "vault_critical_operation_exclusion_list": {
+            "type": [
+              "list",
+              "string"
+            ],
             "optional": true
           }
         }
@@ -22489,6 +22701,28 @@ func init() {
               "map",
               "string"
             ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
             "optional": true
           }
         }
@@ -26179,6 +26413,13 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
                 "principal_id": {
                   "type": "string",
                   "computed": true
@@ -27378,7 +27619,7 @@ func init() {
                 },
                 "servers": {
                   "type": [
-                    "set",
+                    "list",
                     "string"
                   ],
                   "optional": true
@@ -27859,6 +28100,83 @@ func init() {
                       }
                     }
                   },
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_fluid_relay_server": {
+      "block": {
+        "attributes": {
+          "frs_tenant_id": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "orderer_endpoints": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true
+          },
+          "storage_endpoints": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
+          "storage_sku": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
                   "required": true
                 }
               }
@@ -29993,6 +30311,153 @@ func init() {
         }
       }
     },
+    "azurerm_gallery_application": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "end_of_life_date": {
+            "type": "string",
+            "optional": true
+          },
+          "eula": {
+            "type": "string",
+            "optional": true
+          },
+          "gallery_id": {
+            "type": "string",
+            "required": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "privacy_statement_uri": {
+            "type": "string",
+            "optional": true
+          },
+          "release_note_uri": {
+            "type": "string",
+            "optional": true
+          },
+          "supported_os_type": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_gallery_application_version": {
+      "block": {
+        "attributes": {
+          "enable_health_check": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "end_of_life_date": {
+            "type": "string",
+            "optional": true
+          },
+          "exclude_from_latest": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "gallery_application_id": {
+            "type": "string",
+            "required": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "manage_action": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "install": {
+                  "type": "string",
+                  "required": true
+                },
+                "remove": {
+                  "type": "string",
+                  "required": true
+                },
+                "update": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "required": true
+          },
+          "source": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "default_configuration_link": {
+                  "type": "string",
+                  "optional": true
+                },
+                "media_link": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "required": true
+          },
+          "target_region": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "regional_replica_count": {
+                  "type": "number",
+                  "required": true
+                },
+                "storage_account_type": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "Standard_LRS"
+                }
+              }
+            },
+            "required": true
+          }
+        }
+      }
+    },
     "azurerm_hdinsight_hadoop_cluster": {
       "block": {
         "attributes": {
@@ -31603,6 +32068,24 @@ func init() {
                 "primary_key": {
                   "type": "string",
                   "required": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "network": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "connection_direction": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "Inbound"
+                },
+                "private_link_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
                 }
               }
             },
@@ -35695,6 +36178,14 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "resource_id": {
+            "type": "string",
+            "computed": true
+          },
+          "resource_versionless_id": {
+            "type": "string",
+            "computed": true
+          },
           "tags": {
             "type": [
               "map",
@@ -35877,6 +36368,14 @@ func init() {
           "not_before_date": {
             "type": "string",
             "optional": true
+          },
+          "resource_id": {
+            "type": "string",
+            "computed": true
+          },
+          "resource_versionless_id": {
+            "type": "string",
+            "computed": true
           },
           "tags": {
             "type": [
@@ -36283,6 +36782,10 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "capacity_reservation_group_id": {
+                  "type": "string",
+                  "optional": true
+                },
                 "enable_auto_scaling": {
                   "type": "bool",
                   "optional": true
@@ -36297,6 +36800,10 @@ func init() {
                 },
                 "fips_enabled": {
                   "type": "bool",
+                  "optional": true
+                },
+                "host_group_id": {
+                  "type": "string",
                   "optional": true
                 },
                 "kubelet_disk_type": {
@@ -37139,6 +37646,10 @@ func init() {
     "azurerm_kubernetes_cluster_node_pool": {
       "block": {
         "attributes": {
+          "capacity_reservation_group_id": {
+            "type": "string",
+            "optional": true
+          },
           "enable_auto_scaling": {
             "type": "bool",
             "optional": true
@@ -37157,6 +37668,10 @@ func init() {
           },
           "fips_enabled": {
             "type": "bool",
+            "optional": true
+          },
+          "host_group_id": {
+            "type": "string",
             "optional": true
           },
           "kubelet_disk_type": {
@@ -37645,6 +38160,11 @@ func init() {
             "type": "string",
             "required": true
           },
+          "public_ip_type": {
+            "type": "string",
+            "optional": true,
+            "default": "IPv4"
+          },
           "public_network_access_enabled": {
             "type": "bool",
             "optional": true,
@@ -37943,6 +38463,15 @@ func init() {
             "type": "string",
             "required": true
           },
+          "database_routing_type": {
+            "type": "string",
+            "optional": true,
+            "default": "Single"
+          },
+          "eventgrid_resource_id": {
+            "type": "string",
+            "optional": true
+          },
           "eventhub_consumer_group_name": {
             "type": "string",
             "required": true
@@ -37954,6 +38483,10 @@ func init() {
           "location": {
             "type": "string",
             "required": true
+          },
+          "managed_identity_resource_id": {
+            "type": "string",
+            "optional": true
           },
           "mapping_rule_name": {
             "type": "string",
@@ -38006,6 +38539,11 @@ func init() {
           "database_name": {
             "type": "string",
             "required": true
+          },
+          "database_routing_type": {
+            "type": "string",
+            "optional": true,
+            "default": "Single"
           },
           "event_system_properties": {
             "type": [
@@ -38064,6 +38602,11 @@ func init() {
           "database_name": {
             "type": "string",
             "required": true
+          },
+          "database_routing_type": {
+            "type": "string",
+            "optional": true,
+            "default": "Single"
           },
           "event_system_properties": {
             "type": [
@@ -38126,11 +38669,29 @@ func init() {
           },
           "sas_token": {
             "type": "string",
-            "required": true
+            "optional": true,
+            "required_with": [
+              "url"
+            ]
+          },
+          "script_content": {
+            "type": "string",
+            "optional": true,
+            "exactly_one_of": [
+              "url",
+              "script_content"
+            ]
           },
           "url": {
             "type": "string",
-            "required": true
+            "optional": true,
+            "exactly_one_of": [
+              "url",
+              "script_content"
+            ],
+            "required_with": [
+              "sas_token"
+            ]
           }
         }
       }
@@ -38276,6 +38837,13 @@ func init() {
             ],
             "computed": true
           },
+          "inbound_nat_rules": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
           "load_balancing_rules": {
             "type": [
               "list",
@@ -38333,6 +38901,20 @@ func init() {
           "backend_address_pool_id": {
             "type": "string",
             "required": true
+          },
+          "inbound_nat_rule_port_mapping": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "backend_port": "number",
+                  "frontend_port": "number",
+                  "inbound_nat_rule_name": "string"
+                }
+              ]
+            ],
+            "computed": true
           },
           "ip_address": {
             "type": "string",
@@ -38407,6 +38989,17 @@ func init() {
     "azurerm_lb_nat_rule": {
       "block": {
         "attributes": {
+          "backend_address_pool_id": {
+            "type": "string",
+            "optional": true,
+            "conflicts_with": [
+              "frontend_port"
+            ],
+            "required_with": [
+              "frontend_port_start",
+              "frontend_port_end"
+            ]
+          },
           "backend_ip_configuration_id": {
             "type": "string",
             "computed": true
@@ -38434,7 +39027,34 @@ func init() {
           },
           "frontend_port": {
             "type": "number",
-            "required": true
+            "optional": true,
+            "conflicts_with": [
+              "frontend_port_start",
+              "frontend_port_end",
+              "backend_address_pool_id"
+            ]
+          },
+          "frontend_port_end": {
+            "type": "number",
+            "optional": true,
+            "conflicts_with": [
+              "frontend_port"
+            ],
+            "required_with": [
+              "backend_address_pool_id",
+              "frontend_port_start"
+            ]
+          },
+          "frontend_port_start": {
+            "type": "number",
+            "optional": true,
+            "conflicts_with": [
+              "frontend_port"
+            ],
+            "required_with": [
+              "backend_address_pool_id",
+              "frontend_port_end"
+            ]
           },
           "idle_timeout_in_minutes": {
             "type": "number",
@@ -40660,8 +41280,17 @@ func init() {
             "type": "string",
             "optional": true,
             "conflicts_with": [
+              "capacity_reservation_group_id",
               "virtual_machine_scale_set_id",
               "zone"
+            ]
+          },
+          "capacity_reservation_group_id": {
+            "type": "string",
+            "optional": true,
+            "conflicts_with": [
+              "availability_set_id",
+              "proximity_placement_group_id"
             ]
           },
           "computer_name": {
@@ -40769,7 +41398,10 @@ func init() {
           },
           "proximity_placement_group_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "conflicts_with": [
+              "capacity_reservation_group_id"
+            ]
           },
           "public_ip_address": {
             "type": "string",
@@ -41071,6 +41703,13 @@ func init() {
             "type": "string",
             "required": true
           },
+          "capacity_reservation_group_id": {
+            "type": "string",
+            "optional": true,
+            "conflicts_with": [
+              "proximity_placement_group_id"
+            ]
+          },
           "computer_name_prefix": {
             "type": "string",
             "optional": true,
@@ -41150,7 +41789,10 @@ func init() {
           },
           "proximity_placement_group_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "conflicts_with": [
+              "capacity_reservation_group_id"
+            ]
           },
           "resource_group_name": {
             "type": "string",
@@ -41607,6 +42249,11 @@ func init() {
                       "option": {
                         "type": "string",
                         "required": true
+                      },
+                      "placement": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "CacheDisk"
                       }
                     }
                   },
@@ -41866,6 +42513,10 @@ func init() {
               "map",
               "string"
             ],
+            "optional": true
+          },
+          "virtual_network_subnet_id": {
+            "type": "string",
             "optional": true
           },
           "zip_deploy_file": {
@@ -43023,6 +43674,10 @@ func init() {
               "map",
               "string"
             ],
+            "optional": true
+          },
+          "virtual_network_subnet_id": {
+            "type": "string",
             "optional": true
           },
           "zip_deploy_file": {
@@ -45872,6 +46527,58 @@ func init() {
             },
             "required": true
           },
+          "user": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "email": {
+                  "type": "string",
+                  "required": true
+                },
+                "first_name": {
+                  "type": "string",
+                  "required": true
+                },
+                "last_name": {
+                  "type": "string",
+                  "required": true
+                },
+                "phone_number": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "required": true
+          }
+        }
+      }
+    },
+    "azurerm_logz_sub_account": {
+      "block": {
+        "attributes": {
+          "enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "logz_monitor_id": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
           "user": {
             "nesting_mode": 3,
             "block": {
@@ -52010,7 +52717,7 @@ func init() {
             "optional": true,
             "computed": true,
             "required_with": [
-              "identity.0.identity_ids"
+              "identity"
             ]
           },
           "public_network_access_enabled": {
@@ -55167,6 +55874,11 @@ func init() {
                       "option": {
                         "type": "string",
                         "required": true
+                      },
+                      "placement": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "CacheDisk"
                       }
                     }
                   },
@@ -57013,6 +57725,13 @@ func init() {
             "type": "bool",
             "optional": true
           },
+          "fqdns": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
           "load_balancer_frontend_ip_configuration_ids": {
             "type": [
               "set",
@@ -57315,6 +58034,13 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
                 "principal_id": {
                   "type": "string",
                   "computed": true
@@ -61488,6 +62214,17 @@ func init() {
             "type": "string",
             "optional": true
           },
+          "disk_types_not_allowed": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true
+          },
+          "end_of_life_date": {
+            "type": "string",
+            "optional": true
+          },
           "eula": {
             "type": "string",
             "optional": true
@@ -61504,6 +62241,22 @@ func init() {
           "location": {
             "type": "string",
             "required": true
+          },
+          "max_recommended_memory_in_gb": {
+            "type": "number",
+            "optional": true
+          },
+          "max_recommended_vcpu_count": {
+            "type": "number",
+            "optional": true
+          },
+          "min_recommended_memory_in_gb": {
+            "type": "number",
+            "optional": true
+          },
+          "min_recommended_vcpu_count": {
+            "type": "number",
+            "optional": true
           },
           "name": {
             "type": "string",
@@ -61621,6 +62374,10 @@ func init() {
     "azurerm_shared_image_version": {
       "block": {
         "attributes": {
+          "end_of_life_date": {
+            "type": "string",
+            "optional": true
+          },
           "exclude_from_latest": {
             "type": "bool",
             "optional": true,
@@ -61658,6 +62415,11 @@ func init() {
               "managed_image_id"
             ]
           },
+          "replication_mode": {
+            "type": "string",
+            "optional": true,
+            "default": "Full"
+          },
           "resource_group_name": {
             "type": "string",
             "required": true
@@ -61672,9 +62434,13 @@ func init() {
         },
         "block_types": {
           "target_region": {
-            "nesting_mode": 4,
+            "nesting_mode": 3,
             "block": {
               "attributes": {
+                "disk_encryption_set_id": {
+                  "type": "string",
+                  "optional": true
+                },
                 "name": {
                   "type": "string",
                   "required": true
@@ -61786,6 +62552,34 @@ func init() {
             },
             "optional": true,
             "computed": true
+          },
+          "live_trace": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "connectivity_logs_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "http_request_logs_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "messaging_logs_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                }
+              }
+            },
+            "optional": true
           },
           "sku": {
             "nesting_mode": 3,
@@ -62372,6 +63166,24 @@ func init() {
         }
       }
     },
+    "azurerm_spring_cloud_api_portal_custom_domain": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "spring_cloud_api_portal_id": {
+            "type": "string",
+            "required": true
+          },
+          "thumbprint": {
+            "type": "string",
+            "optional": true
+          }
+        }
+      }
+    },
     "azurerm_spring_cloud_app": {
       "block": {
         "attributes": {
@@ -62637,6 +63449,11 @@ func init() {
     "azurerm_spring_cloud_build_deployment": {
       "block": {
         "attributes": {
+          "addon_json": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
           "build_result_id": {
             "type": "string",
             "required": true
@@ -62893,6 +63710,11 @@ func init() {
     "azurerm_spring_cloud_container_deployment": {
       "block": {
         "attributes": {
+          "addon_json": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
           "arguments": {
             "type": [
               "list",
@@ -64502,7 +65324,7 @@ func init() {
           },
           "validation_type": {
             "type": "string",
-            "required": true
+            "optional": true
           }
         }
       }
@@ -66533,6 +67355,11 @@ func init() {
     "azurerm_stream_analytics_output_blob": {
       "block": {
         "attributes": {
+          "authentication_mode": {
+            "type": "string",
+            "optional": true,
+            "default": "ConnectionString"
+          },
           "batch_max_wait_time": {
             "type": "string",
             "optional": true
@@ -66559,7 +67386,7 @@ func init() {
           },
           "storage_account_key": {
             "type": "string",
-            "required": true
+            "optional": true
           },
           "storage_account_name": {
             "type": "string",
@@ -69115,7 +69942,8 @@ func init() {
           },
           "weight": {
             "type": "number",
-            "required": true
+            "optional": true,
+            "computed": true
           }
         },
         "block_types": {
@@ -69197,7 +70025,8 @@ func init() {
           },
           "weight": {
             "type": "number",
-            "required": true
+            "optional": true,
+            "computed": true
           }
         },
         "block_types": {
@@ -69291,7 +70120,8 @@ func init() {
           },
           "weight": {
             "type": "number",
-            "required": true
+            "optional": true,
+            "computed": true
           }
         },
         "block_types": {
@@ -73159,6 +73989,39 @@ func init() {
               }
             },
             "optional": true
+          },
+          "o365_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "traffic_category": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allow_endpoint_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "default_endpoint_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "optimize_endpoint_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
           }
         }
       }
@@ -75505,8 +76368,17 @@ func init() {
             "type": "string",
             "optional": true,
             "conflicts_with": [
+              "capacity_reservation_group_id",
               "virtual_machine_scale_set_id",
               "zone"
+            ]
+          },
+          "capacity_reservation_group_id": {
+            "type": "string",
+            "optional": true,
+            "conflicts_with": [
+              "availability_set_id",
+              "proximity_placement_group_id"
             ]
           },
           "computer_name": {
@@ -75619,7 +76491,10 @@ func init() {
           },
           "proximity_placement_group_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "conflicts_with": [
+              "capacity_reservation_group_id"
+            ]
           },
           "public_ip_address": {
             "type": "string",
@@ -75945,6 +76820,13 @@ func init() {
             "type": "string",
             "required": true
           },
+          "capacity_reservation_group_id": {
+            "type": "string",
+            "optional": true,
+            "conflicts_with": [
+              "proximity_placement_group_id"
+            ]
+          },
           "computer_name_prefix": {
             "type": "string",
             "optional": true,
@@ -76028,7 +76910,10 @@ func init() {
           },
           "proximity_placement_group_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "conflicts_with": [
+              "capacity_reservation_group_id"
+            ]
           },
           "resource_group_name": {
             "type": "string",
@@ -76489,6 +77374,11 @@ func init() {
                       "option": {
                         "type": "string",
                         "required": true
+                      },
+                      "placement": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "CacheDisk"
                       }
                     }
                   },
@@ -78990,5 +79880,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.11.0"
+    ProviderSchemaInfo.Version = "3.14.0"
 }

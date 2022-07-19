@@ -3585,6 +3585,215 @@ func init() {
         }
       }
     },
+    "google_artifact_registry_repository": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "format": {
+            "type": "string",
+            "required": true
+          },
+          "kms_key_name": {
+            "type": "string",
+            "optional": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "repository_id": {
+            "type": "string",
+            "required": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "maven_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "allow_snapshot_overwrites": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "version_policy": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "VERSION_POLICY_UNSPECIFIED"
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_artifact_registry_repository_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "repository": {
+            "type": "string",
+            "required": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_artifact_registry_repository_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "member": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "repository": {
+            "type": "string",
+            "required": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_artifact_registry_repository_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "repository": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
     "google_assured_workloads_workload": {
       "block": {
         "attributes": {
@@ -3864,6 +4073,145 @@ func init() {
               "cloud_spanner",
               "cloud_resource"
             ]
+          }
+        }
+      }
+    },
+    "google_bigquery_connection_iam_binding": {
+      "block": {
+        "attributes": {
+          "connection_id": {
+            "type": "string",
+            "required": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_bigquery_connection_iam_member": {
+      "block": {
+        "attributes": {
+          "connection_id": {
+            "type": "string",
+            "required": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "member": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_bigquery_connection_iam_policy": {
+      "block": {
+        "attributes": {
+          "connection_id": {
+            "type": "string",
+            "required": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           }
         }
       }
@@ -4964,7 +5312,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 },
                 "script_options": {
                   "nesting_mode": 3,
@@ -6417,6 +6766,19 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "calendar_period": {
+                  "type": "string",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "budget_filter.0.projects",
+                    "budget_filter.0.credit_types_treatment",
+                    "budget_filter.0.services",
+                    "budget_filter.0.subaccounts",
+                    "budget_filter.0.labels",
+                    "budget_filter.0.calendar_period",
+                    "budget_filter.0.custom_period"
+                  ]
+                },
                 "credit_types": {
                   "type": [
                     "list",
@@ -6429,7 +6791,9 @@ func init() {
                     "budget_filter.0.credit_types_treatment",
                     "budget_filter.0.services",
                     "budget_filter.0.subaccounts",
-                    "budget_filter.0.labels"
+                    "budget_filter.0.labels",
+                    "budget_filter.0.calendar_period",
+                    "budget_filter.0.custom_period"
                   ]
                 },
                 "credit_types_treatment": {
@@ -6441,7 +6805,9 @@ func init() {
                     "budget_filter.0.credit_types_treatment",
                     "budget_filter.0.services",
                     "budget_filter.0.subaccounts",
-                    "budget_filter.0.labels"
+                    "budget_filter.0.labels",
+                    "budget_filter.0.calendar_period",
+                    "budget_filter.0.custom_period"
                   ]
                 },
                 "labels": {
@@ -6456,7 +6822,9 @@ func init() {
                     "budget_filter.0.credit_types_treatment",
                     "budget_filter.0.services",
                     "budget_filter.0.subaccounts",
-                    "budget_filter.0.labels"
+                    "budget_filter.0.labels",
+                    "budget_filter.0.calendar_period",
+                    "budget_filter.0.custom_period"
                   ]
                 },
                 "projects": {
@@ -6470,7 +6838,9 @@ func init() {
                     "budget_filter.0.credit_types_treatment",
                     "budget_filter.0.services",
                     "budget_filter.0.subaccounts",
-                    "budget_filter.0.labels"
+                    "budget_filter.0.labels",
+                    "budget_filter.0.calendar_period",
+                    "budget_filter.0.custom_period"
                   ]
                 },
                 "services": {
@@ -6485,7 +6855,9 @@ func init() {
                     "budget_filter.0.credit_types_treatment",
                     "budget_filter.0.services",
                     "budget_filter.0.subaccounts",
-                    "budget_filter.0.labels"
+                    "budget_filter.0.labels",
+                    "budget_filter.0.calendar_period",
+                    "budget_filter.0.custom_period"
                   ]
                 },
                 "subaccounts": {
@@ -6500,7 +6872,68 @@ func init() {
                     "budget_filter.0.credit_types_treatment",
                     "budget_filter.0.services",
                     "budget_filter.0.subaccounts",
-                    "budget_filter.0.labels"
+                    "budget_filter.0.labels",
+                    "budget_filter.0.calendar_period",
+                    "budget_filter.0.custom_period"
+                  ]
+                }
+              },
+              "block_types": {
+                "custom_period": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "end_date": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "day": {
+                              "type": "number",
+                              "required": true
+                            },
+                            "month": {
+                              "type": "number",
+                              "required": true
+                            },
+                            "year": {
+                              "type": "number",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "start_date": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "day": {
+                              "type": "number",
+                              "required": true
+                            },
+                            "month": {
+                              "type": "number",
+                              "required": true
+                            },
+                            "year": {
+                              "type": "number",
+                              "required": true
+                            }
+                          }
+                        },
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "budget_filter.0.projects",
+                    "budget_filter.0.credit_types_treatment",
+                    "budget_filter.0.services",
+                    "budget_filter.0.subaccounts",
+                    "budget_filter.0.labels",
+                    "budget_filter.0.calendar_period",
+                    "budget_filter.0.custom_period"
                   ]
                 }
               }
@@ -8472,6 +8905,145 @@ func init() {
         }
       }
     },
+    "google_cloud_tasks_queue_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_cloud_tasks_queue_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "member": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_cloud_tasks_queue_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          }
+        }
+      }
+    },
     "google_cloudbuild_trigger": {
       "block": {
         "attributes": {
@@ -9367,6 +9939,10 @@ func init() {
             "optional": true,
             "computed": true
           },
+          "suspended": {
+            "type": "bool",
+            "optional": true
+          },
           "uid": {
             "type": "string",
             "computed": true
@@ -9488,11 +10064,13 @@ func init() {
               "attributes": {
                 "artifact_storage": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 },
                 "service_account": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 },
                 "usages": {
                   "type": [
@@ -9507,7 +10085,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "computed": true
           },
           "gke": {
             "nesting_mode": 3,
@@ -10156,6 +10735,145 @@ func init() {
                 }
               }
             },
+            "optional": true,
+            "computed": true
+          }
+        }
+      }
+    },
+    "google_cloudiot_registry_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "region": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_cloudiot_registry_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "member": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "region": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_cloudiot_registry_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "region": {
+            "type": "string",
             "optional": true,
             "computed": true
           }
@@ -12169,7 +12887,8 @@ func init() {
           },
           "provisioned_iops": {
             "type": "number",
-            "optional": true
+            "optional": true,
+            "computed": true
           },
           "self_link": {
             "type": "string",
@@ -12923,6 +13642,14 @@ func init() {
             "optional": true,
             "computed": true
           },
+          "psc_connection_id": {
+            "type": "string",
+            "computed": true
+          },
+          "psc_connection_status": {
+            "type": "string",
+            "computed": true
+          },
           "region": {
             "type": "string",
             "optional": true,
@@ -13078,6 +13805,14 @@ func init() {
           "project": {
             "type": "string",
             "optional": true,
+            "computed": true
+          },
+          "psc_connection_id": {
+            "type": "string",
+            "computed": true
+          },
+          "psc_connection_status": {
+            "type": "string",
             "computed": true
           },
           "self_link": {
@@ -18554,6 +19289,10 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "kms_key_name": {
+                  "type": "string",
+                  "optional": true
+                },
                 "raw_key": {
                   "type": "string",
                   "optional": true
@@ -21727,7 +22466,7 @@ func init() {
           "enable_dynamic_port_allocation": {
             "type": "bool",
             "optional": true,
-            "default": false
+            "computed": true
           },
           "enable_endpoint_independent_mapping": {
             "type": "bool",
@@ -21738,6 +22477,10 @@ func init() {
             "type": "number",
             "optional": true,
             "default": 30
+          },
+          "max_ports_per_vm": {
+            "type": "number",
+            "optional": true
           },
           "min_ports_per_vm": {
             "type": "number",
@@ -22306,6 +23049,130 @@ func init() {
               }
             },
             "optional": true
+          }
+        }
+      }
+    },
+    "google_compute_snapshot_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_compute_snapshot_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "member": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_compute_snapshot_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           }
         }
       }
@@ -26379,7 +27246,8 @@ func init() {
             "optional": true,
             "default": false,
             "conflicts_with": [
-              "enable_autopilot"
+              "enable_autopilot",
+              "binary_authorization"
             ]
           },
           "enable_intranode_visibility": {
@@ -26546,7 +27414,56 @@ func init() {
                     "addons_config.0.horizontal_pod_autoscaling",
                     "addons_config.0.network_policy_config",
                     "addons_config.0.cloudrun_config",
-                    "addons_config.0.gcp_filestore_csi_driver_config"
+                    "addons_config.0.gcp_filestore_csi_driver_config",
+                    "addons_config.0.dns_cache_config",
+                    "addons_config.0.gce_persistent_disk_csi_driver_config"
+                  ]
+                },
+                "dns_cache_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enabled": {
+                        "type": "bool",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "computed": true,
+                  "conflicts_with": [
+                    "enable_autopilot"
+                  ],
+                  "at_least_one_of": [
+                    "addons_config.0.http_load_balancing",
+                    "addons_config.0.horizontal_pod_autoscaling",
+                    "addons_config.0.network_policy_config",
+                    "addons_config.0.cloudrun_config",
+                    "addons_config.0.gcp_filestore_csi_driver_config",
+                    "addons_config.0.dns_cache_config",
+                    "addons_config.0.gce_persistent_disk_csi_driver_config"
+                  ]
+                },
+                "gce_persistent_disk_csi_driver_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enabled": {
+                        "type": "bool",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "computed": true,
+                  "at_least_one_of": [
+                    "addons_config.0.http_load_balancing",
+                    "addons_config.0.horizontal_pod_autoscaling",
+                    "addons_config.0.network_policy_config",
+                    "addons_config.0.cloudrun_config",
+                    "addons_config.0.gcp_filestore_csi_driver_config",
+                    "addons_config.0.dns_cache_config",
+                    "addons_config.0.gce_persistent_disk_csi_driver_config"
                   ]
                 },
                 "gcp_filestore_csi_driver_config": {
@@ -26569,7 +27486,9 @@ func init() {
                     "addons_config.0.horizontal_pod_autoscaling",
                     "addons_config.0.network_policy_config",
                     "addons_config.0.cloudrun_config",
-                    "addons_config.0.gcp_filestore_csi_driver_config"
+                    "addons_config.0.gcp_filestore_csi_driver_config",
+                    "addons_config.0.dns_cache_config",
+                    "addons_config.0.gce_persistent_disk_csi_driver_config"
                   ]
                 },
                 "horizontal_pod_autoscaling": {
@@ -26589,7 +27508,9 @@ func init() {
                     "addons_config.0.horizontal_pod_autoscaling",
                     "addons_config.0.network_policy_config",
                     "addons_config.0.cloudrun_config",
-                    "addons_config.0.gcp_filestore_csi_driver_config"
+                    "addons_config.0.gcp_filestore_csi_driver_config",
+                    "addons_config.0.dns_cache_config",
+                    "addons_config.0.gce_persistent_disk_csi_driver_config"
                   ]
                 },
                 "http_load_balancing": {
@@ -26609,7 +27530,9 @@ func init() {
                     "addons_config.0.horizontal_pod_autoscaling",
                     "addons_config.0.network_policy_config",
                     "addons_config.0.cloudrun_config",
-                    "addons_config.0.gcp_filestore_csi_driver_config"
+                    "addons_config.0.gcp_filestore_csi_driver_config",
+                    "addons_config.0.dns_cache_config",
+                    "addons_config.0.gce_persistent_disk_csi_driver_config"
                   ]
                 },
                 "network_policy_config": {
@@ -26632,7 +27555,9 @@ func init() {
                     "addons_config.0.horizontal_pod_autoscaling",
                     "addons_config.0.network_policy_config",
                     "addons_config.0.cloudrun_config",
-                    "addons_config.0.gcp_filestore_csi_driver_config"
+                    "addons_config.0.gcp_filestore_csi_driver_config",
+                    "addons_config.0.dns_cache_config",
+                    "addons_config.0.gce_persistent_disk_csi_driver_config"
                   ]
                 }
               }
@@ -26652,6 +27577,32 @@ func init() {
             },
             "optional": true,
             "computed": true
+          },
+          "binary_authorization": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "conflicts_with": [
+                    "enable_autopilot",
+                    "binary_authorization.0.evaluation_mode"
+                  ]
+                },
+                "evaluation_mode": {
+                  "type": "string",
+                  "optional": true,
+                  "conflicts_with": [
+                    "binary_authorization.0.enabled"
+                  ]
+                }
+              }
+            },
+            "optional": true,
+            "conflicts_with": [
+              "enable_binary_authorization"
+            ]
           },
           "cluster_autoscaling": {
             "nesting_mode": 3,
@@ -27094,7 +28045,8 @@ func init() {
                 },
                 "min_cpu_platform": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 },
                 "node_group": {
                   "type": "string",
@@ -27367,7 +28319,8 @@ func init() {
                       },
                       "min_cpu_platform": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "computed": true
                       },
                       "node_group": {
                         "type": "string",
@@ -27505,6 +28458,31 @@ func init() {
             "conflicts_with": [
               "enable_autopilot"
             ]
+          },
+          "notification_config": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "pubsub": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enabled": {
+                        "type": "bool",
+                        "required": true
+                      },
+                      "topic": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
           },
           "private_cluster_config": {
             "nesting_mode": 3,
@@ -27808,7 +28786,8 @@ func init() {
                 },
                 "min_cpu_platform": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 },
                 "node_group": {
                   "type": "string",
@@ -30272,6 +31251,145 @@ func init() {
         }
       }
     },
+    "google_dataproc_autoscaling_policy_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "policy_id": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_dataproc_autoscaling_policy_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "member": {
+            "type": "string",
+            "required": true
+          },
+          "policy_id": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_dataproc_autoscaling_policy_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "policy_id": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          }
+        }
+      }
+    },
     "google_dataproc_cluster": {
       "block": {
         "attributes": {
@@ -30326,7 +31444,8 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
                   ]
                 },
                 "temp_bucket": {
@@ -30344,7 +31463,8 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
                   ]
                 }
               },
@@ -30371,7 +31491,8 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
                   ]
                 },
                 "encryption_config": {
@@ -30396,7 +31517,8 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
                   ]
                 },
                 "gce_cluster_config": {
@@ -30609,7 +31731,8 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
                   ]
                 },
                 "initialization_action": {
@@ -30639,7 +31762,8 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
                   ]
                 },
                 "master_config": {
@@ -30793,7 +31917,34 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
+                  ]
+                },
+                "metastore_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "dataproc_metastore_service": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "cluster_config.0.staging_bucket",
+                    "cluster_config.0.temp_bucket",
+                    "cluster_config.0.gce_cluster_config",
+                    "cluster_config.0.master_config",
+                    "cluster_config.0.worker_config",
+                    "cluster_config.0.preemptible_worker_config",
+                    "cluster_config.0.security_config",
+                    "cluster_config.0.software_config",
+                    "cluster_config.0.initialization_action",
+                    "cluster_config.0.encryption_config",
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
                   ]
                 },
                 "preemptible_worker_config": {
@@ -30888,7 +32039,8 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
                   ]
                 },
                 "security_config": {
@@ -31027,7 +32179,8 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
                   ]
                 },
                 "worker_config": {
@@ -31181,7 +32334,233 @@ func init() {
                     "cluster_config.0.software_config",
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
-                    "cluster_config.0.autoscaling_config"
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config"
+                  ]
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
+          },
+          "virtual_cluster_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "staging_bucket": {
+                  "type": "string",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "virtual_cluster_config.0.staging_bucket",
+                    "virtual_cluster_config.0.auxiliary_services_config",
+                    "virtual_cluster_config.0.kubernetes_cluster_config"
+                  ]
+                }
+              },
+              "block_types": {
+                "auxiliary_services_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "metastore_config": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "dataproc_metastore_service": {
+                              "type": "string",
+                              "optional": true,
+                              "at_least_one_of": [
+                                "virtual_cluster_config.0.auxiliary_services_config.0.metastore_config.0.dataproc_metastore_service"
+                              ]
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "at_least_one_of": [
+                          "virtual_cluster_config.0.auxiliary_services_config.0.metastore_config",
+                          "virtual_cluster_config.0.auxiliary_services_config.0.spark_history_server_config"
+                        ]
+                      },
+                      "spark_history_server_config": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "dataproc_cluster": {
+                              "type": "string",
+                              "optional": true,
+                              "at_least_one_of": [
+                                "virtual_cluster_config.0.auxiliary_services_config.0.spark_history_server_config.0.dataproc_cluster"
+                              ]
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "at_least_one_of": [
+                          "virtual_cluster_config.0.auxiliary_services_config.0.metastore_config",
+                          "virtual_cluster_config.0.auxiliary_services_config.0.spark_history_server_config"
+                        ]
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "computed": true,
+                  "at_least_one_of": [
+                    "virtual_cluster_config.0.staging_bucket",
+                    "virtual_cluster_config.0.auxiliary_services_config",
+                    "virtual_cluster_config.0.kubernetes_cluster_config"
+                  ]
+                },
+                "kubernetes_cluster_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "kubernetes_namespace": {
+                        "type": "string",
+                        "optional": true,
+                        "at_least_one_of": [
+                          "virtual_cluster_config.0.kubernetes_cluster_config.0.kubernetes_namespace"
+                        ]
+                      }
+                    },
+                    "block_types": {
+                      "gke_cluster_config": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "gke_cluster_target": {
+                              "type": "string",
+                              "optional": true,
+                              "at_least_one_of": [
+                                "virtual_cluster_config.0.kubernetes_cluster_config.0.gke_cluster_config.0.gke_cluster_target",
+                                "virtual_cluster_config.0.kubernetes_cluster_config.0.gke_cluster_config.0.node_pool_target"
+                              ]
+                            }
+                          },
+                          "block_types": {
+                            "node_pool_target": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "node_pool": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "roles": {
+                                    "type": [
+                                      "set",
+                                      "string"
+                                    ],
+                                    "required": true
+                                  }
+                                },
+                                "block_types": {
+                                  "node_pool_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "locations": {
+                                          "type": [
+                                            "set",
+                                            "string"
+                                          ],
+                                          "required": true
+                                        }
+                                      },
+                                      "block_types": {
+                                        "autoscaling": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "max_node_count": {
+                                                "type": "number",
+                                                "optional": true
+                                              },
+                                              "min_node_count": {
+                                                "type": "number",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "computed": true
+                                        },
+                                        "config": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "local_ssd_count": {
+                                                "type": "number",
+                                                "optional": true
+                                              },
+                                              "machine_type": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "min_cpu_platform": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "preemptible": {
+                                                "type": "bool",
+                                                "optional": true
+                                              },
+                                              "spot": {
+                                                "type": "bool",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "computed": true
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "computed": true
+                                  }
+                                }
+                              },
+                              "optional": true,
+                              "at_least_one_of": [
+                                "virtual_cluster_config.0.kubernetes_cluster_config.0.gke_cluster_config.0.gke_cluster_target",
+                                "virtual_cluster_config.0.kubernetes_cluster_config.0.gke_cluster_config.0.node_pool_target"
+                              ]
+                            }
+                          }
+                        },
+                        "required": true
+                      },
+                      "kubernetes_software_config": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "component_version": {
+                              "type": [
+                                "map",
+                                "string"
+                              ],
+                              "required": true
+                            },
+                            "properties": {
+                              "type": [
+                                "map",
+                                "string"
+                              ],
+                              "optional": true,
+                              "computed": true
+                            }
+                          }
+                        },
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "computed": true,
+                  "at_least_one_of": [
+                    "virtual_cluster_config.0.staging_bucket",
+                    "virtual_cluster_config.0.auxiliary_services_config",
+                    "virtual_cluster_config.0.kubernetes_cluster_config"
                   ]
                 }
               }
@@ -32109,6 +33488,303 @@ func init() {
             "type": "string",
             "optional": true,
             "computed": true
+          }
+        }
+      }
+    },
+    "google_dataproc_metastore_service": {
+      "block": {
+        "attributes": {
+          "artifact_gcs_uri": {
+            "type": "string",
+            "computed": true
+          },
+          "database_type": {
+            "type": "string",
+            "optional": true,
+            "default": "MYSQL"
+          },
+          "endpoint_uri": {
+            "type": "string",
+            "computed": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "default": "global"
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "network": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "port": {
+            "type": "number",
+            "optional": true,
+            "computed": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "release_channel": {
+            "type": "string",
+            "optional": true,
+            "default": "STABLE"
+          },
+          "service_id": {
+            "type": "string",
+            "required": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "state_message": {
+            "type": "string",
+            "computed": true
+          },
+          "tier": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "uid": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "encryption_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "kms_key": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "hive_metastore_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "config_overrides": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true,
+                  "computed": true
+                },
+                "version": {
+                  "type": "string",
+                  "required": true
+                }
+              },
+              "block_types": {
+                "kerberos_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "krb5_config_gcs_uri": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "principal": {
+                        "type": "string",
+                        "required": true
+                      }
+                    },
+                    "block_types": {
+                      "keytab": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "cloud_secret": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "maintenance_window": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "day_of_week": {
+                  "type": "string",
+                  "required": true
+                },
+                "hour_of_day": {
+                  "type": "number",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_dataproc_metastore_service_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          },
+          "service_id": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_dataproc_metastore_service_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "member": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          },
+          "service_id": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_dataproc_metastore_service_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "service_id": {
+            "type": "string",
+            "required": true
           }
         }
       }
@@ -37534,6 +39210,132 @@ func init() {
         }
       }
     },
+    "google_iam_workload_identity_pool": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "disabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "workload_identity_pool_id": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
+    "google_iam_workload_identity_pool_provider": {
+      "block": {
+        "attributes": {
+          "attribute_condition": {
+            "type": "string",
+            "optional": true
+          },
+          "attribute_mapping": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "disabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "workload_identity_pool_id": {
+            "type": "string",
+            "required": true
+          },
+          "workload_identity_pool_provider_id": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "aws": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "account_id": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "aws",
+              "oidc"
+            ]
+          },
+          "oidc": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "allowed_audiences": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "issuer_uri": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "aws",
+              "oidc"
+            ]
+          }
+        }
+      }
+    },
     "google_iap_app_engine_service_iam_binding": {
       "block": {
         "attributes": {
@@ -40890,6 +42692,24 @@ func init() {
               }
             },
             "optional": true
+          }
+        }
+      }
+    },
+    "google_monitoring_monitored_project": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "metrics_scope": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
           }
         }
       }
@@ -47229,6 +49049,10 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "pem_ca_certificate": {
+            "type": "string",
+            "optional": true
+          },
           "pem_ca_certificates": {
             "type": [
               "list",
@@ -47587,6 +49411,43 @@ func init() {
               }
             },
             "required": true
+          },
+          "subordinate_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "certificate_authority": {
+                  "type": "string",
+                  "optional": true,
+                  "exactly_one_of": [
+                    "subordinate_config.0.certificate_authority",
+                    "subordinate_config.0.pem_issuer_chain"
+                  ]
+                }
+              },
+              "block_types": {
+                "pem_issuer_chain": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "pem_certificates": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "exactly_one_of": [
+                    "subordinate_config.0.certificate_authority",
+                    "subordinate_config.0.pem_issuer_chain"
+                  ]
+                }
+              }
+            },
+            "optional": true
           }
         }
       }
@@ -49323,6 +51184,10 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "customer_managed_key": {
+            "type": "string",
+            "optional": true
+          },
           "display_name": {
             "type": "string",
             "optional": true
@@ -50397,6 +52262,11 @@ func init() {
           "state": {
             "type": "string",
             "computed": true
+          },
+          "version_retention_period": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           }
         },
         "block_types": {
@@ -50781,6 +52651,11 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": true
+          },
+          "encryption_key_name": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           },
           "first_ip_address": {
             "type": "string",
@@ -51449,6 +53324,10 @@ func init() {
                           "settings.0.location_preference.0.zone"
                         ]
                       },
+                      "secondary_zone": {
+                        "type": "string",
+                        "optional": true
+                      },
                       "zone": {
                         "type": "string",
                         "optional": true,
@@ -51492,6 +53371,26 @@ func init() {
                           "settings.0.maintenance_window.0.hour",
                           "settings.0.maintenance_window.0.update_track"
                         ]
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "sql_server_audit_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "bucket": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "retention_interval": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "upload_interval": {
+                        "type": "string",
+                        "optional": true
                       }
                     }
                   },
@@ -53403,5 +55302,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.26.0"
+    ProviderSchemaInfo.Version = "4.29.0"
 }
