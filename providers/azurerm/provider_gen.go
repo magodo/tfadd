@@ -8307,6 +8307,89 @@ func init() {
         }
       }
     },
+    "azurerm_application_insights_workbook": {
+      "block": {
+        "attributes": {
+          "category": {
+            "type": "string",
+            "optional": true,
+            "default": "workbook"
+          },
+          "data_json": {
+            "type": "string",
+            "required": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true
+          },
+          "source_id": {
+            "type": "string",
+            "optional": true,
+            "default": "azure monitor"
+          },
+          "storage_container_id": {
+            "type": "string",
+            "optional": true,
+            "required_with": [
+              "identity"
+            ]
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
     "azurerm_application_insights_workbook_template": {
       "block": {
         "attributes": {
@@ -12106,6 +12189,159 @@ func init() {
               "string"
             ],
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_cdn_frontdoor_origin": {
+      "block": {
+        "attributes": {
+          "cdn_frontdoor_origin_group_id": {
+            "type": "string",
+            "required": true
+          },
+          "certificate_name_check_enabled": {
+            "type": "bool",
+            "required": true
+          },
+          "health_probes_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "host_name": {
+            "type": "string",
+            "required": true
+          },
+          "http_port": {
+            "type": "number",
+            "optional": true,
+            "default": 80
+          },
+          "https_port": {
+            "type": "number",
+            "optional": true,
+            "default": 443
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "origin_host_header": {
+            "type": "string",
+            "optional": true
+          },
+          "priority": {
+            "type": "number",
+            "optional": true,
+            "default": 1
+          },
+          "weight": {
+            "type": "number",
+            "optional": true,
+            "default": 500
+          }
+        },
+        "block_types": {
+          "private_link": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "location": {
+                  "type": "string",
+                  "required": true
+                },
+                "private_link_target_id": {
+                  "type": "string",
+                  "required": true
+                },
+                "request_message": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "Access request for CDN FrontDoor Private Link Origin"
+                },
+                "target_type": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_cdn_frontdoor_origin_group": {
+      "block": {
+        "attributes": {
+          "cdn_frontdoor_profile_id": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "restore_traffic_time_to_healed_or_new_endpoint_in_minutes": {
+            "type": "number",
+            "optional": true,
+            "default": 10
+          },
+          "session_affinity_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          }
+        },
+        "block_types": {
+          "health_probe": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "interval_in_seconds": {
+                  "type": "number",
+                  "required": true
+                },
+                "path": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "/"
+                },
+                "protocol": {
+                  "type": "string",
+                  "required": true
+                },
+                "request_type": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "HEAD"
+                }
+              }
+            },
+            "optional": true
+          },
+          "load_balancing": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "additional_latency_in_milliseconds": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 50
+                },
+                "sample_size": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 4
+                },
+                "successful_samples_required": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 3
+                }
+              }
+            },
+            "required": true
           }
         }
       }
@@ -38122,6 +38358,20 @@ func init() {
     "azurerm_kusto_cluster": {
       "block": {
         "attributes": {
+          "allowed_fqdns": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          "allowed_ip_ranges": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
           "auto_stop_enabled": {
             "type": "bool",
             "optional": true,
@@ -38159,6 +38409,11 @@ func init() {
           "name": {
             "type": "string",
             "required": true
+          },
+          "outbound_network_access_restricted": {
+            "type": "bool",
+            "optional": true,
+            "default": false
           },
           "public_ip_type": {
             "type": "string",
@@ -51061,6 +51316,231 @@ func init() {
         }
       }
     },
+    "azurerm_monitor_data_collection_rule": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "kind": {
+            "type": "string",
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "data_flow": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "destinations": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                },
+                "streams": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                }
+              }
+            },
+            "required": true
+          },
+          "data_sources": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "extension": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "extension_json": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "extension_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "input_data_sources": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "streams": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "performance_counter": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "counter_specifiers": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "sampling_frequency_in_seconds": {
+                        "type": "number",
+                        "required": true
+                      },
+                      "streams": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "syslog": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "facility_names": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "log_levels": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "windows_event_log": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "streams": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "x_path_queries": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "destinations": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "azure_monitor_metrics": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "destinations.0.azure_monitor_metrics",
+                    "destinations.0.log_analytics"
+                  ]
+                },
+                "log_analytics": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "workspace_resource_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "destinations.0.azure_monitor_metrics",
+                    "destinations.0.log_analytics"
+                  ]
+                }
+              }
+            },
+            "required": true
+          }
+        }
+      }
+    },
     "azurerm_monitor_diagnostic_setting": {
       "block": {
         "attributes": {
@@ -59490,6 +59970,85 @@ func init() {
         }
       }
     },
+    "azurerm_route_server": {
+      "block": {
+        "attributes": {
+          "branch_to_branch_traffic_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "location": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "public_ip_address_id": {
+            "type": "string",
+            "required": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true
+          },
+          "routing_state": {
+            "type": "string",
+            "computed": true
+          },
+          "sku": {
+            "type": "string",
+            "required": true
+          },
+          "subnet_id": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "virtual_router_asn": {
+            "type": "number",
+            "computed": true
+          },
+          "virtual_router_ips": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "computed": true
+          }
+        }
+      }
+    },
+    "azurerm_route_server_bgp_connection": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "peer_asn": {
+            "type": "number",
+            "required": true
+          },
+          "peer_ip": {
+            "type": "string",
+            "required": true
+          },
+          "route_server_id": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
     "azurerm_route_table": {
       "block": {
         "attributes": {
@@ -65613,6 +66172,10 @@ func init() {
                   "type": "bool",
                   "optional": true,
                   "default": false
+                },
+                "change_feed_retention_in_days": {
+                  "type": "number",
+                  "optional": true
                 },
                 "default_service_version": {
                   "type": "string",
@@ -74582,6 +75145,36 @@ func init() {
         }
       }
     },
+    "azurerm_web_pubsub_shared_private_link_resource": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "request_message": {
+            "type": "string",
+            "optional": true
+          },
+          "status": {
+            "type": "string",
+            "computed": true
+          },
+          "subresource_name": {
+            "type": "string",
+            "required": true
+          },
+          "target_resource_id": {
+            "type": "string",
+            "required": true
+          },
+          "web_pubsub_id": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
     "azurerm_windows_function_app": {
       "block": {
         "attributes": {
@@ -79880,5 +80473,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.14.0"
+    ProviderSchemaInfo.Version = "3.15.0"
 }
