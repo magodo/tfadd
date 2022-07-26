@@ -3,13 +3,13 @@ package tfadd
 import (
 	"context"
 	"fmt"
+	"github.com/magodo/tfadd/tfadd/internal"
 
 	"github.com/magodo/tfadd/addr"
 
 	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/terraform-exec/tfexec"
 	tfjson "github.com/hashicorp/terraform-json"
-	"github.com/magodo/tfadd/tpl"
 	"github.com/magodo/tfstate"
 )
 
@@ -81,7 +81,7 @@ func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]by
 		if !ok {
 			continue
 		}
-		b, err := tpl.StateToTpl(res, rsch.Block)
+		b, err := internal.StateToTpl(res, rsch.Block)
 		if err != nil {
 			errs = multierror.Append(errs, fmt.Errorf("generate template from state for %s: %v", res.Type, err))
 		}
@@ -90,7 +90,11 @@ func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]by
 			if !ok {
 				continue
 			}
-			b, err = sdkPsch.TuneTpl(b, res.Type)
+			sch, ok := sdkPsch.ResourceSchemas[res.Type]
+			if !ok {
+				continue
+			}
+			b, err = internal.TuneTpl(*sch, b, res.Type)
 			if err != nil {
 				errs = multierror.Append(errs, fmt.Errorf("tune template for %s: %v", res.Type, err))
 			}

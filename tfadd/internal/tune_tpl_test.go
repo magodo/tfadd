@@ -1,6 +1,7 @@
-package legacy
+package internal
 
 import (
+	"github.com/magodo/tfadd/schema/legacy"
 	"testing"
 
 	"github.com/hashicorp/hcl/v2"
@@ -10,16 +11,12 @@ import (
 )
 
 func TestTuneTpl(t *testing.T) {
-	providerSchema := ProviderSchema{
-		ResourceSchemas: map[string]*Schema{
-			"foo": {
-				Block: &SchemaBlock{
-					NestedBlocks: map[string]*SchemaBlockType{
-						"req": {
-							NestingMode: NestingSingle,
-							Required:    true,
-						},
-					},
+	sch := legacy.Schema{
+		Block: &legacy.SchemaBlock{
+			NestedBlocks: map[string]*legacy.SchemaBlockType{
+				"req": {
+					NestingMode: legacy.NestingSingle,
+					Required:    true,
 				},
 			},
 		},
@@ -38,7 +35,7 @@ func TestTuneTpl(t *testing.T) {
 	expect := `resource "foo" "test" {
   req {}
 }`
-	actual, err := providerSchema.TuneTpl([]byte(input), "foo")
+	actual, err := TuneTpl(sch, []byte(input), "foo")
 	require.NoError(t, err)
 	require.Equal(t, expect, string(actual))
 }
@@ -46,14 +43,14 @@ func TestTuneTpl(t *testing.T) {
 func TestTuneForBlock(t *testing.T) {
 	cases := []struct {
 		name   string
-		schema SchemaBlock
+		schema legacy.SchemaBlock
 		input  string
 		expect string
 	}{
 		{
 			name: "primary attributes only",
-			schema: SchemaBlock{
-				Attributes: map[string]*SchemaAttribute{
+			schema: legacy.SchemaBlock{
+				Attributes: map[string]*legacy.SchemaAttribute{
 					"req": {
 						AttributeType: cty.Number,
 						Required:      true,
@@ -86,8 +83,8 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "optional attributes with default value",
-			schema: SchemaBlock{
-				Attributes: map[string]*SchemaAttribute{
+			schema: legacy.SchemaBlock{
+				Attributes: map[string]*legacy.SchemaAttribute{
 					"number": {
 						AttributeType: cty.Number,
 						Optional:      true,
@@ -127,8 +124,8 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "optional attributes with customized default value",
-			schema: SchemaBlock{
-				Attributes: map[string]*SchemaAttribute{
+			schema: legacy.SchemaBlock{
+				Attributes: map[string]*legacy.SchemaAttribute{
 					"number": {
 						AttributeType: cty.Number,
 						Optional:      true,
@@ -176,8 +173,8 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "optional attributes with null value",
-			schema: SchemaBlock{
-				Attributes: map[string]*SchemaAttribute{
+			schema: legacy.SchemaBlock{
+				Attributes: map[string]*legacy.SchemaAttribute{
 					"number": {
 						AttributeType: cty.Number,
 						Optional:      true,
@@ -217,8 +214,8 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C attributes that has ExactlyOneOf defined",
-			schema: SchemaBlock{
-				Attributes: map[string]*SchemaAttribute{
+			schema: legacy.SchemaBlock{
+				Attributes: map[string]*legacy.SchemaAttribute{
 					"attr1": {
 						AttributeType: cty.Number,
 						Optional:      true,
@@ -243,13 +240,13 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C attributes that has ExactlyOneOf defined in nested block",
-			schema: SchemaBlock{
-				NestedBlocks: map[string]*SchemaBlockType{
+			schema: legacy.SchemaBlock{
+				NestedBlocks: map[string]*legacy.SchemaBlockType{
 					"blk": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Required:    true,
-						Block: &SchemaBlock{
-							Attributes: map[string]*SchemaAttribute{
+						Block: &legacy.SchemaBlock{
+							Attributes: map[string]*legacy.SchemaAttribute{
 								"attr1": {
 									AttributeType: cty.Number,
 									Optional:      true,
@@ -281,8 +278,8 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C attributes that has AtLeastOneOf defined",
-			schema: SchemaBlock{
-				Attributes: map[string]*SchemaAttribute{
+			schema: legacy.SchemaBlock{
+				Attributes: map[string]*legacy.SchemaAttribute{
 					"attr1": {
 						AttributeType: cty.Number,
 						Optional:      true,
@@ -308,22 +305,22 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "Blocks",
-			schema: SchemaBlock{
-				NestedBlocks: map[string]*SchemaBlockType{
+			schema: legacy.SchemaBlock{
+				NestedBlocks: map[string]*legacy.SchemaBlockType{
 					"req": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Required:    true,
 					},
 					"opt": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Optional:    true,
 					},
 					"comp": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Computed:    true,
 					},
 					"oc": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Optional:    true,
 						Computed:    true,
 					},
@@ -342,22 +339,22 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "Blocks with absent",
-			schema: SchemaBlock{
-				NestedBlocks: map[string]*SchemaBlockType{
+			schema: legacy.SchemaBlock{
+				NestedBlocks: map[string]*legacy.SchemaBlockType{
 					"req": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Required:    true,
 					},
 					"opt": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Optional:    true,
 					},
 					"comp": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Computed:    true,
 					},
 					"oc": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Optional:    true,
 						Computed:    true,
 					},
@@ -372,16 +369,16 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C blocks that has ExactlyOneOf defined",
-			schema: SchemaBlock{
-				NestedBlocks: map[string]*SchemaBlockType{
+			schema: legacy.SchemaBlock{
+				NestedBlocks: map[string]*legacy.SchemaBlockType{
 					"blk1": {
-						NestingMode:  NestingSingle,
+						NestingMode:  legacy.NestingSingle,
 						Optional:     true,
 						Computed:     true,
 						ExactlyOneOf: []string{"blk1", "blk2"},
 					},
 					"blk2": {
-						NestingMode:  NestingSingle,
+						NestingMode:  legacy.NestingSingle,
 						Optional:     true,
 						Computed:     true,
 						ExactlyOneOf: []string{"blk1", "blk2"},
@@ -398,21 +395,21 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C blocks that has ExactlyOneOf defined in nested block",
-			schema: SchemaBlock{
-				NestedBlocks: map[string]*SchemaBlockType{
+			schema: legacy.SchemaBlock{
+				NestedBlocks: map[string]*legacy.SchemaBlockType{
 					"blk": {
-						NestingMode: NestingSingle,
+						NestingMode: legacy.NestingSingle,
 						Required:    true,
-						Block: &SchemaBlock{
-							NestedBlocks: map[string]*SchemaBlockType{
+						Block: &legacy.SchemaBlock{
+							NestedBlocks: map[string]*legacy.SchemaBlockType{
 								"blk1": {
-									NestingMode:  NestingSingle,
+									NestingMode:  legacy.NestingSingle,
 									Optional:     true,
 									Computed:     true,
 									ExactlyOneOf: []string{"blk.0.blk1", "blk.0.blk2"},
 								},
 								"blk2": {
-									NestingMode:  NestingSingle,
+									NestingMode:  legacy.NestingSingle,
 									Optional:     true,
 									Computed:     true,
 									ExactlyOneOf: []string{"blk.0.blk1", "blk.0.blk2"},
@@ -436,16 +433,16 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C blocks that has AtLeastOneOf defined",
-			schema: SchemaBlock{
-				NestedBlocks: map[string]*SchemaBlockType{
+			schema: legacy.SchemaBlock{
+				NestedBlocks: map[string]*legacy.SchemaBlockType{
 					"blk1": {
-						NestingMode:  NestingSingle,
+						NestingMode:  legacy.NestingSingle,
 						Optional:     true,
 						Computed:     true,
 						AtLeastOneOf: []string{"blk1", "blk2"},
 					},
 					"blk2": {
-						NestingMode:  NestingSingle,
+						NestingMode:  legacy.NestingSingle,
 						Optional:     true,
 						Computed:     true,
 						AtLeastOneOf: []string{"blk1", "blk2"},

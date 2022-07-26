@@ -1,4 +1,4 @@
-package tpl
+package internal
 
 import (
 	"strings"

@@ -1,7 +1,8 @@
-package legacy
+package internal
 
 import (
 	"fmt"
+	"github.com/magodo/tfadd/schema/legacy"
 	"sort"
 	"strings"
 
@@ -13,12 +14,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func (schemas *ProviderSchema) TuneTpl(tpl []byte, rt string) ([]byte, error) {
-	sch, ok := schemas.ResourceSchemas[rt]
-	if !ok {
-		return nil, fmt.Errorf("Unknown resource type %s", rt)
-	}
-
+func TuneTpl(sch legacy.Schema, tpl []byte, rt string) ([]byte, error) {
 	f, diag := hclwrite.ParseConfig(tpl, "", hcl.InitialPos)
 	if diag.HasErrors() {
 		return nil, fmt.Errorf("parsing the generated template for %s: %s", rt, diag.Error())
@@ -34,7 +30,7 @@ func (schemas *ProviderSchema) TuneTpl(tpl []byte, rt string) ([]byte, error) {
 	return f.Bytes(), nil
 }
 
-func tuneForBlock(rb *hclwrite.Body, sch *SchemaBlock, parentAttrNames []string) error {
+func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []string) error {
 	for attrName, attrVal := range rb.Attributes() {
 		schAttr, ok := sch.Attributes[attrName]
 		if !ok {
