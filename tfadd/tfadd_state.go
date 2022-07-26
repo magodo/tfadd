@@ -14,9 +14,7 @@ import (
 )
 
 type stateConfig struct {
-	// Whether the generated config contains all the non-computed properties?
-	// Set via Full option.
-	full bool
+	tuneOption internal.TuneOption
 
 	// Only generate for the specified one or more target addresses.
 	// Set via Target option.
@@ -26,7 +24,10 @@ type stateConfig struct {
 
 func defaultStateConfig() stateConfig {
 	return stateConfig{
-		full: false,
+		tuneOption: internal.TuneOption{
+			KeepDefaultValueAttrs: false,
+			IgnoreAttrConstraints: false,
+		},
 
 		targets:   []addr.ResourceAddr{},
 		targetMap: map[addr.ResourceAddr]bool{},
@@ -84,21 +85,28 @@ func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]by
 		b, err := internal.StateToTpl(res, rsch.Block)
 		if err != nil {
 			errs = multierror.Append(errs, fmt.Errorf("generate template from state for %s: %v", res.Type, err))
+			continue
 		}
-		if !cfg.full {
-			sdkPsch, ok := sdkProviderSchemas[res.ProviderName]
-			if !ok {
-				continue
-			}
+
+		b, err = internal.TuneTpl(b)
+		if err != nil {
+			errs = multierror.Append(errs, fmt.Errorf("tune template (without schema) for %s: %v", res.Type, err))
+			continue
+		}
+
+		// Further tune the template based on the provider schema.
+		sdkPsch, ok := sdkProviderSchemas[res.ProviderName]
+		if ok {
 			sch, ok := sdkPsch.ResourceSchemas[res.Type]
-			if !ok {
-				continue
-			}
-			b, err = internal.TuneTpl(*sch, b, res.Type)
-			if err != nil {
-				errs = multierror.Append(errs, fmt.Errorf("tune template for %s: %v", res.Type, err))
+			if ok {
+				b, err = internal.TuneTplWithSchema(b, *sch, &cfg.tuneOption)
+				if err != nil {
+					errs = multierror.Append(errs, fmt.Errorf("tune template (with schema) for %s: %v", res.Type, err))
+					continue
+				}
 			}
 		}
+
 		if hasTarget {
 			templateMap[raddr] = b
 		} else {

@@ -74,7 +74,7 @@ resource "azurerm_resource_group" "b" {
 		{
 			name:      "generate all supported resources in the state, full",
 			statefile: "azurerm_resource_groups",
-			options:   []StateOption{Full(true)},
+			options:   []StateOption{KeepDefaultValueAttr(false)},
 			expect: `resource "azurerm_resource_group" "a" {
   id       = "/subscriptions/REDACTED/resourceGroups/foo"
   location = "eastus2"

@@ -104,7 +104,10 @@ func (r *stateCommand) Run(args []string) int {
 		fmt.Fprintf(os.Stderr, err.Error())
 		return 1
 	}
-	opts := []tfadd.StateOption{tfadd.Full(*flagFull)}
+	opts := []tfadd.StateOption{}
+	if *flagFull {
+		opts = append(opts, tfadd.KeepDefaultValueAttr(true), tfadd.IgnoreAttrConstraints(true))
+	}
 	for _, target := range targets {
 		opts = append(opts, tfadd.Target(target))
 	}

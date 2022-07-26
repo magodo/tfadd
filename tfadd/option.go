@@ -8,16 +8,28 @@ type StateOption interface {
 	configureState(*stateConfig)
 }
 
-var _ StateOption = fullOption(true)
+var _ StateOption = keepDefaultValueAttrOption(true)
 
-type fullOption bool
+type keepDefaultValueAttrOption bool
 
-func Full(b bool) fullOption {
-	return fullOption(b)
+func KeepDefaultValueAttr(b bool) keepDefaultValueAttrOption {
+	return keepDefaultValueAttrOption(b)
 }
 
-func (opt fullOption) configureState(cfg *stateConfig) {
-	cfg.full = bool(opt)
+func (opt keepDefaultValueAttrOption) configureState(cfg *stateConfig) {
+	cfg.tuneOption.KeepDefaultValueAttrs = bool(opt)
+}
+
+var _ StateOption = ignoreAttrConstraintsOption(true)
+
+type ignoreAttrConstraintsOption bool
+
+func IgnoreAttrConstraints(b bool) ignoreAttrConstraintsOption {
+	return ignoreAttrConstraintsOption(b)
+}
+
+func (opt ignoreAttrConstraintsOption) configureState(cfg *stateConfig) {
+	cfg.tuneOption.IgnoreAttrConstraints = bool(opt)
 }
 
 var _ StateOption = targetOption{}

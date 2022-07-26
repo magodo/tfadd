@@ -14,23 +14,39 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func TuneTpl(sch legacy.Schema, tpl []byte, rt string) ([]byte, error) {
+func TuneTpl(tpl []byte) ([]byte, error) {
 	f, diag := hclwrite.ParseConfig(tpl, "", hcl.InitialPos)
 	if diag.HasErrors() {
-		return nil, fmt.Errorf("parsing the generated template for %s: %s", rt, diag.Error())
+		return nil, fmt.Errorf("parsing the generated template: %s", diag.Error())
 	}
 	rb := f.Body().Blocks()[0].Body()
 
 	rb.RemoveAttribute("id")
 	rb.RemoveBlock(rb.FirstMatchingBlock("timeouts", nil))
 
-	if err := tuneForBlock(rb, sch.Block, nil); err != nil {
+	return f.Bytes(), nil
+}
+
+func TuneTplWithSchema(tpl []byte, sch legacy.Schema, opt *TuneOption) ([]byte, error) {
+	f, diag := hclwrite.ParseConfig(tpl, "", hcl.InitialPos)
+	if diag.HasErrors() {
+		return nil, fmt.Errorf("parsing the generated template: %s", diag.Error())
+	}
+	rb := f.Body().Blocks()[0].Body()
+
+	rb.RemoveAttribute("id")
+	rb.RemoveBlock(rb.FirstMatchingBlock("timeouts", nil))
+
+	if err := tuneForBlock(rb, sch.Block, nil, opt); err != nil {
 		return nil, err
 	}
 	return f.Bytes(), nil
 }
 
-func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []string) error {
+func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []string, opt *TuneOption) error {
+	if opt == nil {
+		opt = &TuneOption{}
+	}
 	for attrName, attrVal := range rb.Attributes() {
 		schAttr, ok := sch.Attributes[attrName]
 		if !ok {
@@ -44,31 +60,33 @@ func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []
 			continue
 		}
 
-		if schAttr.Computed {
-			if schAttr.Optional {
-				if len(schAttr.ExactlyOneOf) != 0 {
-					// For O+C attribute that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
-					l := make([]string, len(schAttr.ExactlyOneOf))
-					copy(l, schAttr.ExactlyOneOf)
-					sort.Strings(l)
+		// Computed only
+		if schAttr.Computed && !schAttr.Optional {
+			rb.RemoveAttribute(attrName)
+			continue
+		}
 
-					addrs := append(parentAttrNames, attrName)
-					if l[0] != strings.Join(addrs, ".0.") {
-						rb.RemoveAttribute(attrName)
-						continue
-					}
-				} else if len(schAttr.AtLeastOneOf) == 0 {
-					// For O+C attribute that has "AtLeastOneOf" constraint, keep it.
+		// Optional
+		if !opt.IgnoreAttrConstraints {
+			if len(schAttr.ExactlyOneOf) != 0 {
+				// For O+C attribute that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
+				l := make([]string, len(schAttr.ExactlyOneOf))
+				copy(l, schAttr.ExactlyOneOf)
+				sort.Strings(l)
+
+				addrs := append(parentAttrNames, attrName)
+				if l[0] != strings.Join(addrs, ".0.") {
 					rb.RemoveAttribute(attrName)
 					continue
 				}
-			} else {
+			} else if schAttr.Computed && len(schAttr.AtLeastOneOf) == 0 {
+				// For O+C attribute that has "AtLeastOneOf" constraint, keep it.
 				rb.RemoveAttribute(attrName)
 				continue
 			}
 		}
 
-		// For optional only attributes, remove it from the output config if it either holds the default value or is null.
+		// For optional attributes, remove it from the output config if it is null.
 		attrExpr, diags := hclwrite.ParseConfig(attrVal.BuildTokens(nil).Bytes(), "generate_attr", hcl.InitialPos)
 		if diags.HasErrors() {
 			return fmt.Errorf(`building attribute %q attribute: %s`, attrName, diags.Error())
@@ -88,86 +106,89 @@ func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []
 			continue
 		}
 
-		// Non null attribute, continue checking whether it equals to the default value.
-		var dval cty.Value
-		switch schAttr.AttributeType {
-		case cty.Number:
-			dval = cty.Zero
-		case cty.Bool:
-			dval = cty.False
-		case cty.String:
-			dval = cty.StringVal("")
-		default:
-			if schAttr.AttributeType.IsListType() {
-				dval = cty.ListValEmpty(schAttr.AttributeType.ElementType())
-				if len(aval.AsValueSlice()) == 0 {
-					aval = dval
-				} else {
-					aval = cty.ListVal(aval.AsValueSlice())
+		if !opt.KeepDefaultValueAttrs {
+			// Non null attribute, continue checking whether it equals to the default value.
+			var dval cty.Value
+			switch schAttr.AttributeType {
+			case cty.Number:
+				dval = cty.Zero
+			case cty.Bool:
+				dval = cty.False
+			case cty.String:
+				dval = cty.StringVal("")
+			default:
+				if schAttr.AttributeType.IsListType() {
+					dval = cty.ListValEmpty(schAttr.AttributeType.ElementType())
+					if len(aval.AsValueSlice()) == 0 {
+						aval = dval
+					} else {
+						aval = cty.ListVal(aval.AsValueSlice())
+					}
+					break
 				}
-				break
-			}
-			if schAttr.AttributeType.IsSetType() {
-				dval = cty.SetValEmpty(schAttr.AttributeType.ElementType())
-				if len(aval.AsValueSlice()) == 0 {
-					aval = dval
-				} else {
-					aval = cty.SetVal(aval.AsValueSlice())
+				if schAttr.AttributeType.IsSetType() {
+					dval = cty.SetValEmpty(schAttr.AttributeType.ElementType())
+					if len(aval.AsValueSlice()) == 0 {
+						aval = dval
+					} else {
+						aval = cty.SetVal(aval.AsValueSlice())
+					}
+					break
 				}
-				break
-			}
-			if schAttr.AttributeType.IsMapType() {
-				dval = cty.MapValEmpty(schAttr.AttributeType.ElementType())
-				if len(aval.AsValueMap()) == 0 {
-					aval = dval
-				} else {
-					aval = cty.MapVal(aval.AsValueMap())
+				if schAttr.AttributeType.IsMapType() {
+					dval = cty.MapValEmpty(schAttr.AttributeType.ElementType())
+					if len(aval.AsValueMap()) == 0 {
+						aval = dval
+					} else {
+						aval = cty.MapVal(aval.AsValueMap())
+					}
+					break
 				}
-				break
 			}
-		}
-		if schAttr.Default != nil {
-			var err error
-			dval, err = gocty.ToCtyValue(schAttr.Default, schAttr.AttributeType)
-			if err != nil {
-				return fmt.Errorf("converting cty value %v to Go: %v", schAttr.Default, err)
+			if schAttr.Default != nil {
+				var err error
+				dval, err = gocty.ToCtyValue(schAttr.Default, schAttr.AttributeType)
+				if err != nil {
+					return fmt.Errorf("converting cty value %v to Go: %v", schAttr.Default, err)
+				}
 			}
-		}
-		if aval.Equals(dval).True() {
-			rb.RemoveAttribute(attrName)
-			continue
+			if aval.Equals(dval).True() {
+				rb.RemoveAttribute(attrName)
+				continue
+			}
 		}
 	}
 
 	for _, blkVal := range rb.Blocks() {
 		scht := sch.NestedBlocks[blkVal.Type()]
 
-		if scht.Computed {
-			if scht.Optional {
-				if len(scht.ExactlyOneOf) != 0 {
-					// For O+C block that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
-					l := make([]string, len(scht.ExactlyOneOf))
-					copy(l, scht.ExactlyOneOf)
-					sort.Strings(l)
+		// Computed only
+		if scht.Computed && !scht.Optional {
+			rb.RemoveBlock(blkVal)
+			continue
+		}
 
-					addrs := append(parentAttrNames, blkVal.Type())
-					if l[0] != strings.Join(addrs, ".0.") {
-						rb.RemoveBlock(blkVal)
-						continue
-					}
-				} else if len(scht.AtLeastOneOf) == 0 {
-					// For O+C block that has "AtLeastOneOf" constraint, keep it.
+		// Optional
+		if !opt.IgnoreAttrConstraints {
+			if len(scht.ExactlyOneOf) != 0 {
+				// For O+C block that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
+				l := make([]string, len(scht.ExactlyOneOf))
+				copy(l, scht.ExactlyOneOf)
+				sort.Strings(l)
+
+				addrs := append(parentAttrNames, blkVal.Type())
+				if l[0] != strings.Join(addrs, ".0.") {
 					rb.RemoveBlock(blkVal)
 					continue
 				}
-			} else {
-				// Computed only
+			} else if scht.Computed && len(scht.AtLeastOneOf) == 0 {
+				// For O+C block that has "AtLeastOneOf" constraint, keep it.
 				rb.RemoveBlock(blkVal)
 				continue
 			}
 		}
 
-		if err := tuneForBlock(blkVal.Body(), scht.Block, append(parentAttrNames, blkVal.Type())); err != nil {
+		if err := tuneForBlock(blkVal.Body(), scht.Block, append(parentAttrNames, blkVal.Type()), opt); err != nil {
 			return err
 		}
 	}
