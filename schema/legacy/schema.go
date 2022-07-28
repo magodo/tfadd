@@ -34,6 +34,7 @@ type SchemaBlockType struct {
 	Required bool `json:"required,omitempty"`
 	Optional bool `json:"optional,omitempty"`
 	Computed bool `json:"computed,omitempty"`
+	ForceNew bool `json:"force_new,omitempty"`
 
 	ConflictsWith []string `json:"conflicts_with,omitempty"`
 	ExactlyOneOf  []string `json:"exactly_one_of,omitempty"`
@@ -47,6 +48,7 @@ type SchemaAttribute struct {
 	Required bool        `json:"required,omitempty"`
 	Optional bool        `json:"optional,omitempty"`
 	Computed bool        `json:"computed,omitempty"`
+	ForceNew bool        `json:"force_new,omitempty"`
 	Default  interface{} `json:"default,omitempty"`
 
 	ConflictsWith []string `json:"conflicts_with,omitempty"`

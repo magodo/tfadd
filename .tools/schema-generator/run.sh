@@ -63,8 +63,17 @@ main() {
     mkdir -p $target_location
     cp -r "$MYDIR/$provider_name/main.go" "$target_location"
     git checkout "$provider_version" || die "failed to checkout provider version $provider_version"
+
+    cat << EOF >> go.mod
+require (
+    github.com/magodo/tfadd v0.0.0
+)
+
+replace github.com/magodo/tfadd => $ROOTDIR
+EOF
     go mod tidy || die "failed to run go mod tidy"
     go mod vendor || die "failed to run go mod vendor"
+
     out=$(go run "$target_location/main.go") || die "failed to generate provider schema"
     cat << EOF > "$ROOTDIR/providers/$provider_name/provider_gen.go"
 // Auto-Generated Code; DO NOT EDIT.
@@ -95,6 +104,8 @@ EOF
 google_pre_hook() {
     # Remove the scripts directory as it will fail `go mod tidy` as one of the imported package is not public
     mv scripts .scripts.del
+
+    sed -i 's;go 1.16;go 1.18;' go.mod
 }
 
 main "$@"

@@ -88,6 +88,7 @@ func fromProviderSchemaAttribute(ps *schema.Schema) *SchemaAttribute {
 		Optional:      opt,
 		Required:      reqd,
 		Computed:      ps.Computed,
+		ForceNew:      ps.ForceNew,
 		Default:       ps.Default,
 
 		ConflictsWith: ps.ConflictsWith,
@@ -102,6 +103,7 @@ func fromProviderSchemaBlock(ps *schema.Schema) *SchemaBlockType {
 		Required: ps.Required,
 		Optional: ps.Optional,
 		Computed: ps.Computed,
+		ForceNew: ps.ForceNew,
 
 		ConflictsWith: ps.ConflictsWith,
 		ExactlyOneOf:  ps.ExactlyOneOf,
