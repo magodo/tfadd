@@ -2,9 +2,11 @@ package internal
 
 import (
 	"fmt"
-	"github.com/magodo/tfadd/schema/legacy"
-	"sort"
+	"strconv"
 	"strings"
+
+	"github.com/magodo/tfadd/schema/legacy"
+	"github.com/magodo/tfadd/tfadd/internal/graph"
 
 	"github.com/zclconf/go-cty/cty/gocty"
 
@@ -37,17 +39,121 @@ func TuneTplWithSchema(tpl []byte, sch legacy.Schema, opt *TuneOption) ([]byte, 
 	rb.RemoveAttribute("id")
 	rb.RemoveBlock(rb.FirstMatchingBlock("timeouts", nil))
 
-	if err := tuneForBlock(rb, sch.Block, nil, opt); err != nil {
+	if err := TrimHCL(rb, sch.Block); err != nil {
 		return nil, err
 	}
+
+	if !opt.IgnoreAttrConstraints {
+		// Construct the graph only for optional attributes.
+		g, err := BuildGraph(rb, sch.Block)
+		if err != nil {
+			return nil, fmt.Errorf("building graph: %v", err)
+		}
+
+		// Remove the graph nodes that are deprecated (considering "R")
+
+		// Enumerate solutions
+	}
+
 	return f.Bytes(), nil
 }
 
-func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []string, opt *TuneOption) error {
-	if opt == nil {
-		opt = &TuneOption{}
+func BuildGraph(rb *hclwrite.Body, sch *legacy.SchemaBlock) (*graph.Graph, error) {
+	g := graph.Graph{
+		Nodes: map[string]*graph.Node{},
 	}
+
+	if err := addNodes(rb, &g, sch, nil); err != nil {
+		return nil, fmt.Errorf("adding nodes: %v", err)
+	}
+
+	// add edges
+	return &g, nil
+}
+
+// Add nodes to the graph, which are Optional attributes, whose value are not null/zero/default.
+func addNodes(rb *hclwrite.Body, g *graph.Graph, sch *legacy.SchemaBlock, parentAttrNames []string) error {
 	for attrName, attrVal := range rb.Attributes() {
+		schAttr, ok := sch.Attributes[attrName]
+		if !ok {
+			// This should have already been removed in a prior step.
+			continue
+		}
+
+		attrExpr, diags := hclwrite.ParseConfig(attrVal.BuildTokens(nil).Bytes(), "generate_attr", hcl.InitialPos)
+		if diags.HasErrors() {
+			return fmt.Errorf(`building attribute %q attribute: %s`, attrName, diags.Error())
+		}
+		attrValLit := attrExpr.Body().GetAttribute(attrName).Expr().BuildTokens(nil).Bytes()
+		dexpr, diags := hclsyntax.ParseExpression(attrValLit, "", hcl.InitialPos)
+		if diags.HasErrors() {
+			return fmt.Errorf(`parsing HCL expression %q: %s`, string(attrValLit), diags.Error())
+		}
+		aval, diags := dexpr.Value(nil)
+		if diags.HasErrors() {
+			return fmt.Errorf(`evaluating value of HCL expression %q: %s`, string(attrValLit), diags.Error())
+		}
+
+		// Not add the node to graph if it is null.
+		if aval.IsNull() {
+			continue
+		}
+
+		// Not add the node to graph if it is of zero or default value.
+		isZero, err := isZeroValue(aval, *schAttr)
+		if err != nil {
+			return err
+		}
+		if isZero {
+			continue
+		}
+
+		addr := append(parentAttrNames, attrName)
+		g.AddNode(strings.Join(addr, "."))
+	}
+
+	blkCounter := map[string]int{}
+	for _, blkVal := range rb.Blocks() {
+		t := blkVal.Type()
+		scht, ok := sch.NestedBlocks[t]
+
+		if !ok {
+			// This should have already been removed in a prior step.
+			continue
+		}
+
+		if !scht.Optional {
+			continue
+		}
+
+		// Add parent.foo to graph
+		addr := append(parentAttrNames, t)
+		g.AddNode(strings.Join(addr, "."))
+
+		index := strconv.Itoa(blkCounter[t])
+		blkCounter[t] = blkCounter[t] + 1
+
+		// Add parent.foo.x (x is a number like "0") to graph
+		addr = append(addr, index)
+		g.AddNode(strings.Join(addr, "."))
+
+		if err := addNodes(blkVal.Body(), g, scht.Block, addr); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func addEdges(g *graph.Graph, sch *legacy.SchemaBlock, parentAttrNames []string) {
+	for name, value := range sch.Attributes {
+
+	}
+}
+
+// TrimHCL removes the computed only attributes.
+func TrimHCL(rb *hclwrite.Body, sch *legacy.SchemaBlock) error {
+	for attrName := range rb.Attributes() {
 		schAttr, ok := sch.Attributes[attrName]
 		if !ok {
 			// This might because the provider under used is a newer one than the version where we ingest the schema information.
@@ -65,102 +171,18 @@ func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []
 			rb.RemoveAttribute(attrName)
 			continue
 		}
-
-		// Optional
-		if !opt.IgnoreAttrConstraints {
-			if len(schAttr.ExactlyOneOf) != 0 {
-				// For O+C attribute that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
-				l := make([]string, len(schAttr.ExactlyOneOf))
-				copy(l, schAttr.ExactlyOneOf)
-				sort.Strings(l)
-
-				addrs := append(parentAttrNames, attrName)
-				if l[0] != strings.Join(addrs, ".0.") {
-					rb.RemoveAttribute(attrName)
-					continue
-				}
-			} else if schAttr.Computed && len(schAttr.AtLeastOneOf) == 0 {
-				// For O+C attribute that has "AtLeastOneOf" constraint, keep it.
-				rb.RemoveAttribute(attrName)
-				continue
-			}
-		}
-
-		// For optional attributes, remove it from the output config if it is null.
-		attrExpr, diags := hclwrite.ParseConfig(attrVal.BuildTokens(nil).Bytes(), "generate_attr", hcl.InitialPos)
-		if diags.HasErrors() {
-			return fmt.Errorf(`building attribute %q attribute: %s`, attrName, diags.Error())
-		}
-		attrValLit := attrExpr.Body().GetAttribute(attrName).Expr().BuildTokens(nil).Bytes()
-		dexpr, diags := hclsyntax.ParseExpression(attrValLit, "", hcl.InitialPos)
-		if diags.HasErrors() {
-			return fmt.Errorf(`parsing HCL expression %q: %s`, string(attrValLit), diags.Error())
-		}
-		aval, diags := dexpr.Value(nil)
-		if diags.HasErrors() {
-			return fmt.Errorf(`evaluating value of HCL expression %q: %s`, string(attrValLit), diags.Error())
-		}
-
-		if aval.IsNull() {
-			rb.RemoveAttribute(attrName)
-			continue
-		}
-
-		if !opt.KeepDefaultValueAttrs {
-			// Non null attribute, continue checking whether it equals to the default value.
-			var dval cty.Value
-			switch schAttr.AttributeType {
-			case cty.Number:
-				dval = cty.Zero
-			case cty.Bool:
-				dval = cty.False
-			case cty.String:
-				dval = cty.StringVal("")
-			default:
-				if schAttr.AttributeType.IsListType() {
-					dval = cty.ListValEmpty(schAttr.AttributeType.ElementType())
-					if len(aval.AsValueSlice()) == 0 {
-						aval = dval
-					} else {
-						aval = cty.ListVal(aval.AsValueSlice())
-					}
-					break
-				}
-				if schAttr.AttributeType.IsSetType() {
-					dval = cty.SetValEmpty(schAttr.AttributeType.ElementType())
-					if len(aval.AsValueSlice()) == 0 {
-						aval = dval
-					} else {
-						aval = cty.SetVal(aval.AsValueSlice())
-					}
-					break
-				}
-				if schAttr.AttributeType.IsMapType() {
-					dval = cty.MapValEmpty(schAttr.AttributeType.ElementType())
-					if len(aval.AsValueMap()) == 0 {
-						aval = dval
-					} else {
-						aval = cty.MapVal(aval.AsValueMap())
-					}
-					break
-				}
-			}
-			if schAttr.Default != nil {
-				var err error
-				dval, err = gocty.ToCtyValue(schAttr.Default, schAttr.AttributeType)
-				if err != nil {
-					return fmt.Errorf("converting cty value %v to Go: %v", schAttr.Default, err)
-				}
-			}
-			if aval.Equals(dval).True() {
-				rb.RemoveAttribute(attrName)
-				continue
-			}
-		}
 	}
 
 	for _, blkVal := range rb.Blocks() {
-		scht := sch.NestedBlocks[blkVal.Type()]
+		scht, ok := sch.NestedBlocks[blkVal.Type()]
+
+		if !ok {
+			// This might because the provider under used is a newer one than the version where we ingest the schema information.
+			// This might happen when the user has a newer version provider installed in its local fs, and has set the "dev_overrides" for that provider.
+			// We simply remove that attribute from the config.
+			rb.RemoveBlock(blkVal)
+			continue
+		}
 
 		// Computed only
 		if scht.Computed && !scht.Optional {
@@ -168,29 +190,57 @@ func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []
 			continue
 		}
 
-		// Optional
-		if !opt.IgnoreAttrConstraints {
-			if len(scht.ExactlyOneOf) != 0 {
-				// For O+C block that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
-				l := make([]string, len(scht.ExactlyOneOf))
-				copy(l, scht.ExactlyOneOf)
-				sort.Strings(l)
-
-				addrs := append(parentAttrNames, blkVal.Type())
-				if l[0] != strings.Join(addrs, ".0.") {
-					rb.RemoveBlock(blkVal)
-					continue
-				}
-			} else if scht.Computed && len(scht.AtLeastOneOf) == 0 {
-				// For O+C block that has "AtLeastOneOf" constraint, keep it.
-				rb.RemoveBlock(blkVal)
-				continue
-			}
-		}
-
-		if err := tuneForBlock(blkVal.Body(), scht.Block, append(parentAttrNames, blkVal.Type()), opt); err != nil {
+		// Optional/Required
+		if err := TrimHCL(blkVal.Body(), scht.Block); err != nil {
 			return err
 		}
 	}
 	return nil
+}
+
+func isZeroValue(value cty.Value, sch legacy.SchemaAttribute) (bool, error) {
+	var dval cty.Value
+	switch sch.AttributeType {
+	case cty.Number:
+		dval = cty.Zero
+	case cty.Bool:
+		dval = cty.False
+	case cty.String:
+		dval = cty.StringVal("")
+	default:
+		if sch.AttributeType.IsListType() {
+			dval = cty.ListValEmpty(sch.AttributeType.ElementType())
+			if len(value.AsValueSlice()) == 0 {
+				value = dval
+			} else {
+				value = cty.ListVal(value.AsValueSlice())
+			}
+			if sch.AttributeType.IsSetType() {
+				dval = cty.SetValEmpty(sch.AttributeType.ElementType())
+				if len(value.AsValueSlice()) == 0 {
+					value = dval
+				} else {
+					value = cty.SetVal(value.AsValueSlice())
+				}
+				break
+			}
+			if sch.AttributeType.IsMapType() {
+				dval = cty.MapValEmpty(sch.AttributeType.ElementType())
+				if len(value.AsValueMap()) == 0 {
+					value = dval
+				} else {
+					value = cty.MapVal(value.AsValueMap())
+				}
+				break
+			}
+		}
+		if sch.Default != nil {
+			var err error
+			dval, err = gocty.ToCtyValue(sch.Default, sch.AttributeType)
+			if err != nil {
+				return false, fmt.Errorf("converting cty value %v to Go: %v", sch.Default, err)
+			}
+		}
+	}
+	return value.Equals(dval).True(), nil
 }

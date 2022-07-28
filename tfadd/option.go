@@ -8,18 +8,6 @@ type StateOption interface {
 	configureState(*stateConfig)
 }
 
-var _ StateOption = keepDefaultValueAttrOption(true)
-
-type keepDefaultValueAttrOption bool
-
-func KeepDefaultValueAttr(b bool) keepDefaultValueAttrOption {
-	return keepDefaultValueAttrOption(b)
-}
-
-func (opt keepDefaultValueAttrOption) configureState(cfg *stateConfig) {
-	cfg.tuneOption.KeepDefaultValueAttrs = bool(opt)
-}
-
 var _ StateOption = ignoreAttrConstraintsOption(true)
 
 type ignoreAttrConstraintsOption bool

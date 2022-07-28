@@ -1,8 +1,9 @@
 package internal
 
 import (
-	"github.com/magodo/tfadd/schema/legacy"
 	"testing"
+
+	"github.com/magodo/tfadd/schema/legacy"
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclwrite"
@@ -454,7 +455,7 @@ func TestTuneForBlock(t *testing.T) {
 			f, diag := hclwrite.ParseConfig([]byte(c.input), "", hcl.InitialPos)
 			require.False(t, diag.HasErrors(), diag.Error())
 			rb := f.Body().Blocks()[0].Body()
-			require.NoError(t, tuneForBlock(rb, &c.schema, nil, nil))
+			require.NoError(t, TrimHCL(rb, &c.schema))
 			require.Equal(t, c.expect, string(f.Bytes()))
 		})
 	}

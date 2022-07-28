@@ -29,7 +29,7 @@ func (g *Graph) AddNode(addr string) {
 	g.Nodes[node.Addr.String()] = &node
 }
 
-func (n *Node) AddEdge(addr PropertyAddr, t EdgeType) {
+func (n *Node) AddEdges(addr PropertyAddr, t EdgeType) {
 	g := n.graph
 	for addrStr, dstNode := range g.Nodes {
 		if dstNode == n {

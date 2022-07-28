@@ -3,6 +3,7 @@ package tfadd
 import (
 	"context"
 	"fmt"
+
 	"github.com/magodo/tfadd/tfadd/internal"
 
 	"github.com/magodo/tfadd/addr"
@@ -25,7 +26,6 @@ type stateConfig struct {
 func defaultStateConfig() stateConfig {
 	return stateConfig{
 		tuneOption: internal.TuneOption{
-			KeepDefaultValueAttrs: false,
 			IgnoreAttrConstraints: false,
 		},
 
