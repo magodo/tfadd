@@ -11603,6 +11603,11 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "streaming_endpoint_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
           "tags": {
             "type": [
               "map",
@@ -12948,6 +12953,10 @@ func init() {
       "block": {
         "attributes": {
           "custom_question_answering_search_service_id": {
+            "type": "string",
+            "optional": true
+          },
+          "custom_question_answering_search_service_key": {
             "type": "string",
             "optional": true
           },
@@ -23117,6 +23126,138 @@ func init() {
         }
       }
     },
+    "azurerm_datadog_monitor": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "marketplace_subscription_status": {
+            "type": "string",
+            "computed": true
+          },
+          "monitoring_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "sku_name": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "datadog_organization": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "api_key": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "application_key": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "enterprise_app_id": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "linking_auth_code": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "linking_client_id": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "name": {
+                  "type": "string",
+                  "computed": true
+                },
+                "redirect_uri": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                }
+              }
+            },
+            "required": true
+          },
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "user": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "email": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "name": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "phone_number": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                }
+              }
+            },
+            "required": true
+          }
+        }
+      }
+    },
     "azurerm_dedicated_hardware_security_module": {
       "block": {
         "attributes": {
@@ -32214,6 +32355,37 @@ func init() {
                       }
                     },
                     "block_types": {
+                      "https_endpoints": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "access_modes": {
+                              "type": [
+                                "list",
+                                "string"
+                              ],
+                              "optional": true
+                            },
+                            "destination_port": {
+                              "type": "number",
+                              "optional": true
+                            },
+                            "disable_gateway_auth": {
+                              "type": "bool",
+                              "optional": true
+                            },
+                            "private_ip_address": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "sub_domain_suffix": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
                       "install_script_action": {
                         "nesting_mode": 3,
                         "block": {
@@ -32222,6 +32394,10 @@ func init() {
                               "type": "string",
                               "required": true
                             },
+                            "parameters": {
+                              "type": "string",
+                              "optional": true
+                            },
                             "uri": {
                               "type": "string",
                               "required": true
@@ -32229,6 +32405,27 @@ func init() {
                           }
                         },
                         "required": true
+                      },
+                      "uninstall_script_actions": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "name": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "parameters": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "uri": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "force_new": true
                       }
                     }
                   },
@@ -37014,6 +37211,12 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "is_verified": {
+            "type": "bool",
+            "optional": true,
+            "force_new": true,
+            "default": false
+          },
           "name": {
             "type": "string",
             "required": true,
@@ -40532,6 +40735,46 @@ func init() {
         }
       }
     },
+    "azurerm_kusto_cluster_managed_private_endpoint": {
+      "block": {
+        "attributes": {
+          "cluster_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "group_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "private_link_resource_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "private_link_resource_region": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "request_message": {
+            "type": "string",
+            "optional": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_kusto_cluster_principal_assignment": {
       "block": {
         "attributes": {
@@ -41803,6 +42046,10 @@ func init() {
               "string"
             ],
             "optional": true
+          },
+          "virtual_network_subnet_id": {
+            "type": "string",
+            "optional": true
           }
         },
         "block_types": {
@@ -42766,6 +43013,10 @@ func init() {
               "map",
               "string"
             ],
+            "optional": true
+          },
+          "virtual_network_subnet_id": {
+            "type": "string",
             "optional": true
           }
         },
@@ -44897,8 +45148,7 @@ func init() {
           },
           "virtual_network_subnet_id": {
             "type": "string",
-            "optional": true,
-            "force_new": true
+            "optional": true
           },
           "zip_deploy_file": {
             "type": "string",
@@ -46060,8 +46310,7 @@ func init() {
           },
           "virtual_network_subnet_id": {
             "type": "string",
-            "optional": true,
-            "force_new": true
+            "optional": true
           },
           "zip_deploy_file": {
             "type": "string",
@@ -47437,6 +47686,34 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_log_analytics_query_pack": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
           }
         }
       }
@@ -49103,6 +49380,54 @@ func init() {
             },
             "required": true,
             "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_logz_sub_account_tag_rule": {
+      "block": {
+        "attributes": {
+          "logz_sub_account_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "send_aad_logs": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "send_activity_logs": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "send_subscription_logs": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          }
+        },
+        "block_types": {
+          "tag_filter": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "action": {
+                  "type": "string",
+                  "required": true
+                },
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "value": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
           }
         }
       }
@@ -66432,6 +66757,40 @@ func init() {
         }
       }
     },
+    "azurerm_signalr_shared_private_link_resource": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "request_message": {
+            "type": "string",
+            "optional": true
+          },
+          "signalr_service_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "status": {
+            "type": "string",
+            "computed": true
+          },
+          "sub_resource_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "target_resource_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_site_recovery_fabric": {
       "block": {
         "attributes": {
@@ -72093,6 +72452,11 @@ func init() {
     "azurerm_stream_analytics_stream_input_eventhub": {
       "block": {
         "attributes": {
+          "authentication_mode": {
+            "type": "string",
+            "optional": true,
+            "default": "ConnectionString"
+          },
           "eventhub_consumer_group_name": {
             "type": "string",
             "optional": true
@@ -79087,6 +79451,10 @@ func init() {
               "string"
             ],
             "optional": true
+          },
+          "virtual_network_subnet_id": {
+            "type": "string",
+            "optional": true
           }
         },
         "block_types": {
@@ -79977,6 +80345,10 @@ func init() {
               "map",
               "string"
             ],
+            "optional": true
+          },
+          "virtual_network_subnet_id": {
+            "type": "string",
             "optional": true
           }
         },
@@ -82100,6 +82472,10 @@ func init() {
             ],
             "optional": true
           },
+          "virtual_network_subnet_id": {
+            "type": "string",
+            "optional": true
+          },
           "zip_deploy_file": {
             "type": "string",
             "optional": true,
@@ -83275,6 +83651,10 @@ func init() {
             ],
             "optional": true
           },
+          "virtual_network_subnet_id": {
+            "type": "string",
+            "optional": true
+          },
           "zip_deploy_file": {
             "type": "string",
             "optional": true,
@@ -84322,5 +84702,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.15.0"
+    ProviderSchemaInfo.Version = "3.16.0"
 }
