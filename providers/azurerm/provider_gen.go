@@ -27904,6 +27904,11 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "local_authentication_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
           "location": {
             "type": "string",
             "required": true,
@@ -27911,6 +27916,11 @@ func init() {
           },
           "maximum_throughput_units": {
             "type": "number",
+            "optional": true,
+            "computed": true
+          },
+          "minimum_tls_version": {
+            "type": "string",
             "optional": true,
             "computed": true
           },
@@ -27952,6 +27962,11 @@ func init() {
             ],
             "optional": true,
             "computed": true
+          },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
           },
           "resource_group_name": {
             "type": "string",
@@ -28777,8 +28792,7 @@ func init() {
           },
           "sku_tier": {
             "type": "string",
-            "required": true,
-            "force_new": true
+            "required": true
           },
           "tags": {
             "type": [
@@ -44347,7 +44361,8 @@ func init() {
           },
           "instances": {
             "type": "number",
-            "required": true
+            "optional": true,
+            "default": 0
           },
           "location": {
             "type": "string",
@@ -84702,5 +84717,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.16.0"
+    ProviderSchemaInfo.Version = "3.17.0"
 }

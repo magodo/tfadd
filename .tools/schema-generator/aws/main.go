@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -11,7 +12,11 @@ import (
 
 func main() {
 	schemas := map[string]*tfschema.Schema{}
-	for name, rs := range provider.Provider().ResourcesMap {
+	provider, err := provider.New(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+	}
+	for name, rs := range provider.ResourcesMap {
 		schemas[name] = &tfschema.Schema{Block: tfschema.FromProviderSchemaMap(rs.Schema)}
 	}
 	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")

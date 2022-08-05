@@ -2222,6 +2222,10 @@ func init() {
             "optional": true,
             "computed": true,
             "force_new": true
+          },
+          "uid": {
+            "type": "string",
+            "computed": true
           }
         },
         "block_types": {
@@ -7373,7 +7377,7 @@ func init() {
                 }
               }
             },
-            "required": true
+            "optional": true
           }
         }
       }
@@ -7803,6 +7807,138 @@ func init() {
               "self_managed",
               "managed"
             ]
+          }
+        }
+      }
+    },
+    "google_certificate_manager_certificate_map": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "gclb_targets": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "ip_configs": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "ip_address": "string",
+                        "ports": [
+                          "list",
+                          "number"
+                        ]
+                      }
+                    ]
+                  ],
+                  "target_https_proxy": "string",
+                  "target_ssl_proxy": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true,
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        }
+      }
+    },
+    "google_certificate_manager_certificate_map_entry": {
+      "block": {
+        "attributes": {
+          "certificates": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true
+          },
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "hostname": {
+            "type": "string",
+            "optional": true,
+            "exactly_one_of": [
+              "hostname",
+              "matcher"
+            ]
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true,
+            "computed": true
+          },
+          "map": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "matcher": {
+            "type": "string",
+            "optional": true,
+            "exactly_one_of": [
+              "hostname",
+              "matcher"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
           }
         }
       }
@@ -12602,6 +12738,10 @@ func init() {
                   "optional": true,
                   "computed": true
                 },
+                "request_coalescing": {
+                  "type": "bool",
+                  "optional": true
+                },
                 "serve_while_stale": {
                   "type": "number",
                   "optional": true,
@@ -12613,6 +12753,18 @@ func init() {
                 }
               },
               "block_types": {
+                "bypass_cache_on_request_headers": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "header_name": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
                 "cache_key_policy": {
                   "nesting_mode": 3,
                   "block": {
@@ -14006,8 +14158,8 @@ func init() {
             ],
             "optional": true,
             "conflicts_with": [
-              "destination_ranges",
               "source_service_accounts",
+              "destination_ranges",
               "target_service_accounts"
             ]
           },
@@ -16331,7 +16483,21 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
+                  ]
+                },
+                "instance_termination_action": {
+                  "type": "string",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "scheduling.0.on_host_maintenance",
+                    "scheduling.0.automatic_restart",
+                    "scheduling.0.preemptible",
+                    "scheduling.0.node_affinities",
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "min_node_cpus": {
@@ -16343,7 +16509,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "on_host_maintenance": {
@@ -16356,7 +16523,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "preemptible": {
@@ -16370,7 +16538,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "provisioning_model": {
@@ -16384,7 +16553,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 }
               },
@@ -16417,7 +16587,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 }
               }
@@ -17096,7 +17267,22 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
+                  ]
+                },
+                "instance_termination_action": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true,
+                  "at_least_one_of": [
+                    "scheduling.0.on_host_maintenance",
+                    "scheduling.0.automatic_restart",
+                    "scheduling.0.preemptible",
+                    "scheduling.0.node_affinities",
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "min_node_cpus": {
@@ -17109,7 +17295,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "on_host_maintenance": {
@@ -17122,7 +17309,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "preemptible": {
@@ -17136,7 +17324,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "provisioning_model": {
@@ -17150,7 +17339,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 }
               },
@@ -17184,7 +17374,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 }
               }
@@ -18179,7 +18370,21 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
+                  ]
+                },
+                "instance_termination_action": {
+                  "type": "string",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "scheduling.0.on_host_maintenance",
+                    "scheduling.0.automatic_restart",
+                    "scheduling.0.preemptible",
+                    "scheduling.0.node_affinities",
+                    "scheduling.0.min_node_cpus",
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "min_node_cpus": {
@@ -18191,7 +18396,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "on_host_maintenance": {
@@ -18205,7 +18411,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "preemptible": {
@@ -18219,7 +18426,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 },
                 "provisioning_model": {
@@ -18233,7 +18441,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 }
               },
@@ -18267,7 +18476,8 @@ func init() {
                     "scheduling.0.preemptible",
                     "scheduling.0.node_affinities",
                     "scheduling.0.min_node_cpus",
-                    "scheduling.0.provisioning_model"
+                    "scheduling.0.provisioning_model",
+                    "scheduling.0.instance_termination_action"
                   ]
                 }
               }
@@ -21500,6 +21710,11 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "network": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
           "network_endpoint_type": {
             "type": "string",
             "optional": true,
@@ -21525,6 +21740,11 @@ func init() {
           "self_link": {
             "type": "string",
             "computed": true
+          },
+          "subnetwork": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
           }
         },
         "block_types": {
@@ -21619,8 +21839,8 @@ func init() {
             "optional": true,
             "force_new": true,
             "conflicts_with": [
-              "app_engine",
-              "cloud_function"
+              "cloud_function",
+              "app_engine"
             ]
           }
         }
@@ -23154,8 +23374,8 @@ func init() {
             "optional": true,
             "force_new": true,
             "conflicts_with": [
-              "snapshot_schedule_policy",
-              "instance_schedule_policy"
+              "instance_schedule_policy",
+              "snapshot_schedule_policy"
             ]
           },
           "instance_schedule_policy": {
@@ -23956,6 +24176,31 @@ func init() {
           }
         },
         "block_types": {
+          "adaptive_protection_config": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "layer_7_ddos_defense_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enable": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "rule_visibility": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "STANDARD"
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
           "advanced_options_config": {
             "nesting_mode": 3,
             "block": {
@@ -24040,6 +24285,101 @@ func init() {
                     }
                   },
                   "required": true
+                },
+                "rate_limit_options": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "ban_duration_sec": {
+                        "type": "number",
+                        "optional": true
+                      },
+                      "conform_action": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "enforce_on_key": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "ALL"
+                      },
+                      "enforce_on_key_name": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "exceed_action": {
+                        "type": "string",
+                        "required": true
+                      }
+                    },
+                    "block_types": {
+                      "ban_threshold": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "count": {
+                              "type": "number",
+                              "required": true
+                            },
+                            "interval_sec": {
+                              "type": "number",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "exceed_redirect_options": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "target": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "type": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "rate_limit_threshold": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "count": {
+                              "type": "number",
+                              "required": true
+                            },
+                            "interval_sec": {
+                              "type": "number",
+                              "required": true
+                            }
+                          }
+                        },
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "redirect_options": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "target": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "type": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
                 }
               }
             },
@@ -28556,18 +28896,15 @@ func init() {
               "attributes": {
                 "max_node_count": {
                   "type": "number",
-                  "required": true,
-                  "force_new": true
+                  "required": true
                 },
                 "min_node_count": {
                   "type": "number",
-                  "required": true,
-                  "force_new": true
+                  "required": true
                 }
               }
             },
-            "required": true,
-            "force_new": true
+            "required": true
           },
           "config": {
             "nesting_mode": 3,
@@ -28630,18 +28967,15 @@ func init() {
                     "attributes": {
                       "authorized_key": {
                         "type": "string",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       }
                     }
                   },
-                  "required": true,
-                  "force_new": true
+                  "required": true
                 }
               }
             },
-            "required": true,
-            "force_new": true
+            "required": true
           },
           "max_pods_constraint": {
             "nesting_mode": 3,
@@ -29084,6 +29418,11 @@ func init() {
                   "nesting_mode": 3,
                   "block": {
                     "attributes": {
+                      "boot_disk_kms_key": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
+                      },
                       "image_type": {
                         "type": "string",
                         "optional": true,
@@ -32769,6 +33108,171 @@ func init() {
         }
       }
     },
+    "google_dataplex_zone": {
+      "block": {
+        "attributes": {
+          "asset_status": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "active_assets": "number",
+                  "security_policy_applying_assets": "number",
+                  "update_time": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "lake": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "type": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "uid": {
+            "type": "string",
+            "computed": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "discovery_spec": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "enabled": {
+                  "type": "bool",
+                  "required": true
+                },
+                "exclude_patterns": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "include_patterns": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "schedule": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                }
+              },
+              "block_types": {
+                "csv_options": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "delimiter": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "disable_type_inference": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "encoding": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "header_rows": {
+                        "type": "number",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "json_options": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "disable_type_inference": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "encoding": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "required": true
+          },
+          "resource_spec": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "location_type": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "google_dataproc_autoscaling_policy": {
       "block": {
         "attributes": {
@@ -33120,7 +33624,9 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 },
                 "temp_bucket": {
@@ -33140,7 +33646,9 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 }
               },
@@ -33168,7 +33676,9 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 },
                 "encryption_config": {
@@ -33194,7 +33704,46 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
+                  ]
+                },
+                "endpoint_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enable_http_port_access": {
+                        "type": "bool",
+                        "required": true,
+                        "force_new": true
+                      },
+                      "http_ports": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "computed": true,
+                  "at_least_one_of": [
+                    "cluster_config.0.staging_bucket",
+                    "cluster_config.0.temp_bucket",
+                    "cluster_config.0.gce_cluster_config",
+                    "cluster_config.0.master_config",
+                    "cluster_config.0.worker_config",
+                    "cluster_config.0.preemptible_worker_config",
+                    "cluster_config.0.security_config",
+                    "cluster_config.0.software_config",
+                    "cluster_config.0.initialization_action",
+                    "cluster_config.0.encryption_config",
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 },
                 "gce_cluster_config": {
@@ -33419,7 +33968,9 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 },
                 "initialization_action": {
@@ -33453,7 +34004,53 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
+                  ]
+                },
+                "lifecycle_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "auto_delete_time": {
+                        "type": "string",
+                        "optional": true,
+                        "at_least_one_of": [
+                          "cluster_config.0.lifecycle_config.0.idle_delete_ttl",
+                          "cluster_config.0.lifecycle_config.0.auto_delete_time"
+                        ]
+                      },
+                      "idle_delete_ttl": {
+                        "type": "string",
+                        "optional": true,
+                        "at_least_one_of": [
+                          "cluster_config.0.lifecycle_config.0.idle_delete_ttl",
+                          "cluster_config.0.lifecycle_config.0.auto_delete_time"
+                        ]
+                      },
+                      "idle_start_time": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "cluster_config.0.staging_bucket",
+                    "cluster_config.0.temp_bucket",
+                    "cluster_config.0.gce_cluster_config",
+                    "cluster_config.0.master_config",
+                    "cluster_config.0.worker_config",
+                    "cluster_config.0.preemptible_worker_config",
+                    "cluster_config.0.security_config",
+                    "cluster_config.0.software_config",
+                    "cluster_config.0.initialization_action",
+                    "cluster_config.0.encryption_config",
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 },
                 "master_config": {
@@ -33617,7 +34214,9 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 },
                 "metastore_config": {
@@ -33644,7 +34243,9 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 },
                 "preemptible_worker_config": {
@@ -33744,7 +34345,9 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 },
                 "security_config": {
@@ -33886,7 +34489,9 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 },
                 "worker_config": {
@@ -34050,7 +34655,9 @@ func init() {
                     "cluster_config.0.initialization_action",
                     "cluster_config.0.encryption_config",
                     "cluster_config.0.autoscaling_config",
-                    "cluster_config.0.metastore_config"
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config"
                   ]
                 }
               }
@@ -44932,6 +45539,10 @@ func init() {
                         "type": "string",
                         "required": true
                       },
+                      "evaluation_missing_data": {
+                        "type": "string",
+                        "optional": true
+                      },
                       "query": {
                         "type": "string",
                         "required": true
@@ -44973,6 +45584,10 @@ func init() {
                       "duration": {
                         "type": "string",
                         "required": true
+                      },
+                      "evaluation_missing_data": {
+                        "type": "string",
+                        "optional": true
                       },
                       "filter": {
                         "type": "string",
@@ -47361,6 +47976,11 @@ func init() {
             "computed": true,
             "force_new": true
           },
+          "nic_type": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
           "no_proxy_access": {
             "type": "bool",
             "optional": true,
@@ -47471,6 +48091,33 @@ func init() {
               "vm_image",
               "container_image"
             ]
+          },
+          "reservation_affinity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "consume_reservation_type": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "key": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "values": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true
           },
           "shielded_instance_config": {
             "nesting_mode": 3,
@@ -47806,6 +48453,32 @@ func init() {
                 "post_startup_script": {
                   "type": "string",
                   "optional": true
+                },
+                "post_startup_script_behavior": {
+                  "type": "string",
+                  "optional": true
+                },
+                "upgradeable": {
+                  "type": "bool",
+                  "computed": true
+                }
+              },
+              "block_types": {
+                "kernels": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "repository": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "tag": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
                 }
               }
             },
@@ -47839,7 +48512,8 @@ func init() {
                       },
                       "internal_ip_only": {
                         "type": "bool",
-                        "optional": true
+                        "optional": true,
+                        "force_new": true
                       },
                       "labels": {
                         "type": [
@@ -47863,15 +48537,23 @@ func init() {
                       },
                       "network": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "force_new": true
                       },
                       "nic_type": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "force_new": true
+                      },
+                      "reserved_ip_range": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
                       },
                       "subnet": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "force_new": true
                       },
                       "tags": {
                         "type": [
@@ -47918,7 +48600,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "computed": true
+                        "computed": true,
+                        "force_new": true
                       },
                       "data_disk": {
                         "nesting_mode": 3,
@@ -48023,7 +48706,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "force_new": true
                       },
                       "shielded_instance_config": {
                         "nesting_mode": 3,
@@ -48043,7 +48727,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "force_new": true
                       }
                     }
                   },
@@ -56251,7 +56936,8 @@ func init() {
                 },
                 "collation": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "force_new": true
                 },
                 "disk_autoresize": {
                   "type": "bool",
@@ -56970,7 +57656,21 @@ func init() {
                         "type": "number",
                         "optional": true
                       },
+                      "matches_prefix": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
                       "matches_storage_class": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "matches_suffix": {
                         "type": [
                           "list",
                           "string"
@@ -58700,5 +59400,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.29.0"
+    ProviderSchemaInfo.Version = "4.31.0"
 }
