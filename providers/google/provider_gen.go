@@ -4416,8 +4416,7 @@ func init() {
           },
           "display_name": {
             "type": "string",
-            "required": true,
-            "force_new": true
+            "required": true
           },
           "location": {
             "type": "string",
@@ -7758,6 +7757,21 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "authorization_attempt_info": {
+                  "type": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "details": "string",
+                        "domain": "string",
+                        "failure_reason": "string",
+                        "state": "string"
+                      }
+                    ]
+                  ],
+                  "computed": true
+                },
                 "dns_authorizations": {
                   "type": [
                     "list",
@@ -7773,6 +7787,19 @@ func init() {
                   ],
                   "optional": true,
                   "force_new": true
+                },
+                "provisioning_issue": {
+                  "type": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "details": "string",
+                        "reason": "string"
+                      }
+                    ]
+                  ],
+                  "computed": true
                 },
                 "state": {
                   "type": "string",
@@ -9176,6 +9203,11 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "paused": {
+            "type": "bool",
+            "optional": true,
+            "computed": true
+          },
           "project": {
             "type": "string",
             "optional": true,
@@ -9191,6 +9223,10 @@ func init() {
           "schedule": {
             "type": "string",
             "optional": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
           },
           "time_zone": {
             "type": "string",
@@ -10783,6 +10819,438 @@ func init() {
             "conflicts_with": [
               "anthos_cluster"
             ]
+          }
+        }
+      }
+    },
+    "google_cloudfunctions2_function": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "environment": {
+            "type": "string",
+            "computed": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "build_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "build": {
+                  "type": "string",
+                  "computed": true
+                },
+                "docker_repository": {
+                  "type": "string",
+                  "optional": true
+                },
+                "entry_point": {
+                  "type": "string",
+                  "optional": true
+                },
+                "environment_variables": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true,
+                  "computed": true
+                },
+                "runtime": {
+                  "type": "string",
+                  "optional": true
+                },
+                "worker_pool": {
+                  "type": "string",
+                  "optional": true
+                }
+              },
+              "block_types": {
+                "source": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "repo_source": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "branch_name": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "commit_sha": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "dir": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "invert_regex": {
+                              "type": "bool",
+                              "optional": true
+                            },
+                            "project_id": {
+                              "type": "string",
+                              "optional": true,
+                              "force_new": true
+                            },
+                            "repo_name": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "tag_name": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "storage_source": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "bucket": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "generation": {
+                              "type": "number",
+                              "optional": true
+                            },
+                            "object": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "event_trigger": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "event_type": {
+                  "type": "string",
+                  "optional": true
+                },
+                "pubsub_topic": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
+                "retry_policy": {
+                  "type": "string",
+                  "optional": true
+                },
+                "service_account_email": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
+                "trigger": {
+                  "type": "string",
+                  "computed": true
+                },
+                "trigger_region": {
+                  "type": "string",
+                  "optional": true
+                }
+              },
+              "block_types": {
+                "event_filters": {
+                  "nesting_mode": 4,
+                  "block": {
+                    "attributes": {
+                      "attribute": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "operator": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "value": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "service_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "all_traffic_on_latest_revision": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "available_memory": {
+                  "type": "string",
+                  "optional": true
+                },
+                "environment_variables": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "gcf_uri": {
+                  "type": "string",
+                  "computed": true
+                },
+                "ingress_settings": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "ALLOW_ALL"
+                },
+                "max_instance_count": {
+                  "type": "number",
+                  "optional": true
+                },
+                "min_instance_count": {
+                  "type": "number",
+                  "optional": true
+                },
+                "service": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
+                "service_account_email": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
+                "timeout_seconds": {
+                  "type": "number",
+                  "optional": true
+                },
+                "uri": {
+                  "type": "string",
+                  "computed": true
+                },
+                "vpc_connector": {
+                  "type": "string",
+                  "optional": true
+                },
+                "vpc_connector_egress_settings": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "google_cloudfunctions2_function_iam_binding": {
+      "block": {
+        "attributes": {
+          "cloud_function": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_cloudfunctions2_function_iam_member": {
+      "block": {
+        "attributes": {
+          "cloud_function": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "member": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_cloudfunctions2_function_iam_policy": {
+      "block": {
+        "attributes": {
+          "cloud_function": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
           }
         }
       }
@@ -18377,6 +18845,7 @@ func init() {
                 "instance_termination_action": {
                   "type": "string",
                   "optional": true,
+                  "force_new": true,
                   "at_least_one_of": [
                     "scheduling.0.on_host_maintenance",
                     "scheduling.0.automatic_restart",
@@ -18844,7 +19313,7 @@ func init() {
           },
           "port": {
             "type": "number",
-            "required": true,
+            "optional": true,
             "force_new": true
           },
           "project": {
@@ -25318,6 +25787,14 @@ func init() {
     "google_compute_target_https_proxy": {
       "block": {
         "attributes": {
+          "certificate_map": {
+            "type": "string",
+            "optional": true,
+            "exactly_one_of": [
+              "ssl_certificates",
+              "certificate_map"
+            ]
+          },
           "creation_timestamp": {
             "type": "string",
             "computed": true
@@ -25362,7 +25839,11 @@ func init() {
               "list",
               "string"
             ],
-            "required": true
+            "optional": true,
+            "exactly_one_of": [
+              "ssl_certificates",
+              "certificate_map"
+            ]
           },
           "ssl_policy": {
             "type": "string",
@@ -29369,14 +29850,12 @@ func init() {
               "attributes": {
                 "security_group": {
                   "type": "string",
-                  "required": true,
-                  "force_new": true
+                  "required": true
                 }
               }
             },
             "optional": true,
-            "computed": true,
-            "force_new": true
+            "computed": true
           },
           "binary_authorization": {
             "nesting_mode": 3,
@@ -29757,6 +30236,19 @@ func init() {
               }
             },
             "optional": true
+          },
+          "mesh_certificates": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "enable_certificates": {
+                  "type": "bool",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
           },
           "monitoring_config": {
             "nesting_mode": 3,
@@ -32899,7 +33391,8 @@ func init() {
               "set",
               "string"
             ],
-            "optional": true
+            "optional": true,
+            "computed": true
           },
           "enable_streaming_engine": {
             "type": "bool",
@@ -33004,6 +33497,217 @@ func init() {
           "zone": {
             "type": "string",
             "optional": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_dataplex_asset": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "dataplex_zone": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "discovery_status": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "last_run_duration": "string",
+                  "last_run_time": "string",
+                  "message": "string",
+                  "state": "string",
+                  "stats": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "data_items": "number",
+                        "data_size": "number",
+                        "filesets": "number",
+                        "tables": "number"
+                      }
+                    ]
+                  ],
+                  "update_time": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "lake": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "resource_status": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "message": "string",
+                  "state": "string",
+                  "update_time": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "security_status": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "message": "string",
+                  "state": "string",
+                  "update_time": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "uid": {
+            "type": "string",
+            "computed": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "discovery_spec": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "enabled": {
+                  "type": "bool",
+                  "required": true
+                },
+                "exclude_patterns": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "include_patterns": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "schedule": {
+                  "type": "string",
+                  "optional": true
+                }
+              },
+              "block_types": {
+                "csv_options": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "delimiter": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "disable_type_inference": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "encoding": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "header_rows": {
+                        "type": "number",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "json_options": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "disable_type_inference": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "encoding": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "required": true
+          },
+          "resource_spec": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "required": true,
             "force_new": true
           }
         }
@@ -41189,6 +41893,147 @@ func init() {
         }
       }
     },
+    "google_gke_hub_membership_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "membership_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_gke_hub_membership_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "member": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "membership_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_gke_hub_membership_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "membership_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "google_healthcare_consent_store": {
       "block": {
         "attributes": {
@@ -46707,6 +47552,22 @@ func init() {
                 }
               },
               "block_types": {
+                "accepted_response_status_codes": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "status_class": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "status_value": {
+                        "type": "number",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
                 "auth_info": {
                   "nesting_mode": 3,
                   "block": {
@@ -54358,6 +55219,33 @@ func init() {
           }
         },
         "block_types": {
+          "bigquery_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "drop_unknown_fields": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "table": {
+                  "type": "string",
+                  "required": true
+                },
+                "use_topic_schema": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "write_metadata": {
+                  "type": "bool",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "conflicts_with": [
+              "push_config"
+            ]
+          },
           "dead_letter_policy": {
             "nesting_mode": 3,
             "block": {
@@ -54422,7 +55310,10 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "conflicts_with": [
+              "bigquery_config"
+            ]
           },
           "retry_policy": {
             "nesting_mode": 3,
@@ -57324,6 +58215,38 @@ func init() {
                   },
                   "optional": true
                 },
+                "password_validation_policy": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "complexity": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "disallow_username_substring": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "enable_password_policy": {
+                        "type": "bool",
+                        "required": true
+                      },
+                      "min_length": {
+                        "type": "number",
+                        "optional": true
+                      },
+                      "password_change_interval": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "reuse_interval": {
+                        "type": "number",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
                 "sql_server_audit_config": {
                   "nesting_mode": 3,
                   "block": {
@@ -59400,5 +60323,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.31.0"
+    ProviderSchemaInfo.Version = "4.33.0"
 }
