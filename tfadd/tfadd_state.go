@@ -3,6 +3,7 @@ package tfadd
 import (
 	"context"
 	"fmt"
+
 	"github.com/magodo/tfadd/tfadd/internal"
 
 	"github.com/magodo/tfadd/addr"
@@ -56,7 +57,7 @@ func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]by
 	}
 
 	// templateMap is only used when -target is specified.
-	// It is mainly used caching the template and later sort it to the same order as option order in CLI.
+	// It is mainly used caching the template and later sort it to the same order as the order in option.
 	templateMap := map[addr.ResourceAddr][]byte{}
 	hasTarget := len(cfg.targets) != 0
 

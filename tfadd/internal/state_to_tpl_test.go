@@ -14,6 +14,7 @@ func Test_StateToTpl(t *testing.T) {
 	res := &tfstate.StateResource{
 		Address: "test_instance.foo",
 		Value: cty.ObjectVal(map[string]cty.Value{
+			"id":  cty.StringVal("some-id"),
 			"ami": cty.StringVal("ami-123456789"),
 			"disks": cty.ObjectVal(map[string]cty.Value{
 				"mount_point": cty.StringVal("/mnt/foo"),
