@@ -76,16 +76,12 @@ resource "azurerm_resource_group" "b" {
 			statefile: "azurerm_resource_groups",
 			options:   []StateOption{Full(true)},
 			expect: `resource "azurerm_resource_group" "a" {
-  id       = "/subscriptions/REDACTED/resourceGroups/foo"
   location = "eastus2"
   name     = "foo"
-  tags     = null
 }
 resource "azurerm_resource_group" "b" {
-  id       = "/subscriptions/REDACTED/resourceGroups/bar"
   location = "eastus2"
   name     = "bar"
-  tags     = null
 }
 `,
 		},
