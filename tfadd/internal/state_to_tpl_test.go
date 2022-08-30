@@ -112,9 +112,7 @@ func TestAdd_addAttributes(t *testing.T) {
 				}),
 			}),
 			`ami = 123456
-boot_disk = null
 disks = {
-  mount_point = null
   size = 50
 }
 ids = ["999"]
@@ -138,13 +136,7 @@ tags = {
 					"mount_point": cty.String,
 				})),
 			}),
-			`ami = null
-boot_disk = null
-disks = null
-ids = null
-locations = null
-tags = null
-`,
+			``,
 		},
 	}
 

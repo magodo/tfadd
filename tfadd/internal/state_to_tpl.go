@@ -73,11 +73,16 @@ func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*t
 			if !stateVal.Type().HasAttribute(name) {
 				continue
 			}
-			buf.WriteString(strings.Repeat(" ", indent))
-			buf.WriteString(fmt.Sprintf("%s = ", name))
+
 			var val cty.Value
 			val = stateVal.GetAttr(name)
 			val, _ = val.Unmark()
+			if val.IsNull() {
+				continue
+			}
+
+			buf.WriteString(strings.Repeat(" ", indent))
+			buf.WriteString(fmt.Sprintf("%s = ", name))
 			tok := hclwrite.TokensForValue(val)
 			if _, err := tok.WriteTo(buf); err != nil {
 				return err
@@ -90,17 +95,11 @@ func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*t
 }
 
 func addAttributeNestedTypeAttributes(buf *strings.Builder, name string, schema *tfjson.SchemaAttribute, stateVal cty.Value, indent int) error {
-	buf.WriteString(strings.Repeat(" ", indent))
-	buf.WriteString(fmt.Sprintf("%s = ", name))
 	if stateVal.IsNull() {
-		stateVal, _ = stateVal.Unmark()
-		tok := hclwrite.TokensForValue(stateVal)
-		if _, err := tok.WriteTo(buf); err != nil {
-			return err
-		}
-		buf.WriteString("\n")
 		return nil
 	}
+	buf.WriteString(strings.Repeat(" ", indent))
+	buf.WriteString(fmt.Sprintf("%s = ", name))
 	switch schema.AttributeNestedType.NestingMode {
 	case tfjson.SchemaNestingModeSingle:
 		buf.WriteString("{\n")
