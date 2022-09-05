@@ -8,7 +8,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-azurerm/internal/provider"
 	"github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
-	tfschema "github.com/magodo/tfadd/schema/legacy"
+	tfschema "github.com/magodo/tfadd/schema"
+	"github.com/magodo/tfpluginschema"
 )
 
 func main() {
@@ -39,7 +40,7 @@ func run() error {
 
 	schemas := map[string]*tfschema.Schema{}
 	for name, res := range resources {
-		schemas[name] = &tfschema.Schema{Block: tfschema.FromProviderSchemaMap(res.Schema)}
+		schemas[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2ProviderSchemaMap(res.Schema)}
 	}
 
 	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")

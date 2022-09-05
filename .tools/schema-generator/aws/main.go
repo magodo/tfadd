@@ -8,6 +8,7 @@ import (
 
 	"github.com/hashicorp/terraform-provider-aws/internal/provider"
 	tfschema "github.com/magodo/tfadd/schema/legacy"
+	"github.com/magodo/tfpluginschema"
 )
 
 func main() {
@@ -17,7 +18,7 @@ func main() {
 		log.Fatal(err)
 	}
 	for name, rs := range provider.ResourcesMap {
-		schemas[name] = &tfschema.Schema{Block: tfschema.FromProviderSchemaMap(rs.Schema)}
+		schemas[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2ProviderSchemaMap(rs.Schema)}
 	}
 	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")
 	if err != nil {

@@ -4,11 +4,11 @@ package google
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/magodo/tfadd/schema/legacy"
+	"github.com/magodo/tfadd/schema"
 	"os"
 )
 
-var ProviderSchemaInfo legacy.ProviderSchema
+var ProviderSchemaInfo schema.ProviderSchema
 
 func init() {
     b := []byte(`{

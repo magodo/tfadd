@@ -1,21 +1,22 @@
 package internal
 
 import (
-	"github.com/magodo/tfadd/schema/legacy"
 	"testing"
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/magodo/tfadd/schema"
+	tfpluginschema "github.com/magodo/tfpluginschema/schema"
 	"github.com/stretchr/testify/require"
 	"github.com/zclconf/go-cty/cty"
 )
 
 func TestTuneTpl(t *testing.T) {
-	sch := legacy.Schema{
-		Block: &legacy.SchemaBlock{
-			NestedBlocks: map[string]*legacy.SchemaBlockType{
+	sch := schema.Schema{
+		Block: &tfpluginschema.Block{
+			NestedBlocks: map[string]*tfpluginschema.NestedBlock{
 				"req": {
-					NestingMode: legacy.NestingSingle,
+					NestingMode: tfpluginschema.NestingSingle,
 					Required:    true,
 				},
 			},
@@ -43,30 +44,30 @@ func TestTuneTpl(t *testing.T) {
 func TestTuneForBlock(t *testing.T) {
 	cases := []struct {
 		name   string
-		schema legacy.SchemaBlock
+		schema tfpluginschema.Block
 		input  string
 		expect string
 	}{
 		{
 			name: "primary attributes only",
-			schema: legacy.SchemaBlock{
-				Attributes: map[string]*legacy.SchemaAttribute{
+			schema: tfpluginschema.Block{
+				Attributes: map[string]*tfpluginschema.Attribute{
 					"req": {
-						AttributeType: cty.Number,
-						Required:      true,
+						Type:     cty.Number,
+						Required: true,
 					},
 					"opt": {
-						AttributeType: cty.Number,
-						Optional:      true,
+						Type:     cty.Number,
+						Optional: true,
 					},
 					"comp": {
-						AttributeType: cty.Number,
-						Computed:      true,
+						Type:     cty.Number,
+						Computed: true,
 					},
 					"oc": {
-						AttributeType: cty.Number,
-						Computed:      true,
-						Optional:      true,
+						Type:     cty.Number,
+						Computed: true,
+						Optional: true,
 					},
 				},
 			},
@@ -83,31 +84,31 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "optional attributes with default value",
-			schema: legacy.SchemaBlock{
-				Attributes: map[string]*legacy.SchemaAttribute{
+			schema: tfpluginschema.Block{
+				Attributes: map[string]*tfpluginschema.Attribute{
 					"number": {
-						AttributeType: cty.Number,
-						Optional:      true,
+						Type:     cty.Number,
+						Optional: true,
 					},
 					"bool": {
-						AttributeType: cty.Bool,
-						Optional:      true,
+						Type:     cty.Bool,
+						Optional: true,
 					},
 					"string": {
-						AttributeType: cty.String,
-						Optional:      true,
+						Type:     cty.String,
+						Optional: true,
 					},
 					"list": {
-						AttributeType: cty.List(cty.Number),
-						Optional:      true,
+						Type:     cty.List(cty.Number),
+						Optional: true,
 					},
 					"set": {
-						AttributeType: cty.Set(cty.Number),
-						Optional:      true,
+						Type:     cty.Set(cty.Number),
+						Optional: true,
 					},
 					"map": {
-						AttributeType: cty.Map(cty.Number),
-						Optional:      true,
+						Type:     cty.Map(cty.Number),
+						Optional: true,
 					},
 				},
 			},
@@ -124,37 +125,37 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "optional attributes with customized default value",
-			schema: legacy.SchemaBlock{
-				Attributes: map[string]*legacy.SchemaAttribute{
+			schema: tfpluginschema.Block{
+				Attributes: map[string]*tfpluginschema.Attribute{
 					"number": {
-						AttributeType: cty.Number,
-						Optional:      true,
-						Default:       1,
+						Type:     cty.Number,
+						Optional: true,
+						Default:  1,
 					},
 					"bool": {
-						AttributeType: cty.Bool,
-						Optional:      true,
-						Default:       true,
+						Type:     cty.Bool,
+						Optional: true,
+						Default:  true,
 					},
 					"string": {
-						AttributeType: cty.String,
-						Optional:      true,
-						Default:       "default",
+						Type:     cty.String,
+						Optional: true,
+						Default:  "default",
 					},
 					"list": {
-						AttributeType: cty.List(cty.Number),
-						Optional:      true,
-						Default:       []interface{}{1}, // []interface{} works
+						Type:     cty.List(cty.Number),
+						Optional: true,
+						Default:  []interface{}{1}, // []interface{} works
 					},
 					"set": {
-						AttributeType: cty.Set(cty.Number),
-						Optional:      true,
-						Default:       []int{1}, // []int also works
+						Type:     cty.Set(cty.Number),
+						Optional: true,
+						Default:  []int{1}, // []int also works
 					},
 					"map": {
-						AttributeType: cty.Map(cty.Number),
-						Optional:      true,
-						Default:       map[string]interface{}{"default": 1},
+						Type:     cty.Map(cty.Number),
+						Optional: true,
+						Default:  map[string]interface{}{"default": 1},
 					},
 				},
 			},
@@ -173,31 +174,31 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "optional attributes with null value",
-			schema: legacy.SchemaBlock{
-				Attributes: map[string]*legacy.SchemaAttribute{
+			schema: tfpluginschema.Block{
+				Attributes: map[string]*tfpluginschema.Attribute{
 					"number": {
-						AttributeType: cty.Number,
-						Optional:      true,
+						Type:     cty.Number,
+						Optional: true,
 					},
 					"bool": {
-						AttributeType: cty.Bool,
-						Optional:      true,
+						Type:     cty.Bool,
+						Optional: true,
 					},
 					"string": {
-						AttributeType: cty.String,
-						Optional:      true,
+						Type:     cty.String,
+						Optional: true,
 					},
 					"list": {
-						AttributeType: cty.List(cty.Number),
-						Optional:      true,
+						Type:     cty.List(cty.Number),
+						Optional: true,
 					},
 					"set": {
-						AttributeType: cty.Set(cty.Number),
-						Optional:      true,
+						Type:     cty.Set(cty.Number),
+						Optional: true,
 					},
 					"map": {
-						AttributeType: cty.Map(cty.Number),
-						Optional:      true,
+						Type:     cty.Map(cty.Number),
+						Optional: true,
 					},
 				},
 			},
@@ -214,19 +215,19 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C attributes that has ExactlyOneOf defined",
-			schema: legacy.SchemaBlock{
-				Attributes: map[string]*legacy.SchemaAttribute{
+			schema: tfpluginschema.Block{
+				Attributes: map[string]*tfpluginschema.Attribute{
 					"attr1": {
-						AttributeType: cty.Number,
-						Optional:      true,
-						Computed:      true,
-						ExactlyOneOf:  []string{"attr1", "attr2"},
+						Type:         cty.Number,
+						Optional:     true,
+						Computed:     true,
+						ExactlyOneOf: []string{"attr1", "attr2"},
 					},
 					"attr2": {
-						AttributeType: cty.Number,
-						Optional:      true,
-						Computed:      true,
-						ExactlyOneOf:  []string{"attr1", "attr2"},
+						Type:         cty.Number,
+						Optional:     true,
+						Computed:     true,
+						ExactlyOneOf: []string{"attr1", "attr2"},
 					},
 				},
 			},
@@ -240,24 +241,24 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C attributes that has ExactlyOneOf defined in nested block",
-			schema: legacy.SchemaBlock{
-				NestedBlocks: map[string]*legacy.SchemaBlockType{
+			schema: tfpluginschema.Block{
+				NestedBlocks: map[string]*tfpluginschema.NestedBlock{
 					"blk": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Required:    true,
-						Block: &legacy.SchemaBlock{
-							Attributes: map[string]*legacy.SchemaAttribute{
+						Block: &tfpluginschema.Block{
+							Attributes: map[string]*tfpluginschema.Attribute{
 								"attr1": {
-									AttributeType: cty.Number,
-									Optional:      true,
-									Computed:      true,
-									ExactlyOneOf:  []string{"blk.0.attr1", "blk.0.attr2"},
+									Type:         cty.Number,
+									Optional:     true,
+									Computed:     true,
+									ExactlyOneOf: []string{"blk.0.attr1", "blk.0.attr2"},
 								},
 								"attr2": {
-									AttributeType: cty.Number,
-									Optional:      true,
-									Computed:      true,
-									ExactlyOneOf:  []string{"blk.0.attr1", "blk.0.attr2"},
+									Type:         cty.Number,
+									Optional:     true,
+									Computed:     true,
+									ExactlyOneOf: []string{"blk.0.attr1", "blk.0.attr2"},
 								},
 							},
 						},
@@ -278,19 +279,19 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C attributes that has AtLeastOneOf defined",
-			schema: legacy.SchemaBlock{
-				Attributes: map[string]*legacy.SchemaAttribute{
+			schema: tfpluginschema.Block{
+				Attributes: map[string]*tfpluginschema.Attribute{
 					"attr1": {
-						AttributeType: cty.Number,
-						Optional:      true,
-						Computed:      true,
-						AtLeastOneOf:  []string{"attr1", "attr2"},
+						Type:         cty.Number,
+						Optional:     true,
+						Computed:     true,
+						AtLeastOneOf: []string{"attr1", "attr2"},
 					},
 					"attr2": {
-						AttributeType: cty.Number,
-						Optional:      true,
-						Computed:      true,
-						AtLeastOneOf:  []string{"attr1", "attr2"},
+						Type:         cty.Number,
+						Optional:     true,
+						Computed:     true,
+						AtLeastOneOf: []string{"attr1", "attr2"},
 					},
 				},
 			},
@@ -305,22 +306,22 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "Blocks",
-			schema: legacy.SchemaBlock{
-				NestedBlocks: map[string]*legacy.SchemaBlockType{
+			schema: tfpluginschema.Block{
+				NestedBlocks: map[string]*tfpluginschema.NestedBlock{
 					"req": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Required:    true,
 					},
 					"opt": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Optional:    true,
 					},
 					"comp": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Computed:    true,
 					},
 					"oc": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Optional:    true,
 						Computed:    true,
 					},
@@ -339,22 +340,22 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "Blocks with absent",
-			schema: legacy.SchemaBlock{
-				NestedBlocks: map[string]*legacy.SchemaBlockType{
+			schema: tfpluginschema.Block{
+				NestedBlocks: map[string]*tfpluginschema.NestedBlock{
 					"req": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Required:    true,
 					},
 					"opt": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Optional:    true,
 					},
 					"comp": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Computed:    true,
 					},
 					"oc": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Optional:    true,
 						Computed:    true,
 					},
@@ -369,16 +370,16 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C blocks that has ExactlyOneOf defined",
-			schema: legacy.SchemaBlock{
-				NestedBlocks: map[string]*legacy.SchemaBlockType{
+			schema: tfpluginschema.Block{
+				NestedBlocks: map[string]*tfpluginschema.NestedBlock{
 					"blk1": {
-						NestingMode:  legacy.NestingSingle,
+						NestingMode:  tfpluginschema.NestingSingle,
 						Optional:     true,
 						Computed:     true,
 						ExactlyOneOf: []string{"blk1", "blk2"},
 					},
 					"blk2": {
-						NestingMode:  legacy.NestingSingle,
+						NestingMode:  tfpluginschema.NestingSingle,
 						Optional:     true,
 						Computed:     true,
 						ExactlyOneOf: []string{"blk1", "blk2"},
@@ -395,21 +396,21 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C blocks that has ExactlyOneOf defined in nested block",
-			schema: legacy.SchemaBlock{
-				NestedBlocks: map[string]*legacy.SchemaBlockType{
+			schema: tfpluginschema.Block{
+				NestedBlocks: map[string]*tfpluginschema.NestedBlock{
 					"blk": {
-						NestingMode: legacy.NestingSingle,
+						NestingMode: tfpluginschema.NestingSingle,
 						Required:    true,
-						Block: &legacy.SchemaBlock{
-							NestedBlocks: map[string]*legacy.SchemaBlockType{
+						Block: &tfpluginschema.Block{
+							NestedBlocks: map[string]*tfpluginschema.NestedBlock{
 								"blk1": {
-									NestingMode:  legacy.NestingSingle,
+									NestingMode:  tfpluginschema.NestingSingle,
 									Optional:     true,
 									Computed:     true,
 									ExactlyOneOf: []string{"blk.0.blk1", "blk.0.blk2"},
 								},
 								"blk2": {
-									NestingMode:  legacy.NestingSingle,
+									NestingMode:  tfpluginschema.NestingSingle,
 									Optional:     true,
 									Computed:     true,
 									ExactlyOneOf: []string{"blk.0.blk1", "blk.0.blk2"},
@@ -433,16 +434,16 @@ func TestTuneForBlock(t *testing.T) {
 		},
 		{
 			name: "O+C blocks that has AtLeastOneOf defined",
-			schema: legacy.SchemaBlock{
-				NestedBlocks: map[string]*legacy.SchemaBlockType{
+			schema: tfpluginschema.Block{
+				NestedBlocks: map[string]*tfpluginschema.NestedBlock{
 					"blk1": {
-						NestingMode:  legacy.NestingSingle,
+						NestingMode:  tfpluginschema.NestingSingle,
 						Optional:     true,
 						Computed:     true,
 						AtLeastOneOf: []string{"blk1", "blk2"},
 					},
 					"blk2": {
-						NestingMode:  legacy.NestingSingle,
+						NestingMode:  tfpluginschema.NestingSingle,
 						Optional:     true,
 						Computed:     true,
 						AtLeastOneOf: []string{"blk1", "blk2"},

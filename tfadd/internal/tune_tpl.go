@@ -2,19 +2,21 @@ package internal
 
 import (
 	"fmt"
-	"github.com/magodo/tfadd/schema/legacy"
 	"sort"
 	"strings"
+
+	"github.com/magodo/tfadd/schema"
 
 	"github.com/zclconf/go-cty/cty/gocty"
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/hashicorp/hcl/v2/hclwrite"
+	tfpluginschema "github.com/magodo/tfpluginschema/schema"
 	"github.com/zclconf/go-cty/cty"
 )
 
-func TuneTpl(sch legacy.Schema, tpl []byte, rt string) ([]byte, error) {
+func TuneTpl(sch schema.Schema, tpl []byte, rt string) ([]byte, error) {
 	f, diag := hclwrite.ParseConfig(tpl, "", hcl.InitialPos)
 	if diag.HasErrors() {
 		return nil, fmt.Errorf("parsing the generated template for %s: %s", rt, diag.Error())
@@ -30,7 +32,7 @@ func TuneTpl(sch legacy.Schema, tpl []byte, rt string) ([]byte, error) {
 	return f.Bytes(), nil
 }
 
-func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []string) error {
+func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames []string) error {
 	for attrName, attrVal := range rb.Attributes() {
 		schAttr, ok := sch.Attributes[attrName]
 		if !ok {
@@ -90,7 +92,7 @@ func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []
 
 		// Non null attribute, continue checking whether it equals to the default value.
 		var dval cty.Value
-		switch schAttr.AttributeType {
+		switch schAttr.Type {
 		case cty.Number:
 			dval = cty.Zero
 		case cty.Bool:
@@ -98,8 +100,8 @@ func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []
 		case cty.String:
 			dval = cty.StringVal("")
 		default:
-			if schAttr.AttributeType.IsListType() {
-				dval = cty.ListValEmpty(schAttr.AttributeType.ElementType())
+			if schAttr.Type.IsListType() {
+				dval = cty.ListValEmpty(schAttr.Type.ElementType())
 				if len(aval.AsValueSlice()) == 0 {
 					aval = dval
 				} else {
@@ -107,8 +109,8 @@ func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []
 				}
 				break
 			}
-			if schAttr.AttributeType.IsSetType() {
-				dval = cty.SetValEmpty(schAttr.AttributeType.ElementType())
+			if schAttr.Type.IsSetType() {
+				dval = cty.SetValEmpty(schAttr.Type.ElementType())
 				if len(aval.AsValueSlice()) == 0 {
 					aval = dval
 				} else {
@@ -116,8 +118,8 @@ func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []
 				}
 				break
 			}
-			if schAttr.AttributeType.IsMapType() {
-				dval = cty.MapValEmpty(schAttr.AttributeType.ElementType())
+			if schAttr.Type.IsMapType() {
+				dval = cty.MapValEmpty(schAttr.Type.ElementType())
 				if len(aval.AsValueMap()) == 0 {
 					aval = dval
 				} else {
@@ -128,7 +130,7 @@ func tuneForBlock(rb *hclwrite.Body, sch *legacy.SchemaBlock, parentAttrNames []
 		}
 		if schAttr.Default != nil {
 			var err error
-			dval, err = gocty.ToCtyValue(schAttr.Default, schAttr.AttributeType)
+			dval, err = gocty.ToCtyValue(schAttr.Default, schAttr.Type)
 			if err != nil {
 				return fmt.Errorf("converting cty value %v to Go: %v", schAttr.Default, err)
 			}
