@@ -7,7 +7,7 @@ import (
 	"log"
 
 	"github.com/hashicorp/terraform-provider-aws/internal/provider"
-	tfschema "github.com/magodo/tfadd/schema/legacy"
+	tfschema "github.com/magodo/tfadd/schema"
 	"github.com/magodo/tfpluginschema"
 )
 
