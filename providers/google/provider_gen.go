@@ -140,18 +140,21 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
             "optional": true,
             "conflicts_with": [
               "custom"
-            ]
+            ],
+            "max_items": 1
           },
           "custom": {
             "nesting_mode": 3,
@@ -179,14 +182,17 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
             "conflicts_with": [
               "basic"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -297,7 +303,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -430,15 +437,18 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "custom": {
                   "nesting_mode": 3,
@@ -466,11 +476,14 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -561,7 +574,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -612,7 +626,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -767,7 +782,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "egress_to": {
                         "nesting_mode": 3,
@@ -821,7 +837,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -866,7 +883,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "ingress_to": {
                         "nesting_mode": 3,
@@ -913,7 +931,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -936,11 +955,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "status": {
             "nesting_mode": 3,
@@ -1005,7 +1026,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "egress_to": {
                         "nesting_mode": 3,
@@ -1059,7 +1081,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -1104,7 +1127,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "ingress_to": {
                         "nesting_mode": 3,
@@ -1151,7 +1175,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -1174,11 +1199,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -1294,7 +1321,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "egress_to": {
                               "nesting_mode": 3,
@@ -1348,7 +1376,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -1393,7 +1422,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "ingress_to": {
                               "nesting_mode": 3,
@@ -1440,7 +1470,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -1463,11 +1494,13 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "status": {
                   "nesting_mode": 3,
@@ -1517,7 +1550,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "egress_to": {
                               "nesting_mode": 3,
@@ -1571,7 +1605,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -1616,7 +1651,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "ingress_to": {
                               "nesting_mode": 3,
@@ -1663,7 +1699,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -1686,11 +1723,13 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -1794,7 +1833,8 @@ func init() {
           "trust_handshake_secret": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "trust_type": {
             "type": "string",
@@ -1908,12 +1948,37 @@ func init() {
           },
           "name": {
             "type": "string",
-            "required": true
+            "required": true,
+            "force_new": true
           },
           "org_id": {
             "type": "string",
             "required": true,
             "force_new": true
+          }
+        },
+        "block_types": {
+          "node_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "current_aggregate_node_count": {
+                  "type": "string",
+                  "computed": true
+                },
+                "max_node_count": {
+                  "type": "string",
+                  "optional": true
+                },
+                "min_node_count": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -1971,7 +2036,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -2027,7 +2093,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -2183,6 +2250,11 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "retention": {
+            "type": "string",
+            "optional": true,
+            "default": "DELETION_RETENTION_UNSPECIFIED"
+          },
           "runtime_database_encryption_key_name": {
             "type": "string",
             "optional": true,
@@ -2198,6 +2270,34 @@ func init() {
             "type": "string",
             "computed": true
           }
+        },
+        "block_types": {
+          "properties": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "property": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "value": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
+          }
         }
       }
     },
@@ -2210,7 +2310,8 @@ func init() {
           },
           "key_string": {
             "type": "string",
-            "computed": true
+            "computed": true,
+            "sensitive": true
           },
           "name": {
             "type": "string",
@@ -2251,11 +2352,13 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "api_targets": {
                   "nesting_mode": 3,
@@ -2289,7 +2392,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "ios_key_restrictions": {
                   "nesting_mode": 3,
@@ -2304,7 +2408,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "server_key_restrictions": {
                   "nesting_mode": 3,
@@ -2319,11 +2424,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -2407,7 +2514,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "iap": {
             "nesting_mode": 3,
@@ -2424,16 +2532,19 @@ func init() {
                 },
                 "oauth2_client_secret": {
                   "type": "string",
-                  "required": true
+                  "required": true,
+                  "sensitive": true
                 },
                 "oauth2_client_secret_sha256": {
                   "type": "string",
-                  "computed": true
+                  "computed": true,
+                  "sensitive": true
                 }
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -2468,7 +2579,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -2531,7 +2643,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -2641,6 +2754,10 @@ func init() {
             "type": "string",
             "required": true
           },
+          "service_account": {
+            "type": "string",
+            "optional": true
+          },
           "serving_status": {
             "type": "string",
             "optional": true,
@@ -2681,7 +2798,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "automatic_scaling": {
             "nesting_mode": 3,
@@ -2739,7 +2857,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "disk_utilization": {
                   "nesting_mode": 3,
@@ -2787,7 +2907,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "network_utilization": {
                   "nesting_mode": 3,
@@ -2835,7 +2956,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "request_utilization": {
                   "nesting_mode": 3,
@@ -2859,7 +2981,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -2867,7 +2990,8 @@ func init() {
             "exactly_one_of": [
               "automatic_scaling",
               "manual_scaling"
-            ]
+            ],
+            "max_items": 1
           },
           "deployment": {
             "nesting_mode": 3,
@@ -2892,7 +3016,8 @@ func init() {
                     "deployment.0.zip",
                     "deployment.0.files",
                     "deployment.0.container"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "container": {
                   "nesting_mode": 3,
@@ -2910,7 +3035,8 @@ func init() {
                     "deployment.0.zip",
                     "deployment.0.files",
                     "deployment.0.container"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "files": {
                   "nesting_mode": 4,
@@ -2956,11 +3082,13 @@ func init() {
                     "deployment.0.zip",
                     "deployment.0.files",
                     "deployment.0.container"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "endpoints_api_service": {
             "nesting_mode": 3,
@@ -2986,7 +3114,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "entrypoint": {
             "nesting_mode": 3,
@@ -2998,7 +3127,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "handlers": {
             "nesting_mode": 3,
@@ -3036,7 +3166,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "static_files": {
                   "nesting_mode": 3,
@@ -3076,7 +3207,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -3122,7 +3254,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "manual_scaling": {
             "nesting_mode": 3,
@@ -3138,7 +3272,8 @@ func init() {
             "exactly_one_of": [
               "automatic_scaling",
               "manual_scaling"
-            ]
+            ],
+            "max_items": 1
           },
           "network": {
             "nesting_mode": 3,
@@ -3169,7 +3304,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "readiness_check": {
             "nesting_mode": 3,
@@ -3210,7 +3346,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "resources": {
             "nesting_mode": 3,
@@ -3276,7 +3414,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "vpc_access_connector": {
             "nesting_mode": 3,
@@ -3288,7 +3427,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -3319,7 +3459,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -3360,7 +3502,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -3368,6 +3512,10 @@ func init() {
     "google_app_engine_standard_app_version": {
       "block": {
         "attributes": {
+          "app_engine_apis": {
+            "type": "bool",
+            "optional": true
+          },
           "delete_service_on_destroy": {
             "type": "bool",
             "optional": true,
@@ -3478,7 +3626,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -3486,7 +3635,8 @@ func init() {
             "conflicts_with": [
               "basic_scaling",
               "manual_scaling"
-            ]
+            ],
+            "max_items": 1
           },
           "basic_scaling": {
             "nesting_mode": 3,
@@ -3507,7 +3657,8 @@ func init() {
             "conflicts_with": [
               "automatic_scaling",
               "manual_scaling"
-            ]
+            ],
+            "max_items": 1
           },
           "deployment": {
             "nesting_mode": 3,
@@ -3555,11 +3706,14 @@ func init() {
                   "at_least_one_of": [
                     "deployment.0.zip",
                     "deployment.0.files"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "entrypoint": {
             "nesting_mode": 3,
@@ -3571,7 +3725,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "handlers": {
             "nesting_mode": 3,
@@ -3609,7 +3765,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "static_files": {
                   "nesting_mode": 3,
@@ -3648,7 +3805,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -3685,7 +3843,8 @@ func init() {
             "conflicts_with": [
               "automatic_scaling",
               "basic_scaling"
-            ]
+            ],
+            "max_items": 1
           },
           "vpc_access_connector": {
             "nesting_mode": 3,
@@ -3697,7 +3856,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -3774,7 +3934,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -3839,7 +4000,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -3902,7 +4064,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -4017,7 +4180,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "resource_settings": {
             "nesting_mode": 3,
@@ -4097,7 +4261,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
@@ -4108,7 +4274,8 @@ func init() {
               "azure",
               "cloud_spanner",
               "cloud_resource"
-            ]
+            ],
+            "max_items": 1
           },
           "azure": {
             "nesting_mode": 3,
@@ -4143,7 +4310,8 @@ func init() {
               "azure",
               "cloud_spanner",
               "cloud_resource"
-            ]
+            ],
+            "max_items": 1
           },
           "cloud_resource": {
             "nesting_mode": 3,
@@ -4162,7 +4330,8 @@ func init() {
               "azure",
               "cloud_spanner",
               "cloud_resource"
-            ]
+            ],
+            "max_items": 1
           },
           "cloud_spanner": {
             "nesting_mode": 3,
@@ -4185,7 +4354,8 @@ func init() {
               "azure",
               "cloud_spanner",
               "cloud_resource"
-            ]
+            ],
+            "max_items": 1
           },
           "cloud_sql": {
             "nesting_mode": 3,
@@ -4211,7 +4381,8 @@ func init() {
                     "attributes": {
                       "password": {
                         "type": "string",
-                        "required": true
+                        "required": true,
+                        "sensitive": true
                       },
                       "username": {
                         "type": "string",
@@ -4219,7 +4390,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
@@ -4230,7 +4403,8 @@ func init() {
               "azure",
               "cloud_spanner",
               "cloud_resource"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -4295,7 +4469,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -4358,7 +4533,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -4467,7 +4643,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "schedule_options": {
             "nesting_mode": 3,
@@ -4502,7 +4679,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "sensitive_params": {
             "nesting_mode": 3,
@@ -4510,11 +4688,13 @@ func init() {
               "attributes": {
                 "secret_access_key": {
                   "type": "string",
-                  "required": true
+                  "required": true,
+                  "sensitive": true
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -4638,11 +4818,14 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "view": {
                   "nesting_mode": 3,
@@ -4662,7 +4845,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -4679,7 +4863,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -4810,7 +4995,9 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
@@ -4824,7 +5011,8 @@ func init() {
               "iam_member",
               "view",
               "dataset"
-            ]
+            ],
+            "max_items": 1
           },
           "view": {
             "nesting_mode": 3,
@@ -4857,7 +5045,8 @@ func init() {
               "iam_member",
               "view",
               "dataset"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -4916,7 +5105,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -4973,7 +5163,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -5114,7 +5305,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "destination_table": {
                   "nesting_mode": 3,
@@ -5140,7 +5332,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "source_tables": {
                   "nesting_mode": 3,
@@ -5166,7 +5359,8 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1
                 }
               }
             },
@@ -5177,7 +5371,8 @@ func init() {
               "load",
               "copy",
               "extract"
-            ]
+            ],
+            "max_items": 1
           },
           "extract": {
             "nesting_mode": 3,
@@ -5248,7 +5443,8 @@ func init() {
                   "exactly_one_of": [
                     "extract.0.source_table",
                     "extract.0.source_model"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "source_table": {
                   "nesting_mode": 3,
@@ -5278,7 +5474,8 @@ func init() {
                   "exactly_one_of": [
                     "extract.0.source_table",
                     "extract.0.source_model"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -5289,7 +5486,8 @@ func init() {
               "load",
               "copy",
               "extract"
-            ]
+            ],
+            "max_items": 1
           },
           "load": {
             "nesting_mode": 3,
@@ -5414,7 +5612,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "destination_table": {
                   "nesting_mode": 3,
@@ -5440,7 +5639,9 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "time_partitioning": {
                   "nesting_mode": 3,
@@ -5464,7 +5665,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
@@ -5475,7 +5677,8 @@ func init() {
               "load",
               "copy",
               "extract"
-            ]
+            ],
+            "max_items": 1
           },
           "query": {
             "nesting_mode": 3,
@@ -5568,7 +5771,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "destination_encryption_configuration": {
                   "nesting_mode": 3,
@@ -5586,7 +5790,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "destination_table": {
                   "nesting_mode": 3,
@@ -5613,7 +5818,8 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "script_options": {
                   "nesting_mode": 3,
@@ -5652,7 +5858,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "user_defined_function_resources": {
                   "nesting_mode": 3,
@@ -5682,7 +5889,8 @@ func init() {
               "load",
               "copy",
               "extract"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -5962,7 +6170,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "external_data_configuration": {
             "nesting_mode": 3,
@@ -6043,7 +6252,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "google_sheets_options": {
                   "nesting_mode": 3,
@@ -6067,7 +6277,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "hive_partitioning_options": {
                   "nesting_mode": 3,
@@ -6087,11 +6298,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "materialized_view": {
             "nesting_mode": 3,
@@ -6114,7 +6327,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "range_partitioning": {
             "nesting_mode": 3,
@@ -6145,11 +6359,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "time_partitioning": {
             "nesting_mode": 3,
@@ -6175,7 +6392,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "view": {
             "nesting_mode": 3,
@@ -6192,7 +6410,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -6256,7 +6475,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -6318,7 +6538,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -6423,7 +6644,8 @@ func init() {
             "exactly_one_of": [
               "single_cluster_routing",
               "multi_cluster_routing_use_any"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -6501,7 +6723,8 @@ func init() {
             "force_new": true,
             "conflicts_with": [
               "gc_rules"
-            ]
+            ],
+            "max_items": 1
           },
           "max_version": {
             "nesting_mode": 3,
@@ -6610,7 +6833,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -6674,7 +6898,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -6731,7 +6956,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -6864,7 +7090,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -6926,7 +7153,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -7009,7 +7237,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -7060,7 +7289,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -7137,7 +7367,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "amount": {
             "nesting_mode": 3,
@@ -7176,11 +7407,14 @@ func init() {
                   "exactly_one_of": [
                     "amount.0.specified_amount",
                     "amount.0.last_period_amount"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "budget_filter": {
             "nesting_mode": 3,
@@ -7321,7 +7555,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "start_date": {
                         "nesting_mode": 3,
@@ -7341,7 +7576,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
@@ -7354,12 +7591,14 @@ func init() {
                     "budget_filter.0.labels",
                     "budget_filter.0.calendar_period",
                     "budget_filter.0.custom_period"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "threshold_rules": {
             "nesting_mode": 3,
@@ -7481,7 +7720,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -7489,7 +7729,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -7548,7 +7790,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -7605,7 +7848,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -7715,7 +7959,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -7812,7 +8058,8 @@ func init() {
             "exactly_one_of": [
               "self_managed",
               "managed"
-            ]
+            ],
+            "max_items": 1
           },
           "self_managed": {
             "nesting_mode": 3,
@@ -7820,11 +8067,13 @@ func init() {
               "attributes": {
                 "certificate_pem": {
                   "type": "string",
-                  "required": true
+                  "required": true,
+                  "sensitive": true
                 },
                 "private_key_pem": {
                   "type": "string",
-                  "required": true
+                  "required": true,
+                  "sensitive": true
                 }
               }
             },
@@ -7833,7 +8082,8 @@ func init() {
             "exactly_one_of": [
               "self_managed",
               "managed"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -8085,7 +8335,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "feed_output_config": {
             "nesting_mode": 3,
@@ -8101,11 +8352,15 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -8174,7 +8429,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "feed_output_config": {
             "nesting_mode": 3,
@@ -8190,11 +8446,15 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -8264,7 +8524,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "feed_output_config": {
             "nesting_mode": 3,
@@ -8280,11 +8541,15 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -8349,7 +8614,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -8401,7 +8668,8 @@ func init() {
             "force_new": true,
             "exactly_one_of": [
               "preferred_member_key"
-            ]
+            ],
+            "max_items": 1
           },
           "roles": {
             "nesting_mode": 4,
@@ -8413,7 +8681,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -8521,7 +8790,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "spec": {
             "nesting_mode": 3,
@@ -8546,7 +8817,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -8648,7 +8921,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "template": {
             "nesting_mode": 3,
@@ -8702,7 +8976,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "spec": {
                   "nesting_mode": 3,
@@ -8790,11 +9065,14 @@ func init() {
                                               }
                                             }
                                           },
-                                          "required": true
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -8830,11 +9108,13 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "secret_ref": {
                                     "nesting_mode": 3,
@@ -8856,11 +9136,13 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -8911,7 +9193,8 @@ func init() {
                                 }
                               },
                               "optional": true,
-                              "computed": true
+                              "computed": true,
+                              "max_items": 1
                             },
                             "volume_mounts": {
                               "nesting_mode": 3,
@@ -8980,7 +9263,9 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
@@ -8989,11 +9274,13 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "traffic": {
             "nesting_mode": 3,
@@ -9087,7 +9374,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -9150,7 +9438,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -9293,7 +9582,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -9302,7 +9592,8 @@ func init() {
               "pubsub_target",
               "http_target",
               "app_engine_http_target"
-            ]
+            ],
+            "max_items": 1
           },
           "http_target": {
             "nesting_mode": 3,
@@ -9343,7 +9634,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "oidc_token": {
                   "nesting_mode": 3,
@@ -9359,7 +9651,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -9368,7 +9661,8 @@ func init() {
               "pubsub_target",
               "http_target",
               "app_engine_http_target"
-            ]
+            ],
+            "max_items": 1
           },
           "pubsub_target": {
             "nesting_mode": 3,
@@ -9396,7 +9690,8 @@ func init() {
               "pubsub_target",
               "http_target",
               "app_engine_http_target"
-            ]
+            ],
+            "max_items": 1
           },
           "retry_config": {
             "nesting_mode": 3,
@@ -9464,7 +9759,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -9512,7 +9808,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "rate_limits": {
             "nesting_mode": 3,
@@ -9535,7 +9832,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "retry_config": {
             "nesting_mode": 3,
@@ -9569,7 +9867,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "stackdriver_logging_config": {
             "nesting_mode": 3,
@@ -9581,7 +9880,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -9646,7 +9946,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -9709,7 +10010,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -9791,6 +10093,12 @@ func init() {
             ],
             "optional": true
           },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "force_new": true,
+            "default": "global"
+          },
           "name": {
             "type": "string",
             "optional": true,
@@ -9838,7 +10146,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "build": {
             "nesting_mode": 3,
@@ -9923,11 +10232,13 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "available_secrets": {
                   "nesting_mode": 3,
@@ -9947,11 +10258,13 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "options": {
                   "nesting_mode": 3,
@@ -10030,7 +10343,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "secret": {
                   "nesting_mode": 3,
@@ -10111,7 +10425,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "storage_source": {
                         "nesting_mode": 3,
@@ -10131,11 +10446,13 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "step": {
                   "nesting_mode": 3,
@@ -10213,7 +10530,8 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
@@ -10222,7 +10540,8 @@ func init() {
               "filename",
               "build",
               "git_file_source"
-            ]
+            ],
+            "max_items": 1
           },
           "git_file_source": {
             "nesting_mode": 3,
@@ -10251,7 +10570,8 @@ func init() {
               "filename",
               "git_file_source",
               "build"
-            ]
+            ],
+            "max_items": 1
           },
           "github": {
             "nesting_mode": 3,
@@ -10289,7 +10609,8 @@ func init() {
                   "exactly_one_of": [
                     "github.0.pull_request",
                     "github.0.push"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "push": {
                   "nesting_mode": 3,
@@ -10321,7 +10642,8 @@ func init() {
                   "exactly_one_of": [
                     "github.0.pull_request",
                     "github.0.push"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -10332,7 +10654,8 @@ func init() {
               "pubsub_config",
               "webhook_config",
               "source_to_build"
-            ]
+            ],
+            "max_items": 1
           },
           "pubsub_config": {
             "nesting_mode": 3,
@@ -10363,7 +10686,8 @@ func init() {
               "pubsub_config",
               "webhook_config",
               "source_to_build"
-            ]
+            ],
+            "max_items": 1
           },
           "source_to_build": {
             "nesting_mode": 3,
@@ -10390,7 +10714,8 @@ func init() {
               "pubsub_config",
               "webhook_config",
               "source_to_build"
-            ]
+            ],
+            "max_items": 1
           },
           "trigger_template": {
             "nesting_mode": 3,
@@ -10450,7 +10775,8 @@ func init() {
               "pubsub_config",
               "webhook_config",
               "source_to_build"
-            ]
+            ],
+            "max_items": 1
           },
           "webhook_config": {
             "nesting_mode": 3,
@@ -10473,7 +10799,8 @@ func init() {
               "pubsub_config",
               "webhook_config",
               "source_to_build"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -10542,7 +10869,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "worker_config": {
             "nesting_mode": 3,
@@ -10564,7 +10892,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -10688,7 +11017,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -10769,7 +11099,8 @@ func init() {
             "optional": true,
             "conflicts_with": [
               "gke"
-            ]
+            ],
+            "max_items": 1
           },
           "execution_configs": {
             "nesting_mode": 3,
@@ -10818,7 +11149,8 @@ func init() {
             "optional": true,
             "conflicts_with": [
               "anthos_cluster"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -10940,7 +11272,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "storage_source": {
                         "nesting_mode": 3,
@@ -10960,15 +11293,18 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "event_trigger": {
             "nesting_mode": 3,
@@ -11024,7 +11360,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "service_config": {
             "nesting_mode": 3,
@@ -11089,9 +11426,75 @@ func init() {
                   "type": "string",
                   "optional": true
                 }
+              },
+              "block_types": {
+                "secret_environment_variables": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "key": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "secret": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "version": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "secret_volumes": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "mount_path": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "secret": {
+                        "type": "string",
+                        "required": true
+                      }
+                    },
+                    "block_types": {
+                      "versions": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "path": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "version": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -11156,7 +11559,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -11219,7 +11623,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -11412,7 +11817,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
@@ -11420,7 +11826,8 @@ func init() {
             "computed": true,
             "conflicts_with": [
               "trigger_http"
-            ]
+            ],
+            "max_items": 1
           },
           "secret_environment_variables": {
             "nesting_mode": 3,
@@ -11504,7 +11911,8 @@ func init() {
             "conflicts_with": [
               "source_archive_bucket",
               "source_archive_object"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -11569,7 +11977,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -11632,7 +12041,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -11799,11 +12209,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 3
           },
           "gateway_config": {
             "nesting_mode": 3,
@@ -11829,7 +12242,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -11897,7 +12311,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 10
           },
           "event_notification_configs": {
             "nesting_mode": 3,
@@ -11914,7 +12329,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 10
           }
         }
       }
@@ -11979,7 +12395,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -12042,7 +12459,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -12188,7 +12606,8 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "encryption_config": {
                   "nesting_mode": 3,
@@ -12216,7 +12635,8 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "maintenance_window": {
                   "nesting_mode": 3,
@@ -12251,7 +12671,8 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "master_authorized_networks_config": {
                   "nesting_mode": 3,
@@ -12295,7 +12716,8 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "node_config": {
                   "nesting_mode": 3,
@@ -12394,7 +12816,8 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "private_environment_config": {
                   "nesting_mode": 3,
@@ -12523,7 +12946,8 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "software_config": {
                   "nesting_mode": 3,
@@ -12632,7 +13056,8 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "web_server_config": {
                   "nesting_mode": 3,
@@ -12659,7 +13084,8 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "web_server_network_access_control": {
                   "nesting_mode": 3,
@@ -12699,7 +13125,8 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "workloads_config": {
                   "nesting_mode": 3,
@@ -12727,7 +13154,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "web_server": {
                         "nesting_mode": 3,
@@ -12747,7 +13175,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "worker": {
                         "nesting_mode": 3,
@@ -12775,7 +13204,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -12794,12 +13224,14 @@ func init() {
                     "config.0.workloads_config",
                     "config.0.environment_size",
                     "config.0.master_authorized_networks_config"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -13005,7 +13437,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "load_balancing_utilization": {
                   "nesting_mode": 3,
@@ -13017,7 +13450,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "metric": {
                   "nesting_mode": 3,
@@ -13079,11 +13513,13 @@ func init() {
                         "at_least_one_of": [
                           "autoscaling_policy.0.scale_in_control.0.max_scaled_in_replicas",
                           "autoscaling_policy.0.scale_in_control.0.time_window_sec"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "scaling_schedules": {
                   "nesting_mode": 4,
@@ -13125,7 +13561,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -13231,7 +13669,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 5
                 },
                 "cache_key_policy": {
                   "nesting_mode": 3,
@@ -13261,7 +13700,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "negative_caching_policy": {
                   "nesting_mode": 3,
@@ -13282,7 +13722,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -13298,7 +13739,8 @@ func init() {
           "key_value": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "name": {
             "type": "string",
@@ -13611,7 +14053,8 @@ func init() {
                   "at_least_one_of": [
                     "cdn_policy.0.cache_key_policy",
                     "cdn_policy.0.signed_url_cache_max_age_sec"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "negative_caching_policy": {
                   "nesting_mode": 3,
@@ -13632,7 +14075,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "circuit_breakers": {
             "nesting_mode": 3,
@@ -13699,7 +14143,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "consistent_hash": {
             "nesting_mode": 3,
@@ -13769,7 +14214,8 @@ func init() {
                           "consistent_hash.0.http_cookie.0.ttl",
                           "consistent_hash.0.http_cookie.0.name",
                           "consistent_hash.0.http_cookie.0.path"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -13778,11 +14224,13 @@ func init() {
                     "consistent_hash.0.http_cookie",
                     "consistent_hash.0.http_header_name",
                     "consistent_hash.0.minimum_ring_size"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "iap": {
             "nesting_mode": 3,
@@ -13794,15 +14242,18 @@ func init() {
                 },
                 "oauth2_client_secret": {
                   "type": "string",
-                  "required": true
+                  "required": true,
+                  "sensitive": true
                 },
                 "oauth2_client_secret_sha256": {
                   "type": "string",
-                  "computed": true
+                  "computed": true,
+                  "sensitive": true
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "log_config": {
             "nesting_mode": 3,
@@ -13827,7 +14278,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "outlier_detection": {
             "nesting_mode": 3,
@@ -14024,7 +14476,8 @@ func init() {
                     "outlier_detection.0.success_rate_minimum_hosts",
                     "outlier_detection.0.success_rate_request_volume",
                     "outlier_detection.0.success_rate_stdev_factor"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "interval": {
                   "nesting_mode": 3,
@@ -14053,11 +14506,13 @@ func init() {
                     "outlier_detection.0.success_rate_minimum_hosts",
                     "outlier_detection.0.success_rate_request_volume",
                     "outlier_detection.0.success_rate_stdev_factor"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "security_settings": {
             "nesting_mode": 3,
@@ -14076,7 +14531,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -14092,7 +14548,8 @@ func init() {
           "key_value": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "name": {
             "type": "string",
@@ -14227,7 +14684,8 @@ func init() {
                 "raw_key": {
                   "type": "string",
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "sensitive": true
                 },
                 "sha256": {
                   "type": "string",
@@ -14236,7 +14694,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "source_image_encryption_key": {
             "nesting_mode": 3,
@@ -14264,7 +14723,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "source_snapshot_encryption_key": {
             "nesting_mode": 3,
@@ -14292,7 +14752,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -14357,7 +14818,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -14420,7 +14882,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -14711,7 +15174,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -14883,11 +15347,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -15223,7 +15690,9 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 64
                 }
               }
             },
@@ -15474,7 +15943,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "http2_health_check": {
             "nesting_mode": 3,
@@ -15583,7 +16053,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "http_health_check": {
             "nesting_mode": 3,
@@ -15692,7 +16163,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "https_health_check": {
             "nesting_mode": 3,
@@ -15801,7 +16273,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "log_config": {
             "nesting_mode": 3,
@@ -15815,7 +16288,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "ssl_health_check": {
             "nesting_mode": 3,
@@ -15904,7 +16378,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "tcp_health_check": {
             "nesting_mode": 3,
@@ -15993,7 +16468,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -16241,7 +16717,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -16300,7 +16777,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -16357,7 +16835,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -16548,7 +17027,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "attached_disk": {
             "nesting_mode": 3,
@@ -16561,7 +17041,8 @@ func init() {
                 },
                 "disk_encryption_key_raw": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "sensitive": true
                 },
                 "disk_encryption_key_sha256": {
                   "type": "string",
@@ -16623,6 +17104,7 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "force_new": true,
+                  "sensitive": true,
                   "conflicts_with": [
                     "boot_disk.0.kms_key_self_link"
                   ],
@@ -16761,12 +17243,15 @@ func init() {
                     "boot_disk.0.initialize_params",
                     "boot_disk.0.mode",
                     "boot_disk.0.source"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "confidential_instance_config": {
             "nesting_mode": 3,
@@ -16780,7 +17265,8 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "network_interface": {
             "nesting_mode": 3,
@@ -16896,7 +17382,8 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1
           },
           "reservation_affinity": {
             "nesting_mode": 3,
@@ -16929,13 +17416,15 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "scheduling": {
             "nesting_mode": 3,
@@ -17062,7 +17551,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "scratch_disk": {
             "nesting_mode": 3,
@@ -17095,7 +17585,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "shielded_instance_config": {
             "nesting_mode": 3,
@@ -17134,7 +17625,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -17368,7 +17860,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "boot_disk": {
             "nesting_mode": 3,
@@ -17409,6 +17902,7 @@ func init() {
                   "optional": true,
                   "computed": true,
                   "force_new": true,
+                  "sensitive": true,
                   "conflicts_with": [
                     "boot_disk.0.kms_key_self_link"
                   ],
@@ -17547,13 +18041,15 @@ func init() {
                     "boot_disk.0.initialize_params",
                     "boot_disk.0.mode",
                     "boot_disk.0.source"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "confidential_instance_config": {
             "nesting_mode": 3,
@@ -17567,7 +18063,8 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "network_interface": {
             "nesting_mode": 3,
@@ -17713,13 +18210,15 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "scheduling": {
             "nesting_mode": 3,
@@ -17849,7 +18348,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "shielded_instance_config": {
             "nesting_mode": 3,
@@ -17888,7 +18388,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -18083,7 +18584,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "named_port": {
             "nesting_mode": 4,
@@ -18171,7 +18673,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "version": {
             "nesting_mode": 3,
@@ -18201,11 +18704,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -18303,7 +18808,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -18366,7 +18872,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -18519,7 +19026,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "confidential_instance_config": {
             "nesting_mode": 3,
@@ -18534,7 +19042,8 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "disk": {
             "nesting_mode": 3,
@@ -18634,12 +19143,14 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1
           },
           "guest_accelerator": {
             "nesting_mode": 3,
@@ -18816,12 +19327,14 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "scheduling": {
             "nesting_mode": 3,
@@ -18953,7 +19466,8 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "service_account": {
             "nesting_mode": 3,
@@ -18976,7 +19490,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "shielded_instance_config": {
             "nesting_mode": 3,
@@ -19019,7 +19534,8 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -19225,7 +19741,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -19556,7 +20073,8 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "maintenance_window": {
             "nesting_mode": 3,
@@ -19570,7 +20088,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -19664,7 +20183,8 @@ func init() {
             "force_new": true,
             "conflicts_with": [
               "node_type"
-            ]
+            ],
+            "max_items": 1
           },
           "server_binding": {
             "nesting_mode": 3,
@@ -19679,7 +20199,8 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -19724,7 +20245,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "filter": {
             "nesting_mode": 3,
@@ -19751,7 +20274,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "mirrored_resources": {
             "nesting_mode": 3,
@@ -19807,7 +20331,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "network": {
             "nesting_mode": 3,
@@ -19821,7 +20347,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -19908,7 +20436,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -20047,7 +20576,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "load_balancing_utilization": {
                   "nesting_mode": 3,
@@ -20059,7 +20589,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "metric": {
                   "nesting_mode": 3,
@@ -20121,11 +20652,13 @@ func init() {
                         "at_least_one_of": [
                           "autoscaling_policy.0.scale_in_control.0.max_scaled_in_replicas",
                           "autoscaling_policy.0.scale_in_control.0.time_window_sec"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "scaling_schedules": {
                   "nesting_mode": 4,
@@ -20167,7 +20700,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -20457,7 +20992,8 @@ func init() {
                   "at_least_one_of": [
                     "cdn_policy.0.cache_key_policy",
                     "cdn_policy.0.signed_url_cache_max_age_sec"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "negative_caching_policy": {
                   "nesting_mode": 3,
@@ -20474,7 +21010,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "circuit_breakers": {
             "nesting_mode": 3,
@@ -20541,7 +21078,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "consistent_hash": {
             "nesting_mode": 3,
@@ -20611,7 +21149,8 @@ func init() {
                           "consistent_hash.0.http_cookie.0.ttl",
                           "consistent_hash.0.http_cookie.0.name",
                           "consistent_hash.0.http_cookie.0.path"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -20620,11 +21159,13 @@ func init() {
                     "consistent_hash.0.http_cookie",
                     "consistent_hash.0.http_header_name",
                     "consistent_hash.0.minimum_ring_size"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "failover_policy": {
             "nesting_mode": 3,
@@ -20659,7 +21200,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "iap": {
             "nesting_mode": 3,
@@ -20671,15 +21213,18 @@ func init() {
                 },
                 "oauth2_client_secret": {
                   "type": "string",
-                  "required": true
+                  "required": true,
+                  "sensitive": true
                 },
                 "oauth2_client_secret_sha256": {
                   "type": "string",
-                  "computed": true
+                  "computed": true,
+                  "sensitive": true
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "log_config": {
             "nesting_mode": 3,
@@ -20704,7 +21249,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "outlier_detection": {
             "nesting_mode": 3,
@@ -20901,7 +21447,8 @@ func init() {
                     "outlier_detection.0.success_rate_minimum_hosts",
                     "outlier_detection.0.success_rate_request_volume",
                     "outlier_detection.0.success_rate_stdev_factor"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "interval": {
                   "nesting_mode": 3,
@@ -20930,11 +21477,13 @@ func init() {
                     "outlier_detection.0.success_rate_minimum_hosts",
                     "outlier_detection.0.success_rate_request_volume",
                     "outlier_detection.0.success_rate_stdev_factor"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -21046,7 +21595,8 @@ func init() {
                 "raw_key": {
                   "type": "string",
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "sensitive": true
                 },
                 "sha256": {
                   "type": "string",
@@ -21055,7 +21605,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "source_snapshot_encryption_key": {
             "nesting_mode": 3,
@@ -21073,7 +21624,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -21138,7 +21690,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -21201,7 +21754,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -21377,7 +21931,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "http2_health_check": {
             "nesting_mode": 3,
@@ -21486,7 +22041,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "http_health_check": {
             "nesting_mode": 3,
@@ -21595,7 +22151,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "https_health_check": {
             "nesting_mode": 3,
@@ -21704,7 +22261,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "log_config": {
             "nesting_mode": 3,
@@ -21718,7 +22276,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "ssl_health_check": {
             "nesting_mode": 3,
@@ -21807,7 +22366,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           },
           "tcp_health_check": {
             "nesting_mode": 3,
@@ -21896,7 +22456,8 @@ func init() {
               "tcp_health_check",
               "ssl_health_check",
               "grpc_health_check"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -22035,7 +22596,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "named_port": {
             "nesting_mode": 4,
@@ -22127,7 +22689,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "version": {
             "nesting_mode": 3,
@@ -22157,11 +22720,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -22243,7 +22808,8 @@ func init() {
             "conflicts_with": [
               "cloud_run",
               "cloud_function"
-            ]
+            ],
+            "max_items": 1
           },
           "cloud_function": {
             "nesting_mode": 3,
@@ -22274,7 +22840,8 @@ func init() {
             "conflicts_with": [
               "cloud_run",
               "app_engine"
-            ]
+            ],
+            "max_items": 1
           },
           "cloud_run": {
             "nesting_mode": 3,
@@ -22310,7 +22877,8 @@ func init() {
             "conflicts_with": [
               "cloud_function",
               "app_engine"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -22398,7 +22966,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -22409,7 +22978,8 @@ func init() {
           "certificate": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "certificate_id": {
             "type": "number",
@@ -22442,7 +23012,8 @@ func init() {
           "private_key": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "project": {
             "type": "string",
@@ -22642,7 +23213,8 @@ func init() {
             "exactly_one_of": [
               "default_service",
               "default_url_redirect"
-            ]
+            ],
+            "max_items": 1
           },
           "host_rule": {
             "nesting_mode": 4,
@@ -22716,7 +23288,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "path_rule": {
                   "nesting_mode": 3,
@@ -22793,7 +23366,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "fault_injection_policy": {
                               "nesting_mode": 3,
@@ -22813,7 +23387,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "delay": {
                                     "nesting_mode": 3,
@@ -22839,15 +23414,19 @@ func init() {
                                               }
                                             }
                                           },
-                                          "required": true
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "request_mirror_policy": {
                               "nesting_mode": 3,
@@ -22859,7 +23438,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "retry_policy": {
                               "nesting_mode": 3,
@@ -22892,11 +23472,13 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "timeout": {
                               "nesting_mode": 3,
@@ -22912,7 +23494,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "url_rewrite": {
                               "nesting_mode": 3,
@@ -22928,7 +23511,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "weighted_backend_services": {
                               "nesting_mode": 3,
@@ -23006,7 +23590,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -23014,7 +23599,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "url_redirect": {
                         "nesting_mode": 3,
@@ -23047,7 +23633,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -23129,7 +23716,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "match_rules": {
                         "nesting_mode": 3,
@@ -23203,7 +23791,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -23233,7 +23822,9 @@ func init() {
                                         }
                                       }
                                     },
-                                    "required": true
+                                    "required": true,
+                                    "min_items": 1,
+                                    "max_items": 64
                                   }
                                 }
                               },
@@ -23326,7 +23917,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "fault_injection_policy": {
                               "nesting_mode": 3,
@@ -23346,7 +23938,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "delay": {
                                     "nesting_mode": 3,
@@ -23372,15 +23965,18 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "request_mirror_policy": {
                               "nesting_mode": 3,
@@ -23392,7 +23988,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "retry_policy": {
                               "nesting_mode": 3,
@@ -23425,11 +24022,13 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "timeout": {
                               "nesting_mode": 3,
@@ -23445,7 +24044,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "url_rewrite": {
                               "nesting_mode": 3,
@@ -23461,7 +24061,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "weighted_backend_services": {
                               "nesting_mode": 3,
@@ -23539,7 +24140,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -23547,7 +24149,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "url_redirect": {
                         "nesting_mode": 3,
@@ -23581,7 +24184,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -23696,7 +24300,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "specific_reservation": {
             "nesting_mode": 3,
@@ -23771,11 +24376,15 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -23845,7 +24454,8 @@ func init() {
             "conflicts_with": [
               "instance_schedule_policy",
               "snapshot_schedule_policy"
-            ]
+            ],
+            "max_items": 1
           },
           "instance_schedule_policy": {
             "nesting_mode": 3,
@@ -23884,7 +24494,8 @@ func init() {
                   "at_least_one_of": [
                     "instance_schedule_policy.0.vm_start_schedule",
                     "instance_schedule_policy.0.vm_stop_schedule"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "vm_stop_schedule": {
                   "nesting_mode": 3,
@@ -23902,7 +24513,8 @@ func init() {
                   "at_least_one_of": [
                     "instance_schedule_policy.0.vm_start_schedule",
                     "instance_schedule_policy.0.vm_stop_schedule"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -23911,7 +24523,8 @@ func init() {
             "conflicts_with": [
               "snapshot_schedule_policy",
               "group_placement_policy"
-            ]
+            ],
+            "max_items": 1
           },
           "snapshot_schedule_policy": {
             "nesting_mode": 3,
@@ -23935,7 +24548,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "schedule": {
                   "nesting_mode": 3,
@@ -23963,7 +24577,8 @@ func init() {
                           "snapshot_schedule_policy.0.schedule.0.hourly_schedule",
                           "snapshot_schedule_policy.0.schedule.0.daily_schedule",
                           "snapshot_schedule_policy.0.schedule.0.weekly_schedule"
-                        ]
+                        ],
+                        "max_items": 1
                       },
                       "hourly_schedule": {
                         "nesting_mode": 3,
@@ -23987,7 +24602,8 @@ func init() {
                           "snapshot_schedule_policy.0.schedule.0.hourly_schedule",
                           "snapshot_schedule_policy.0.schedule.0.daily_schedule",
                           "snapshot_schedule_policy.0.schedule.0.weekly_schedule"
-                        ]
+                        ],
+                        "max_items": 1
                       },
                       "weekly_schedule": {
                         "nesting_mode": 3,
@@ -24010,7 +24626,9 @@ func init() {
                                 }
                               },
                               "required": true,
-                              "force_new": true
+                              "force_new": true,
+                              "min_items": 1,
+                              "max_items": 7
                             }
                           }
                         },
@@ -24020,17 +24638,25 @@ func init() {
                           "snapshot_schedule_policy.0.schedule.0.hourly_schedule",
                           "snapshot_schedule_policy.0.schedule.0.daily_schedule",
                           "snapshot_schedule_policy.0.schedule.0.weekly_schedule"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "snapshot_properties": {
                   "nesting_mode": 3,
                   "block": {
                     "attributes": {
+                      "chain_name": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
+                      },
                       "guest_flush": {
                         "type": "bool",
                         "optional": true,
@@ -24070,7 +24696,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
@@ -24079,7 +24706,8 @@ func init() {
             "conflicts_with": [
               "group_placement_policy",
               "instance_schedule_policy"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -24294,7 +24922,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -24464,7 +25093,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "subnetwork": {
             "nesting_mode": 4,
@@ -24607,7 +25237,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -24664,11 +25295,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "advanced_options_config": {
             "nesting_mode": 3,
@@ -24687,7 +25320,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "rule": {
             "nesting_mode": 4,
@@ -24737,7 +25371,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "expr": {
                         "nesting_mode": 3,
@@ -24749,11 +25384,14 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "rate_limit_options": {
                   "nesting_mode": 3,
@@ -24796,7 +25434,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "exceed_redirect_options": {
                         "nesting_mode": 3,
@@ -24812,7 +25451,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "rate_limit_threshold": {
                         "nesting_mode": 3,
@@ -24828,11 +25468,14 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "redirect_options": {
                   "nesting_mode": 3,
@@ -24848,7 +25491,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -24990,6 +25634,11 @@ func init() {
     "google_compute_snapshot": {
       "block": {
         "attributes": {
+          "chain_name": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
           "creation_timestamp": {
             "type": "string",
             "computed": true
@@ -25083,7 +25732,8 @@ func init() {
                 "raw_key": {
                   "type": "string",
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "sensitive": true
                 },
                 "sha256": {
                   "type": "string",
@@ -25092,7 +25742,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "source_disk_encryption_key": {
             "nesting_mode": 3,
@@ -25106,12 +25757,14 @@ func init() {
                 "raw_key": {
                   "type": "string",
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "sensitive": true
                 }
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -25170,7 +25823,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -25227,7 +25881,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -25263,7 +25918,8 @@ func init() {
           "certificate": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "certificate_id": {
             "type": "number",
@@ -25296,7 +25952,8 @@ func init() {
           "private_key": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "project": {
             "type": "string",
@@ -25529,7 +26186,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -25594,7 +26252,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -25657,7 +26316,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -25972,6 +26632,14 @@ func init() {
             "type": "string",
             "required": true
           },
+          "certificate_map": {
+            "type": "string",
+            "optional": true,
+            "exactly_one_of": [
+              "ssl_certificates",
+              "certificate_map"
+            ]
+          },
           "creation_timestamp": {
             "type": "string",
             "computed": true
@@ -26010,7 +26678,11 @@ func init() {
               "list",
               "string"
             ],
-            "required": true
+            "optional": true,
+            "exactly_one_of": [
+              "ssl_certificates",
+              "certificate_map"
+            ]
           },
           "ssl_policy": {
             "type": "string",
@@ -26261,7 +26933,8 @@ func init() {
                     "default_route_action.0.request_mirror_policy",
                     "default_route_action.0.cors_policy",
                     "default_route_action.0.fault_injection_policy"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "fault_injection_policy": {
                   "nesting_mode": 3,
@@ -26293,7 +26966,8 @@ func init() {
                         "at_least_one_of": [
                           "default_route_action.0.fault_injection_policy.0.delay",
                           "default_route_action.0.fault_injection_policy.0.abort"
-                        ]
+                        ],
+                        "max_items": 1
                       },
                       "delay": {
                         "nesting_mode": 3,
@@ -26335,7 +27009,8 @@ func init() {
                               "at_least_one_of": [
                                 "default_route_action.0.fault_injection_policy.0.delay.0.fixed_delay",
                                 "default_route_action.0.fault_injection_policy.0.delay.0.percentage"
-                              ]
+                              ],
+                              "max_items": 1
                             }
                           }
                         },
@@ -26343,7 +27018,8 @@ func init() {
                         "at_least_one_of": [
                           "default_route_action.0.fault_injection_policy.0.delay",
                           "default_route_action.0.fault_injection_policy.0.abort"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -26356,7 +27032,8 @@ func init() {
                     "default_route_action.0.request_mirror_policy",
                     "default_route_action.0.cors_policy",
                     "default_route_action.0.fault_injection_policy"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "request_mirror_policy": {
                   "nesting_mode": 3,
@@ -26377,7 +27054,8 @@ func init() {
                     "default_route_action.0.request_mirror_policy",
                     "default_route_action.0.cors_policy",
                     "default_route_action.0.fault_injection_policy"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "retry_policy": {
                   "nesting_mode": 3,
@@ -26434,7 +27112,8 @@ func init() {
                           "default_route_action.0.retry_policy.0.retry_conditions",
                           "default_route_action.0.retry_policy.0.num_retries",
                           "default_route_action.0.retry_policy.0.per_try_timeout"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -26447,7 +27126,8 @@ func init() {
                     "default_route_action.0.request_mirror_policy",
                     "default_route_action.0.cors_policy",
                     "default_route_action.0.fault_injection_policy"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "timeout": {
                   "nesting_mode": 3,
@@ -26481,7 +27161,8 @@ func init() {
                     "default_route_action.0.request_mirror_policy",
                     "default_route_action.0.cors_policy",
                     "default_route_action.0.fault_injection_policy"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "url_rewrite": {
                   "nesting_mode": 3,
@@ -26514,7 +27195,8 @@ func init() {
                     "default_route_action.0.request_mirror_policy",
                     "default_route_action.0.cors_policy",
                     "default_route_action.0.fault_injection_policy"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "weighted_backend_services": {
                   "nesting_mode": 3,
@@ -26594,7 +27276,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -26619,7 +27302,8 @@ func init() {
             "optional": true,
             "conflicts_with": [
               "default_url_redirect"
-            ]
+            ],
+            "max_items": 1
           },
           "default_url_redirect": {
             "nesting_mode": 3,
@@ -26660,7 +27344,8 @@ func init() {
               "default_service",
               "default_url_redirect",
               "default_route_action.0.weighted_backend_services"
-            ]
+            ],
+            "max_items": 1
           },
           "header_action": {
             "nesting_mode": 3,
@@ -26748,7 +27433,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "host_rule": {
             "nesting_mode": 4,
@@ -26850,7 +27536,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "fault_injection_policy": {
                         "nesting_mode": 3,
@@ -26870,7 +27557,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "delay": {
                               "nesting_mode": 3,
@@ -26896,15 +27584,18 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "request_mirror_policy": {
                         "nesting_mode": 3,
@@ -26916,7 +27607,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "retry_policy": {
                         "nesting_mode": 3,
@@ -26950,11 +27642,13 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "timeout": {
                         "nesting_mode": 3,
@@ -26971,7 +27665,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "computed": true
+                        "computed": true,
+                        "max_items": 1
                       },
                       "url_rewrite": {
                         "nesting_mode": 3,
@@ -26987,7 +27682,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "weighted_backend_services": {
                         "nesting_mode": 3,
@@ -27067,7 +27763,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -27075,7 +27772,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "default_url_redirect": {
                   "nesting_mode": 3,
@@ -27108,7 +27806,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "header_action": {
                   "nesting_mode": 3,
@@ -27172,7 +27871,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "path_rule": {
                   "nesting_mode": 3,
@@ -27249,7 +27949,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "fault_injection_policy": {
                               "nesting_mode": 3,
@@ -27269,7 +27970,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "delay": {
                                     "nesting_mode": 3,
@@ -27295,15 +27997,19 @@ func init() {
                                               }
                                             }
                                           },
-                                          "required": true
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "request_mirror_policy": {
                               "nesting_mode": 3,
@@ -27315,7 +28021,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "retry_policy": {
                               "nesting_mode": 3,
@@ -27348,11 +28055,13 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "timeout": {
                               "nesting_mode": 3,
@@ -27368,7 +28077,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "url_rewrite": {
                               "nesting_mode": 3,
@@ -27384,7 +28094,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "weighted_backend_services": {
                               "nesting_mode": 3,
@@ -27462,7 +28173,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -27470,7 +28182,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "url_redirect": {
                         "nesting_mode": 3,
@@ -27503,7 +28216,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -27585,7 +28299,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "match_rules": {
                         "nesting_mode": 3,
@@ -27659,7 +28374,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -27689,7 +28405,9 @@ func init() {
                                         }
                                       }
                                     },
-                                    "required": true
+                                    "required": true,
+                                    "min_items": 1,
+                                    "max_items": 64
                                   }
                                 }
                               },
@@ -27782,7 +28500,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "fault_injection_policy": {
                               "nesting_mode": 3,
@@ -27802,7 +28521,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "delay": {
                                     "nesting_mode": 3,
@@ -27828,15 +28548,18 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "request_mirror_policy": {
                               "nesting_mode": 3,
@@ -27848,7 +28571,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "retry_policy": {
                               "nesting_mode": 3,
@@ -27881,11 +28605,13 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "timeout": {
                               "nesting_mode": 3,
@@ -27901,7 +28627,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "url_rewrite": {
                               "nesting_mode": 3,
@@ -27917,7 +28644,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "weighted_backend_services": {
                               "nesting_mode": 3,
@@ -27995,7 +28723,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -28003,7 +28732,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "url_redirect": {
                         "nesting_mode": 3,
@@ -28037,7 +28767,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -28215,7 +28946,8 @@ func init() {
           "shared_secret": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "shared_secret_hash": {
             "type": "string",
@@ -28304,11 +29036,15 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "related_url": {
             "nesting_mode": 4,
@@ -28394,11 +29130,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -28496,11 +29235,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "control_plane": {
             "nesting_mode": 3,
@@ -28559,7 +29301,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "config_encryption": {
                   "nesting_mode": 3,
@@ -28571,7 +29315,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "database_encryption": {
                   "nesting_mode": 3,
@@ -28585,7 +29331,9 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "main_volume": {
                   "nesting_mode": 3,
@@ -28618,7 +29366,8 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "proxy_config": {
                   "nesting_mode": 3,
@@ -28634,7 +29383,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "root_volume": {
                   "nesting_mode": 3,
@@ -28662,7 +29412,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "ssh_config": {
                   "nesting_mode": 3,
@@ -28674,11 +29425,14 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "fleet": {
             "nesting_mode": 3,
@@ -28697,7 +29451,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "networking": {
             "nesting_mode": 3,
@@ -28727,7 +29483,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -28812,7 +29570,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "config": {
             "nesting_mode": 3,
@@ -28863,7 +29623,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "proxy_config": {
                   "nesting_mode": 3,
@@ -28879,7 +29641,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "root_volume": {
                   "nesting_mode": 3,
@@ -28907,7 +29670,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "ssh_config": {
                   "nesting_mode": 3,
@@ -28919,7 +29683,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "taints": {
                   "nesting_mode": 3,
@@ -28947,7 +29712,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "max_pods_constraint": {
             "nesting_mode": 3,
@@ -28961,7 +29728,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -29113,11 +29882,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "control_plane": {
             "nesting_mode": 3,
@@ -29159,7 +29931,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "main_volume": {
                   "nesting_mode": 3,
@@ -29175,7 +29948,8 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "proxy_config": {
                   "nesting_mode": 3,
@@ -29194,7 +29968,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "replica_placements": {
                   "nesting_mode": 3,
@@ -29229,7 +30004,8 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "ssh_config": {
                   "nesting_mode": 3,
@@ -29241,11 +30017,15 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "fleet": {
             "nesting_mode": 3,
@@ -29264,7 +30044,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "networking": {
             "nesting_mode": 3,
@@ -29294,7 +30076,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -29385,7 +30169,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "config": {
             "nesting_mode": 3,
@@ -29424,7 +30210,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "root_volume": {
                   "nesting_mode": 3,
@@ -29440,7 +30227,8 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "ssh_config": {
                   "nesting_mode": 3,
@@ -29452,11 +30240,15 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "max_pods_constraint": {
             "nesting_mode": 3,
@@ -29470,7 +30262,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -29696,7 +30490,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "dns_cache_config": {
                   "nesting_mode": 3,
@@ -29721,7 +30516,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "gce_persistent_disk_csi_driver_config": {
                   "nesting_mode": 3,
@@ -29743,7 +30539,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "gcp_filestore_csi_driver_config": {
                   "nesting_mode": 3,
@@ -29768,7 +30565,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "horizontal_pod_autoscaling": {
                   "nesting_mode": 3,
@@ -29790,7 +30588,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "http_load_balancing": {
                   "nesting_mode": 3,
@@ -29812,7 +30611,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "network_policy_config": {
                   "nesting_mode": 3,
@@ -29837,12 +30637,14 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "authenticator_groups_config": {
             "nesting_mode": 3,
@@ -29855,7 +30657,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "binary_authorization": {
             "nesting_mode": 3,
@@ -29881,7 +30684,8 @@ func init() {
             "optional": true,
             "conflicts_with": [
               "enable_binary_authorization"
-            ]
+            ],
+            "max_items": 1
           },
           "cluster_autoscaling": {
             "nesting_mode": 3,
@@ -29923,7 +30727,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "resource_limits": {
                   "nesting_mode": 3,
@@ -29951,7 +30756,8 @@ func init() {
             "computed": true,
             "conflicts_with": [
               "enable_autopilot"
-            ]
+            ],
+            "max_items": 1
           },
           "confidential_nodes": {
             "nesting_mode": 3,
@@ -29966,7 +30772,8 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "database_encryption": {
             "nesting_mode": 3,
@@ -29983,7 +30790,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "default_snat_status": {
             "nesting_mode": 3,
@@ -29996,7 +30804,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "dns_config": {
             "nesting_mode": 3,
@@ -30019,7 +30828,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "ip_allocation_policy": {
             "nesting_mode": 3,
@@ -30072,7 +30882,8 @@ func init() {
             "force_new": true,
             "conflicts_with": [
               "cluster_ipv4_cidr"
-            ]
+            ],
+            "max_items": 1
           },
           "logging_config": {
             "nesting_mode": 3,
@@ -30088,7 +30899,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "maintenance_policy": {
             "nesting_mode": 3,
@@ -30112,7 +30924,8 @@ func init() {
                   "exactly_one_of": [
                     "maintenance_policy.0.daily_maintenance_window",
                     "maintenance_policy.0.recurring_window"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "maintenance_exclusion": {
                   "nesting_mode": 4,
@@ -30142,11 +30955,13 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 3
                 },
                 "recurring_window": {
                   "nesting_mode": 3,
@@ -30170,11 +30985,13 @@ func init() {
                   "exactly_one_of": [
                     "maintenance_policy.0.daily_maintenance_window",
                     "maintenance_policy.0.recurring_window"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "master_auth": {
             "nesting_mode": 3,
@@ -30186,7 +31003,8 @@ func init() {
                 },
                 "client_key": {
                   "type": "string",
-                  "computed": true
+                  "computed": true,
+                  "sensitive": true
                 },
                 "cluster_ca_certificate": {
                   "type": "string",
@@ -30206,12 +31024,15 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "master_authorized_networks_config": {
             "nesting_mode": 3,
@@ -30235,7 +31056,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "mesh_certificates": {
             "nesting_mode": 3,
@@ -30248,7 +31070,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "monitoring_config": {
             "nesting_mode": 3,
@@ -30264,7 +31087,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "network_policy": {
             "nesting_mode": 3,
@@ -30284,7 +31108,8 @@ func init() {
             "optional": true,
             "conflicts_with": [
               "enable_autopilot"
-            ]
+            ],
+            "max_items": 1
           },
           "node_config": {
             "nesting_mode": 3,
@@ -30434,7 +31259,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "gvnic": {
                   "nesting_mode": 3,
@@ -30448,7 +31274,36 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
+                },
+                "reservation_affinity": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consume_reservation_type": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      },
+                      "key": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
+                      },
+                      "values": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "optional": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "shielded_instance_config": {
                   "nesting_mode": 3,
@@ -30470,7 +31325,8 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "workload_metadata_config": {
                   "nesting_mode": 3,
@@ -30484,13 +31340,15 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "node_pool": {
             "nesting_mode": 3,
@@ -30558,17 +31416,30 @@ func init() {
                   "nesting_mode": 3,
                   "block": {
                     "attributes": {
+                      "location_policy": {
+                        "type": "string",
+                        "optional": true
+                      },
                       "max_node_count": {
                         "type": "number",
-                        "required": true
+                        "optional": true
                       },
                       "min_node_count": {
                         "type": "number",
-                        "required": true
+                        "optional": true
+                      },
+                      "total_max_node_count": {
+                        "type": "number",
+                        "optional": true
+                      },
+                      "total_min_node_count": {
+                        "type": "number",
+                        "optional": true
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "management": {
                   "nesting_mode": 3,
@@ -30587,7 +31458,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "node_config": {
                   "nesting_mode": 3,
@@ -30737,7 +31609,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "gvnic": {
                         "nesting_mode": 3,
@@ -30751,7 +31624,36 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
+                      },
+                      "reservation_affinity": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "consume_reservation_type": {
+                              "type": "string",
+                              "required": true,
+                              "force_new": true
+                            },
+                            "key": {
+                              "type": "string",
+                              "optional": true,
+                              "force_new": true
+                            },
+                            "values": {
+                              "type": [
+                                "set",
+                                "string"
+                              ],
+                              "optional": true,
+                              "force_new": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "shielded_instance_config": {
                         "nesting_mode": 3,
@@ -30773,7 +31675,8 @@ func init() {
                         },
                         "optional": true,
                         "computed": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "workload_metadata_config": {
                         "nesting_mode": 3,
@@ -30786,13 +31689,15 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "computed": true
+                        "computed": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "upgrade_settings": {
                   "nesting_mode": 3,
@@ -30809,7 +31714,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
@@ -30838,12 +31744,15 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "private_cluster_config": {
             "nesting_mode": 3,
@@ -30890,12 +31799,14 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "release_channel": {
             "nesting_mode": 3,
@@ -30908,7 +31819,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "resource_usage_export_config": {
             "nesting_mode": 3,
@@ -30936,11 +31848,28 @@ func init() {
                       }
                     }
                   },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "service_external_ips_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "enabled": {
+                  "type": "bool",
                   "required": true
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "computed": true,
+            "max_items": 1
           },
           "vertical_pod_autoscaling": {
             "nesting_mode": 3,
@@ -30953,7 +31882,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "workload_identity_config": {
             "nesting_mode": 3,
@@ -30969,7 +31899,8 @@ func init() {
             "computed": true,
             "conflicts_with": [
               "enable_autopilot"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -31060,17 +31991,30 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "location_policy": {
+                  "type": "string",
+                  "optional": true
+                },
                 "max_node_count": {
                   "type": "number",
-                  "required": true
+                  "optional": true
                 },
                 "min_node_count": {
                   "type": "number",
-                  "required": true
+                  "optional": true
+                },
+                "total_max_node_count": {
+                  "type": "number",
+                  "optional": true
+                },
+                "total_min_node_count": {
+                  "type": "number",
+                  "optional": true
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "management": {
             "nesting_mode": 3,
@@ -31089,7 +32033,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "node_config": {
             "nesting_mode": 3,
@@ -31239,7 +32184,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "gvnic": {
                   "nesting_mode": 3,
@@ -31253,7 +32199,36 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
+                },
+                "reservation_affinity": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consume_reservation_type": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      },
+                      "key": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
+                      },
+                      "values": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "optional": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "shielded_instance_config": {
                   "nesting_mode": 3,
@@ -31275,7 +32250,8 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "workload_metadata_config": {
                   "nesting_mode": 3,
@@ -31288,13 +32264,15 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "upgrade_settings": {
             "nesting_mode": 3,
@@ -31311,7 +32289,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -31468,7 +32447,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -31568,7 +32548,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -31631,7 +32612,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -31732,7 +32714,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -31827,20 +32810,25 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1
           }
         }
       }
@@ -31905,7 +32893,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -31968,7 +32957,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -32120,7 +33110,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -32217,7 +33208,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "crypto_deterministic_config": {
                                     "nesting_mode": 3,
@@ -32233,7 +33225,8 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         },
                                         "crypto_key": {
                                           "nesting_mode": 3,
@@ -32253,7 +33246,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "transient": {
                                                 "nesting_mode": 3,
@@ -32265,7 +33259,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "unwrapped": {
                                                 "nesting_mode": 3,
@@ -32277,11 +33272,13 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         },
                                         "surrogate_info_type": {
                                           "nesting_mode": 3,
@@ -32293,11 +33290,13 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "crypto_replace_ffx_fpe_config": {
                                     "nesting_mode": 3,
@@ -32327,7 +33326,8 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         },
                                         "crypto_key": {
                                           "nesting_mode": 3,
@@ -32347,7 +33347,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "transient": {
                                                 "nesting_mode": 3,
@@ -32359,7 +33360,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "unwrapped": {
                                                 "nesting_mode": 3,
@@ -32371,11 +33373,13 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         },
                                         "surrogate_info_type": {
                                           "nesting_mode": 3,
@@ -32387,11 +33391,13 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "replace_config": {
                                     "nesting_mode": 3,
@@ -32445,7 +33451,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "time_value": {
                                                 "nesting_mode": 3,
@@ -32469,31 +33476,42 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               }
                                             }
                                           },
-                                          "required": true
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -32575,7 +33593,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "word_list": {
                               "nesting_mode": 3,
@@ -32590,12 +33609,14 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "info_type": {
                         "nesting_mode": 3,
@@ -32607,7 +33628,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "regex": {
                         "nesting_mode": 3,
@@ -32627,7 +33650,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "stored_type": {
                         "nesting_mode": 3,
@@ -32640,7 +33664,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -32692,7 +33717,9 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
@@ -32700,7 +33727,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "rule_set": {
                   "nesting_mode": 3,
@@ -32716,7 +33744,8 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1
                       },
                       "rules": {
                         "nesting_mode": 3,
@@ -32746,7 +33775,8 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         },
                                         "word_list": {
                                           "nesting_mode": 3,
@@ -32761,11 +33791,13 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "exclude_info_types": {
                                     "nesting_mode": 3,
@@ -32781,11 +33813,13 @@ func init() {
                                               }
                                             }
                                           },
-                                          "required": true
+                                          "required": true,
+                                          "min_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "regex": {
                                     "nesting_mode": 3,
@@ -32804,11 +33838,13 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "hotword_rule": {
                               "nesting_mode": 3,
@@ -32831,7 +33867,9 @@ func init() {
                                         }
                                       }
                                     },
-                                    "required": true
+                                    "required": true,
+                                    "min_items": 1,
+                                    "max_items": 1
                                   },
                                   "likelihood_adjustment": {
                                     "nesting_mode": 3,
@@ -32847,7 +33885,9 @@ func init() {
                                         }
                                       }
                                     },
-                                    "required": true
+                                    "required": true,
+                                    "min_items": 1,
+                                    "max_items": 1
                                   },
                                   "proximity": {
                                     "nesting_mode": 3,
@@ -32863,15 +33903,19 @@ func init() {
                                         }
                                       }
                                     },
-                                    "required": true
+                                    "required": true,
+                                    "min_items": 1,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1
                       }
                     }
                   },
@@ -32879,7 +33923,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -32961,19 +34006,26 @@ func init() {
                                         }
                                       }
                                     },
-                                    "required": true
+                                    "required": true,
+                                    "min_items": 1,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 },
                 "storage_config": {
                   "nesting_mode": 3,
@@ -33001,11 +34053,14 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "cloud_storage_options": {
                         "nesting_mode": 3,
@@ -33078,15 +34133,19 @@ func init() {
                                     "exactly_one_of": [
                                       "inspect_job.0.storage_config.0.cloud_storage_options.0.file_set.0.url",
                                       "inspect_job.0.storage_config.0.cloud_storage_options.0.file_set.0.regex_file_set"
-                                    ]
+                                    ],
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "datastore_options": {
                         "nesting_mode": 3,
@@ -33102,7 +34161,9 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             },
                             "partition_id": {
                               "nesting_mode": 3,
@@ -33118,11 +34179,14 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "timespan_config": {
                         "nesting_mode": 3,
@@ -33160,19 +34224,25 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "triggers": {
             "nesting_mode": 3,
@@ -33188,11 +34258,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -33237,7 +34309,8 @@ func init() {
                   "exactly_one_of": [
                     "dictionary.0.word_list",
                     "dictionary.0.cloud_storage_path"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "word_list": {
                   "nesting_mode": 3,
@@ -33256,7 +34329,8 @@ func init() {
                   "exactly_one_of": [
                     "dictionary.0.word_list",
                     "dictionary.0.cloud_storage_path"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -33266,7 +34340,8 @@ func init() {
               "dictionary",
               "regex",
               "large_custom_dictionary"
-            ]
+            ],
+            "max_items": 1
           },
           "large_custom_dictionary": {
             "nesting_mode": 3,
@@ -33286,7 +34361,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "table": {
                         "nesting_mode": 3,
@@ -33306,7 +34383,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
@@ -33314,7 +34393,8 @@ func init() {
                   "exactly_one_of": [
                     "large_custom_dictionary.0.cloud_storage_file_set",
                     "large_custom_dictionary.0.big_query_field"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "cloud_storage_file_set": {
                   "nesting_mode": 3,
@@ -33330,7 +34410,8 @@ func init() {
                   "exactly_one_of": [
                     "large_custom_dictionary.0.cloud_storage_file_set",
                     "large_custom_dictionary.0.big_query_field"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "output_path": {
                   "nesting_mode": 3,
@@ -33342,7 +34423,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
@@ -33352,7 +34435,8 @@ func init() {
               "dictionary",
               "regex",
               "large_custom_dictionary"
-            ]
+            ],
+            "max_items": 1
           },
           "regex": {
             "nesting_mode": 3,
@@ -33378,7 +34462,8 @@ func init() {
               "dictionary",
               "regex",
               "large_custom_dictionary"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -33669,7 +34754,9 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "computed": true,
+                  "max_items": 1
                 },
                 "json_options": {
                   "nesting_mode": 3,
@@ -33685,11 +34772,15 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "resource_spec": {
             "nesting_mode": 3,
@@ -33708,7 +34799,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -33807,7 +34900,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -33938,7 +35032,9 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "computed": true,
+                  "max_items": 1
                 },
                 "json_options": {
                   "nesting_mode": 3,
@@ -33954,11 +35050,15 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "resource_spec": {
             "nesting_mode": 3,
@@ -33972,7 +35072,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -34041,11 +35143,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "secondary_worker_config": {
             "nesting_mode": 3,
@@ -34083,7 +35188,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "worker_config": {
             "nesting_mode": 3,
@@ -34105,7 +35211,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -34170,7 +35277,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -34233,7 +35341,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -34383,7 +35492,8 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "encryption_config": {
                   "nesting_mode": 3,
@@ -34411,7 +35521,8 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "endpoint_config": {
                   "nesting_mode": 3,
@@ -34448,7 +35559,8 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "gce_cluster_config": {
                   "nesting_mode": 3,
@@ -34654,7 +35766,8 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
                           "cluster_config.0.gce_cluster_config.0.metadata"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -34675,7 +35788,8 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "initialization_action": {
                   "nesting_mode": 3,
@@ -34755,7 +35869,8 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "master_config": {
                   "nesting_mode": 3,
@@ -34900,7 +36015,8 @@ func init() {
                           "cluster_config.0.master_config.0.min_cpu_platform",
                           "cluster_config.0.master_config.0.disk_config",
                           "cluster_config.0.master_config.0.accelerators"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -34921,7 +36037,8 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "metastore_config": {
                   "nesting_mode": 3,
@@ -34950,7 +36067,8 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "preemptible_worker_config": {
                   "nesting_mode": 3,
@@ -35031,7 +36149,8 @@ func init() {
                           "cluster_config.0.preemptible_worker_config.0.num_instances",
                           "cluster_config.0.preemptible_worker_config.0.preemptibility",
                           "cluster_config.0.preemptible_worker_config.0.disk_config"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -35052,7 +36171,8 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "security_config": {
                   "nesting_mode": 3,
@@ -35124,11 +36244,14 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "software_config": {
                   "nesting_mode": 3,
@@ -35196,7 +36319,8 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "worker_config": {
                   "nesting_mode": 3,
@@ -35341,7 +36465,8 @@ func init() {
                           "cluster_config.0.worker_config.0.min_cpu_platform",
                           "cluster_config.0.worker_config.0.disk_config",
                           "cluster_config.0.worker_config.0.accelerators"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -35362,12 +36487,14 @@ func init() {
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
                     "cluster_config.0.endpoint_config"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "virtual_cluster_config": {
             "nesting_mode": 3,
@@ -35407,7 +36534,8 @@ func init() {
                         "at_least_one_of": [
                           "virtual_cluster_config.0.auxiliary_services_config.0.metastore_config",
                           "virtual_cluster_config.0.auxiliary_services_config.0.spark_history_server_config"
-                        ]
+                        ],
+                        "max_items": 1
                       },
                       "spark_history_server_config": {
                         "nesting_mode": 3,
@@ -35427,7 +36555,8 @@ func init() {
                         "at_least_one_of": [
                           "virtual_cluster_config.0.auxiliary_services_config.0.metastore_config",
                           "virtual_cluster_config.0.auxiliary_services_config.0.spark_history_server_config"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -35437,7 +36566,8 @@ func init() {
                     "virtual_cluster_config.0.staging_bucket",
                     "virtual_cluster_config.0.auxiliary_services_config",
                     "virtual_cluster_config.0.kubernetes_cluster_config"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "kubernetes_cluster_config": {
                   "nesting_mode": 3,
@@ -35518,7 +36648,8 @@ func init() {
                                             }
                                           },
                                           "optional": true,
-                                          "computed": true
+                                          "computed": true,
+                                          "max_items": 1
                                         },
                                         "config": {
                                           "nesting_mode": 3,
@@ -35552,12 +36683,14 @@ func init() {
                                             }
                                           },
                                           "optional": true,
-                                          "computed": true
+                                          "computed": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
                                     "optional": true,
-                                    "computed": true
+                                    "computed": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -35569,7 +36702,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "kubernetes_software_config": {
                         "nesting_mode": 3,
@@ -35594,7 +36729,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
@@ -35604,12 +36741,14 @@ func init() {
                     "virtual_cluster_config.0.staging_bucket",
                     "virtual_cluster_config.0.auxiliary_services_config",
                     "virtual_cluster_config.0.kubernetes_cluster_config"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -35674,7 +36813,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -35737,7 +36877,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -35905,7 +37046,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
@@ -35919,7 +37061,8 @@ func init() {
               "pig_config",
               "sparksql_config",
               "presto_config"
-            ]
+            ],
+            "max_items": 1
           },
           "hive_config": {
             "nesting_mode": 3,
@@ -35987,7 +37130,8 @@ func init() {
               "pig_config",
               "sparksql_config",
               "presto_config"
-            ]
+            ],
+            "max_items": 1
           },
           "pig_config": {
             "nesting_mode": 3,
@@ -36060,7 +37204,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
@@ -36074,7 +37219,8 @@ func init() {
               "pig_config",
               "sparksql_config",
               "presto_config"
-            ]
+            ],
+            "max_items": 1
           },
           "placement": {
             "nesting_mode": 3,
@@ -36091,7 +37237,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "presto_config": {
             "nesting_mode": 3,
@@ -36161,7 +37309,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
@@ -36175,7 +37324,8 @@ func init() {
               "pig_config",
               "sparksql_config",
               "presto_config"
-            ]
+            ],
+            "max_items": 1
           },
           "pyspark_config": {
             "nesting_mode": 3,
@@ -36251,7 +37401,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
@@ -36265,7 +37416,8 @@ func init() {
               "pig_config",
               "sparksql_config",
               "presto_config"
-            ]
+            ],
+            "max_items": 1
           },
           "reference": {
             "nesting_mode": 3,
@@ -36280,7 +37432,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "scheduling": {
             "nesting_mode": 3,
@@ -36299,7 +37452,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "spark_config": {
             "nesting_mode": 3,
@@ -36380,7 +37534,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
@@ -36394,7 +37549,8 @@ func init() {
               "pig_config",
               "sparksql_config",
               "presto_config"
-            ]
+            ],
+            "max_items": 1
           },
           "sparksql_config": {
             "nesting_mode": 3,
@@ -36462,7 +37618,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
@@ -36476,7 +37633,8 @@ func init() {
               "pig_config",
               "sparksql_config",
               "presto_config"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -36541,7 +37699,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -36604,7 +37763,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -36732,7 +37892,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "hive_metastore_config": {
             "nesting_mode": 3,
@@ -36777,15 +37938,19 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "maintenance_window": {
             "nesting_mode": 3,
@@ -36801,7 +37966,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -36866,7 +38032,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -36929,7 +38096,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -37111,12 +38279,14 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "hive_job": {
                   "nesting_mode": 3,
@@ -37173,12 +38343,14 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "pig_job": {
                   "nesting_mode": 3,
@@ -37235,7 +38407,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "query_list": {
                         "nesting_mode": 3,
@@ -37252,12 +38425,14 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "presto_job": {
                   "nesting_mode": 3,
@@ -37311,7 +38486,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "query_list": {
                         "nesting_mode": 3,
@@ -37328,12 +38504,14 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "pyspark_job": {
                   "nesting_mode": 3,
@@ -37409,12 +38587,14 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "scheduling": {
                   "nesting_mode": 3,
@@ -37433,7 +38613,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "spark_job": {
                   "nesting_mode": 3,
@@ -37506,12 +38687,14 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "spark_r_job": {
                   "nesting_mode": 3,
@@ -37571,12 +38754,14 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "spark_sql_job": {
                   "nesting_mode": 3,
@@ -37628,7 +38813,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "query_list": {
                         "nesting_mode": 3,
@@ -37645,17 +38831,20 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1
           },
           "parameters": {
             "nesting_mode": 3,
@@ -37700,7 +38889,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "values": {
                         "nesting_mode": 3,
@@ -37717,12 +38907,14 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
@@ -37754,7 +38946,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "managed_cluster": {
                   "nesting_mode": 3,
@@ -37803,7 +38996,8 @@ func init() {
                                 }
                               },
                               "optional": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             },
                             "encryption_config": {
                               "nesting_mode": 3,
@@ -37817,7 +39011,8 @@ func init() {
                                 }
                               },
                               "optional": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             },
                             "endpoint_config": {
                               "nesting_mode": 3,
@@ -37838,7 +39033,8 @@ func init() {
                                 }
                               },
                               "optional": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             },
                             "gce_cluster_config": {
                               "nesting_mode": 3,
@@ -37914,7 +39110,8 @@ func init() {
                                       }
                                     },
                                     "optional": true,
-                                    "force_new": true
+                                    "force_new": true,
+                                    "max_items": 1
                                   },
                                   "reservation_affinity": {
                                     "nesting_mode": 3,
@@ -37941,12 +39138,39 @@ func init() {
                                       }
                                     },
                                     "optional": true,
-                                    "force_new": true
+                                    "force_new": true,
+                                    "max_items": 1
+                                  },
+                                  "shielded_instance_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "enable_integrity_monitoring": {
+                                          "type": "bool",
+                                          "optional": true,
+                                          "force_new": true
+                                        },
+                                        "enable_secure_boot": {
+                                          "type": "bool",
+                                          "optional": true,
+                                          "force_new": true
+                                        },
+                                        "enable_vtpm": {
+                                          "type": "bool",
+                                          "optional": true,
+                                          "force_new": true
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "force_new": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
                               "optional": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             },
                             "initialization_actions": {
                               "nesting_mode": 3,
@@ -37993,7 +39217,8 @@ func init() {
                                 }
                               },
                               "optional": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             },
                             "master_config": {
                               "nesting_mode": 3,
@@ -38095,13 +39320,15 @@ func init() {
                                     },
                                     "optional": true,
                                     "computed": true,
-                                    "force_new": true
+                                    "force_new": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
                               "optional": true,
                               "computed": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             },
                             "secondary_worker_config": {
                               "nesting_mode": 3,
@@ -38203,13 +39430,15 @@ func init() {
                                     },
                                     "optional": true,
                                     "computed": true,
-                                    "force_new": true
+                                    "force_new": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
                               "optional": true,
                               "computed": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             },
                             "security_config": {
                               "nesting_mode": 3,
@@ -38297,12 +39526,14 @@ func init() {
                                       }
                                     },
                                     "optional": true,
-                                    "force_new": true
+                                    "force_new": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
                               "optional": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             },
                             "software_config": {
                               "nesting_mode": 3,
@@ -38332,7 +39563,8 @@ func init() {
                                 }
                               },
                               "optional": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             },
                             "worker_config": {
                               "nesting_mode": 3,
@@ -38434,28 +39666,35 @@ func init() {
                                     },
                                     "optional": true,
                                     "computed": true,
-                                    "force_new": true
+                                    "force_new": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
                               "optional": true,
                               "computed": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             }
                           }
                         },
                         "required": true,
-                        "force_new": true
+                        "force_new": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -38504,6 +39743,258 @@ func init() {
             },
             "optional": true,
             "force_new": true
+          }
+        }
+      }
+    },
+    "google_datastream_connection_profile": {
+      "block": {
+        "attributes": {
+          "connection_profile_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "forward_ssh_connectivity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "hostname": {
+                  "type": "string",
+                  "required": true
+                },
+                "password": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true,
+                  "sensitive": true
+                },
+                "port": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 22
+                },
+                "private_key": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true,
+                  "sensitive": true
+                },
+                "username": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "gcs_profile": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "bucket": {
+                  "type": "string",
+                  "required": true
+                },
+                "root_path": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "oracle_profile",
+              "gcs_profile",
+              "mysql_profile",
+              "postgresql_profile"
+            ],
+            "max_items": 1
+          },
+          "mysql_profile": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "hostname": {
+                  "type": "string",
+                  "required": true
+                },
+                "password": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true,
+                  "sensitive": true
+                },
+                "port": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 3306
+                },
+                "username": {
+                  "type": "string",
+                  "required": true
+                }
+              },
+              "block_types": {
+                "ssl_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "ca_certificate": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true,
+                        "sensitive": true
+                      },
+                      "ca_certificate_set": {
+                        "type": "bool",
+                        "computed": true
+                      },
+                      "client_certificate": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true,
+                        "sensitive": true
+                      },
+                      "client_certificate_set": {
+                        "type": "bool",
+                        "computed": true
+                      },
+                      "client_key": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true,
+                        "sensitive": true
+                      },
+                      "client_key_set": {
+                        "type": "bool",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "oracle_profile",
+              "gcs_profile",
+              "mysql_profile",
+              "postgresql_profile"
+            ],
+            "max_items": 1
+          },
+          "oracle_profile": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "connection_attributes": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "database_service": {
+                  "type": "string",
+                  "required": true
+                },
+                "hostname": {
+                  "type": "string",
+                  "required": true
+                },
+                "password": {
+                  "type": "string",
+                  "required": true,
+                  "sensitive": true
+                },
+                "port": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 1521
+                },
+                "username": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "oracle_profile",
+              "gcs_profile",
+              "mysql_profile",
+              "postgresql_profile"
+            ],
+            "max_items": 1
+          },
+          "postgresql_profile": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "database": {
+                  "type": "string",
+                  "required": true
+                },
+                "hostname": {
+                  "type": "string",
+                  "required": true
+                },
+                "password": {
+                  "type": "string",
+                  "required": true,
+                  "sensitive": true
+                },
+                "port": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 5432
+                },
+                "username": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "oracle_profile",
+              "gcs_profile",
+              "mysql_profile",
+              "postgresql_profile"
+            ],
+            "max_items": 1
           }
         }
       }
@@ -38587,7 +40078,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "imports": {
                   "nesting_mode": 3,
@@ -38607,7 +40100,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -38752,7 +40247,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -38813,7 +40309,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           },
           "excluded_phrases": {
             "nesting_mode": 3,
@@ -38866,7 +40363,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -38966,7 +40464,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -38974,7 +40473,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -38999,7 +40499,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "transition_routes": {
             "nesting_mode": 3,
@@ -39066,7 +40567,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -39074,7 +40576,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -39177,7 +40680,8 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
@@ -39255,7 +40759,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -39263,7 +40768,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "event_handlers": {
             "nesting_mode": 3,
@@ -39326,7 +40832,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -39334,7 +40841,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -39413,7 +40921,8 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
@@ -39421,11 +40930,13 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -39433,7 +40944,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "transition_routes": {
             "nesting_mode": 3,
@@ -39500,7 +41012,8 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -39508,7 +41021,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -39671,7 +41185,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -39901,7 +41416,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "forwarding_config": {
             "nesting_mode": 3,
@@ -39921,11 +41437,13 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "peering_config": {
             "nesting_mode": 3,
@@ -39941,11 +41459,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "private_visibility_config": {
             "nesting_mode": 3,
@@ -39961,11 +41482,13 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -40017,11 +41540,13 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "networks": {
             "nesting_mode": 4,
@@ -40134,7 +41659,8 @@ func init() {
             "exactly_one_of": [
               "rrdatas",
               "routing_policy"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -40324,7 +41850,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -40380,7 +41907,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -40457,7 +41985,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -40508,7 +42037,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -40644,7 +42174,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "gke": {
                   "nesting_mode": 3,
@@ -40672,11 +42203,14 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "matching_criteria": {
             "nesting_mode": 4,
@@ -40696,7 +42230,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           },
           "transport": {
             "nesting_mode": 3,
@@ -40718,13 +42253,15 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -40831,11 +42368,14 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 10
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "networks": {
             "nesting_mode": 3,
@@ -40876,7 +42416,8 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1
           }
         }
       }
@@ -40981,12 +42522,15 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1
                 }
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -41090,7 +42634,8 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 2
           }
         }
       }
@@ -41178,7 +42723,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -41218,7 +42764,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -41271,7 +42818,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -41322,7 +42870,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -41384,7 +42933,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "list_policy": {
             "nesting_mode": 3,
@@ -41431,7 +42981,8 @@ func init() {
                   "exactly_one_of": [
                     "list_policy.0.allow",
                     "list_policy.0.deny"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "deny": {
                   "nesting_mode": 3,
@@ -41463,11 +43014,13 @@ func init() {
                   "exactly_one_of": [
                     "list_policy.0.allow",
                     "list_policy.0.deny"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "restore_policy": {
             "nesting_mode": 3,
@@ -41479,7 +43032,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -41546,12 +43100,16 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -41618,7 +43176,8 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1
           },
           "scaling_configs": {
             "nesting_mode": 3,
@@ -41773,7 +43332,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -41865,7 +43425,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "endpoint": {
             "nesting_mode": 3,
@@ -41883,12 +43444,14 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -41947,7 +43510,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42004,7 +43568,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42118,7 +43683,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42174,7 +43740,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42282,7 +43849,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42333,7 +43901,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42393,7 +43962,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -42446,7 +44016,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42497,7 +44068,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42581,7 +44153,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "stream_configs": {
             "nesting_mode": 3,
@@ -42621,11 +44194,15 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
@@ -42682,7 +44259,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42733,7 +44311,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42793,7 +44372,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "notification_configs": {
             "nesting_mode": 3,
@@ -42852,7 +44432,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -42905,7 +44486,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -42956,7 +44538,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43083,7 +44666,8 @@ func init() {
             "exactly_one_of": [
               "aws",
               "oidc"
-            ]
+            ],
+            "max_items": 1
           },
           "oidc": {
             "nesting_mode": 3,
@@ -43106,7 +44690,8 @@ func init() {
             "exactly_one_of": [
               "aws",
               "oidc"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -43170,7 +44755,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43232,7 +44818,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43331,7 +44918,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43398,7 +44986,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43487,7 +45076,8 @@ func init() {
           },
           "secret": {
             "type": "string",
-            "computed": true
+            "computed": true,
+            "sensitive": true
           }
         }
       }
@@ -43541,7 +45131,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43593,7 +45184,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43678,7 +45270,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43741,7 +45334,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43831,7 +45425,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43888,7 +45483,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -43967,7 +45563,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -44019,7 +45616,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -44098,7 +45696,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -44155,7 +45754,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -44234,7 +45834,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -44286,7 +45887,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -44396,11 +45998,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "sp_config": {
             "nesting_mode": 3,
@@ -44428,7 +46033,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -44597,11 +46204,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "sp_config": {
             "nesting_mode": 3,
@@ -44629,7 +46239,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -44742,7 +46354,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -44795,7 +46408,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -44846,7 +46460,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -44940,7 +46555,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -44991,7 +46607,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -45084,7 +46701,8 @@ func init() {
           "additional_authenticated_data": {
             "type": "string",
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "ciphertext": {
             "type": "string",
@@ -45098,7 +46716,8 @@ func init() {
           "plaintext": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           }
         }
       }
@@ -45216,7 +46835,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "exclusions": {
             "nesting_mode": 3,
@@ -45365,7 +46985,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "exclusions": {
             "nesting_mode": 3,
@@ -45495,7 +47116,8 @@ func init() {
                     "bucket_options.0.linear_buckets",
                     "bucket_options.0.exponential_buckets",
                     "bucket_options.0.explicit_buckets"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "exponential_buckets": {
                   "nesting_mode": 3,
@@ -45535,7 +47157,8 @@ func init() {
                     "bucket_options.0.linear_buckets",
                     "bucket_options.0.exponential_buckets",
                     "bucket_options.0.explicit_buckets"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "linear_buckets": {
                   "nesting_mode": 3,
@@ -45575,11 +47198,13 @@ func init() {
                     "bucket_options.0.linear_buckets",
                     "bucket_options.0.exponential_buckets",
                     "bucket_options.0.explicit_buckets"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "metric_descriptor": {
             "nesting_mode": 3,
@@ -45629,7 +47254,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -45752,7 +47379,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "exclusions": {
             "nesting_mode": 3,
@@ -45903,7 +47531,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "exclusions": {
             "nesting_mode": 3,
@@ -46087,15 +47716,19 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "memcache_parameters": {
             "nesting_mode": 3,
@@ -46115,7 +47748,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "node_config": {
             "nesting_mode": 3,
@@ -46132,7 +47766,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -46196,7 +47832,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -46276,11 +47913,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "conditions": {
             "nesting_mode": 3,
@@ -46351,11 +47990,13 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "condition_matched_log": {
                   "nesting_mode": 3,
@@ -46374,7 +48015,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "condition_monitoring_query_language": {
                   "nesting_mode": 3,
@@ -46408,11 +48050,13 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "condition_threshold": {
                   "nesting_mode": 3,
@@ -46512,15 +48156,18 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           },
           "documentation": {
             "nesting_mode": 3,
@@ -46545,7 +48192,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -46592,7 +48240,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -46746,7 +48395,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -46786,6 +48436,11 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": true
+          },
+          "force_delete": {
+            "type": "bool",
+            "optional": true,
+            "default": false
           },
           "labels": {
             "type": [
@@ -46828,6 +48483,7 @@ func init() {
                 "auth_token": {
                   "type": "string",
                   "optional": true,
+                  "sensitive": true,
                   "exactly_one_of": [
                     "sensitive_labels.0.auth_token",
                     "sensitive_labels.0.password",
@@ -46837,6 +48493,7 @@ func init() {
                 "password": {
                   "type": "string",
                   "optional": true,
+                  "sensitive": true,
                   "exactly_one_of": [
                     "sensitive_labels.0.auth_token",
                     "sensitive_labels.0.password",
@@ -46846,6 +48503,7 @@ func init() {
                 "service_key": {
                   "type": "string",
                   "optional": true,
+                  "sensitive": true,
                   "exactly_one_of": [
                     "sensitive_labels.0.auth_token",
                     "sensitive_labels.0.password",
@@ -46854,7 +48512,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -46958,7 +48617,8 @@ func init() {
                   "exactly_one_of": [
                     "basic_sli.0.latency",
                     "basic_sli.0.availability"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "latency": {
                   "nesting_mode": 3,
@@ -46974,7 +48634,8 @@ func init() {
                   "exactly_one_of": [
                     "basic_sli.0.latency",
                     "basic_sli.0.availability"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -46983,7 +48644,8 @@ func init() {
               "basic_sli",
               "request_based_sli",
               "windows_based_sli"
-            ]
+            ],
+            "max_items": 1
           },
           "request_based_sli": {
             "nesting_mode": 3,
@@ -47021,7 +48683,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
@@ -47029,7 +48693,8 @@ func init() {
                   "exactly_one_of": [
                     "request_based_sli.0.good_total_ratio",
                     "request_based_sli.0.distribution_cut"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "good_total_ratio": {
                   "nesting_mode": 3,
@@ -47068,7 +48733,8 @@ func init() {
                   "exactly_one_of": [
                     "request_based_sli.0.good_total_ratio",
                     "request_based_sli.0.distribution_cut"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -47077,7 +48743,8 @@ func init() {
               "basic_sli",
               "request_based_sli",
               "windows_based_sli"
-            ]
+            ],
+            "max_items": 1
           },
           "windows_based_sli": {
             "nesting_mode": 3,
@@ -47151,7 +48818,8 @@ func init() {
                               "exactly_one_of": [
                                 "windows_based_sli.0.good_total_ratio_threshold.0.basic_sli_performance.0.latency",
                                 "windows_based_sli.0.good_total_ratio_threshold.0.basic_sli_performance.0.availability"
-                              ]
+                              ],
+                              "max_items": 1
                             },
                             "latency": {
                               "nesting_mode": 3,
@@ -47167,7 +48835,8 @@ func init() {
                               "exactly_one_of": [
                                 "windows_based_sli.0.good_total_ratio_threshold.0.basic_sli_performance.0.latency",
                                 "windows_based_sli.0.good_total_ratio_threshold.0.basic_sli_performance.0.availability"
-                              ]
+                              ],
+                              "max_items": 1
                             }
                           }
                         },
@@ -47175,7 +48844,8 @@ func init() {
                         "exactly_one_of": [
                           "windows_based_sli.0.good_total_ratio_threshold.0.performance",
                           "windows_based_sli.0.good_total_ratio_threshold.0.basic_sli_performance"
-                        ]
+                        ],
+                        "max_items": 1
                       },
                       "performance": {
                         "nesting_mode": 3,
@@ -47213,7 +48883,9 @@ func init() {
                                         }
                                       }
                                     },
-                                    "required": true
+                                    "required": true,
+                                    "min_items": 1,
+                                    "max_items": 1
                                   }
                                 }
                               },
@@ -47221,7 +48893,8 @@ func init() {
                               "exactly_one_of": [
                                 "windows_based_sli.0.good_total_ratio_threshold.0.performance.0.good_total_ratio",
                                 "windows_based_sli.0.good_total_ratio_threshold.0.performance.0.distribution_cut"
-                              ]
+                              ],
+                              "max_items": 1
                             },
                             "good_total_ratio": {
                               "nesting_mode": 3,
@@ -47260,7 +48933,8 @@ func init() {
                               "exactly_one_of": [
                                 "windows_based_sli.0.good_total_ratio_threshold.0.performance.0.good_total_ratio",
                                 "windows_based_sli.0.good_total_ratio_threshold.0.performance.0.distribution_cut"
-                              ]
+                              ],
+                              "max_items": 1
                             }
                           }
                         },
@@ -47268,7 +48942,8 @@ func init() {
                         "exactly_one_of": [
                           "windows_based_sli.0.good_total_ratio_threshold.0.performance",
                           "windows_based_sli.0.good_total_ratio_threshold.0.basic_sli_performance"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -47278,7 +48953,8 @@ func init() {
                     "windows_based_sli.0.good_total_ratio_threshold",
                     "windows_based_sli.0.metric_mean_in_range",
                     "windows_based_sli.0.metric_sum_in_range"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "metric_mean_in_range": {
                   "nesting_mode": 3,
@@ -47312,7 +48988,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
@@ -47322,7 +49000,8 @@ func init() {
                     "windows_based_sli.0.good_total_ratio_threshold",
                     "windows_based_sli.0.metric_mean_in_range",
                     "windows_based_sli.0.metric_sum_in_range"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "metric_sum_in_range": {
                   "nesting_mode": 3,
@@ -47356,7 +49035,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
@@ -47366,7 +49047,8 @@ func init() {
                     "windows_based_sli.0.good_total_ratio_threshold",
                     "windows_based_sli.0.metric_mean_in_range",
                     "windows_based_sli.0.metric_sum_in_range"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -47375,7 +49057,8 @@ func init() {
               "basic_sli",
               "request_based_sli",
               "windows_based_sli"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -47456,7 +49139,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -47574,7 +49258,8 @@ func init() {
                     "attributes": {
                       "password": {
                         "type": "string",
-                        "required": true
+                        "required": true,
+                        "sensitive": true
                       },
                       "username": {
                         "type": "string",
@@ -47590,7 +49275,8 @@ func init() {
                     "http_check.0.path",
                     "http_check.0.use_ssl",
                     "http_check.0.mask_headers"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -47598,7 +49284,8 @@ func init() {
             "exactly_one_of": [
               "http_check",
               "tcp_check"
-            ]
+            ],
+            "max_items": 1
           },
           "monitored_resource": {
             "nesting_mode": 3,
@@ -47624,7 +49311,8 @@ func init() {
             "exactly_one_of": [
               "monitored_resource",
               "resource_group"
-            ]
+            ],
+            "max_items": 1
           },
           "resource_group": {
             "nesting_mode": 3,
@@ -47655,7 +49343,8 @@ func init() {
             "exactly_one_of": [
               "monitored_resource",
               "resource_group"
-            ]
+            ],
+            "max_items": 1
           },
           "tcp_check": {
             "nesting_mode": 3,
@@ -47671,7 +49360,8 @@ func init() {
             "exactly_one_of": [
               "http_check",
               "tcp_check"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -47809,7 +49499,8 @@ func init() {
             "conflicts_with": [
               "linked_vpn_tunnels",
               "linked_router_appliance_instances"
-            ]
+            ],
+            "max_items": 1
           },
           "linked_router_appliance_instances": {
             "nesting_mode": 3,
@@ -47839,7 +49530,8 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1
                 }
               }
             },
@@ -47848,7 +49540,8 @@ func init() {
             "conflicts_with": [
               "linked_vpn_tunnels",
               "linked_interconnect_attachments"
-            ]
+            ],
+            "max_items": 1
           },
           "linked_vpn_tunnels": {
             "nesting_mode": 3,
@@ -47874,7 +49567,8 @@ func init() {
             "conflicts_with": [
               "linked_interconnect_attachments",
               "linked_router_appliance_instances"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -47944,7 +49638,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "source": {
             "nesting_mode": 3,
@@ -47976,7 +49672,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -48018,11 +49716,14 @@ func init() {
                 },
                 "value": {
                   "type": "string",
-                  "required": true
+                  "required": true,
+                  "sensitive": true
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 3
           }
         }
       }
@@ -48130,7 +49831,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -48220,7 +49922,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "routing": {
             "nesting_mode": 3,
@@ -48247,7 +49950,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 5
                 },
                 "path_matcher": {
                   "nesting_mode": 3,
@@ -48304,7 +50009,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 5
                                   },
                                   "request_header_to_remove": {
                                     "nesting_mode": 3,
@@ -48316,7 +50022,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 10
                                   },
                                   "response_header_to_add": {
                                     "nesting_mode": 3,
@@ -48337,7 +50044,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 5
                                   },
                                   "response_header_to_remove": {
                                     "nesting_mode": 3,
@@ -48349,11 +50057,13 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 10
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "match_rule": {
                               "nesting_mode": 3,
@@ -48409,7 +50119,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 3
                                   },
                                   "query_parameter_match": {
                                     "nesting_mode": 3,
@@ -48429,11 +50140,14 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 5
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 5
                             },
                             "route_action": {
                               "nesting_mode": 3,
@@ -48533,11 +50247,13 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "cors_policy": {
                                     "nesting_mode": 3,
@@ -48585,7 +50301,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "url_rewrite": {
                                     "nesting_mode": 3,
@@ -48605,11 +50322,13 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "url_redirect": {
                               "nesting_mode": 3,
@@ -48644,19 +50363,26 @@ func init() {
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 64
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 10
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -48715,7 +50441,8 @@ func init() {
             "exactly_one_of": [
               "vm_image",
               "container_image"
-            ]
+            ],
+            "max_items": 1
           },
           "vm_image": {
             "nesting_mode": 3,
@@ -48739,7 +50466,8 @@ func init() {
             "exactly_one_of": [
               "vm_image",
               "container_image"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -48928,7 +50656,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "container_image": {
             "nesting_mode": 3,
@@ -48951,7 +50680,8 @@ func init() {
             "exactly_one_of": [
               "vm_image",
               "container_image"
-            ]
+            ],
+            "max_items": 1
           },
           "reservation_affinity": {
             "nesting_mode": 3,
@@ -48978,7 +50708,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "shielded_instance_config": {
             "nesting_mode": 3,
@@ -49005,7 +50736,8 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "vm_image": {
             "nesting_mode": 3,
@@ -49033,7 +50765,8 @@ func init() {
             "exactly_one_of": [
               "vm_image",
               "container_image"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -49098,7 +50831,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -49161,7 +50895,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -49279,7 +51014,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "software_config": {
             "nesting_mode": 3,
@@ -49344,7 +51080,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "virtual_machine": {
             "nesting_mode": 3,
@@ -49444,7 +51181,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "container_images": {
                         "nesting_mode": 3,
@@ -49551,11 +51289,14 @@ func init() {
                                 }
                               },
                               "optional": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "encryption_config": {
                         "nesting_mode": 3,
@@ -49568,7 +51309,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "shielded_instance_config": {
                         "nesting_mode": 3,
@@ -49589,18 +51331,21 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
             "exactly_one_of": [
               "virtual_machine"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -49665,7 +51410,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -49728,7 +51474,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -49841,7 +51588,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "values": {
                         "nesting_mode": 3,
@@ -49863,7 +51611,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -49871,7 +51620,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -49929,7 +51679,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -49969,7 +51720,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -50022,7 +51774,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -50117,7 +51870,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -50179,7 +51933,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "list_policy": {
             "nesting_mode": 3,
@@ -50226,7 +51981,8 @@ func init() {
                   "exactly_one_of": [
                     "list_policy.0.allow",
                     "list_policy.0.deny"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "deny": {
                   "nesting_mode": 3,
@@ -50258,11 +52014,13 @@ func init() {
                   "exactly_one_of": [
                     "list_policy.0.allow",
                     "list_policy.0.deny"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "restore_policy": {
             "nesting_mode": 3,
@@ -50274,7 +52032,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -50394,7 +52153,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "os_policies": {
             "nesting_mode": 3,
@@ -50509,7 +52270,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "remote": {
                                                 "nesting_mode": 3,
@@ -50525,15 +52287,18 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "validate": {
                                     "nesting_mode": 3,
@@ -50592,7 +52357,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "remote": {
                                                 "nesting_mode": 3,
@@ -50608,19 +52374,24 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "required": true
+                                    "required": true,
+                                    "min_items": 1,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "file": {
                               "nesting_mode": 3,
@@ -50676,7 +52447,8 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         },
                                         "remote": {
                                           "nesting_mode": 3,
@@ -50692,15 +52464,18 @@ func init() {
                                               }
                                             }
                                           },
-                                          "optional": true
+                                          "optional": true,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "pkg": {
                               "nesting_mode": 3,
@@ -50722,7 +52497,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "deb": {
                                     "nesting_mode": 3,
@@ -50766,7 +52542,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "remote": {
                                                 "nesting_mode": 3,
@@ -50782,15 +52559,19 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               }
                                             }
                                           },
-                                          "required": true
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "googet": {
                                     "nesting_mode": 3,
@@ -50802,7 +52583,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "msi": {
                                     "nesting_mode": 3,
@@ -50849,7 +52631,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "remote": {
                                                 "nesting_mode": 3,
@@ -50865,15 +52648,19 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               }
                                             }
                                           },
-                                          "required": true
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "rpm": {
                                     "nesting_mode": 3,
@@ -50917,7 +52704,8 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               },
                                               "remote": {
                                                 "nesting_mode": 3,
@@ -50933,15 +52721,19 @@ func init() {
                                                     }
                                                   }
                                                 },
-                                                "optional": true
+                                                "optional": true,
+                                                "max_items": 1
                                               }
                                             }
                                           },
-                                          "required": true
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "yum": {
                                     "nesting_mode": 3,
@@ -50953,7 +52745,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "zypper": {
                                     "nesting_mode": 3,
@@ -50965,11 +52758,13 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             },
                             "repository": {
                               "nesting_mode": 3,
@@ -51004,7 +52799,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "goo": {
                                     "nesting_mode": 3,
@@ -51020,7 +52816,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "yum": {
                                     "nesting_mode": 3,
@@ -51047,7 +52844,8 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   },
                                   "zypper": {
                                     "nesting_mode": 3,
@@ -51074,23 +52872,28 @@ func init() {
                                         }
                                       }
                                     },
-                                    "optional": true
+                                    "optional": true,
+                                    "max_items": 1
                                   }
                                 }
                               },
-                              "optional": true
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           },
           "rollout": {
             "nesting_mode": 3,
@@ -51116,11 +52919,15 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -51257,7 +53064,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "one_time_schedule": {
             "nesting_mode": 3,
@@ -51275,7 +53084,8 @@ func init() {
             "exactly_one_of": [
               "one_time_schedule",
               "recurring_schedule"
-            ]
+            ],
+            "max_items": 1
           },
           "patch_config": {
             "nesting_mode": 3,
@@ -51356,7 +53166,8 @@ func init() {
                     "patch_config.0.windows_update",
                     "patch_config.0.pre_step",
                     "patch_config.0.post_step"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "goo": {
                   "nesting_mode": 3,
@@ -51380,7 +53191,8 @@ func init() {
                     "patch_config.0.windows_update",
                     "patch_config.0.pre_step",
                     "patch_config.0.post_step"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "post_step": {
                   "nesting_mode": 3,
@@ -51440,7 +53252,8 @@ func init() {
                               "exactly_one_of": [
                                 "patch_config.0.post_step.0.linux_exec_step_config.0.local_path",
                                 "patch_config.0.post_step.0.linux_exec_step_config.0.gcs_object"
-                              ]
+                              ],
+                              "max_items": 1
                             }
                           }
                         },
@@ -51449,7 +53262,8 @@ func init() {
                         "at_least_one_of": [
                           "patch_config.0.post_step.0.linux_exec_step_config",
                           "patch_config.0.post_step.0.windows_exec_step_config"
-                        ]
+                        ],
+                        "max_items": 1
                       },
                       "windows_exec_step_config": {
                         "nesting_mode": 3,
@@ -51505,7 +53319,8 @@ func init() {
                               "exactly_one_of": [
                                 "patch_config.0.post_step.0.windows_exec_step_config.0.local_path",
                                 "patch_config.0.post_step.0.windows_exec_step_config.0.gcs_object"
-                              ]
+                              ],
+                              "max_items": 1
                             }
                           }
                         },
@@ -51514,7 +53329,8 @@ func init() {
                         "at_least_one_of": [
                           "patch_config.0.post_step.0.linux_exec_step_config",
                           "patch_config.0.post_step.0.windows_exec_step_config"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -51529,7 +53345,8 @@ func init() {
                     "patch_config.0.windows_update",
                     "patch_config.0.pre_step",
                     "patch_config.0.post_step"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "pre_step": {
                   "nesting_mode": 3,
@@ -51589,7 +53406,8 @@ func init() {
                               "exactly_one_of": [
                                 "patch_config.0.pre_step.0.linux_exec_step_config.0.local_path",
                                 "patch_config.0.pre_step.0.linux_exec_step_config.0.gcs_object"
-                              ]
+                              ],
+                              "max_items": 1
                             }
                           }
                         },
@@ -51598,7 +53416,8 @@ func init() {
                         "at_least_one_of": [
                           "patch_config.0.pre_step.0.linux_exec_step_config",
                           "patch_config.0.pre_step.0.windows_exec_step_config"
-                        ]
+                        ],
+                        "max_items": 1
                       },
                       "windows_exec_step_config": {
                         "nesting_mode": 3,
@@ -51654,7 +53473,8 @@ func init() {
                               "exactly_one_of": [
                                 "patch_config.0.pre_step.0.windows_exec_step_config.0.local_path",
                                 "patch_config.0.pre_step.0.windows_exec_step_config.0.gcs_object"
-                              ]
+                              ],
+                              "max_items": 1
                             }
                           }
                         },
@@ -51663,7 +53483,8 @@ func init() {
                         "at_least_one_of": [
                           "patch_config.0.pre_step.0.linux_exec_step_config",
                           "patch_config.0.pre_step.0.windows_exec_step_config"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -51678,7 +53499,8 @@ func init() {
                     "patch_config.0.windows_update",
                     "patch_config.0.pre_step",
                     "patch_config.0.post_step"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "windows_update": {
                   "nesting_mode": 3,
@@ -51736,7 +53558,8 @@ func init() {
                     "patch_config.0.windows_update",
                     "patch_config.0.pre_step",
                     "patch_config.0.post_step"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "yum": {
                   "nesting_mode": 3,
@@ -51805,7 +53628,8 @@ func init() {
                     "patch_config.0.windows_update",
                     "patch_config.0.pre_step",
                     "patch_config.0.post_step"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "zypper": {
                   "nesting_mode": 3,
@@ -51914,12 +53738,14 @@ func init() {
                     "patch_config.0.windows_update",
                     "patch_config.0.pre_step",
                     "patch_config.0.post_step"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "recurring_schedule": {
             "nesting_mode": 3,
@@ -51981,12 +53807,14 @@ func init() {
                         "exactly_one_of": [
                           "recurring_schedule.0.monthly.0.week_day_of_month",
                           "recurring_schedule.0.monthly.0.month_day"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "time_of_day": {
                   "nesting_mode": 3,
@@ -52039,7 +53867,9 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "time_zone": {
                   "nesting_mode": 3,
@@ -52058,7 +53888,9 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "weekly": {
                   "nesting_mode": 3,
@@ -52072,7 +53904,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
@@ -52081,7 +53914,8 @@ func init() {
             "exactly_one_of": [
               "one_time_schedule",
               "recurring_schedule"
-            ]
+            ],
+            "max_items": 1
           },
           "rollout": {
             "nesting_mode": 3,
@@ -52119,12 +53953,15 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -52215,7 +54052,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "allowed_key_types": {
                   "nesting_mode": 3,
@@ -52231,7 +54069,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "rsa": {
                         "nesting_mode": 3,
@@ -52247,7 +54086,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
@@ -52293,7 +54133,9 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
@@ -52321,7 +54163,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "key_usage": {
                         "nesting_mode": 3,
@@ -52369,7 +54213,9 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             },
                             "extended_key_usage": {
                               "nesting_mode": 3,
@@ -52401,7 +54247,9 @@ func init() {
                                   }
                                 }
                               },
-                              "required": true
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
                             },
                             "unknown_extended_key_usages": {
                               "nesting_mode": 3,
@@ -52420,7 +54268,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "policy_ids": {
                         "nesting_mode": 3,
@@ -52439,7 +54289,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "identity_constraints": {
                   "nesting_mode": 3,
@@ -52477,15 +54328,18 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "publishing_options": {
             "nesting_mode": 3,
@@ -52501,7 +54355,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -52566,7 +54421,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -52629,7 +54485,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -53099,7 +54956,9 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "subject_config": {
                   "nesting_mode": 3,
@@ -53152,7 +55011,9 @@ func init() {
                           }
                         },
                         "required": true,
-                        "force_new": true
+                        "force_new": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "subject_alt_name": {
                         "nesting_mode": 3,
@@ -53217,12 +55078,15 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "x509_config": {
                   "nesting_mode": 3,
@@ -53269,7 +55133,9 @@ func init() {
                                 }
                               },
                               "required": true,
-                              "force_new": true
+                              "force_new": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
@@ -53303,7 +55169,8 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       },
                       "key_usage": {
                         "nesting_mode": 3,
@@ -53361,7 +55228,9 @@ func init() {
                                 }
                               },
                               "required": true,
-                              "force_new": true
+                              "force_new": true,
+                              "min_items": 1,
+                              "max_items": 1
                             },
                             "extended_key_usage": {
                               "nesting_mode": 3,
@@ -53400,7 +55269,9 @@ func init() {
                                 }
                               },
                               "required": true,
-                              "force_new": true
+                              "force_new": true,
+                              "min_items": 1,
+                              "max_items": 1
                             },
                             "unknown_extended_key_usages": {
                               "nesting_mode": 3,
@@ -53422,7 +55293,9 @@ func init() {
                           }
                         },
                         "required": true,
-                        "force_new": true
+                        "force_new": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "policy_ids": {
                         "nesting_mode": 3,
@@ -53444,7 +55317,9 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
@@ -53453,7 +55328,8 @@ func init() {
             "exactly_one_of": [
               "pem_csr",
               "config"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -53620,7 +55496,9 @@ func init() {
                           }
                         },
                         "required": true,
-                        "force_new": true
+                        "force_new": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "subject_alt_name": {
                         "nesting_mode": 3,
@@ -53685,12 +55563,15 @@ func init() {
                           }
                         },
                         "optional": true,
-                        "force_new": true
+                        "force_new": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "x509_config": {
                   "nesting_mode": 3,
@@ -53737,7 +55618,9 @@ func init() {
                                 }
                               },
                               "required": true,
-                              "force_new": true
+                              "force_new": true,
+                              "min_items": 1,
+                              "max_items": 1
                             }
                           }
                         },
@@ -53771,7 +55654,9 @@ func init() {
                           }
                         },
                         "required": true,
-                        "force_new": true
+                        "force_new": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "key_usage": {
                         "nesting_mode": 3,
@@ -53829,7 +55714,9 @@ func init() {
                                 }
                               },
                               "required": true,
-                              "force_new": true
+                              "force_new": true,
+                              "min_items": 1,
+                              "max_items": 1
                             },
                             "extended_key_usage": {
                               "nesting_mode": 3,
@@ -53868,7 +55755,9 @@ func init() {
                                 }
                               },
                               "required": true,
-                              "force_new": true
+                              "force_new": true,
+                              "min_items": 1,
+                              "max_items": 1
                             },
                             "unknown_extended_key_usages": {
                               "nesting_mode": 3,
@@ -53890,7 +55779,9 @@ func init() {
                           }
                         },
                         "required": true,
-                        "force_new": true
+                        "force_new": true,
+                        "min_items": 1,
+                        "max_items": 1
                       },
                       "policy_ids": {
                         "nesting_mode": 3,
@@ -53912,12 +55803,16 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "key_spec": {
             "nesting_mode": 3,
@@ -53944,7 +55839,9 @@ func init() {
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "subordinate_config": {
             "nesting_mode": 3,
@@ -53977,11 +55874,13 @@ func init() {
                   "exactly_one_of": [
                     "subordinate_config.0.certificate_authority",
                     "subordinate_config.0.pem_issuer_chain"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -54062,11 +55961,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "passthrough_extensions": {
             "nesting_mode": 3,
@@ -54098,7 +55999,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "predefined_values": {
             "nesting_mode": 3,
@@ -54140,7 +56042,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
@@ -54160,7 +56064,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "key_usage": {
                   "nesting_mode": 3,
@@ -54208,7 +56113,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "extended_key_usage": {
                         "nesting_mode": 3,
@@ -54240,7 +56146,8 @@ func init() {
                             }
                           }
                         },
-                        "optional": true
+                        "optional": true,
+                        "max_items": 1
                       },
                       "unknown_extended_key_usages": {
                         "nesting_mode": 3,
@@ -54259,7 +56166,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "policy_ids": {
                   "nesting_mode": 3,
@@ -54278,7 +56186,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -54343,7 +56252,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -54406,7 +56316,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -54553,7 +56464,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -54621,7 +56533,8 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1
           }
         }
       }
@@ -54674,7 +56587,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -54770,7 +56684,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -54832,7 +56747,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "list_policy": {
             "nesting_mode": 3,
@@ -54879,7 +56795,8 @@ func init() {
                   "exactly_one_of": [
                     "list_policy.0.allow",
                     "list_policy.0.deny"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "deny": {
                   "nesting_mode": 3,
@@ -54911,11 +56828,13 @@ func init() {
                   "exactly_one_of": [
                     "list_policy.0.allow",
                     "list_policy.0.deny"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "restore_policy": {
             "nesting_mode": 3,
@@ -54927,7 +56846,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -55044,7 +56964,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -55097,11 +57018,13 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "reservation_config": {
             "nesting_mode": 3,
@@ -55113,7 +57036,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "retention_config": {
             "nesting_mode": 3,
@@ -55129,7 +57053,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -55172,8 +57097,7 @@ func init() {
           },
           "enable_exactly_once_delivery": {
             "type": "bool",
-            "optional": true,
-            "force_new": true
+            "optional": true
           },
           "enable_message_ordering": {
             "type": "bool",
@@ -55244,7 +57168,8 @@ func init() {
             "optional": true,
             "conflicts_with": [
               "push_config"
-            ]
+            ],
+            "max_items": 1
           },
           "dead_letter_policy": {
             "nesting_mode": 3,
@@ -55260,7 +57185,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "expiration_policy": {
             "nesting_mode": 3,
@@ -55273,7 +57199,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "push_config": {
             "nesting_mode": 3,
@@ -55306,14 +57233,16 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
             "optional": true,
             "conflicts_with": [
               "bigquery_config"
-            ]
+            ],
+            "max_items": 1
           },
           "retry_policy": {
             "nesting_mode": 3,
@@ -55331,7 +57260,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -55390,7 +57320,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -55447,7 +57378,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -55522,7 +57454,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "schema_settings": {
             "nesting_mode": 3,
@@ -55540,7 +57473,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -55599,7 +57533,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -55656,7 +57591,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -55737,7 +57673,8 @@ func init() {
             "conflicts_with": [
               "web_settings",
               "ios_settings"
-            ]
+            ],
+            "max_items": 1
           },
           "ios_settings": {
             "nesting_mode": 3,
@@ -55760,7 +57697,8 @@ func init() {
             "conflicts_with": [
               "web_settings",
               "android_settings"
-            ]
+            ],
+            "max_items": 1
           },
           "testing_options": {
             "nesting_mode": 3,
@@ -55780,7 +57718,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           },
           "web_settings": {
             "nesting_mode": 3,
@@ -55817,7 +57756,8 @@ func init() {
             "conflicts_with": [
               "android_settings",
               "ios_settings"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -55838,7 +57778,8 @@ func init() {
           },
           "auth_string": {
             "type": "string",
-            "computed": true
+            "computed": true,
+            "sensitive": true
           },
           "authorized_network": {
             "type": "string",
@@ -56053,7 +57994,9 @@ func init() {
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
@@ -56061,7 +58004,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "maintenance_schedule": {
             "nesting_mode": 3,
@@ -56081,7 +58025,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -56164,7 +58109,9 @@ func init() {
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -56275,12 +58222,14 @@ func init() {
                                 }
                               },
                               "optional": true,
-                              "force_new": true
+                              "force_new": true,
+                              "max_items": 1
                             }
                           }
                         },
                         "required": true,
-                        "force_new": true
+                        "force_new": true,
+                        "min_items": 1
                       }
                     }
                   },
@@ -56289,12 +58238,15 @@ func init() {
                   "exactly_one_of": [
                     "replication.0.automatic",
                     "replication.0.user_managed"
-                  ]
+                  ],
+                  "max_items": 1
                 }
               }
             },
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "min_items": 1,
+            "max_items": 1
           },
           "rotation": {
             "nesting_mode": 3,
@@ -56317,7 +58269,8 @@ func init() {
             "optional": true,
             "required_with": [
               "topics"
-            ]
+            ],
+            "max_items": 1
           },
           "topics": {
             "nesting_mode": 3,
@@ -56391,7 +58344,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -56448,7 +58402,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -56506,7 +58461,8 @@ func init() {
           "secret_data": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           }
         }
       }
@@ -56601,7 +58557,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -56652,7 +58609,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -56700,7 +58658,8 @@ func init() {
           },
           "private_key": {
             "type": "string",
-            "computed": true
+            "computed": true,
+            "sensitive": true
           },
           "private_key_type": {
             "type": "string",
@@ -56910,7 +58869,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -56967,7 +58927,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -57057,7 +59018,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -57121,7 +59083,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -57183,7 +59146,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -57333,7 +59297,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -57390,7 +59355,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -57465,8 +59431,7 @@ func init() {
           },
           "database_version": {
             "type": "string",
-            "required": true,
-            "force_new": true
+            "required": true
           },
           "deletion_protection": {
             "type": "bool",
@@ -57532,7 +59497,8 @@ func init() {
           "root_password": {
             "type": "string",
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "self_link": {
             "type": "string",
@@ -57582,7 +59548,8 @@ func init() {
             "at_least_one_of": [
               "settings",
               "clone"
-            ]
+            ],
+            "max_items": 1
           },
           "replica_configuration": {
             "nesting_mode": 3,
@@ -57718,6 +59685,7 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "force_new": true,
+                  "sensitive": true,
                   "at_least_one_of": [
                     "replica_configuration.0.ca_certificate",
                     "replica_configuration.0.client_certificate",
@@ -57789,7 +59757,8 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true
+            "computed": true,
+            "max_items": 1
           },
           "restore_backup_context": {
             "nesting_mode": 3,
@@ -57809,7 +59778,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "settings": {
             "nesting_mode": 3,
@@ -57883,7 +59853,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "backup_configuration": {
                   "nesting_mode": 3,
@@ -57996,12 +59967,14 @@ func init() {
                           "settings.0.backup_configuration.0.point_in_time_recovery_enabled",
                           "settings.0.backup_configuration.0.backup_retention_settings",
                           "settings.0.backup_configuration.0.transaction_log_retention_days"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "database_flags": {
                   "nesting_mode": 3,
@@ -58066,7 +60039,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "ip_configuration": {
                   "nesting_mode": 3,
@@ -58149,7 +60123,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "location_preference": {
                   "nesting_mode": 3,
@@ -58178,7 +60153,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "computed": true
+                  "computed": true,
+                  "max_items": 1
                 },
                 "maintenance_window": {
                   "nesting_mode": 3,
@@ -58213,7 +60189,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "password_validation_policy": {
                   "nesting_mode": 3,
@@ -58245,7 +60222,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "sql_server_audit_config": {
                   "nesting_mode": 3,
@@ -58265,7 +60243,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -58274,7 +60253,8 @@ func init() {
             "at_least_one_of": [
               "settings",
               "clone"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -58349,7 +60329,8 @@ func init() {
           },
           "private_key": {
             "type": "string",
-            "computed": true
+            "computed": true,
+            "sensitive": true
           },
           "project": {
             "type": "string",
@@ -58393,7 +60374,8 @@ func init() {
           },
           "password": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "sensitive": true
           },
           "project": {
             "type": "string",
@@ -58426,7 +60408,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -58533,7 +60516,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "lifecycle_rule": {
             "nesting_mode": 3,
@@ -58553,7 +60537,9 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "condition": {
                   "nesting_mode": 4,
@@ -58615,11 +60601,14 @@ func init() {
                       }
                     }
                   },
-                  "required": true
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 100
           },
           "logging": {
             "nesting_mode": 3,
@@ -58636,7 +60625,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "retention_policy": {
             "nesting_mode": 3,
@@ -58653,7 +60643,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "versioning": {
             "nesting_mode": 3,
@@ -58665,7 +60656,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "website": {
             "nesting_mode": 3,
@@ -58689,7 +60681,8 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -58804,7 +60797,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -58855,7 +60849,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -58896,6 +60891,7 @@ func init() {
             "type": "string",
             "optional": true,
             "force_new": true,
+            "sensitive": true,
             "exactly_one_of": [
               "source"
             ]
@@ -59006,14 +61002,16 @@ func init() {
                 "encryption_key": {
                   "type": "string",
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "sensitive": true
                 }
               }
             },
             "optional": true,
             "conflicts_with": [
               "kms_key_name"
-            ]
+            ],
+            "max_items": 1
           }
         }
       }
@@ -59103,7 +61101,8 @@ func init() {
           },
           "secret": {
             "type": "string",
-            "computed": true
+            "computed": true,
+            "sensitive": true
           },
           "service_account_email": {
             "type": "string",
@@ -59330,7 +61329,8 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 },
                 "schedule_start_date": {
                   "nesting_mode": 3,
@@ -59354,7 +61354,9 @@ func init() {
                     }
                   },
                   "required": true,
-                  "force_new": true
+                  "force_new": true,
+                  "min_items": 1,
+                  "max_items": 1
                 },
                 "start_time_of_day": {
                   "nesting_mode": 3,
@@ -59383,11 +61385,13 @@ func init() {
                     }
                   },
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "max_items": 1
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "max_items": 1
           },
           "transfer_spec": {
             "nesting_mode": 3,
@@ -59417,11 +61421,13 @@ func init() {
                           "attributes": {
                             "access_key_id": {
                               "type": "string",
-                              "required": true
+                              "required": true,
+                              "sensitive": true
                             },
                             "secret_access_key": {
                               "type": "string",
-                              "required": true
+                              "required": true,
+                              "sensitive": true
                             }
                           }
                         },
@@ -59429,7 +61435,8 @@ func init() {
                         "exactly_one_of": [
                           "transfer_spec.0.aws_s3_data_source.0.aws_access_key",
                           "transfer_spec.0.aws_s3_data_source.0.role_arn"
-                        ]
+                        ],
+                        "max_items": 1
                       }
                     }
                   },
@@ -59440,7 +61447,8 @@ func init() {
                     "transfer_spec.0.http_data_source",
                     "transfer_spec.0.azure_blob_storage_data_source",
                     "transfer_spec.0.posix_data_source"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "azure_blob_storage_data_source": {
                   "nesting_mode": 3,
@@ -59467,11 +61475,14 @@ func init() {
                           "attributes": {
                             "sas_token": {
                               "type": "string",
-                              "required": true
+                              "required": true,
+                              "sensitive": true
                             }
                           }
                         },
-                        "required": true
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
                       }
                     }
                   },
@@ -59482,7 +61493,8 @@ func init() {
                     "transfer_spec.0.http_data_source",
                     "transfer_spec.0.azure_blob_storage_data_source",
                     "transfer_spec.0.posix_data_source"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "gcs_data_sink": {
                   "nesting_mode": 3,
@@ -59503,7 +61515,8 @@ func init() {
                   "exactly_one_of": [
                     "transfer_spec.0.gcs_data_sink",
                     "transfer_spec.0.posix_data_sink"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "gcs_data_source": {
                   "nesting_mode": 3,
@@ -59527,7 +61540,8 @@ func init() {
                     "transfer_spec.0.http_data_source",
                     "transfer_spec.0.azure_blob_storage_data_source",
                     "transfer_spec.0.posix_data_source"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "http_data_source": {
                   "nesting_mode": 3,
@@ -59546,7 +61560,8 @@ func init() {
                     "transfer_spec.0.http_data_source",
                     "transfer_spec.0.azure_blob_storage_data_source",
                     "transfer_spec.0.posix_data_source"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "object_conditions": {
                   "nesting_mode": 3,
@@ -59600,7 +61615,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 },
                 "posix_data_sink": {
                   "nesting_mode": 3,
@@ -59616,7 +61632,8 @@ func init() {
                   "exactly_one_of": [
                     "transfer_spec.0.gcs_data_sink",
                     "transfer_spec.0.posix_data_sink"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "posix_data_source": {
                   "nesting_mode": 3,
@@ -59635,7 +61652,8 @@ func init() {
                     "transfer_spec.0.http_data_source",
                     "transfer_spec.0.azure_blob_storage_data_source",
                     "transfer_spec.0.posix_data_source"
-                  ]
+                  ],
+                  "max_items": 1
                 },
                 "transfer_options": {
                   "nesting_mode": 3,
@@ -59676,11 +61694,14 @@ func init() {
                       }
                     }
                   },
-                  "optional": true
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
-            "required": true
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -59789,7 +61810,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -59840,7 +61862,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -59948,7 +61971,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -59999,7 +62023,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -60120,7 +62145,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -60183,7 +62209,8 @@ func init() {
               }
             },
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -60323,5 +62350,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.33.0"
+    ProviderSchemaInfo.Version = "4.36.0"
 }
