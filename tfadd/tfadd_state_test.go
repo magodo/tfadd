@@ -102,11 +102,22 @@ resource "azurerm_resource_group" "b" {
 				Target("azurerm_resource_group.b"),
 				Target("azurerm_resource_group.a"),
 			},
-			expect: `resource "azurerm_resource_group" "b" {
+			expect: `resource "azurerm_resource_group" "a" {
+  location = "eastus2"
+  name     = "foo"
+}
+resource "azurerm_resource_group" "b" {
   location = "eastus2"
   name     = "bar"
 }
-resource "azurerm_resource_group" "a" {
+`,
+		},
+		// See: https://github.com/Azure/aztfy/issues/215
+		{
+			name:      "generate one resource from a state that has resource contains unsupported attribute of the provider",
+			statefile: "azurerm_resource_groups_with_unsupported_attribute",
+			options:   []StateOption{Target("azurerm_resource_group.a")},
+			expect: `resource "azurerm_resource_group" "a" {
   location = "eastus2"
   name     = "foo"
 }
@@ -158,6 +169,7 @@ resource "azurerm_resource_group" "b" {
 				require.Regexp(t, tt.expectError, err.Error())
 				return
 			}
+			require.NoError(t, err)
 			require.Equal(t, tt.expect, string(b))
 		})
 	}

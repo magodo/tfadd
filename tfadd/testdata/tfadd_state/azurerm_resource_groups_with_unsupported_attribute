@@ -1,0 +1,50 @@
+{
+  "version": 4,
+  "terraform_version": "1.1.2",
+  "serial": 6,
+  "lineage": "a413b82a-0d96-28b6-aede-00cac5a6eb69",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "a",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/REDACTED/resourceGroups/foo",
+            "location": "eastus2",
+            "name": "foo",
+            "tags": null,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "REDACTED"
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "with_invalid_attr",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/REDACTED/resourceGroups/bar",
+            "location": "eastus2",
+            "name": "bar",
+            "tags": null,
+            "invalid": 123,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "REDACTED"
+        }
+      ]
+    }
+  ]
+}
