@@ -2269,9 +2269,27 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "components": {
+            "type": "string",
+            "optional": true,
+            "exactly_one_of": [
+              "value",
+              "definitions",
+              "components"
+            ]
+          },
           "content_type": {
             "type": "string",
             "required": true
+          },
+          "definitions": {
+            "type": "string",
+            "optional": true,
+            "exactly_one_of": [
+              "value",
+              "definitions",
+              "components"
+            ]
           },
           "resource_group_name": {
             "type": "string",
@@ -2285,7 +2303,12 @@ func init() {
           },
           "value": {
             "type": "string",
-            "required": true
+            "optional": true,
+            "exactly_one_of": [
+              "value",
+              "definitions",
+              "components"
+            ]
           }
         }
       }
@@ -9306,6 +9329,10 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "hybrid_service_url": {
+            "type": "string",
+            "computed": true
+          },
           "local_authentication_enabled": {
             "type": "bool",
             "optional": true,
@@ -11517,6 +11544,15 @@ func init() {
             "optional": true,
             "force_new": true
           },
+          "inter_node_communication": {
+            "type": "string",
+            "optional": true,
+            "default": "Enabled"
+          },
+          "license_type": {
+            "type": "string",
+            "optional": true
+          },
           "max_tasks_per_node": {
             "type": "number",
             "optional": true,
@@ -11539,6 +11575,10 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          },
+          "os_disk_placement": {
+            "type": "string",
+            "optional": true
           },
           "resource_group_name": {
             "type": "string",
@@ -11653,6 +11693,88 @@ func init() {
             },
             "optional": true,
             "max_items": 1
+          },
+          "data_disks": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "caching": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "ReadOnly"
+                },
+                "disk_size_gb": {
+                  "type": "number",
+                  "required": true
+                },
+                "lun": {
+                  "type": "number",
+                  "required": true
+                },
+                "storage_account_type": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "Standard_LRS"
+                }
+              }
+            },
+            "optional": true
+          },
+          "disk_encryption": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "disk_encryption_target": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "extensions": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "auto_upgrade_minor_version": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "protected_settings": {
+                  "type": "string",
+                  "optional": true,
+                  "sensitive": true
+                },
+                "provision_after_extensions": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "publisher": {
+                  "type": "string",
+                  "required": true
+                },
+                "settings_json": {
+                  "type": "string",
+                  "optional": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                },
+                "type_handler_version": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
           },
           "fixed_scale": {
             "nesting_mode": 3,
@@ -11907,6 +12029,19 @@ func init() {
             "force_new": true,
             "max_items": 1
           },
+          "node_placement": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "policy": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "Regional"
+                }
+              }
+            },
+            "optional": true
+          },
           "start_task": {
             "nesting_mode": 3,
             "block": {
@@ -11958,6 +12093,10 @@ func init() {
                         "optional": true
                       },
                       "storage_container_url": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "user_assigned_identity_id": {
                         "type": "string",
                         "optional": true
                       }
@@ -12083,6 +12222,89 @@ func init() {
             "force_new": true,
             "min_items": 1,
             "max_items": 1
+          },
+          "task_scheduling_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "node_fill_type": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
+          },
+          "user_accounts": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "elevation_level": {
+                  "type": "string",
+                  "required": true
+                },
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "password": {
+                  "type": "string",
+                  "required": true,
+                  "sensitive": true
+                }
+              },
+              "block_types": {
+                "linux_user_configuration": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "gid": {
+                        "type": "number",
+                        "optional": true
+                      },
+                      "ssh_private_key": {
+                        "type": "string",
+                        "optional": true,
+                        "sensitive": true
+                      },
+                      "uid": {
+                        "type": "number",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "windows_user_configuration": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "login_mode": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "windows": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "enable_automatic_updates": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                }
+              }
+            },
+            "optional": true
           }
         }
       }
@@ -18398,6 +18620,13 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
                 "principal_id": {
                   "type": "string",
                   "computed": true
@@ -31238,6 +31467,7 @@ func init() {
                       }
                     ]
                   ],
+                  "public_network_access_enabled": "bool",
                   "trusted_service_access_enabled": "bool",
                   "virtual_network_rule": [
                     "set",
@@ -53140,6 +53370,10 @@ func init() {
             "type": "string",
             "optional": true,
             "default": "~3"
+          },
+          "virtual_network_subnet_id": {
+            "type": "string",
+            "optional": true
           }
         },
         "block_types": {
@@ -53169,6 +53403,13 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
                 "principal_id": {
                   "type": "string",
                   "computed": true
@@ -55404,6 +55645,10 @@ func init() {
             "required": true
           },
           "policy_definition_id": {
+            "type": "string",
+            "optional": true
+          },
+          "policy_definition_reference_id": {
             "type": "string",
             "optional": true
           },
@@ -63815,6 +64060,7 @@ func init() {
           "location": {
             "type": "string",
             "optional": true,
+            "computed": true,
             "force_new": true
           },
           "name": {
@@ -68097,6 +68343,10 @@ func init() {
             "type": "string",
             "optional": true
           },
+          "policy_definition_reference_id": {
+            "type": "string",
+            "optional": true
+          },
           "resource_count": {
             "type": "number",
             "optional": true
@@ -68348,6 +68598,10 @@ func init() {
             "required": true
           },
           "policy_definition_id": {
+            "type": "string",
+            "optional": true
+          },
+          "policy_definition_reference_id": {
             "type": "string",
             "optional": true
           },
@@ -79087,6 +79341,10 @@ func init() {
             "type": "string",
             "optional": true
           },
+          "policy_definition_reference_id": {
+            "type": "string",
+            "optional": true
+          },
           "resource_count": {
             "type": "number",
             "optional": true
@@ -87023,18 +87281,12 @@ func init() {
                 "application_insights_connection_string": {
                   "type": "string",
                   "optional": true,
-                  "sensitive": true,
-                  "required_with": [
-                    "site_config.0.application_insights_key"
-                  ]
+                  "sensitive": true
                 },
                 "application_insights_key": {
                   "type": "string",
                   "optional": true,
-                  "sensitive": true,
-                  "required_with": [
-                    "site_config.0.application_insights_connection_string"
-                  ]
+                  "sensitive": true
                 },
                 "auto_swap_slot_name": {
                   "type": "string",
@@ -91210,5 +91462,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.22.0"
+    ProviderSchemaInfo.Version = "3.23.0"
 }
