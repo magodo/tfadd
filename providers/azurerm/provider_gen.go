@@ -1822,15 +1822,53 @@ func init() {
                         "type": "bool",
                         "required": true
                       },
+                      "schema_id": {
+                        "type": "string",
+                        "optional": true
+                      },
                       "type": {
                         "type": "string",
                         "required": true
+                      },
+                      "type_name": {
+                        "type": "string",
+                        "optional": true
                       },
                       "values": {
                         "type": [
                           "set",
                           "string"
                         ],
+                        "optional": true
+                      }
+                    },
+                    "block_types": {
+                      "example": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "description": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "external_value": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "name": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "summary": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "value": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
                         "optional": true
                       }
                     }
@@ -1857,15 +1895,53 @@ func init() {
                         "type": "bool",
                         "required": true
                       },
+                      "schema_id": {
+                        "type": "string",
+                        "optional": true
+                      },
                       "type": {
                         "type": "string",
                         "required": true
+                      },
+                      "type_name": {
+                        "type": "string",
+                        "optional": true
                       },
                       "values": {
                         "type": [
                           "set",
                           "string"
                         ],
+                        "optional": true
+                      }
+                    },
+                    "block_types": {
+                      "example": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "description": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "external_value": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "name": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "summary": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "value": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
                         "optional": true
                       }
                     }
@@ -1938,15 +2014,53 @@ func init() {
                               "type": "bool",
                               "required": true
                             },
+                            "schema_id": {
+                              "type": "string",
+                              "optional": true
+                            },
                             "type": {
                               "type": "string",
                               "required": true
+                            },
+                            "type_name": {
+                              "type": "string",
+                              "optional": true
                             },
                             "values": {
                               "type": [
                                 "set",
                                 "string"
                               ],
+                              "optional": true
+                            }
+                          },
+                          "block_types": {
+                            "example": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "description": {
+                                    "type": "string",
+                                    "optional": true
+                                  },
+                                  "external_value": {
+                                    "type": "string",
+                                    "optional": true
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "summary": {
+                                    "type": "string",
+                                    "optional": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "optional": true
+                                  }
+                                }
+                              },
                               "optional": true
                             }
                           }
@@ -1997,15 +2111,53 @@ func init() {
                         "type": "bool",
                         "required": true
                       },
+                      "schema_id": {
+                        "type": "string",
+                        "optional": true
+                      },
                       "type": {
                         "type": "string",
                         "required": true
+                      },
+                      "type_name": {
+                        "type": "string",
+                        "optional": true
                       },
                       "values": {
                         "type": [
                           "set",
                           "string"
                         ],
+                        "optional": true
+                      }
+                    },
+                    "block_types": {
+                      "example": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "description": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "external_value": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "name": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "summary": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "value": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
                         "optional": true
                       }
                     }
@@ -2078,15 +2230,53 @@ func init() {
                               "type": "bool",
                               "required": true
                             },
+                            "schema_id": {
+                              "type": "string",
+                              "optional": true
+                            },
                             "type": {
                               "type": "string",
                               "required": true
+                            },
+                            "type_name": {
+                              "type": "string",
+                              "optional": true
                             },
                             "values": {
                               "type": [
                                 "set",
                                 "string"
                               ],
+                              "optional": true
+                            }
+                          },
+                          "block_types": {
+                            "example": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "description": {
+                                    "type": "string",
+                                    "optional": true
+                                  },
+                                  "external_value": {
+                                    "type": "string",
+                                    "optional": true
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "summary": {
+                                    "type": "string",
+                                    "optional": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "optional": true
+                                  }
+                                }
+                              },
                               "optional": true
                             }
                           }
@@ -2121,15 +2311,53 @@ func init() {
                   "type": "bool",
                   "required": true
                 },
+                "schema_id": {
+                  "type": "string",
+                  "optional": true
+                },
                 "type": {
                   "type": "string",
                   "required": true
+                },
+                "type_name": {
+                  "type": "string",
+                  "optional": true
                 },
                 "values": {
                   "type": [
                     "set",
                     "string"
                   ],
+                  "optional": true
+                }
+              },
+              "block_types": {
+                "example": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "description": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "external_value": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "summary": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "value": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
                   "optional": true
                 }
               }
@@ -10177,6 +10405,320 @@ func init() {
               "week_days",
               "month_days"
             ]
+          }
+        }
+      }
+    },
+    "azurerm_automation_software_update_configuration": {
+      "block": {
+        "attributes": {
+          "automation_account_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "duration": {
+            "type": "string",
+            "optional": true
+          },
+          "error_code": {
+            "type": "string",
+            "computed": true
+          },
+          "error_meesage": {
+            "type": "string",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "non_azure_computer_names": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          "operating_system": {
+            "type": "string",
+            "required": true
+          },
+          "virtual_machine_ids": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "linux": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "classification_included": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_packages": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "included_packages": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "reboot": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "post_task": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "parameters": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "source": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "pre_task": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "parameters": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "source": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "schedule": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "advanced_month_days": {
+                  "type": [
+                    "list",
+                    "number"
+                  ],
+                  "optional": true
+                },
+                "advanced_week_days": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "creation_time": {
+                  "type": "string",
+                  "computed": true
+                },
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expiry_time": {
+                  "type": "string",
+                  "optional": true
+                },
+                "expiry_time_offset_minutes": {
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                "frequency": {
+                  "type": "string",
+                  "optional": true
+                },
+                "interval": {
+                  "type": "number",
+                  "optional": true
+                },
+                "is_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "last_modified_time": {
+                  "type": "string",
+                  "computed": true
+                },
+                "next_run": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
+                "next_run_offset_minutes": {
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                "start_time": {
+                  "type": "string",
+                  "optional": true
+                },
+                "start_time_offset_minutes": {
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                "time_zone": {
+                  "type": "string",
+                  "optional": true
+                }
+              },
+              "block_types": {
+                "monthly_occurrence": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "day": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "occurrence": {
+                        "type": "number",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "target": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "azure_query": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "locations": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "scope": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "tag_filter": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    },
+                    "block_types": {
+                      "tags": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "tag": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "values": {
+                              "type": [
+                                "list",
+                                "string"
+                              ],
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "non_azure_query": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "function_alias": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "workspace_id": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "windows": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "classification_included": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_knowledge_base_numbers": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "included_knowledge_base_numbers": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "reboot": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
           }
         }
       }
@@ -47810,18 +48352,12 @@ func init() {
                 "application_insights_connection_string": {
                   "type": "string",
                   "optional": true,
-                  "sensitive": true,
-                  "required_with": [
-                    "site_config.0.application_insights_key"
-                  ]
+                  "sensitive": true
                 },
                 "application_insights_key": {
                   "type": "string",
                   "optional": true,
-                  "sensitive": true,
-                  "required_with": [
-                    "site_config.0.application_insights_connection_string"
-                  ]
+                  "sensitive": true
                 },
                 "auto_swap_slot_name": {
                   "type": "string",
@@ -48332,6 +48868,11 @@ func init() {
               "string"
             ],
             "required": true
+          },
+          "patch_assessment_mode": {
+            "type": "string",
+            "optional": true,
+            "default": "ImageDefault"
           },
           "patch_mode": {
             "type": "string",
@@ -58730,6 +59271,1007 @@ func init() {
         }
       }
     },
+    "azurerm_monitor_alert_processing_rule_action_group": {
+      "block": {
+        "attributes": {
+          "add_action_group_ids": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "scopes": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "alert_context": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "alert_rule_id": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "alert_rule_name": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "description": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "monitor_condition": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "monitor_service": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "severity": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "signal_type": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "target_resource": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "target_resource_group": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "target_resource_type": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "schedule": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "effective_from": {
+                  "type": "string",
+                  "optional": true
+                },
+                "effective_until": {
+                  "type": "string",
+                  "optional": true
+                },
+                "time_zone": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "UTC"
+                }
+              },
+              "block_types": {
+                "recurrence": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "daily": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "end_time": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "start_time": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "monthly": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "days_of_month": {
+                              "type": [
+                                "list",
+                                "number"
+                              ],
+                              "required": true
+                            },
+                            "end_time": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "start_time": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "weekly": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "days_of_week": {
+                              "type": [
+                                "list",
+                                "string"
+                              ],
+                              "required": true
+                            },
+                            "end_time": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "start_time": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_monitor_alert_processing_rule_suppression": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "scopes": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "alert_context": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "alert_rule_id": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "alert_rule_name": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "description": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "monitor_condition": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "monitor_service": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "severity": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "signal_type": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "target_resource": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "target_resource_group": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                },
+                "target_resource_type": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operator": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "values": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "condition.0.alert_context",
+                    "condition.0.alert_rule_id",
+                    "condition.0.alert_rule_name",
+                    "condition.0.description",
+                    "condition.0.monitor_service",
+                    "condition.0.severity",
+                    "condition.0.signal_type",
+                    "condition.0.target_resource",
+                    "condition.0.target_resource_group",
+                    "condition.0.target_resource_type"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "schedule": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "effective_from": {
+                  "type": "string",
+                  "optional": true
+                },
+                "effective_until": {
+                  "type": "string",
+                  "optional": true
+                },
+                "time_zone": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "UTC"
+                }
+              },
+              "block_types": {
+                "recurrence": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "daily": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "end_time": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "start_time": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "monthly": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "days_of_month": {
+                              "type": [
+                                "list",
+                                "number"
+                              ],
+                              "required": true
+                            },
+                            "end_time": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "start_time": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "weekly": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "days_of_week": {
+                              "type": [
+                                "list",
+                                "string"
+                              ],
+                              "required": true
+                            },
+                            "end_time": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "start_time": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "azurerm_monitor_autoscale_setting": {
       "block": {
         "attributes": {
@@ -59644,7 +61186,7 @@ func init() {
             "max_items": 1
           },
           "criteria": {
-            "nesting_mode": 4,
+            "nesting_mode": 3,
             "block": {
               "attributes": {
                 "aggregation": {
@@ -59707,7 +61249,7 @@ func init() {
             ]
           },
           "dynamic_criteria": {
-            "nesting_mode": 4,
+            "nesting_mode": 3,
             "block": {
               "attributes": {
                 "aggregation": {
@@ -66732,6 +68274,11 @@ func init() {
             ],
             "computed": true
           },
+          "custom_network_interface_name": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
           "location": {
             "type": "string",
             "required": true,
@@ -69860,6 +71407,13 @@ func init() {
             "default": false
           },
           "tactics": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true
+          },
+          "techniques": {
             "type": [
               "set",
               "string"
@@ -82569,6 +84123,11 @@ func init() {
             "type": "bool",
             "optional": true
           },
+          "failure_suppression_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
           "name": {
             "type": "string",
             "required": true,
@@ -83241,6 +84800,11 @@ func init() {
           "automatic_upgrade_enabled": {
             "type": "bool",
             "optional": true
+          },
+          "failure_suppression_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
           },
           "force_update_tag": {
             "type": "string",
@@ -87728,6 +89292,11 @@ func init() {
             ],
             "required": true
           },
+          "patch_assessment_mode": {
+            "type": "string",
+            "optional": true,
+            "default": "ImageDefault"
+          },
           "patch_mode": {
             "type": "string",
             "optional": true,
@@ -91462,5 +93031,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.23.0"
+    ProviderSchemaInfo.Version = "3.24.0"
 }

@@ -1847,6 +1847,10 @@ func init() {
     "google_apigee_endpoint_attachment": {
       "block": {
         "attributes": {
+          "connection_state": {
+            "type": "string",
+            "computed": true
+          },
           "endpoint_attachment_id": {
             "type": "string",
             "required": true,
@@ -2205,6 +2209,30 @@ func init() {
             "force_new": true
           },
           "name": {
+            "type": "string",
+            "computed": true
+          }
+        }
+      }
+    },
+    "google_apigee_nat_address": {
+      "block": {
+        "attributes": {
+          "instance_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "ip_address": {
+            "type": "string",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "state": {
             "type": "string",
             "computed": true
           }
@@ -6830,6 +6858,11 @@ func init() {
                       "min_nodes": {
                         "type": "number",
                         "required": true
+                      },
+                      "storage_target": {
+                        "type": "number",
+                        "optional": true,
+                        "computed": true
                       }
                     }
                   },
@@ -41076,6 +41109,123 @@ func init() {
         }
       }
     },
+    "google_dialogflow_cx_webhook": {
+      "block": {
+        "attributes": {
+          "disabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "enable_spell_correction": {
+            "type": "bool",
+            "optional": true
+          },
+          "enable_stackdriver_logging": {
+            "type": "bool",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "parent": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "security_settings": {
+            "type": "string",
+            "optional": true
+          },
+          "start_flow": {
+            "type": "string",
+            "computed": true
+          },
+          "timeout": {
+            "type": "string",
+            "optional": true
+          }
+        },
+        "block_types": {
+          "generic_web_service": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "allowed_ca_certs": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "request_headers": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true,
+                  "force_new": true
+                },
+                "uri": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "service_directory": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "service": {
+                  "type": "string",
+                  "required": true
+                }
+              },
+              "block_types": {
+                "generic_web_service": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_ca_certs": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "request_headers": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true,
+                        "force_new": true
+                      },
+                      "uri": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "google_dialogflow_entity_type": {
       "block": {
         "attributes": {
@@ -42418,6 +42568,56 @@ func init() {
             "required": true,
             "force_new": true,
             "min_items": 1
+          }
+        }
+      }
+    },
+    "google_filestore_snapshot": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "filesystem_used_bytes": {
+            "type": "string",
+            "computed": true
+          },
+          "instance": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
           }
         }
       }
@@ -60657,6 +60857,7 @@ func init() {
               }
             },
             "optional": true,
+            "computed": true,
             "max_items": 1
           },
           "website": {
@@ -62350,5 +62551,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.36.0"
+    ProviderSchemaInfo.Version = "4.37.0"
 }
