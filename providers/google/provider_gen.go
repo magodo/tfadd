@@ -3878,6 +3878,10 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "egress_setting": {
+                  "type": "string",
+                  "optional": true
+                },
                 "name": {
                   "type": "string",
                   "required": true
@@ -5561,6 +5565,11 @@ func init() {
                   "optional": true,
                   "force_new": true,
                   "default": false
+                },
+                "json_extension": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
                 },
                 "max_bad_records": {
                   "type": "number",
@@ -11706,6 +11715,10 @@ func init() {
               "map",
               "string"
             ],
+            "optional": true
+          },
+          "build_worker_pool": {
+            "type": "string",
             "optional": true
           },
           "description": {
@@ -25349,6 +25362,25 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "computed": true
+                }
+              },
+              "block_types": {
+                "json_custom_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "content_types": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "computed": true,
+                  "max_items": 1
                 }
               }
             },
@@ -39828,7 +39860,10 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "force_new": true,
-                  "sensitive": true
+                  "sensitive": true,
+                  "conflicts_with": [
+                    "forward_ssh_connectivity.0.private_key"
+                  ]
                 },
                 "port": {
                   "type": "number",
@@ -39839,7 +39874,10 @@ func init() {
                   "type": "string",
                   "optional": true,
                   "force_new": true,
-                  "sensitive": true
+                  "sensitive": true,
+                  "conflicts_with": [
+                    "forward_ssh_connectivity.0.password"
+                  ]
                 },
                 "username": {
                   "type": "string",
@@ -40027,6 +40065,68 @@ func init() {
               "mysql_profile",
               "postgresql_profile"
             ],
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_datastream_private_connection": {
+      "block": {
+        "attributes": {
+          "display_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "private_connection_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "vpc_peering_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "subnet": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "vpc": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "required": true,
+            "force_new": true,
+            "min_items": 1,
             "max_items": 1
           }
         }
@@ -58227,6 +58327,34 @@ func init() {
             },
             "optional": true,
             "max_items": 1
+          },
+          "persistence_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "persistence_mode": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
+                "rdb_next_snapshot_time": {
+                  "type": "string",
+                  "computed": true
+                },
+                "rdb_snapshot_period": {
+                  "type": "string",
+                  "required": true
+                },
+                "rdb_snapshot_start_time": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -61869,7 +61997,8 @@ func init() {
                         "at_least_one_of": [
                           "transfer_spec.0.transfer_options.0.overwrite_objects_already_existing_in_sink",
                           "transfer_spec.0.transfer_options.0.delete_objects_unique_in_sink",
-                          "transfer_spec.0.transfer_options.0.delete_objects_from_source_after_transfer"
+                          "transfer_spec.0.transfer_options.0.delete_objects_from_source_after_transfer",
+                          "transfer_spec.0.transfer_options.0.overwrite_when"
                         ]
                       },
                       "delete_objects_unique_in_sink": {
@@ -61881,7 +62010,8 @@ func init() {
                         "at_least_one_of": [
                           "transfer_spec.0.transfer_options.0.overwrite_objects_already_existing_in_sink",
                           "transfer_spec.0.transfer_options.0.delete_objects_unique_in_sink",
-                          "transfer_spec.0.transfer_options.0.delete_objects_from_source_after_transfer"
+                          "transfer_spec.0.transfer_options.0.delete_objects_from_source_after_transfer",
+                          "transfer_spec.0.transfer_options.0.overwrite_when"
                         ]
                       },
                       "overwrite_objects_already_existing_in_sink": {
@@ -61890,7 +62020,18 @@ func init() {
                         "at_least_one_of": [
                           "transfer_spec.0.transfer_options.0.overwrite_objects_already_existing_in_sink",
                           "transfer_spec.0.transfer_options.0.delete_objects_unique_in_sink",
-                          "transfer_spec.0.transfer_options.0.delete_objects_from_source_after_transfer"
+                          "transfer_spec.0.transfer_options.0.delete_objects_from_source_after_transfer",
+                          "transfer_spec.0.transfer_options.0.overwrite_when"
+                        ]
+                      },
+                      "overwrite_when": {
+                        "type": "string",
+                        "optional": true,
+                        "at_least_one_of": [
+                          "transfer_spec.0.transfer_options.0.overwrite_objects_already_existing_in_sink",
+                          "transfer_spec.0.transfer_options.0.delete_objects_unique_in_sink",
+                          "transfer_spec.0.transfer_options.0.delete_objects_from_source_after_transfer",
+                          "transfer_spec.0.transfer_options.0.overwrite_when"
                         ]
                       }
                     }
@@ -62551,5 +62692,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.37.0"
+    ProviderSchemaInfo.Version = "4.38.0"
 }
