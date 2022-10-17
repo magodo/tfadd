@@ -5935,6 +5935,11 @@ func init() {
     "google_bigquery_reservation": {
       "block": {
         "attributes": {
+          "concurrency": {
+            "type": "number",
+            "optional": true,
+            "default": 0
+          },
           "ignore_idle_slots": {
             "type": "bool",
             "optional": true,
@@ -5945,6 +5950,10 @@ func init() {
             "optional": true,
             "force_new": true,
             "default": "US"
+          },
+          "multi_region_auxiliary": {
+            "type": "bool",
+            "optional": true
           },
           "name": {
             "type": "string",
@@ -8109,13 +8118,37 @@ func init() {
               "attributes": {
                 "certificate_pem": {
                   "type": "string",
-                  "required": true,
-                  "sensitive": true
+                  "optional": true,
+                  "sensitive": true,
+                  "exactly_one_of": [
+                    "self_managed.0.certificate_pem",
+                    "self_managed.0.pem_certificate"
+                  ]
+                },
+                "pem_certificate": {
+                  "type": "string",
+                  "optional": true,
+                  "exactly_one_of": [
+                    "self_managed.0.certificate_pem",
+                    "self_managed.0.pem_certificate"
+                  ]
+                },
+                "pem_private_key": {
+                  "type": "string",
+                  "optional": true,
+                  "exactly_one_of": [
+                    "self_managed.0.private_key_pem",
+                    "self_managed.0.pem_private_key"
+                  ]
                 },
                 "private_key_pem": {
                   "type": "string",
-                  "required": true,
-                  "sensitive": true
+                  "optional": true,
+                  "sensitive": true,
+                  "exactly_one_of": [
+                    "self_managed.0.private_key_pem",
+                    "self_managed.0.pem_private_key"
+                  ]
                 }
               }
             },
@@ -13621,6 +13654,10 @@ func init() {
             "type": "string",
             "required": true
           },
+          "compression_mode": {
+            "type": "string",
+            "optional": true
+          },
           "creation_timestamp": {
             "type": "string",
             "computed": true
@@ -13807,6 +13844,10 @@ func init() {
         "attributes": {
           "affinity_cookie_ttl_sec": {
             "type": "number",
+            "optional": true
+          },
+          "compression_mode": {
+            "type": "string",
             "optional": true
           },
           "connection_draining_timeout_sec": {
@@ -31807,6 +31848,24 @@ func init() {
                         "type": "string",
                         "optional": true
                       }
+                    },
+                    "block_types": {
+                      "filter": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "event_type": {
+                              "type": [
+                                "list",
+                                "string"
+                              ],
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "max_items": 1
+                      }
                     }
                   },
                   "required": true,
@@ -39848,6 +39907,19 @@ func init() {
           }
         },
         "block_types": {
+          "bigquery_profile": {
+            "nesting_mode": 3,
+            "block": {},
+            "optional": true,
+            "exactly_one_of": [
+              "oracle_profile",
+              "gcs_profile",
+              "mysql_profile",
+              "bigquery_profile",
+              "postgresql_profile"
+            ],
+            "max_items": 1
+          },
           "forward_ssh_connectivity": {
             "nesting_mode": 3,
             "block": {
@@ -39907,6 +39979,7 @@ func init() {
               "oracle_profile",
               "gcs_profile",
               "mysql_profile",
+              "bigquery_profile",
               "postgresql_profile"
             ],
             "max_items": 1
@@ -39982,6 +40055,7 @@ func init() {
               "oracle_profile",
               "gcs_profile",
               "mysql_profile",
+              "bigquery_profile",
               "postgresql_profile"
             ],
             "max_items": 1
@@ -40026,6 +40100,7 @@ func init() {
               "oracle_profile",
               "gcs_profile",
               "mysql_profile",
+              "bigquery_profile",
               "postgresql_profile"
             ],
             "max_items": 1
@@ -40063,6 +40138,7 @@ func init() {
               "oracle_profile",
               "gcs_profile",
               "mysql_profile",
+              "bigquery_profile",
               "postgresql_profile"
             ],
             "max_items": 1
@@ -41594,6 +41670,20 @@ func init() {
           }
         },
         "block_types": {
+          "cloud_logging_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "enable_logging": {
+                  "type": "bool",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
+          },
           "dnssec_config": {
             "nesting_mode": 3,
             "block": {
@@ -46203,6 +46293,26 @@ func init() {
           "policy_data": {
             "type": "string",
             "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_identity_platform_config": {
+      "block": {
+        "attributes": {
+          "autodelete_anonymous_users": {
+            "type": "bool",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
           },
           "project": {
             "type": "string",
@@ -58791,6 +58901,10 @@ func init() {
             "required": true,
             "force_new": true,
             "sensitive": true
+          },
+          "version": {
+            "type": "string",
+            "computed": true
           }
         }
       }
@@ -59753,6 +59867,13 @@ func init() {
     "google_sql_database_instance": {
       "block": {
         "attributes": {
+          "available_maintenance_versions": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
           "connection_name": {
             "type": "string",
             "computed": true
@@ -59788,6 +59909,11 @@ func init() {
                 }
               ]
             ],
+            "computed": true
+          },
+          "maintenance_version": {
+            "type": "string",
+            "optional": true,
             "computed": true
           },
           "master_instance_name": {
@@ -60718,6 +60844,44 @@ func init() {
           }
         },
         "block_types": {
+          "password_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "allowed_failed_attempts": {
+                  "type": "number",
+                  "optional": true
+                },
+                "enable_failed_attempts_check": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "enable_password_verification": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "password_expiration_duration": {
+                  "type": "string",
+                  "optional": true
+                },
+                "status": {
+                  "type": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "locked": "bool",
+                        "password_expiration_time": "string"
+                      }
+                    ]
+                  ],
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
           "sql_server_user_details": {
             "nesting_mode": 3,
             "block": {
@@ -60833,6 +60997,23 @@ func init() {
               }
             },
             "optional": true
+          },
+          "custom_placement_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "data_locations": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
           },
           "encryption": {
             "nesting_mode": 3,
@@ -61625,6 +61806,30 @@ func init() {
           }
         },
         "block_types": {
+          "notification_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "event_types": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "payload_format": {
+                  "type": "string",
+                  "required": true
+                },
+                "pubsub_topic": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
           "schedule": {
             "nesting_mode": 3,
             "block": {
@@ -62090,6 +62295,19 @@ func init() {
           "parent": {
             "type": "string",
             "required": true,
+            "force_new": true
+          },
+          "purpose": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "purpose_data": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true,
             "force_new": true
           },
           "short_name": {
@@ -62692,5 +62910,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.38.0"
+    ProviderSchemaInfo.Version = "4.40.0"
 }
