@@ -3595,6 +3595,11 @@ func init() {
             "type": "string",
             "required": true
           },
+          "service_account": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
           "threadsafe": {
             "type": "bool",
             "optional": true
@@ -6263,6 +6268,19 @@ func init() {
                 }
               },
               "block_types": {
+                "avro_options": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "use_avro_logical_types": {
+                        "type": "bool",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
                 "csv_options": {
                   "nesting_mode": 3,
                   "block": {
@@ -8758,6 +8776,59 @@ func init() {
             },
             "required": true,
             "min_items": 1
+          }
+        }
+      }
+    },
+    "google_cloud_ids_endpoint": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "endpoint": {
+            "type": "string",
+            "computed": true
+          },
+          "endpoint_forwarding_rule": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "severity": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
           }
         }
       }
@@ -31246,6 +31317,16 @@ func init() {
                       {
                         "count": "number",
                         "gpu_partition_size": "string",
+                        "gpu_sharing_config": [
+                          "list",
+                          [
+                            "object",
+                            {
+                              "gpu_sharing_strategy": "string",
+                              "max_shared_clients_per_gpu": "number"
+                            }
+                          ]
+                        ],
                         "type": "string"
                       }
                     ]
@@ -31596,6 +31677,16 @@ func init() {
                             {
                               "count": "number",
                               "gpu_partition_size": "string",
+                              "gpu_sharing_config": [
+                                "list",
+                                [
+                                  "object",
+                                  {
+                                    "gpu_sharing_strategy": "string",
+                                    "max_shared_clients_per_gpu": "number"
+                                  }
+                                ]
+                              ],
                               "type": "string"
                             }
                           ]
@@ -32189,6 +32280,16 @@ func init() {
                       {
                         "count": "number",
                         "gpu_partition_size": "string",
+                        "gpu_sharing_config": [
+                          "list",
+                          [
+                            "object",
+                            {
+                              "gpu_sharing_strategy": "string",
+                              "max_shared_clients_per_gpu": "number"
+                            }
+                          ]
+                        ],
                         "type": "string"
                       }
                     ]
@@ -33217,6 +33318,21 @@ func init() {
           }
         },
         "block_types": {
+          "crypto_key_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "key_reference": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          },
           "network_config": {
             "nesting_mode": 3,
             "block": {
@@ -60837,6 +60953,22 @@ func init() {
             "computed": true,
             "force_new": true
           },
+          "sql_server_user_details": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "disabled": "bool",
+                  "server_roles": [
+                    "list",
+                    "string"
+                  ]
+                }
+              ]
+            ],
+            "computed": true
+          },
           "type": {
             "type": "string",
             "optional": true,
@@ -60876,27 +61008,6 @@ func init() {
                     ]
                   ],
                   "computed": true
-                }
-              }
-            },
-            "optional": true,
-            "max_items": 1
-          },
-          "sql_server_user_details": {
-            "nesting_mode": 3,
-            "block": {
-              "attributes": {
-                "disabled": {
-                  "type": "bool",
-                  "optional": true,
-                  "default": false
-                },
-                "server_roles": {
-                  "type": [
-                    "list",
-                    "string"
-                  ],
-                  "optional": true
                 }
               }
             },
@@ -62910,5 +63021,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.40.0"
+    ProviderSchemaInfo.Version = "4.41.0"
 }

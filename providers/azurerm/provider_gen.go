@@ -19548,6 +19548,16 @@ func init() {
             "computed": true,
             "sensitive": true
           },
+          "primary_readonly_sql_connection_string": {
+            "type": "string",
+            "computed": true,
+            "sensitive": true
+          },
+          "primary_sql_connection_string": {
+            "type": "string",
+            "computed": true,
+            "sensitive": true
+          },
           "public_network_access_enabled": {
             "type": "bool",
             "optional": true,
@@ -19571,6 +19581,16 @@ func init() {
             "sensitive": true
           },
           "secondary_readonly_key": {
+            "type": "string",
+            "computed": true,
+            "sensitive": true
+          },
+          "secondary_readonly_sql_connection_string": {
+            "type": "string",
+            "computed": true,
+            "sensitive": true
+          },
+          "secondary_sql_connection_string": {
             "type": "string",
             "computed": true,
             "sensitive": true
@@ -27425,6 +27445,58 @@ func init() {
         }
       }
     },
+    "azurerm_databricks_access_connector": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "azurerm_databricks_workspace": {
       "block": {
         "attributes": {
@@ -34637,10 +34709,27 @@ func init() {
             ],
             "computed": true
           },
+          "primary_key": {
+            "type": "string",
+            "computed": true,
+            "sensitive": true
+          },
           "resource_group_name": {
             "type": "string",
             "required": true,
             "force_new": true
+          },
+          "secondary_key": {
+            "type": "string",
+            "computed": true,
+            "sensitive": true
+          },
+          "service_endpoints": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
           },
           "storage_endpoints": {
             "type": [
@@ -48008,6 +48097,10 @@ func init() {
             "optional": true,
             "default": false
           },
+          "client_certificate_exclusion_paths": {
+            "type": "string",
+            "optional": true
+          },
           "client_certificate_mode": {
             "type": "string",
             "optional": true,
@@ -49015,6 +49108,10 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": false
+          },
+          "client_certificate_exclusion_paths": {
+            "type": "string",
+            "optional": true
           },
           "client_certificate_mode": {
             "type": "string",
@@ -51380,6 +51477,10 @@ func init() {
             "optional": true,
             "default": false
           },
+          "client_certificate_exclusion_paths": {
+            "type": "string",
+            "optional": true
+          },
           "client_certificate_mode": {
             "type": "string",
             "optional": true,
@@ -52593,6 +52694,10 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": false
+          },
+          "client_certificate_exclusion_paths": {
+            "type": "string",
+            "optional": true
           },
           "client_certificate_mode": {
             "type": "string",
@@ -73423,6 +73528,50 @@ func init() {
         }
       }
     },
+    "azurerm_sentinel_data_connector_dynamics_365": {
+      "block": {
+        "attributes": {
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tenant_id": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_sentinel_data_connector_iot": {
+      "block": {
+        "attributes": {
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "subscription_id": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_sentinel_data_connector_microsoft_cloud_app_security": {
       "block": {
         "attributes": {
@@ -73513,7 +73662,73 @@ func init() {
         }
       }
     },
+    "azurerm_sentinel_data_connector_office_365_project": {
+      "block": {
+        "attributes": {
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tenant_id": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_sentinel_data_connector_office_atp": {
+      "block": {
+        "attributes": {
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tenant_id": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_sentinel_data_connector_office_irm": {
+      "block": {
+        "attributes": {
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tenant_id": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_sentinel_data_connector_office_power_bi": {
       "block": {
         "attributes": {
           "log_analytics_workspace_id": {
@@ -79356,6 +79571,28 @@ func init() {
             "optional": true,
             "max_items": 1
           },
+          "immutability_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "allow_protected_append_writes": {
+                  "type": "bool",
+                  "required": true
+                },
+                "period_since_creation_in_days": {
+                  "type": "number",
+                  "required": true
+                },
+                "state": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          },
           "network_rules": {
             "nesting_mode": 3,
             "block": {
@@ -80208,6 +80445,11 @@ func init() {
                               "optional": true,
                               "default": -1
                             },
+                            "tier_to_archive_after_days_since_last_tier_change_greater_than": {
+                              "type": "number",
+                              "optional": true,
+                              "default": -1
+                            },
                             "tier_to_archive_after_days_since_modification_greater_than": {
                               "type": "number",
                               "optional": true,
@@ -80246,6 +80488,11 @@ func init() {
                               "type": "number",
                               "optional": true,
                               "default": -1
+                            },
+                            "tier_to_archive_after_days_since_last_tier_change_greater_than": {
+                              "type": "number",
+                              "optional": true,
+                              "default": -1
                             }
                           }
                         },
@@ -80267,6 +80514,11 @@ func init() {
                               "default": -1
                             },
                             "delete_after_days_since_creation": {
+                              "type": "number",
+                              "optional": true,
+                              "default": -1
+                            },
+                            "tier_to_archive_after_days_since_last_tier_change_greater_than": {
                               "type": "number",
                               "optional": true,
                               "default": -1
@@ -89008,6 +89260,10 @@ func init() {
             "optional": true,
             "default": false
           },
+          "client_certificate_exclusion_paths": {
+            "type": "string",
+            "optional": true
+          },
           "client_certificate_mode": {
             "type": "string",
             "optional": true,
@@ -89940,6 +90196,10 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": false
+          },
+          "client_certificate_exclusion_paths": {
+            "type": "string",
+            "optional": true
           },
           "client_certificate_mode": {
             "type": "string",
@@ -92298,6 +92558,10 @@ func init() {
             "optional": true,
             "default": false
           },
+          "client_certificate_exclusion_paths": {
+            "type": "string",
+            "optional": true
+          },
           "client_certificate_mode": {
             "type": "string",
             "optional": true,
@@ -93532,6 +93796,10 @@ func init() {
             "optional": true,
             "default": false
           },
+          "client_certificate_exclusion_paths": {
+            "type": "string",
+            "optional": true
+          },
           "client_certificate_mode": {
             "type": "string",
             "optional": true,
@@ -94702,5 +94970,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.27.0"
+    ProviderSchemaInfo.Version = "3.28.0"
 }
