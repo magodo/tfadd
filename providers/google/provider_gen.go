@@ -4242,6 +4242,505 @@ func init() {
         }
       }
     },
+    "google_bigquery_analytics_hub_data_exchange": {
+      "block": {
+        "attributes": {
+          "data_exchange_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "documentation": {
+            "type": "string",
+            "optional": true
+          },
+          "icon": {
+            "type": "string",
+            "optional": true
+          },
+          "listing_count": {
+            "type": "number",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "primary_contact": {
+            "type": "string",
+            "optional": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_bigquery_analytics_hub_data_exchange_iam_binding": {
+      "block": {
+        "attributes": {
+          "data_exchange_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_bigquery_analytics_hub_data_exchange_iam_member": {
+      "block": {
+        "attributes": {
+          "data_exchange_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "member": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_bigquery_analytics_hub_data_exchange_iam_policy": {
+      "block": {
+        "attributes": {
+          "data_exchange_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_bigquery_analytics_hub_listing": {
+      "block": {
+        "attributes": {
+          "categories": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          "data_exchange_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "documentation": {
+            "type": "string",
+            "optional": true
+          },
+          "icon": {
+            "type": "string",
+            "optional": true
+          },
+          "listing_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "primary_contact": {
+            "type": "string",
+            "optional": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "request_access": {
+            "type": "string",
+            "optional": true
+          }
+        },
+        "block_types": {
+          "bigquery_dataset": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "dataset": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          },
+          "data_provider": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "primary_contact": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "publisher": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "primary_contact": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_bigquery_analytics_hub_listing_iam_binding": {
+      "block": {
+        "attributes": {
+          "data_exchange_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "listing_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_bigquery_analytics_hub_listing_iam_member": {
+      "block": {
+        "attributes": {
+          "data_exchange_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "listing_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "member": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_bigquery_analytics_hub_listing_iam_policy": {
+      "block": {
+        "attributes": {
+          "data_exchange_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "listing_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "google_bigquery_connection": {
       "block": {
         "attributes": {
@@ -4789,6 +5288,10 @@ func init() {
             "optional": true,
             "force_new": true,
             "default": "US"
+          },
+          "max_time_travel_hours": {
+            "type": "string",
+            "optional": true
           },
           "project": {
             "type": "string",
@@ -10634,6 +11137,10 @@ func init() {
                         "type": "string",
                         "required": true
                       },
+                      "script": {
+                        "type": "string",
+                        "optional": true
+                      },
                       "secret_env": {
                         "type": [
                           "list",
@@ -14795,6 +15302,15 @@ func init() {
             "type": "string",
             "optional": true,
             "force_new": true
+          },
+          "source_disk": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "source_disk_id": {
+            "type": "string",
+            "computed": true
           },
           "source_image_id": {
             "type": "string",
@@ -21722,6 +22238,15 @@ func init() {
             "optional": true,
             "force_new": true
           },
+          "source_disk": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "source_disk_id": {
+            "type": "string",
+            "computed": true
+          },
           "source_snapshot_id": {
             "type": "string",
             "computed": true
@@ -24585,11 +25110,7 @@ func init() {
                 "availability_domain_count": {
                   "type": "number",
                   "optional": true,
-                  "force_new": true,
-                  "at_least_one_of": [
-                    "group_placement_policy.0.vm_count",
-                    "group_placement_policy.0.availability_domain_count"
-                  ]
+                  "force_new": true
                 },
                 "collocation": {
                   "type": "string",
@@ -24599,11 +25120,7 @@ func init() {
                 "vm_count": {
                   "type": "number",
                   "optional": true,
-                  "force_new": true,
-                  "at_least_one_of": [
-                    "group_placement_policy.0.vm_count",
-                    "group_placement_policy.0.availability_domain_count"
-                  ]
+                  "force_new": true
                 }
               }
             },
@@ -25253,6 +25770,52 @@ func init() {
             },
             "optional": true,
             "max_items": 1
+          },
+          "rules": {
+            "nesting_mode": 4,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "match": {
+                  "type": "string",
+                  "required": true
+                },
+                "rule_number": {
+                  "type": "number",
+                  "required": true
+                }
+              },
+              "block_types": {
+                "action": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "source_nat_active_ips": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "source_nat_drain_ips": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "computed": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true
           },
           "subnetwork": {
             "nesting_mode": 4,
@@ -30461,7 +31024,8 @@ func init() {
           "datapath_provider": {
             "type": "string",
             "optional": true,
-            "computed": true
+            "computed": true,
+            "force_new": true
           },
           "default_max_pods_per_node": {
             "type": "number",
@@ -30883,6 +31447,16 @@ func init() {
                         "optional": true,
                         "force_new": true
                       },
+                      "disk_size": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 100
+                      },
+                      "disk_type": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "pd-standard"
+                      },
                       "image_type": {
                         "type": "string",
                         "optional": true,
@@ -30950,6 +31524,20 @@ func init() {
             "optional": true,
             "computed": true,
             "force_new": true,
+            "max_items": 1
+          },
+          "cost_management_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "enabled": {
+                  "type": "bool",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
             "max_items": 1
           },
           "database_encryption": {
@@ -31413,8 +32001,7 @@ func init() {
                     "list",
                     "string"
                   ],
-                  "optional": true,
-                  "force_new": true
+                  "optional": true
                 },
                 "taint": {
                   "type": [
@@ -31773,8 +32360,7 @@ func init() {
                           "list",
                           "string"
                         ],
-                        "optional": true,
-                        "force_new": true
+                        "optional": true
                       },
                       "taint": {
                         "type": [
@@ -32376,8 +32962,7 @@ func init() {
                     "list",
                     "string"
                   ],
-                  "optional": true,
-                  "force_new": true
+                  "optional": true
                 },
                 "taint": {
                   "type": [
@@ -40074,6 +40659,9 @@ func init() {
               }
             },
             "optional": true,
+            "conflicts_with": [
+              "private_connectivity"
+            ],
             "max_items": 1
           },
           "gcs_profile": {
@@ -40256,6 +40844,22 @@ func init() {
               "mysql_profile",
               "bigquery_profile",
               "postgresql_profile"
+            ],
+            "max_items": 1
+          },
+          "private_connectivity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "private_connection": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "conflicts_with": [
+              "forward_ssh_connectivity"
             ],
             "max_items": 1
           }
@@ -42062,6 +42666,16 @@ func init() {
           "routing_policy": {
             "nesting_mode": 3,
             "block": {
+              "attributes": {
+                "enable_geo_fencing": {
+                  "type": "bool",
+                  "optional": true,
+                  "conflicts_with": [
+                    "routing_policy.0.wrr",
+                    "routing_policy.0.primary_backup"
+                  ]
+                }
+              },
               "block_types": {
                 "geo": {
                   "nesting_mode": 3,
@@ -42076,15 +42690,206 @@ func init() {
                           "list",
                           "string"
                         ],
-                        "required": true
+                        "optional": true
+                      }
+                    },
+                    "block_types": {
+                      "health_checked_targets": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "block_types": {
+                            "internal_load_balancers": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "ip_address": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "ip_protocol": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "load_balancer_type": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "network_url": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "port": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "project": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "region": {
+                                    "type": "string",
+                                    "optional": true
+                                  }
+                                }
+                              },
+                              "required": true,
+                              "min_items": 1
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "max_items": 1
                       }
                     }
                   },
                   "optional": true,
                   "exactly_one_of": [
                     "routing_policy.0.wrr",
-                    "routing_policy.0.geo"
+                    "routing_policy.0.geo",
+                    "routing_policy.0.primary_backup"
                   ]
+                },
+                "primary_backup": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enable_geo_fencing_for_backups": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "trickle_ratio": {
+                        "type": "number",
+                        "optional": true
+                      }
+                    },
+                    "block_types": {
+                      "backup_geo": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "location": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "rrdatas": {
+                              "type": [
+                                "list",
+                                "string"
+                              ],
+                              "optional": true
+                            }
+                          },
+                          "block_types": {
+                            "health_checked_targets": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "block_types": {
+                                  "internal_load_balancers": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "ip_address": {
+                                          "type": "string",
+                                          "required": true
+                                        },
+                                        "ip_protocol": {
+                                          "type": "string",
+                                          "required": true
+                                        },
+                                        "load_balancer_type": {
+                                          "type": "string",
+                                          "required": true
+                                        },
+                                        "network_url": {
+                                          "type": "string",
+                                          "required": true
+                                        },
+                                        "port": {
+                                          "type": "string",
+                                          "required": true
+                                        },
+                                        "project": {
+                                          "type": "string",
+                                          "required": true
+                                        },
+                                        "region": {
+                                          "type": "string",
+                                          "optional": true
+                                        }
+                                      }
+                                    },
+                                    "required": true,
+                                    "min_items": 1
+                                  }
+                                }
+                              },
+                              "optional": true,
+                              "max_items": 1
+                            }
+                          }
+                        },
+                        "required": true,
+                        "min_items": 1
+                      },
+                      "primary": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "block_types": {
+                            "internal_load_balancers": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "ip_address": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "ip_protocol": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "load_balancer_type": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "network_url": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "port": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "project": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "region": {
+                                    "type": "string",
+                                    "optional": true
+                                  }
+                                }
+                              },
+                              "required": true,
+                              "min_items": 1
+                            }
+                          }
+                        },
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "conflicts_with": [
+                    "routing_policy.0.enable_geo_fencing"
+                  ],
+                  "exactly_one_of": [
+                    "routing_policy.0.wrr",
+                    "routing_policy.0.geo",
+                    "routing_policy.0.primary_backup"
+                  ],
+                  "max_items": 1
                 },
                 "wrr": {
                   "nesting_mode": 3,
@@ -42095,18 +42900,70 @@ func init() {
                           "list",
                           "string"
                         ],
-                        "required": true
+                        "optional": true
                       },
                       "weight": {
                         "type": "number",
                         "required": true
                       }
+                    },
+                    "block_types": {
+                      "health_checked_targets": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "block_types": {
+                            "internal_load_balancers": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "ip_address": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "ip_protocol": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "load_balancer_type": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "network_url": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "port": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "project": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "region": {
+                                    "type": "string",
+                                    "optional": true
+                                  }
+                                }
+                              },
+                              "required": true,
+                              "min_items": 1
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "max_items": 1
+                      }
                     }
                   },
                   "optional": true,
+                  "conflicts_with": [
+                    "routing_policy.0.enable_geo_fencing"
+                  ],
                   "exactly_one_of": [
                     "routing_policy.0.wrr",
-                    "routing_policy.0.geo"
+                    "routing_policy.0.geo",
+                    "routing_policy.0.primary_backup"
                   ]
                 }
               }
@@ -49044,6 +49901,74 @@ func init() {
         }
       }
     },
+    "google_monitoring_service": {
+      "block": {
+        "attributes": {
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "service_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "telemetry": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "resource_name": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "user_labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "basic_service": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "service_labels": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true,
+                  "force_new": true
+                },
+                "service_type": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "google_monitoring_slo": {
       "block": {
         "attributes": {
@@ -55951,6 +56876,11 @@ func init() {
             "computed": true,
             "force_new": true
           },
+          "skip_grace_period": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
           "state": {
             "type": "string",
             "computed": true
@@ -57990,11 +58920,13 @@ func init() {
                 "encoding": {
                   "type": "string",
                   "optional": true,
+                  "force_new": true,
                   "default": "ENCODING_UNSPECIFIED"
                 },
                 "schema": {
                   "type": "string",
-                  "required": true
+                  "required": true,
+                  "force_new": true
                 }
               }
             },
@@ -58569,7 +59501,7 @@ func init() {
                 },
                 "rdb_snapshot_period": {
                   "type": "string",
-                  "required": true
+                  "optional": true
                 },
                 "rdb_snapshot_start_time": {
                   "type": "string",
@@ -58686,6 +59618,146 @@ func init() {
             "computed": true
           },
           "organization": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_scc_source_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "organization": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "source": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_scc_source_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "member": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "organization": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "source": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_scc_source_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "organization": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "source": {
             "type": "string",
             "required": true,
             "force_new": true
@@ -59047,6 +60119,10 @@ func init() {
             "optional": true
           },
           "email": {
+            "type": "string",
+            "computed": true
+          },
+          "member": {
             "type": "string",
             "computed": true
           },
@@ -60399,6 +61475,11 @@ func init() {
                   "type": "string",
                   "required": true
                 },
+                "time_zone": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
                 "user_labels": {
                   "type": [
                     "map",
@@ -61051,6 +62132,11 @@ func init() {
             "optional": true,
             "computed": true,
             "force_new": true
+          },
+          "public_access_prevention": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           },
           "requester_pays": {
             "type": "bool",
@@ -62886,6 +63972,332 @@ func init() {
         }
       }
     },
+    "google_vertex_ai_endpoint": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "deployed_models": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "automatic_resources": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "max_replica_count": "number",
+                        "min_replica_count": "number"
+                      }
+                    ]
+                  ],
+                  "create_time": "string",
+                  "dedicated_resources": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "autoscaling_metric_specs": [
+                          "list",
+                          [
+                            "object",
+                            {
+                              "metric_name": "string",
+                              "target": "number"
+                            }
+                          ]
+                        ],
+                        "machine_spec": [
+                          "list",
+                          [
+                            "object",
+                            {
+                              "accelerator_count": "number",
+                              "accelerator_type": "string",
+                              "machine_type": "string"
+                            }
+                          ]
+                        ],
+                        "max_replica_count": "number",
+                        "min_replica_count": "number"
+                      }
+                    ]
+                  ],
+                  "display_name": "string",
+                  "enable_access_logging": "bool",
+                  "enable_container_logging": "bool",
+                  "id": "string",
+                  "model": "string",
+                  "model_version_id": "string",
+                  "private_endpoints": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "explain_http_uri": "string",
+                        "health_http_uri": "string",
+                        "predict_http_uri": "string",
+                        "service_attachment": "string"
+                      }
+                    ]
+                  ],
+                  "service_account": "string",
+                  "shared_resources": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "model_deployment_monitoring_job": {
+            "type": "string",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "encryption_spec": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "kms_key_name": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_vertex_ai_featurestore": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "force_destroy": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "region": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "encryption_spec": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "kms_key_name": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "online_serving_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "fixed_node_count": {
+                  "type": "number",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_vertex_ai_featurestore_entitytype": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "featurestore": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "monitoring_config": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "snapshot_analysis": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "disabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_vertex_ai_featurestore_entitytype_feature": {
+      "block": {
+        "attributes": {
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "entitytype": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          },
+          "value_type": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
     "google_vpc_access_connector": {
       "block": {
         "attributes": {
@@ -62897,11 +64309,29 @@ func init() {
               "network"
             ]
           },
+          "machine_type": {
+            "type": "string",
+            "optional": true,
+            "force_new": true,
+            "default": "e2-micro"
+          },
+          "max_instances": {
+            "type": "number",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
           "max_throughput": {
             "type": "number",
             "optional": true,
             "force_new": true,
             "default": 300
+          },
+          "min_instances": {
+            "type": "number",
+            "optional": true,
+            "computed": true,
+            "force_new": true
           },
           "min_throughput": {
             "type": "number",
@@ -62920,7 +64350,8 @@ func init() {
             "computed": true,
             "force_new": true,
             "exactly_one_of": [
-              "network"
+              "network",
+              "subnet.0.name"
             ]
           },
           "project": {
@@ -62942,6 +64373,33 @@ func init() {
           "state": {
             "type": "string",
             "computed": true
+          }
+        },
+        "block_types": {
+          "subnet": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true,
+                  "exactly_one_of": [
+                    "network",
+                    "subnet.0.name"
+                  ]
+                },
+                "project_id": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
           }
         }
       }
@@ -63021,5 +64479,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.41.0"
+    ProviderSchemaInfo.Version = "4.42.1"
 }

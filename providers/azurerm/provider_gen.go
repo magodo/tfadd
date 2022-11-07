@@ -45262,7 +45262,7 @@ func init() {
                 "expander": {
                   "type": "string",
                   "optional": true,
-                  "computed": true
+                  "default": "random"
                 },
                 "max_graceful_termination_sec": {
                   "type": "string",
@@ -46424,6 +46424,19 @@ func init() {
             ],
             "max_items": 1
           },
+          "web_app_routing": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "dns_zone_id": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
           "windows_profile": {
             "nesting_mode": 3,
             "block": {
@@ -46938,6 +46951,58 @@ func init() {
               }
             },
             "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_kubernetes_fleet_manager": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "hub_profile": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "dns_prefix": {
+                  "type": "string",
+                  "required": true
+                },
+                "fqdn": {
+                  "type": "string",
+                  "computed": true
+                },
+                "kubernetes_version": {
+                  "type": "string",
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
             "max_items": 1
           }
         }
@@ -51398,6 +51463,25 @@ func init() {
                 "type_handler_version": {
                   "type": "string",
                   "required": true
+                }
+              },
+              "block_types": {
+                "protected_settings_from_key_vault": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "secret_url": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "source_vault_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
                 }
               }
             },
@@ -62851,6 +62935,10 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "partner_solution_id": {
+            "type": "string",
+            "optional": true
+          },
           "storage_account_id": {
             "type": "string",
             "optional": true,
@@ -64717,6 +64805,59 @@ func init() {
         }
       }
     },
+    "azurerm_mssql_managed_instance_security_alert_policy": {
+      "block": {
+        "attributes": {
+          "disabled_alerts": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true
+          },
+          "email_account_admins_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "email_addresses": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true
+          },
+          "enabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "managed_instance_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "retention_days": {
+            "type": "number",
+            "optional": true,
+            "default": 0
+          },
+          "storage_account_access_key": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true
+          },
+          "storage_endpoint": {
+            "type": "string",
+            "optional": true
+          }
+        }
+      }
+    },
     "azurerm_mssql_managed_instance_vulnerability_assessment": {
       "block": {
         "attributes": {
@@ -65004,6 +65145,41 @@ func init() {
           "storage_endpoint": {
             "type": "string",
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_mssql_server_microsoft_support_auditing_policy": {
+      "block": {
+        "attributes": {
+          "blob_storage_endpoint": {
+            "type": "string",
+            "optional": true
+          },
+          "enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "log_monitoring_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "server_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "storage_account_access_key": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true
+          },
+          "storage_account_subscription_id": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true
           }
         }
       }
@@ -65358,6 +65534,11 @@ func init() {
                 "storage_workload_type": {
                   "type": "string",
                   "required": true
+                },
+                "system_db_on_data_disk_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
                 }
               },
               "block_types": {
@@ -68634,6 +68815,25 @@ func init() {
                   "type": "string",
                   "required": true
                 }
+              },
+              "block_types": {
+                "protected_settings_from_key_vault": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "secret_url": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "source_vault_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
               }
             },
             "optional": true,
@@ -70500,6 +70700,57 @@ func init() {
         }
       }
     },
+    "azurerm_private_dns_resolver_forwarding_rule": {
+      "block": {
+        "attributes": {
+          "dns_forwarding_ruleset_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "domain_name": {
+            "type": "string",
+            "required": true
+          },
+          "enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "metadata": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "target_dns_servers": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "ip_address": {
+                  "type": "string",
+                  "required": true
+                },
+                "port": {
+                  "type": "number",
+                  "optional": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1
+          }
+        }
+      }
+    },
     "azurerm_private_dns_resolver_inbound_endpoint": {
       "block": {
         "attributes": {
@@ -70581,6 +70832,34 @@ func init() {
               "string"
             ],
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_private_dns_resolver_virtual_network_link": {
+      "block": {
+        "attributes": {
+          "dns_forwarding_ruleset_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "metadata": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "virtual_network_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -73529,6 +73808,11 @@ func init() {
           "email": {
             "type": "string",
             "required": true
+          },
+          "name": {
+            "type": "string",
+            "optional": true,
+            "default": "default1"
           },
           "phone": {
             "type": "string",
@@ -82030,6 +82314,11 @@ func init() {
             "optional": true,
             "computed": true
           },
+          "content_storage_policy": {
+            "type": "string",
+            "optional": true,
+            "default": "SystemAccount"
+          },
           "data_locale": {
             "type": "string",
             "optional": true,
@@ -82121,6 +82410,27 @@ func init() {
             },
             "optional": true,
             "max_items": 1
+          },
+          "job_storage_account": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "account_key": {
+                  "type": "string",
+                  "required": true,
+                  "sensitive": true
+                },
+                "account_name": {
+                  "type": "string",
+                  "required": true
+                },
+                "authentication_mode": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
           }
         }
       }
@@ -86920,7 +87230,10 @@ func init() {
           "protected_settings": {
             "type": "string",
             "optional": true,
-            "sensitive": true
+            "sensitive": true,
+            "conflicts_with": [
+              "protected_settings_from_key_vault"
+            ]
           },
           "publisher": {
             "type": "string",
@@ -86950,6 +87263,28 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          }
+        },
+        "block_types": {
+          "protected_settings_from_key_vault": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "secret_url": {
+                  "type": "string",
+                  "required": true
+                },
+                "source_vault_id": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "conflicts_with": [
+              "protected_settings"
+            ],
+            "max_items": 1
           }
         }
       }
@@ -87633,6 +87968,28 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          }
+        },
+        "block_types": {
+          "protected_settings_from_key_vault": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "secret_url": {
+                  "type": "string",
+                  "required": true
+                },
+                "source_vault_id": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "conflicts_with": [
+              "protected_settings"
+            ],
+            "max_items": 1
           }
         }
       }
@@ -92972,6 +93329,25 @@ func init() {
                   "type": "string",
                   "required": true
                 }
+              },
+              "block_types": {
+                "protected_settings_from_key_vault": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "secret_url": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "source_vault_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
               }
             },
             "optional": true,
@@ -95961,5 +96337,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.29.1"
+    ProviderSchemaInfo.Version = "3.30.0"
 }
