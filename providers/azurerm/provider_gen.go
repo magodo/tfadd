@@ -15599,7 +15599,6 @@ func init() {
           "response_timeout_seconds": {
             "type": "number",
             "optional": true,
-            "force_new": true,
             "default": 120
           },
           "sku_name": {
@@ -19356,7 +19355,8 @@ func init() {
               "attributes": {
                 "expiry": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "force_new": true
                 },
                 "value": {
                   "type": "string",
@@ -19375,7 +19375,8 @@ func init() {
               "attributes": {
                 "expiry": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "force_new": true
                 },
                 "value": {
                   "type": "string",
@@ -29140,6 +29141,10 @@ func init() {
             "force_new": true,
             "default": "EncryptionAtRestWithCustomerKey"
           },
+          "federated_client_id": {
+            "type": "string",
+            "optional": true
+          },
           "key_vault_key_id": {
             "type": "string",
             "required": true
@@ -33800,6 +33805,45 @@ func init() {
             "optional": true,
             "computed": true,
             "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_federated_identity_credential": {
+      "block": {
+        "attributes": {
+          "audience": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true,
+            "force_new": true
+          },
+          "issuer": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "parent_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "subject": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -50759,7 +50803,11 @@ func init() {
           "source_image_id": {
             "type": "string",
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
+            ]
           },
           "tags": {
             "type": [
@@ -51054,8 +51102,9 @@ func init() {
             },
             "optional": true,
             "force_new": true,
-            "conflicts_with": [
-              "source_image_id"
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
             ],
             "max_items": 1
           },
@@ -51238,7 +51287,11 @@ func init() {
           },
           "source_image_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
+            ]
           },
           "tags": {
             "type": [
@@ -51943,8 +51996,9 @@ func init() {
               }
             },
             "optional": true,
-            "conflicts_with": [
-              "source_image_id"
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
             ],
             "max_items": 1
           },
@@ -65523,6 +65577,53 @@ func init() {
             "optional": true,
             "max_items": 1
           },
+          "sql_instance": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "adhoc_workloads_optimization_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                },
+                "collation": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true,
+                  "default": "SQL_Latin1_General_CP1_CI_AS"
+                },
+                "instant_file_initialization_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "force_new": true,
+                  "default": false
+                },
+                "lock_pages_in_memory_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "force_new": true,
+                  "default": false
+                },
+                "max_dop": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 0
+                },
+                "max_server_memory_mb": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 2147483647
+                },
+                "min_server_memory_mb": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 0
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
           "storage_configuration": {
             "nesting_mode": 3,
             "block": {
@@ -68636,7 +68737,11 @@ func init() {
           },
           "source_image_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
+            ]
           },
           "tags": {
             "type": [
@@ -69330,8 +69435,9 @@ func init() {
               }
             },
             "optional": true,
-            "conflicts_with": [
-              "source_image_id"
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
             ],
             "max_items": 1
           },
@@ -71451,6 +71557,15 @@ func init() {
           "allocation_method": {
             "type": "string",
             "required": true
+          },
+          "ddos_protection_mode": {
+            "type": "string",
+            "optional": true,
+            "default": "VirtualNetworkInherited"
+          },
+          "ddos_protection_plan_id": {
+            "type": "string",
+            "optional": true
           },
           "domain_name_label": {
             "type": "string",
@@ -73915,6 +74030,52 @@ func init() {
             "required": true,
             "force_new": true
           }
+        },
+        "block_types": {
+          "source": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "name": {
+                  "type": "string",
+                  "required": true
+                }
+              },
+              "block_types": {
+                "sub_type": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "severities_allowed": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true
+          }
         }
       }
     },
@@ -74066,6 +74227,13 @@ func init() {
             "default": false
           },
           "tactics": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true
+          },
+          "techniques": {
             "type": [
               "set",
               "string"
@@ -83388,6 +83556,76 @@ func init() {
         }
       }
     },
+    "azurerm_stream_analytics_stream_input_eventhub_v2": {
+      "block": {
+        "attributes": {
+          "authentication_mode": {
+            "type": "string",
+            "optional": true,
+            "default": "ConnectionString"
+          },
+          "eventhub_consumer_group_name": {
+            "type": "string",
+            "optional": true
+          },
+          "eventhub_name": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "partition_key": {
+            "type": "string",
+            "optional": true
+          },
+          "servicebus_namespace": {
+            "type": "string",
+            "required": true
+          },
+          "shared_access_policy_key": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true
+          },
+          "shared_access_policy_name": {
+            "type": "string",
+            "optional": true
+          },
+          "stream_analytics_job_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "serialization": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "encoding": {
+                  "type": "string",
+                  "optional": true
+                },
+                "field_delimiter": {
+                  "type": "string",
+                  "optional": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "azurerm_stream_analytics_stream_input_iothub": {
       "block": {
         "attributes": {
@@ -92584,7 +92822,11 @@ func init() {
           "source_image_id": {
             "type": "string",
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
+            ]
           },
           "tags": {
             "type": [
@@ -92889,8 +93131,9 @@ func init() {
             },
             "optional": true,
             "force_new": true,
-            "conflicts_with": [
-              "source_image_id"
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
             ],
             "max_items": 1
           },
@@ -93095,7 +93338,11 @@ func init() {
           },
           "source_image_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
+            ]
           },
           "tags": {
             "type": [
@@ -93812,8 +94059,9 @@ func init() {
               }
             },
             "optional": true,
-            "conflicts_with": [
-              "source_image_id"
+            "exactly_one_of": [
+              "source_image_id",
+              "source_image_reference"
             ],
             "max_items": 1
           },
@@ -96337,5 +96585,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.30.0"
+    ProviderSchemaInfo.Version = "3.31.0"
 }
