@@ -6837,7 +6837,8 @@ func init() {
           },
           "certificate_location": {
             "type": "string",
-            "required": true
+            "required": true,
+            "force_new": true
           },
           "certificate_name": {
             "type": "string",
@@ -68738,8 +68739,7 @@ func init() {
           "source_image_id": {
             "type": "string",
             "optional": true,
-            "exactly_one_of": [
-              "source_image_id",
+            "conflicts_with": [
               "source_image_reference"
             ]
           },
@@ -69435,9 +69435,8 @@ func init() {
               }
             },
             "optional": true,
-            "exactly_one_of": [
-              "source_image_id",
-              "source_image_reference"
+            "conflicts_with": [
+              "source_image_id"
             ],
             "max_items": 1
           },
@@ -73985,6 +73984,10 @@ func init() {
             "type": "string",
             "optional": true,
             "default": "VirtualMachines"
+          },
+          "subplan": {
+            "type": "string",
+            "optional": true
           },
           "tier": {
             "type": "string",
@@ -81133,6 +81136,24 @@ func init() {
             "computed": true,
             "max_items": 1
           },
+          "sas_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "expiration_action": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "Log"
+                },
+                "expiration_period": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
           "share_properties": {
             "nesting_mode": 3,
             "block": {
@@ -81499,6 +81520,11 @@ func init() {
                         "required": true
                       },
                       "include_blob_versions": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "include_deleted": {
                         "type": "bool",
                         "optional": true,
                         "default": false
@@ -96585,5 +96611,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.31.0"
+    ProviderSchemaInfo.Version = "3.32.0"
 }
