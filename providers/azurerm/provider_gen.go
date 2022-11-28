@@ -16691,6 +16691,10 @@ func init() {
             "optional": true,
             "force_new": true
           },
+          "dynamic_throttling_enabled": {
+            "type": "bool",
+            "optional": true
+          },
           "endpoint": {
             "type": "string",
             "computed": true
@@ -61398,6 +61402,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61430,6 +61435,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61462,6 +61468,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61494,6 +61501,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61526,6 +61534,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61558,6 +61567,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61590,6 +61600,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61622,6 +61633,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61654,6 +61666,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61686,6 +61699,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61718,6 +61732,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61895,6 +61910,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61927,6 +61943,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61959,6 +61976,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -61991,6 +62009,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -62023,6 +62042,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -62055,6 +62075,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -62087,6 +62108,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -62119,6 +62141,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -62151,6 +62174,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -62183,6 +62207,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -62215,6 +62240,7 @@ func init() {
                     "condition.0.alert_rule_id",
                     "condition.0.alert_rule_name",
                     "condition.0.description",
+                    "condition.0.monitor_condition",
                     "condition.0.monitor_service",
                     "condition.0.severity",
                     "condition.0.signal_type",
@@ -64745,6 +64771,13 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
                 "principal_id": {
                   "type": "string",
                   "computed": true
@@ -64909,6 +64942,26 @@ func init() {
           "storage_endpoint": {
             "type": "string",
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_mssql_managed_instance_transparent_data_encryption": {
+      "block": {
+        "attributes": {
+          "auto_rotation_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "key_vault_key_id": {
+            "type": "string",
+            "optional": true
+          },
+          "managed_instance_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -70072,6 +70125,31 @@ func init() {
           }
         },
         "block_types": {
+          "authentication": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "active_directory_auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "password_auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "optional": true,
+                  "required_with": [
+                    "authentication.0.active_directory_auth_enabled"
+                  ]
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
+          },
           "high_availability": {
             "nesting_mode": 3,
             "block": {
@@ -70112,6 +70190,42 @@ func init() {
             },
             "optional": true,
             "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_postgresql_flexible_server_active_directory_administrator": {
+      "block": {
+        "attributes": {
+          "object_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "principal_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "principal_type": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "server_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tenant_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -78139,6 +78253,40 @@ func init() {
               }
             },
             "optional": true,
+            "max_items": 1
+          },
+          "ingress_settings": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "backend_protocol": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "Default"
+                },
+                "read_timeout_in_seconds": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 300
+                },
+                "send_timeout_in_seconds": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 60
+                },
+                "session_affinity": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "None"
+                },
+                "session_cookie_max_age": {
+                  "type": "number",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
             "max_items": 1
           },
           "persistent_disk": {
@@ -96611,5 +96759,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.32.0"
+    ProviderSchemaInfo.Version = "3.33.0"
 }
