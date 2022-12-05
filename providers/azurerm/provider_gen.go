@@ -57946,6 +57946,11 @@ func init() {
             "optional": true,
             "force_new": true
           },
+          "upload_size_bytes": {
+            "type": "number",
+            "optional": true,
+            "force_new": true
+          },
           "zone": {
             "type": "string",
             "optional": true,
@@ -60179,7 +60184,7 @@ func init() {
                     "attributes": {
                       "preset_name": {
                         "type": "string",
-                        "optional": true
+                        "required": true
                       }
                     }
                   },
@@ -61149,7 +61154,7 @@ func init() {
         },
         "block_types": {
           "action": {
-            "nesting_mode": 4,
+            "nesting_mode": 3,
             "block": {
               "attributes": {
                 "action_group_id": {
@@ -79108,6 +79113,11 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "protocol": {
+            "type": "string",
+            "optional": true,
+            "default": "HTTP"
+          },
           "spring_cloud_app_id": {
             "type": "string",
             "optional": true
@@ -80810,6 +80820,11 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "sftp_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
           "shared_access_key_enabled": {
             "type": "bool",
             "optional": true,
@@ -81929,12 +81944,22 @@ func init() {
                         "nesting_mode": 3,
                         "block": {
                           "attributes": {
+                            "delete_after_days_since_creation_greater_than": {
+                              "type": "number",
+                              "optional": true,
+                              "default": -1
+                            },
                             "delete_after_days_since_last_access_time_greater_than": {
                               "type": "number",
                               "optional": true,
                               "default": -1
                             },
                             "delete_after_days_since_modification_greater_than": {
+                              "type": "number",
+                              "optional": true,
+                              "default": -1
+                            },
+                            "tier_to_archive_after_days_since_creation_greater_than": {
                               "type": "number",
                               "optional": true,
                               "default": -1
@@ -81950,6 +81975,11 @@ func init() {
                               "default": -1
                             },
                             "tier_to_archive_after_days_since_modification_greater_than": {
+                              "type": "number",
+                              "optional": true,
+                              "default": -1
+                            },
+                            "tier_to_cool_after_days_since_creation_greater_than": {
                               "type": "number",
                               "optional": true,
                               "default": -1
@@ -82768,7 +82798,8 @@ func init() {
                 },
                 "authentication_mode": {
                   "type": "string",
-                  "required": true
+                  "optional": true,
+                  "default": "ConnectionString"
                 }
               }
             },
@@ -82995,12 +83026,12 @@ func init() {
           },
           "shared_access_policy_key": {
             "type": "string",
-            "required": true,
+            "optional": true,
             "sensitive": true
           },
           "shared_access_policy_name": {
             "type": "string",
-            "required": true
+            "optional": true
           },
           "stream_analytics_job_name": {
             "type": "string",
@@ -96759,5 +96790,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.33.0"
+    ProviderSchemaInfo.Version = "3.34.0"
 }
