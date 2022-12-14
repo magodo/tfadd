@@ -96,23 +96,6 @@ resource "azurerm_resource_group" "b" {
 `,
 		},
 		{
-			name:      "generate two resources",
-			statefile: "azurerm_resource_groups",
-			options: []StateOption{
-				Target("azurerm_resource_group.b"),
-				Target("azurerm_resource_group.a"),
-			},
-			expect: `resource "azurerm_resource_group" "b" {
-  location = "eastus2"
-  name     = "bar"
-}
-resource "azurerm_resource_group" "a" {
-  location = "eastus2"
-  name     = "foo"
-}
-`,
-		},
-		{
 			name:      "multiple providers",
 			statefile: "multiple_providers",
 			expect: `resource "aws_vpc" "main" {
@@ -127,6 +110,17 @@ resource "azurerm_resource_group" "a" {
 resource "azurerm_resource_group" "b" {
   location = "eastus2"
   name     = "bar"
+}
+`,
+		},
+		{
+			name:      "module",
+			statefile: "module",
+			expect: `# module.mod1[0]
+resource "null_resource" "test" {
+}
+# module.mod1[1]
+resource "null_resource" "test" {
 }
 `,
 		},
