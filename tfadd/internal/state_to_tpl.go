@@ -15,7 +15,7 @@ import (
 
 func StateToTpl(r *tfstate.StateResource, schema *tfjson.SchemaBlock) ([]byte, error) {
 	var buf strings.Builder
-	addr, err := addr2.ParseAddress(r.Address)
+	addr, err := addr2.ParseResourceAddr(r.Address)
 	if err != nil {
 		return nil, fmt.Errorf("parsing resource address: %v", err)
 	}

@@ -26,14 +26,11 @@ type targetOption addr.ResourceAddr
 
 func Target(raddr string) targetOption {
 	// Validation for the resource address is guaranteed in flag parsing.
-	addr, _ := addr.ParseAddress(raddr)
+	addr, _ := addr.ParseResourceAddr(raddr)
 	return targetOption(*addr)
 }
 
 func (opt targetOption) configureState(cfg *stateConfig) {
-	raddr := addr.ResourceAddr(opt)
-	if !cfg.targetMap[raddr] {
-		cfg.targets = append(cfg.targets, raddr)
-		cfg.targetMap[raddr] = true
-	}
+	target := addr.ResourceAddr(opt)
+	cfg.target = &target
 }

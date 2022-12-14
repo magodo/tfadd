@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/hc-install/fs"
 	"github.com/hashicorp/hc-install/product"
 	"github.com/hashicorp/terraform-exec/tfexec"
-	"github.com/magodo/tfadd/addr"
 	"github.com/magodo/tfadd/tfadd"
 	"github.com/mitchellh/cli"
 )
@@ -63,28 +62,15 @@ Usage: tfadd [global options] state [options]
 Options:
 
   -full               Output all non-computed properties in the generated config
-  -target=addr        Only generate for the specified resource, can be specified multiple times
+  -target=addr        Only generate for the specified resource
 `
 	return strings.TrimSpace(helpText)
 }
 
-type targetFlag []string
-
-func (f *targetFlag) String() string {
-	return fmt.Sprint(*f)
-}
-
-func (f *targetFlag) Set(value string) error {
-	*f = append(*f, value)
-	_, err := addr.ParseAddress(value)
-	return err
-}
-
 func (r *stateCommand) Run(args []string) int {
-	var targets targetFlag
 	fset := defaultFlagSet("state")
 	flagFull := fset.Bool("full", false, "Whether to generate all non-computed properties")
-	fset.Var(&targets, "target", "Only generate for the specified resource")
+	flagTarget := fset.String("target", "", "Only generate for the specified resource")
 	if err := fset.Parse(args); err != nil {
 		fmt.Fprintf(os.Stderr, err.Error())
 		return 1
@@ -105,8 +91,8 @@ func (r *stateCommand) Run(args []string) int {
 		return 1
 	}
 	opts := []tfadd.StateOption{tfadd.Full(*flagFull)}
-	for _, target := range targets {
-		opts = append(opts, tfadd.Target(target))
+	if *flagTarget != "" {
+		opts = append(opts, tfadd.Target(*flagTarget))
 	}
 	templates, err := tfadd.State(ctx, tf, opts...)
 	if err != nil {
