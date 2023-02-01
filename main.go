@@ -13,23 +13,18 @@ import (
 	"github.com/hashicorp/hc-install/fs"
 	"github.com/hashicorp/hc-install/product"
 	"github.com/hashicorp/terraform-exec/tfexec"
-	"github.com/magodo/tfadd/addr"
 	"github.com/magodo/tfadd/tfadd"
 	"github.com/mitchellh/cli"
 )
 
-type resourceAddrFlags []addr.ResourceAddr
+type arrayFlag []string
 
-func (l *resourceAddrFlags) String() string {
-	return "resource address flags"
+func (l *arrayFlag) String() string {
+	return "array flag"
 }
 
-func (l *resourceAddrFlags) Set(value string) error {
-	addr, err := addr.ParseResourceAddr(value)
-	if err != nil {
-		return err
-	}
-	*l = append(*l, *addr)
+func (l *arrayFlag) Set(value string) error {
+	*l = append(*l, value)
 	return nil
 }
 
@@ -87,7 +82,7 @@ Options:
 func (r *stateCommand) Run(args []string) int {
 	fset := defaultFlagSet("state")
 	flagFull := fset.Bool("full", false, "Whether to generate all non-computed properties")
-	var flagTargets resourceAddrFlags
+	var flagTargets arrayFlag
 	fset.Var(&flagTargets, "target", "Only generate for the specified resource")
 	if err := fset.Parse(args); err != nil {
 		fmt.Fprintf(os.Stderr, err.Error())

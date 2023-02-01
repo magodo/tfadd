@@ -33,8 +33,16 @@ func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]by
 	return bs[0], nil
 }
 
-func StateForTargets(ctx context.Context, tf *tfexec.Terraform, targets []addr.ResourceAddr, opts ...StateOption) ([][]byte, error) {
-	return fromState(ctx, tf, targets, opts...)
+func StateForTargets(ctx context.Context, tf *tfexec.Terraform, targets []string, opts ...StateOption) ([][]byte, error) {
+	var targetAddrs []addr.ResourceAddr
+	for _, target := range targets {
+		targetAddr, err := addr.ParseResourceAddr(target)
+		if err != nil {
+			return nil, err
+		}
+		targetAddrs = append(targetAddrs, *targetAddr)
+	}
+	return fromState(ctx, tf, targetAddrs, opts...)
 }
 
 func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.ResourceAddr, opts ...StateOption) ([][]byte, error) {

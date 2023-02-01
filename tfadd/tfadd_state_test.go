@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/hc-install/product"
 	"github.com/hashicorp/hc-install/src"
 	"github.com/hashicorp/terraform-exec/tfexec"
-	"github.com/magodo/tfadd/addr"
 	"github.com/stretchr/testify/require"
 )
 
@@ -53,7 +52,7 @@ func TestTFAdd_state(t *testing.T) {
 		name        string
 		statefile   string
 		options     []StateOption
-		targets     []addr.ResourceAddr
+		targets     []string
 		expectError *regexp.Regexp
 		expect      string
 	}{
@@ -91,8 +90,8 @@ resource "azurerm_resource_group" "b" {
 		{
 			name:      "generate one target resource",
 			statefile: "azurerm_resource_groups",
-			targets: []addr.ResourceAddr{
-				*addr.MustParseResourceAddr("azurerm_resource_group.a"),
+			targets: []string{
+				"azurerm_resource_group.a",
 			},
 			expect: `resource "azurerm_resource_group" "a" {
   location = "eastus2"
@@ -103,9 +102,9 @@ resource "azurerm_resource_group" "b" {
 		{
 			name:      "generate two target resources",
 			statefile: "azurerm_resource_groups",
-			targets: []addr.ResourceAddr{
-				*addr.MustParseResourceAddr("azurerm_resource_group.a"),
-				*addr.MustParseResourceAddr("azurerm_resource_group.b"),
+			targets: []string{
+				"azurerm_resource_group.a",
+				"azurerm_resource_group.b",
 			},
 			expect: `resource "azurerm_resource_group" "a" {
   location = "eastus2"
