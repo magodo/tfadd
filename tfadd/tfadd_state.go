@@ -8,7 +8,6 @@ import (
 
 	"github.com/magodo/tfadd/addr"
 
-	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/terraform-exec/tfexec"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/magodo/tfstate"
@@ -18,10 +17,6 @@ type stateConfig struct {
 	// Whether the generated config contains all the non-computed properties?
 	// Set via Full option.
 	full bool
-
-	// Only generate for the specified target address.
-	// Set via Target option.
-	target *addr.ResourceAddr
 }
 
 func defaultStateConfig() stateConfig {
@@ -31,6 +26,18 @@ func defaultStateConfig() stateConfig {
 }
 
 func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]byte, error) {
+	bs, err := fromState(ctx, tf, nil, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return bs[0], nil
+}
+
+func StateForTargets(ctx context.Context, tf *tfexec.Terraform, targets []addr.ResourceAddr, opts ...StateOption) ([][]byte, error) {
+	return fromState(ctx, tf, targets, opts...)
+}
+
+func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.ResourceAddr, opts ...StateOption) ([][]byte, error) {
 	cfg := defaultStateConfig()
 	for _, o := range opts {
 		o.configureState(&cfg)
@@ -52,92 +59,109 @@ func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]by
 		return nil, fmt.Errorf("from json state: %v", err)
 	}
 
-	gen := func(pschs *tfjson.ProviderSchemas, res tfstate.StateResource, full bool) ([]byte, error) {
-		if res.Mode != tfjson.ManagedResourceMode {
-			return nil, nil
-		}
-		psch, ok := pschs.Schemas[res.ProviderName]
-		if !ok {
-			return nil, fmt.Errorf("no provider named %s found in provider schemas of current workspace", res.ProviderName)
-		}
-		rsch, ok := psch.ResourceSchemas[res.Type]
-		if !ok {
-			return nil, fmt.Errorf("no resource type %s found in provider's schema", res.Type)
-		}
-		b, err := internal.StateToTpl(&res, rsch.Block)
+	if len(targets) == 0 {
+		b, err := generateForOneModuleModule(pschs, *state.Values.RootModule, cfg.full)
 		if err != nil {
-			return nil, fmt.Errorf("generate template from state for %s: %v", res.Type, err)
+			return nil, err
 		}
-		if !full {
-			sdkPsch, ok := sdkProviderSchemas[res.ProviderName]
-			if !ok {
-				return b, nil
-			}
-			sch, ok := sdkPsch.ResourceSchemas[res.Type]
-			if !ok {
-				return b, nil
-			}
-			b, err = internal.TuneTpl(*sch, b, res.Type)
-			if err != nil {
-				return nil, fmt.Errorf("tune template for %s: %v", res.Type, err)
-			}
-		}
-		return b, nil
+		return [][]byte{b}, nil
 	}
 
-	if cfg.target == nil {
-		var templates []byte
-		var errs error
-		var genForModule func(pschs *tfjson.ProviderSchemas, module tfstate.StateModule, full bool)
-		genForModule = func(pschs *tfjson.ProviderSchemas, module tfstate.StateModule, full bool) {
-			if module.Address != "" {
-				templates = append(templates, []byte("# "+module.Address+"\n")...)
-			}
-			for _, res := range module.Resources {
-				b, err := gen(pschs, *res, cfg.full)
-				if err != nil {
-					errs = multierror.Append(errs, err)
-					continue
+	var out [][]byte
+	for _, target := range targets {
+		module := state.Values.RootModule
+		for i := 0; i < len(target.ModuleAddr); i++ {
+			moduleAddr := addr.ModuleAddr(target.ModuleAddr[:i+1]).String()
+			var found bool
+			for _, cm := range module.ChildModules {
+				if cm.Address == moduleAddr {
+					module = cm
+					found = true
+					break
 				}
-				if b == nil {
-					continue
-				}
-				templates = append(templates, b...)
 			}
-			for _, mod := range module.ChildModules {
-				genForModule(pschs, *mod, full)
+			if !found {
+				return nil, fmt.Errorf("failed to find module %s", moduleAddr)
 			}
 		}
-		genForModule(pschs, *state.Values.RootModule, cfg.full)
-		return templates, errs
-	}
 
-	module := state.Values.RootModule
-	for i := 0; i < len(cfg.target.ModuleAddr); i++ {
-		moduleAddr := addr.ModuleAddr(cfg.target.ModuleAddr[:i+1]).String()
-		var found bool
-		for _, cm := range module.ChildModules {
-			if cm.Address == moduleAddr {
-				module = cm
-				found = true
-				break
+		var targetResource *tfstate.StateResource
+		for _, res := range module.Resources {
+			if res.Type != target.Type || res.Name != target.Name {
+				continue
 			}
+			targetResource = res
+			break
 		}
-		if !found {
-			return nil, fmt.Errorf("failed to find module %s", moduleAddr)
+		if targetResource == nil {
+			return nil, fmt.Errorf("can't find target resource")
 		}
+		b, err := generateForOneResource(pschs, *targetResource, cfg.full)
+		if err != nil {
+			return nil, fmt.Errorf("generate for one resource: %v", err)
+		}
+		out = append(out, b)
 	}
+	return out, nil
+}
 
-	var targetResource *tfstate.StateResource
+func generateForOneModuleModule(pschs *tfjson.ProviderSchemas, module tfstate.StateModule, full bool) ([]byte, error) {
+	var templates []byte
+	if module.Address != "" {
+		templates = append(templates, []byte("# "+module.Address+"\n")...)
+	}
 	for _, res := range module.Resources {
-		if res.Type != cfg.target.Type || res.Name != cfg.target.Name {
+		b, err := generateForOneResource(pschs, *res, full)
+		if err != nil {
+			return nil, err
+		}
+		if b == nil {
 			continue
 		}
-		targetResource = res
-		break
+		templates = append(templates, b...)
 	}
-	if targetResource == nil {
-		return nil, fmt.Errorf("can't find target resource")
+	for _, mod := range module.ChildModules {
+		ctemplates, err := generateForOneModuleModule(pschs, *mod, full)
+		if err != nil {
+			return nil, err
+		}
+		if ctemplates == nil {
+			continue
+		}
+		templates = append(templates, ctemplates...)
 	}
-	return gen(pschs, *targetResource, cfg.full)
+	return templates, nil
+}
+
+func generateForOneResource(pschs *tfjson.ProviderSchemas, res tfstate.StateResource, full bool) ([]byte, error) {
+	if res.Mode != tfjson.ManagedResourceMode {
+		return nil, nil
+	}
+	psch, ok := pschs.Schemas[res.ProviderName]
+	if !ok {
+		return nil, fmt.Errorf("no provider named %s found in provider schemas of current workspace", res.ProviderName)
+	}
+	rsch, ok := psch.ResourceSchemas[res.Type]
+	if !ok {
+		return nil, fmt.Errorf("no resource type %s found in provider's schema", res.Type)
+	}
+	b, err := internal.StateToTpl(&res, rsch.Block)
+	if err != nil {
+		return nil, fmt.Errorf("generate template from state for %s: %v", res.Type, err)
+	}
+	if !full {
+		sdkPsch, ok := sdkProviderSchemas[res.ProviderName]
+		if !ok {
+			return b, nil
+		}
+		sch, ok := sdkPsch.ResourceSchemas[res.Type]
+		if !ok {
+			return b, nil
+		}
+		b, err = internal.TuneTpl(*sch, b, res.Type)
+		if err != nil {
+			return nil, fmt.Errorf("tune template for %s: %v", res.Type, err)
+		}
+	}
+	return b, nil
 }

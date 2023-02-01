@@ -1,6 +1,7 @@
 package tfadd
 
 import (
+	"bytes"
 	"context"
 	"os"
 	"path/filepath"
@@ -13,6 +14,7 @@ import (
 	"github.com/hashicorp/hc-install/product"
 	"github.com/hashicorp/hc-install/src"
 	"github.com/hashicorp/terraform-exec/tfexec"
+	"github.com/magodo/tfadd/addr"
 	"github.com/stretchr/testify/require"
 )
 
@@ -51,6 +53,7 @@ func TestTFAdd_state(t *testing.T) {
 		name        string
 		statefile   string
 		options     []StateOption
+		targets     []addr.ResourceAddr
 		expectError *regexp.Regexp
 		expect      string
 	}{
@@ -86,12 +89,31 @@ resource "azurerm_resource_group" "b" {
 `,
 		},
 		{
-			name:      "generate one resource",
+			name:      "generate one target resource",
 			statefile: "azurerm_resource_groups",
-			options:   []StateOption{Target("azurerm_resource_group.a")},
+			targets: []addr.ResourceAddr{
+				*addr.MustParseResourceAddr("azurerm_resource_group.a"),
+			},
 			expect: `resource "azurerm_resource_group" "a" {
   location = "eastus2"
   name     = "foo"
+}
+`,
+		},
+		{
+			name:      "generate two target resources",
+			statefile: "azurerm_resource_groups",
+			targets: []addr.ResourceAddr{
+				*addr.MustParseResourceAddr("azurerm_resource_group.a"),
+				*addr.MustParseResourceAddr("azurerm_resource_group.b"),
+			},
+			expect: `resource "azurerm_resource_group" "a" {
+  location = "eastus2"
+  name     = "foo"
+}
+resource "azurerm_resource_group" "b" {
+  location = "eastus2"
+  name     = "bar"
 }
 `,
 		},
@@ -147,11 +169,24 @@ resource "null_resource" "test" {
 				require.NoError(t, tf.Init(ctx))
 			}
 
-			b, err := State(ctx, tf, tt.options...)
+			if len(tt.targets) == 0 {
+				b, err := State(ctx, tf, tt.options...)
+				if tt.expectError != nil {
+					require.Regexp(t, tt.expectError, err.Error())
+					return
+				}
+				require.NoError(t, err)
+				require.Equal(t, tt.expect, string(b))
+				return
+			}
+
+			bs, err := StateForTargets(ctx, tf, tt.targets)
 			if tt.expectError != nil {
 				require.Regexp(t, tt.expectError, err.Error())
 				return
 			}
+			require.NoError(t, err)
+			b := bytes.Join(bs, nil)
 			require.Equal(t, tt.expect, string(b))
 		})
 	}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"flag"
 	"fmt"
@@ -12,9 +13,25 @@ import (
 	"github.com/hashicorp/hc-install/fs"
 	"github.com/hashicorp/hc-install/product"
 	"github.com/hashicorp/terraform-exec/tfexec"
+	"github.com/magodo/tfadd/addr"
 	"github.com/magodo/tfadd/tfadd"
 	"github.com/mitchellh/cli"
 )
+
+type resourceAddrFlags []addr.ResourceAddr
+
+func (l *resourceAddrFlags) String() string {
+	return "resource address flags"
+}
+
+func (l *resourceAddrFlags) Set(value string) error {
+	addr, err := addr.ParseResourceAddr(value)
+	if err != nil {
+		return err
+	}
+	*l = append(*l, *addr)
+	return nil
+}
 
 func defaultFlagSet(name string) *flag.FlagSet {
 	f := flag.NewFlagSet(name, flag.ContinueOnError)
@@ -62,7 +79,7 @@ Usage: tfadd [global options] state [options]
 Options:
 
   -full               Output all non-computed properties in the generated config
-  -target=addr        Only generate for the specified resource
+  -target=addr        Only generate for the specified resource (can specify multiple times)
 `
 	return strings.TrimSpace(helpText)
 }
@@ -70,7 +87,8 @@ Options:
 func (r *stateCommand) Run(args []string) int {
 	fset := defaultFlagSet("state")
 	flagFull := fset.Bool("full", false, "Whether to generate all non-computed properties")
-	flagTarget := fset.String("target", "", "Only generate for the specified resource")
+	var flagTargets resourceAddrFlags
+	fset.Var(&flagTargets, "target", "Only generate for the specified resource")
 	if err := fset.Parse(args); err != nil {
 		fmt.Fprintf(os.Stderr, err.Error())
 		return 1
@@ -91,15 +109,24 @@ func (r *stateCommand) Run(args []string) int {
 		return 1
 	}
 	opts := []tfadd.StateOption{tfadd.Full(*flagFull)}
-	if *flagTarget != "" {
-		opts = append(opts, tfadd.Target(*flagTarget))
+
+	var template []byte
+	if len(flagTargets) == 0 {
+		b, err := tfadd.State(ctx, tf, opts...)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, err.Error())
+			return 1
+		}
+		template = b
+	} else {
+		bs, err := tfadd.StateForTargets(ctx, tf, flagTargets, opts...)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, err.Error())
+			return 1
+		}
+		template = bytes.Join(bs, nil)
 	}
-	templates, err := tfadd.State(ctx, tf, opts...)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, err.Error())
-		return 1
-	}
-	fmt.Println(string(templates))
+	fmt.Println(string(template))
 	return 0
 }
 

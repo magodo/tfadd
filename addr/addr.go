@@ -123,3 +123,11 @@ func ParseResourceAddr(addr string) (*ResourceAddr, error) {
 	return raddr, nil
 
 }
+
+func MustParseResourceAddr(addr string) *ResourceAddr {
+	out, err := ParseResourceAddr(addr)
+	if err != nil {
+		panic(err)
+	}
+	return out
+}
