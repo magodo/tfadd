@@ -2329,6 +2329,28 @@ func init() {
         }
       }
     },
+    "google_apigee_sync_authorization": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "identities": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "google_apikeys_key": {
       "block": {
         "attributes": {
@@ -4243,6 +4265,97 @@ func init() {
         }
       }
     },
+    "google_beyondcorp_app_connection": {
+      "block": {
+        "attributes": {
+          "connectors": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "region": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "type": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "application_endpoint": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "host": {
+                  "type": "string",
+                  "required": true
+                },
+                "port": {
+                  "type": "number",
+                  "required": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          },
+          "gateway": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "app_gateway": {
+                  "type": "string",
+                  "required": true
+                },
+                "ingress_port": {
+                  "type": "number",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "optional": true
+                },
+                "uri": {
+                  "type": "string",
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "google_beyondcorp_app_connector": {
       "block": {
         "attributes": {
@@ -5409,7 +5522,8 @@ func init() {
               "map",
               "string"
             ],
-            "optional": true
+            "optional": true,
+            "computed": true
           },
           "last_modified_time": {
             "type": "number",
@@ -6945,6 +7059,10 @@ func init() {
                 },
                 "max_bad_records": {
                   "type": "number",
+                  "optional": true
+                },
+                "reference_file_schema_uri": {
+                  "type": "string",
                   "optional": true
                 },
                 "schema": {
@@ -8860,6 +8978,7 @@ func init() {
                 "pem_private_key": {
                   "type": "string",
                   "optional": true,
+                  "sensitive": true,
                   "exactly_one_of": [
                     "self_managed.0.private_key_pem",
                     "self_managed.0.pem_private_key"
@@ -9530,6 +9649,13 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          },
+          "threat_exceptions": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
           },
           "update_time": {
             "type": "string",
@@ -10901,9 +11027,177 @@ func init() {
         }
       }
     },
+    "google_cloud_run_v2_job_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_cloud_run_v2_job_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "member": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_cloud_run_v2_job_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "google_cloud_run_v2_service": {
       "block": {
         "attributes": {
+          "annotations": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
           "client": {
             "type": "string",
             "optional": true
@@ -11058,6 +11352,13 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "annotations": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true
+                },
                 "encryption_key": {
                   "type": "string",
                   "optional": true
@@ -11521,6 +11822,167 @@ func init() {
             },
             "optional": true,
             "computed": true
+          }
+        }
+      }
+    },
+    "google_cloud_run_v2_service_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_cloud_run_v2_service_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "member": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_cloud_run_v2_service_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
           }
         }
       }
@@ -12601,6 +13063,10 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "github_enterprise_config": {
+                  "type": "string",
+                  "optional": true
+                },
                 "path": {
                   "type": "string",
                   "required": true
@@ -12747,6 +13213,10 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "github_enterprise_config": {
+                  "type": "string",
+                  "optional": true
+                },
                 "ref": {
                   "type": "string",
                   "required": true
@@ -13431,6 +13901,11 @@ func init() {
                   "optional": true,
                   "default": true
                 },
+                "available_cpu": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                },
                 "available_memory": {
                   "type": "string",
                   "optional": true
@@ -13454,6 +13929,11 @@ func init() {
                 "max_instance_count": {
                   "type": "number",
                   "optional": true
+                },
+                "max_instance_request_concurrency": {
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
                 },
                 "min_instance_count": {
                   "type": "number",
@@ -14608,6 +15088,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -14631,6 +15112,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -14660,6 +15142,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -14689,6 +15172,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -14725,6 +15209,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -14770,6 +15255,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -14870,6 +15356,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -15000,6 +15487,59 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
+                    "config.0.private_environment_config",
+                    "config.0.web_server_network_access_control",
+                    "config.0.database_config",
+                    "config.0.web_server_config",
+                    "config.0.encryption_config",
+                    "config.0.maintenance_window",
+                    "config.0.workloads_config",
+                    "config.0.environment_size",
+                    "config.0.master_authorized_networks_config"
+                  ],
+                  "max_items": 1
+                },
+                "recovery_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "scheduled_snapshots_config": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "enabled": {
+                              "type": "bool",
+                              "required": true
+                            },
+                            "snapshot_creation_schedule": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "snapshot_location": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "time_zone": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "at_least_one_of": [
+                          "config.0.recovery_config.0.scheduled_snapshots_config"
+                        ],
+                        "max_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "config.0.node_count",
+                    "config.0.node_config",
+                    "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -15110,6 +15650,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -15138,6 +15679,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -15179,6 +15721,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -15218,6 +15761,11 @@ func init() {
                           }
                         },
                         "optional": true,
+                        "at_least_one_of": [
+                          "config.0.workloads_config.0.scheduler",
+                          "config.0.workloads_config.0.web_server",
+                          "config.0.workloads_config.0.worker"
+                        ],
                         "max_items": 1
                       },
                       "web_server": {
@@ -15239,6 +15787,11 @@ func init() {
                           }
                         },
                         "optional": true,
+                        "at_least_one_of": [
+                          "config.0.workloads_config.0.scheduler",
+                          "config.0.workloads_config.0.web_server",
+                          "config.0.workloads_config.0.worker"
+                        ],
                         "max_items": 1
                       },
                       "worker": {
@@ -15268,6 +15821,11 @@ func init() {
                           }
                         },
                         "optional": true,
+                        "at_least_one_of": [
+                          "config.0.workloads_config.0.scheduler",
+                          "config.0.workloads_config.0.web_server",
+                          "config.0.workloads_config.0.worker"
+                        ],
                         "max_items": 1
                       }
                     }
@@ -15278,6 +15836,7 @@ func init() {
                     "config.0.node_count",
                     "config.0.node_config",
                     "config.0.software_config",
+                    "config.0.recovery_config",
                     "config.0.private_environment_config",
                     "config.0.web_server_network_access_control",
                     "config.0.database_config",
@@ -15861,12 +16420,20 @@ func init() {
             "type": "string",
             "optional": true
           },
+          "edge_security_policy": {
+            "type": "string",
+            "optional": true
+          },
           "enable_cdn": {
             "type": "bool",
             "optional": true
           },
           "fingerprint": {
             "type": "string",
+            "computed": true
+          },
+          "generated_id": {
+            "type": "number",
             "computed": true
           },
           "health_checks": {
@@ -17118,11 +17685,7 @@ func init() {
               "string"
             ],
             "optional": true,
-            "computed": true,
-            "conflicts_with": [
-              "source_ranges",
-              "source_tags"
-            ]
+            "computed": true
           },
           "direction": {
             "type": "string",
@@ -17168,10 +17731,7 @@ func init() {
               "set",
               "string"
             ],
-            "optional": true,
-            "conflicts_with": [
-              "destination_ranges"
-            ]
+            "optional": true
           },
           "source_service_accounts": {
             "type": [
@@ -17192,7 +17752,6 @@ func init() {
             "optional": true,
             "conflicts_with": [
               "source_service_accounts",
-              "destination_ranges",
               "target_service_accounts"
             ]
           },
@@ -18795,6 +19354,26 @@ func init() {
             "optional": true,
             "computed": true,
             "force_new": true
+          },
+          "image_encryption_key": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "kms_key_self_link": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "kms_key_service_account": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
           },
           "raw_disk": {
             "nesting_mode": 3,
@@ -21254,6 +21833,11 @@ func init() {
                   "computed": true,
                   "force_new": true
                 },
+                "source_snapshot": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
                 "type": {
                   "type": "string",
                   "optional": true,
@@ -21269,6 +21853,46 @@ func init() {
                       "kms_key_self_link": {
                         "type": "string",
                         "required": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true,
+                  "max_items": 1
+                },
+                "source_image_encryption_key": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "kms_key_self_link": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      },
+                      "kms_key_service_account": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true,
+                  "max_items": 1
+                },
+                "source_snapshot_encryption_key": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "kms_key_self_link": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      },
+                      "kms_key_service_account": {
+                        "type": "string",
+                        "optional": true,
                         "force_new": true
                       }
                     }
@@ -22436,6 +23060,43 @@ func init() {
               }
             },
             "optional": true,
+            "force_new": true,
+            "max_items": 1
+          },
+          "share_settings": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "share_type": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              },
+              "block_types": {
+                "project_map": {
+                  "nesting_mode": 4,
+                  "block": {
+                    "attributes": {
+                      "id": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
             "force_new": true,
             "max_items": 1
           }
@@ -25591,6 +26252,10 @@ func init() {
             "optional": true,
             "force_new": true
           },
+          "expire_time": {
+            "type": "string",
+            "computed": true
+          },
           "name": {
             "type": "string",
             "optional": true,
@@ -28090,6 +28755,7 @@ func init() {
           "redundant_interface": {
             "type": "string",
             "optional": true,
+            "computed": true,
             "force_new": true
           },
           "region": {
@@ -28210,6 +28876,11 @@ func init() {
             "type": "number",
             "optional": true,
             "default": 1200
+          },
+          "tcp_time_wait_timeout_sec": {
+            "type": "number",
+            "optional": true,
+            "default": 120
           },
           "tcp_transitory_idle_timeout_sec": {
             "type": "number",
@@ -28382,6 +29053,10 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          },
+          "router_appliance_instance": {
+            "type": "string",
+            "optional": true
           }
         },
         "block_types": {
@@ -29182,6 +29857,10 @@ func init() {
             "optional": true,
             "force_new": true
           },
+          "expire_time": {
+            "type": "string",
+            "computed": true
+          },
           "name": {
             "type": "string",
             "optional": true,
@@ -29322,7 +30001,8 @@ func init() {
           },
           "private_ip_google_access": {
             "type": "bool",
-            "optional": true
+            "optional": true,
+            "computed": true
           },
           "private_ipv6_google_access": {
             "type": "string",
@@ -32381,6 +33061,212 @@ func init() {
         }
       }
     },
+    "google_container_attached_cluster": {
+      "block": {
+        "attributes": {
+          "annotations": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "cluster_region": {
+            "type": "string",
+            "computed": true
+          },
+          "create_time": {
+            "type": "string",
+            "computed": true
+          },
+          "deletion_policy": {
+            "type": "string",
+            "optional": true,
+            "default": "DELETE"
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "distribution": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "errors": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "message": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "kubernetes_version": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "platform_version": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "reconciling": {
+            "type": "bool",
+            "computed": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "uid": {
+            "type": "string",
+            "computed": true
+          },
+          "update_time": {
+            "type": "string",
+            "computed": true
+          },
+          "workload_identity_config": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "identity_provider": "string",
+                  "issuer_uri": "string",
+                  "workload_pool": "string"
+                }
+              ]
+            ],
+            "computed": true
+          }
+        },
+        "block_types": {
+          "authorization": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "admin_users": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "fleet": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "membership": {
+                  "type": "string",
+                  "computed": true
+                },
+                "project": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          },
+          "logging_config": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "component_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enable_components": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "monitoring_config": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "managed_prometheus_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enabled": {
+                        "type": "bool",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
+          },
+          "oidc_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "issuer_url": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "jwks": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "google_container_aws_cluster": {
       "block": {
         "attributes": {
@@ -32846,11 +33732,30 @@ func init() {
                     "map",
                     "string"
                   ],
-                  "optional": true,
-                  "force_new": true
+                  "optional": true
                 }
               },
               "block_types": {
+                "autoscaling_metrics_collection": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "granularity": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "metrics": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
                 "config_encryption": {
                   "nesting_mode": 3,
                   "block": {
@@ -33734,7 +34639,33 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config",
-                    "addons_config.0.gke_backup_agent_config"
+                    "addons_config.0.gke_backup_agent_config",
+                    "addons_config.0.config_connector_config"
+                  ],
+                  "max_items": 1
+                },
+                "config_connector_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "enabled": {
+                        "type": "bool",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "computed": true,
+                  "at_least_one_of": [
+                    "addons_config.0.http_load_balancing",
+                    "addons_config.0.horizontal_pod_autoscaling",
+                    "addons_config.0.network_policy_config",
+                    "addons_config.0.cloudrun_config",
+                    "addons_config.0.gcp_filestore_csi_driver_config",
+                    "addons_config.0.dns_cache_config",
+                    "addons_config.0.gce_persistent_disk_csi_driver_config",
+                    "addons_config.0.gke_backup_agent_config",
+                    "addons_config.0.config_connector_config"
                   ],
                   "max_items": 1
                 },
@@ -33761,7 +34692,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config",
-                    "addons_config.0.gke_backup_agent_config"
+                    "addons_config.0.gke_backup_agent_config",
+                    "addons_config.0.config_connector_config"
                   ],
                   "max_items": 1
                 },
@@ -33785,7 +34717,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config",
-                    "addons_config.0.gke_backup_agent_config"
+                    "addons_config.0.gke_backup_agent_config",
+                    "addons_config.0.config_connector_config"
                   ],
                   "max_items": 1
                 },
@@ -33812,7 +34745,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config",
-                    "addons_config.0.gke_backup_agent_config"
+                    "addons_config.0.gke_backup_agent_config",
+                    "addons_config.0.config_connector_config"
                   ],
                   "max_items": 1
                 },
@@ -33836,7 +34770,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config",
-                    "addons_config.0.gke_backup_agent_config"
+                    "addons_config.0.gke_backup_agent_config",
+                    "addons_config.0.config_connector_config"
                   ],
                   "max_items": 1
                 },
@@ -33860,7 +34795,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config",
-                    "addons_config.0.gke_backup_agent_config"
+                    "addons_config.0.gke_backup_agent_config",
+                    "addons_config.0.config_connector_config"
                   ],
                   "max_items": 1
                 },
@@ -33884,7 +34820,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config",
-                    "addons_config.0.gke_backup_agent_config"
+                    "addons_config.0.gke_backup_agent_config",
+                    "addons_config.0.config_connector_config"
                   ],
                   "max_items": 1
                 },
@@ -33911,7 +34848,8 @@ func init() {
                     "addons_config.0.gcp_filestore_csi_driver_config",
                     "addons_config.0.dns_cache_config",
                     "addons_config.0.gce_persistent_disk_csi_driver_config",
-                    "addons_config.0.gke_backup_agent_config"
+                    "addons_config.0.gke_backup_agent_config",
+                    "addons_config.0.config_connector_config"
                   ],
                   "max_items": 1
                 }
@@ -34779,6 +35717,43 @@ func init() {
                   "force_new": true,
                   "max_items": 1
                 },
+                "kubelet_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "cpu_cfs_quota": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "cpu_cfs_quota_period": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "cpu_manager_policy": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
+                "linux_node_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "sysctls": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
                 "reservation_affinity": {
                   "nesting_mode": 3,
                   "block": {
@@ -34920,7 +35895,8 @@ func init() {
                     "attributes": {
                       "location_policy": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "computed": true
                       },
                       "max_node_count": {
                         "type": "number",
@@ -35052,8 +36028,7 @@ func init() {
                           "string"
                         ],
                         "optional": true,
-                        "computed": true,
-                        "force_new": true
+                        "computed": true
                       },
                       "local_ssd_count": {
                         "type": "number",
@@ -35181,6 +36156,43 @@ func init() {
                         "force_new": true,
                         "max_items": 1
                       },
+                      "kubelet_config": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "cpu_cfs_quota": {
+                              "type": "bool",
+                              "optional": true
+                            },
+                            "cpu_cfs_quota_period": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "cpu_manager_policy": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "max_items": 1
+                      },
+                      "linux_node_config": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "sysctls": {
+                              "type": [
+                                "map",
+                                "string"
+                              ],
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "max_items": 1
+                      },
                       "reservation_affinity": {
                         "nesting_mode": 3,
                         "block": {
@@ -35250,6 +36262,20 @@ func init() {
                   },
                   "optional": true,
                   "computed": true,
+                  "force_new": true,
+                  "max_items": 1
+                },
+                "placement_policy": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "type": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
                   "force_new": true,
                   "max_items": 1
                 },
@@ -35679,7 +36705,8 @@ func init() {
               "attributes": {
                 "location_policy": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "computed": true
                 },
                 "max_node_count": {
                   "type": "number",
@@ -35811,8 +36838,7 @@ func init() {
                     "string"
                   ],
                   "optional": true,
-                  "computed": true,
-                  "force_new": true
+                  "computed": true
                 },
                 "local_ssd_count": {
                   "type": "number",
@@ -35940,6 +36966,43 @@ func init() {
                   "force_new": true,
                   "max_items": 1
                 },
+                "kubelet_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "cpu_cfs_quota": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "cpu_cfs_quota_period": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "cpu_manager_policy": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
+                "linux_node_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "sysctls": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
                 "reservation_affinity": {
                   "nesting_mode": 3,
                   "block": {
@@ -36009,6 +37072,20 @@ func init() {
             },
             "optional": true,
             "computed": true,
+            "force_new": true,
+            "max_items": 1
+          },
+          "placement_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
             "force_new": true,
             "max_items": 1
           },
@@ -37296,6 +38373,10 @@ func init() {
                                               "name": {
                                                 "type": "string",
                                                 "optional": true
+                                              },
+                                              "version": {
+                                                "type": "string",
+                                                "optional": true
                                               }
                                             }
                                           },
@@ -37395,6 +38476,10 @@ func init() {
                                           "block": {
                                             "attributes": {
                                               "name": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "version": {
                                                 "type": "string",
                                                 "optional": true
                                               }
@@ -37512,8 +38597,1312 @@ func init() {
                       }
                     }
                   },
-                  "required": true,
-                  "min_items": 1,
+                  "optional": true,
+                  "exactly_one_of": [
+                    "deidentify_config.0.info_type_transformations",
+                    "deidentify_config.0.record_transformations"
+                  ],
+                  "max_items": 1
+                },
+                "record_transformations": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "field_transformations": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "block_types": {
+                            "condition": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "block_types": {
+                                  "expressions": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "logical_operator": {
+                                          "type": "string",
+                                          "optional": true,
+                                          "default": "AND"
+                                        }
+                                      },
+                                      "block_types": {
+                                        "conditions": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "block_types": {
+                                              "conditions": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "operator": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  },
+                                                  "block_types": {
+                                                    "field": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "name": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          }
+                                                        }
+                                                      },
+                                                      "required": true,
+                                                      "min_items": 1,
+                                                      "max_items": 1
+                                                    },
+                                                    "value": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "boolean_value": {
+                                                            "type": "bool",
+                                                            "optional": true
+                                                          },
+                                                          "day_of_week_value": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          },
+                                                          "float_value": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "integer_value": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          },
+                                                          "string_value": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          },
+                                                          "timestamp_value": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          }
+                                                        },
+                                                        "block_types": {
+                                                          "date_value": {
+                                                            "nesting_mode": 3,
+                                                            "block": {
+                                                              "attributes": {
+                                                                "day": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "month": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "year": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                }
+                                                              }
+                                                            },
+                                                            "optional": true,
+                                                            "max_items": 1
+                                                          },
+                                                          "time_value": {
+                                                            "nesting_mode": 3,
+                                                            "block": {
+                                                              "attributes": {
+                                                                "hours": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "minutes": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "nanos": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "seconds": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                }
+                                                              }
+                                                            },
+                                                            "optional": true,
+                                                            "max_items": 1
+                                                          }
+                                                        }
+                                                      },
+                                                      "optional": true,
+                                                      "max_items": 1
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  }
+                                }
+                              },
+                              "optional": true,
+                              "max_items": 1
+                            },
+                            "fields": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "name": {
+                                    "type": "string",
+                                    "optional": true
+                                  }
+                                }
+                              },
+                              "required": true,
+                              "min_items": 1
+                            },
+                            "primitive_transformation": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "block_types": {
+                                  "bucketing_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "block_types": {
+                                        "buckets": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "block_types": {
+                                              "max": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "boolean_value": {
+                                                      "type": "bool",
+                                                      "optional": true
+                                                    },
+                                                    "day_of_week_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    },
+                                                    "float_value": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "integer_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    },
+                                                    "string_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    },
+                                                    "timestamp_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    }
+                                                  },
+                                                  "block_types": {
+                                                    "date_value": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "day": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "month": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "year": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          }
+                                                        }
+                                                      },
+                                                      "optional": true,
+                                                      "max_items": 1
+                                                    },
+                                                    "time_value": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "hours": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "minutes": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "nanos": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "seconds": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          }
+                                                        }
+                                                      },
+                                                      "optional": true,
+                                                      "max_items": 1
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "min": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "boolean_value": {
+                                                      "type": "bool",
+                                                      "optional": true
+                                                    },
+                                                    "day_of_week_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    },
+                                                    "float_value": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "integer_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    },
+                                                    "string_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    },
+                                                    "timestamp_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    }
+                                                  },
+                                                  "block_types": {
+                                                    "date_value": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "day": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "month": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "year": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          }
+                                                        }
+                                                      },
+                                                      "optional": true,
+                                                      "max_items": 1
+                                                    },
+                                                    "time_value": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "hours": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "minutes": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "nanos": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "seconds": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          }
+                                                        }
+                                                      },
+                                                      "optional": true,
+                                                      "max_items": 1
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "replacement_value": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "boolean_value": {
+                                                      "type": "bool",
+                                                      "optional": true
+                                                    },
+                                                    "day_of_week_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    },
+                                                    "float_value": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "integer_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    },
+                                                    "string_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    },
+                                                    "timestamp_value": {
+                                                      "type": "string",
+                                                      "optional": true
+                                                    }
+                                                  },
+                                                  "block_types": {
+                                                    "date_value": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "day": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "month": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "year": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          }
+                                                        }
+                                                      },
+                                                      "optional": true,
+                                                      "max_items": 1
+                                                    },
+                                                    "time_value": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "hours": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "minutes": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "nanos": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "seconds": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          }
+                                                        }
+                                                      },
+                                                      "optional": true,
+                                                      "max_items": 1
+                                                    }
+                                                  }
+                                                },
+                                                "required": true,
+                                                "min_items": 1,
+                                                "max_items": 1
+                                              }
+                                            }
+                                          },
+                                          "optional": true
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "character_mask_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "masking_character": {
+                                          "type": "string",
+                                          "optional": true
+                                        },
+                                        "number_to_mask": {
+                                          "type": "number",
+                                          "optional": true
+                                        },
+                                        "reverse_order": {
+                                          "type": "bool",
+                                          "optional": true
+                                        }
+                                      },
+                                      "block_types": {
+                                        "characters_to_ignore": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "characters_to_skip": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "common_characters_to_ignore": {
+                                                "type": "string",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "crypto_deterministic_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "block_types": {
+                                        "context": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "name": {
+                                                "type": "string",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        },
+                                        "crypto_key": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "block_types": {
+                                              "kms_wrapped": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "crypto_key_name": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    },
+                                                    "wrapped_key": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "transient": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "name": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "unwrapped": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "key": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        },
+                                        "surrogate_info_type": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "name": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "version": {
+                                                "type": "string",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "crypto_hash_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "block_types": {
+                                        "crypto_key": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "block_types": {
+                                              "kms_wrapped": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "crypto_key_name": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    },
+                                                    "wrapped_key": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "transient": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "name": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "unwrapped": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "key": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "crypto_replace_ffx_fpe_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "common_alphabet": {
+                                          "type": "string",
+                                          "optional": true
+                                        },
+                                        "custom_alphabet": {
+                                          "type": "string",
+                                          "optional": true
+                                        },
+                                        "radix": {
+                                          "type": "number",
+                                          "optional": true
+                                        }
+                                      },
+                                      "block_types": {
+                                        "context": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "name": {
+                                                "type": "string",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        },
+                                        "crypto_key": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "block_types": {
+                                              "kms_wrapped": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "crypto_key_name": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    },
+                                                    "wrapped_key": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "transient": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "name": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "unwrapped": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "key": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        },
+                                        "surrogate_info_type": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "name": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "version": {
+                                                "type": "string",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "date_shift_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "lower_bound_days": {
+                                          "type": "number",
+                                          "required": true
+                                        },
+                                        "upper_bound_days": {
+                                          "type": "number",
+                                          "required": true
+                                        }
+                                      },
+                                      "block_types": {
+                                        "context": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "name": {
+                                                "type": "string",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        },
+                                        "crypto_key": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "block_types": {
+                                              "kms_wrapped": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "crypto_key_name": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    },
+                                                    "wrapped_key": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "transient": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "name": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "unwrapped": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "key": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "fixed_size_bucketing_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "bucket_size": {
+                                          "type": "number",
+                                          "required": true
+                                        }
+                                      },
+                                      "block_types": {
+                                        "lower_bound": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "boolean_value": {
+                                                "type": "bool",
+                                                "optional": true
+                                              },
+                                              "day_of_week_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "float_value": {
+                                                "type": "number",
+                                                "optional": true
+                                              },
+                                              "integer_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "string_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "timestamp_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              }
+                                            },
+                                            "block_types": {
+                                              "date_value": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "day": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "month": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "year": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "time_value": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "hours": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "minutes": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "nanos": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "seconds": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              }
+                                            }
+                                          },
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
+                                        },
+                                        "upper_bound": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "boolean_value": {
+                                                "type": "bool",
+                                                "optional": true
+                                              },
+                                              "day_of_week_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "float_value": {
+                                                "type": "number",
+                                                "optional": true
+                                              },
+                                              "integer_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "string_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "timestamp_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              }
+                                            },
+                                            "block_types": {
+                                              "date_value": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "day": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "month": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "year": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "time_value": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "hours": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "minutes": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "nanos": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "seconds": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              }
+                                            }
+                                          },
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "redact_config": {
+                                    "nesting_mode": 3,
+                                    "block": {},
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "replace_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "block_types": {
+                                        "new_value": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "boolean_value": {
+                                                "type": "bool",
+                                                "optional": true
+                                              },
+                                              "day_of_week_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "float_value": {
+                                                "type": "number",
+                                                "optional": true
+                                              },
+                                              "integer_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "string_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "timestamp_value": {
+                                                "type": "string",
+                                                "optional": true
+                                              }
+                                            },
+                                            "block_types": {
+                                              "date_value": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "day": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "month": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "year": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              },
+                                              "time_value": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "hours": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "minutes": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "nanos": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    },
+                                                    "seconds": {
+                                                      "type": "number",
+                                                      "optional": true
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true,
+                                                "max_items": 1
+                                              }
+                                            }
+                                          },
+                                          "required": true,
+                                          "min_items": 1,
+                                          "max_items": 1
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "replace_dictionary_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "block_types": {
+                                        "word_list": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "words": {
+                                                "type": [
+                                                  "list",
+                                                  "string"
+                                                ],
+                                                "required": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  },
+                                  "time_part_config": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "part_to_extract": {
+                                          "type": "string",
+                                          "optional": true
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  }
+                                }
+                              },
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "at_least_one_of": [
+                          "deidentify_config.0.record_transformations.0.field_transformations",
+                          "deidentify_config.0.record_transformations.0.record_suppressions"
+                        ]
+                      },
+                      "record_suppressions": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "block_types": {
+                            "condition": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "block_types": {
+                                  "expressions": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "logical_operator": {
+                                          "type": "string",
+                                          "optional": true,
+                                          "default": "AND"
+                                        }
+                                      },
+                                      "block_types": {
+                                        "conditions": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "block_types": {
+                                              "conditions": {
+                                                "nesting_mode": 3,
+                                                "block": {
+                                                  "attributes": {
+                                                    "operator": {
+                                                      "type": "string",
+                                                      "required": true
+                                                    }
+                                                  },
+                                                  "block_types": {
+                                                    "field": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "name": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          }
+                                                        }
+                                                      },
+                                                      "required": true,
+                                                      "min_items": 1,
+                                                      "max_items": 1
+                                                    },
+                                                    "value": {
+                                                      "nesting_mode": 3,
+                                                      "block": {
+                                                        "attributes": {
+                                                          "boolean_value": {
+                                                            "type": "bool",
+                                                            "optional": true
+                                                          },
+                                                          "day_of_week_value": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          },
+                                                          "float_value": {
+                                                            "type": "number",
+                                                            "optional": true
+                                                          },
+                                                          "integer_value": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          },
+                                                          "string_value": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          },
+                                                          "timestamp_value": {
+                                                            "type": "string",
+                                                            "optional": true
+                                                          }
+                                                        },
+                                                        "block_types": {
+                                                          "date_value": {
+                                                            "nesting_mode": 3,
+                                                            "block": {
+                                                              "attributes": {
+                                                                "day": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "month": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "year": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                }
+                                                              }
+                                                            },
+                                                            "optional": true,
+                                                            "max_items": 1
+                                                          },
+                                                          "time_value": {
+                                                            "nesting_mode": 3,
+                                                            "block": {
+                                                              "attributes": {
+                                                                "hours": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "minutes": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "nanos": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                },
+                                                                "seconds": {
+                                                                  "type": "number",
+                                                                  "optional": true
+                                                                }
+                                                              }
+                                                            },
+                                                            "optional": true,
+                                                            "max_items": 1
+                                                          }
+                                                        }
+                                                      },
+                                                      "optional": true,
+                                                      "max_items": 1
+                                                    }
+                                                  }
+                                                },
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true,
+                                          "max_items": 1
+                                        }
+                                      }
+                                    },
+                                    "optional": true,
+                                    "max_items": 1
+                                  }
+                                }
+                              },
+                              "optional": true,
+                              "max_items": 1
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "at_least_one_of": [
+                          "deidentify_config.0.record_transformations.0.field_transformations",
+                          "deidentify_config.0.record_transformations.0.record_suppressions"
+                        ]
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "exactly_one_of": [
+                    "deidentify_config.0.info_type_transformations",
+                    "deidentify_config.0.record_transformations"
+                  ],
                   "max_items": 1
                 }
               }
@@ -37687,6 +40076,10 @@ func init() {
                       "name": {
                         "type": "string",
                         "required": true
+                      },
+                      "version": {
+                        "type": "string",
+                        "optional": true
                       }
                     }
                   },
@@ -37996,6 +40389,18 @@ func init() {
                         "optional": true,
                         "max_items": 1
                       },
+                      "publish_findings_to_cloud_data_catalog": {
+                        "nesting_mode": 3,
+                        "block": {},
+                        "optional": true,
+                        "max_items": 1
+                      },
+                      "publish_summary_to_cscc": {
+                        "nesting_mode": 3,
+                        "block": {},
+                        "optional": true,
+                        "max_items": 1
+                      },
                       "save_findings": {
                         "nesting_mode": 3,
                         "block": {
@@ -38071,6 +40476,18 @@ func init() {
                             }
                           },
                           "block_types": {
+                            "identifying_fields": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "name": {
+                                    "type": "string",
+                                    "required": true
+                                  }
+                                }
+                              },
+                              "optional": true
+                            },
                             "table_reference": {
                               "nesting_mode": 3,
                               "block": {
@@ -39475,7 +41892,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ]
                 },
                 "temp_bucket": {
@@ -39497,7 +41915,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ]
                 }
               },
@@ -39527,7 +41946,56 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
+                  ],
+                  "max_items": 1
+                },
+                "dataproc_metric_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "metrics": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "metric_overrides": {
+                              "type": [
+                                "set",
+                                "string"
+                              ],
+                              "optional": true,
+                              "force_new": true
+                            },
+                            "metric_source": {
+                              "type": "string",
+                              "required": true,
+                              "force_new": true
+                            }
+                          }
+                        },
+                        "required": true,
+                        "min_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "cluster_config.0.staging_bucket",
+                    "cluster_config.0.temp_bucket",
+                    "cluster_config.0.gce_cluster_config",
+                    "cluster_config.0.master_config",
+                    "cluster_config.0.worker_config",
+                    "cluster_config.0.preemptible_worker_config",
+                    "cluster_config.0.security_config",
+                    "cluster_config.0.software_config",
+                    "cluster_config.0.initialization_action",
+                    "cluster_config.0.encryption_config",
+                    "cluster_config.0.autoscaling_config",
+                    "cluster_config.0.metastore_config",
+                    "cluster_config.0.lifecycle_config",
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 },
@@ -39556,7 +42024,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 },
@@ -39594,7 +42063,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 },
@@ -39616,7 +42086,9 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.service_account_scopes",
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
-                          "cluster_config.0.gce_cluster_config.0.metadata"
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
                         ]
                       },
                       "metadata": {
@@ -39635,7 +42107,9 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.service_account_scopes",
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
-                          "cluster_config.0.gce_cluster_config.0.metadata"
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
                         ]
                       },
                       "network": {
@@ -39655,7 +42129,9 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.service_account_scopes",
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
-                          "cluster_config.0.gce_cluster_config.0.metadata"
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
                         ]
                       },
                       "service_account": {
@@ -39671,7 +42147,9 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.service_account_scopes",
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
-                          "cluster_config.0.gce_cluster_config.0.metadata"
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
                         ]
                       },
                       "service_account_scopes": {
@@ -39691,7 +42169,9 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.service_account_scopes",
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
-                          "cluster_config.0.gce_cluster_config.0.metadata"
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
                         ]
                       },
                       "subnetwork": {
@@ -39710,7 +42190,9 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.service_account_scopes",
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
-                          "cluster_config.0.gce_cluster_config.0.metadata"
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
                         ]
                       },
                       "tags": {
@@ -39729,7 +42211,9 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.service_account_scopes",
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
-                          "cluster_config.0.gce_cluster_config.0.metadata"
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
                         ]
                       },
                       "zone": {
@@ -39746,11 +42230,97 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.service_account_scopes",
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
-                          "cluster_config.0.gce_cluster_config.0.metadata"
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
                         ]
                       }
                     },
                     "block_types": {
+                      "node_group_affinity": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "node_group_uri": {
+                              "type": "string",
+                              "required": true,
+                              "force_new": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "computed": true,
+                        "at_least_one_of": [
+                          "cluster_config.0.gce_cluster_config.0.zone",
+                          "cluster_config.0.gce_cluster_config.0.network",
+                          "cluster_config.0.gce_cluster_config.0.subnetwork",
+                          "cluster_config.0.gce_cluster_config.0.tags",
+                          "cluster_config.0.gce_cluster_config.0.service_account",
+                          "cluster_config.0.gce_cluster_config.0.service_account_scopes",
+                          "cluster_config.0.gce_cluster_config.0.internal_ip_only",
+                          "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
+                        ],
+                        "max_items": 1
+                      },
+                      "reservation_affinity": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "consume_reservation_type": {
+                              "type": "string",
+                              "optional": true,
+                              "force_new": true,
+                              "at_least_one_of": [
+                                "cluster_config.0.gce_cluster_config.0.reservation_affinity.0.consume_reservation_type",
+                                "cluster_config.0.gce_cluster_config.0.reservation_affinity.0.key",
+                                "cluster_config.0.gce_cluster_config.0.reservation_affinity.0.values"
+                              ]
+                            },
+                            "key": {
+                              "type": "string",
+                              "optional": true,
+                              "force_new": true,
+                              "at_least_one_of": [
+                                "cluster_config.0.gce_cluster_config.0.reservation_affinity.0.consume_reservation_type",
+                                "cluster_config.0.gce_cluster_config.0.reservation_affinity.0.key",
+                                "cluster_config.0.gce_cluster_config.0.reservation_affinity.0.values"
+                              ]
+                            },
+                            "values": {
+                              "type": [
+                                "set",
+                                "string"
+                              ],
+                              "optional": true,
+                              "force_new": true,
+                              "at_least_one_of": [
+                                "cluster_config.0.gce_cluster_config.0.reservation_affinity.0.consume_reservation_type",
+                                "cluster_config.0.gce_cluster_config.0.reservation_affinity.0.key",
+                                "cluster_config.0.gce_cluster_config.0.reservation_affinity.0.values"
+                              ]
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "computed": true,
+                        "at_least_one_of": [
+                          "cluster_config.0.gce_cluster_config.0.zone",
+                          "cluster_config.0.gce_cluster_config.0.network",
+                          "cluster_config.0.gce_cluster_config.0.subnetwork",
+                          "cluster_config.0.gce_cluster_config.0.tags",
+                          "cluster_config.0.gce_cluster_config.0.service_account",
+                          "cluster_config.0.gce_cluster_config.0.service_account_scopes",
+                          "cluster_config.0.gce_cluster_config.0.internal_ip_only",
+                          "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
+                        ],
+                        "max_items": 1
+                      },
                       "shielded_instance_config": {
                         "nesting_mode": 3,
                         "block": {
@@ -39801,7 +42371,9 @@ func init() {
                           "cluster_config.0.gce_cluster_config.0.service_account_scopes",
                           "cluster_config.0.gce_cluster_config.0.internal_ip_only",
                           "cluster_config.0.gce_cluster_config.0.shielded_instance_config",
-                          "cluster_config.0.gce_cluster_config.0.metadata"
+                          "cluster_config.0.gce_cluster_config.0.metadata",
+                          "cluster_config.0.gce_cluster_config.0.reservation_affinity",
+                          "cluster_config.0.gce_cluster_config.0.node_group_affinity"
                         ],
                         "max_items": 1
                       }
@@ -39823,7 +42395,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 },
@@ -39860,7 +42433,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ]
                 },
                 "lifecycle_config": {
@@ -39904,7 +42478,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 },
@@ -40072,7 +42647,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 },
@@ -40102,7 +42678,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 },
@@ -40206,7 +42783,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 },
@@ -40354,7 +42932,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 },
@@ -40522,7 +43101,8 @@ func init() {
                     "cluster_config.0.autoscaling_config",
                     "cluster_config.0.metastore_config",
                     "cluster_config.0.lifecycle_config",
-                    "cluster_config.0.endpoint_config"
+                    "cluster_config.0.endpoint_config",
+                    "cluster_config.0.dataproc_metric_config"
                   ],
                   "max_items": 1
                 }
@@ -42031,6 +44611,21 @@ func init() {
             },
             "optional": true,
             "force_new": true,
+            "max_items": 1
+          },
+          "telemetry_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "log_format": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "JSON"
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
             "max_items": 1
           }
         }
@@ -44187,6 +46782,487 @@ func init() {
         }
       }
     },
+    "google_datastream_stream": {
+      "block": {
+        "attributes": {
+          "customer_managed_encryption_key": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "desired_state": {
+            "type": "string",
+            "optional": true,
+            "default": "NOT_STARTED"
+          },
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "stream_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "backfill_all": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "mysql_excluded_objects": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "mysql_databases": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "database": {
+                              "type": "string",
+                              "required": true
+                            }
+                          },
+                          "block_types": {
+                            "mysql_tables": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "table": {
+                                    "type": "string",
+                                    "required": true
+                                  }
+                                },
+                                "block_types": {
+                                  "mysql_columns": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "collation": {
+                                          "type": "string",
+                                          "optional": true
+                                        },
+                                        "column": {
+                                          "type": "string",
+                                          "optional": true
+                                        },
+                                        "data_type": {
+                                          "type": "string",
+                                          "optional": true
+                                        },
+                                        "length": {
+                                          "type": "number",
+                                          "computed": true
+                                        },
+                                        "nullable": {
+                                          "type": "bool",
+                                          "optional": true
+                                        },
+                                        "ordinal_position": {
+                                          "type": "number",
+                                          "optional": true
+                                        },
+                                        "primary_key": {
+                                          "type": "bool",
+                                          "optional": true
+                                        }
+                                      }
+                                    },
+                                    "optional": true
+                                  }
+                                }
+                              },
+                              "optional": true
+                            }
+                          }
+                        },
+                        "required": true,
+                        "min_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "backfill_all",
+              "backfill_none"
+            ],
+            "max_items": 1
+          },
+          "backfill_none": {
+            "nesting_mode": 3,
+            "block": {},
+            "optional": true,
+            "exactly_one_of": [
+              "backfill_all",
+              "backfill_none"
+            ],
+            "max_items": 1
+          },
+          "destination_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "destination_connection_profile": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              },
+              "block_types": {
+                "bigquery_destination_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "data_freshness": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    },
+                    "block_types": {
+                      "single_target_dataset": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "dataset_id": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "exactly_one_of": [
+                          "destination_config.0.bigquery_destination_config.0.single_target_dataset",
+                          "destination_config.0.bigquery_destination_config.0.source_hierarchy_datasets"
+                        ],
+                        "max_items": 1
+                      },
+                      "source_hierarchy_datasets": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "block_types": {
+                            "dataset_template": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "dataset_id_prefix": {
+                                    "type": "string",
+                                    "optional": true
+                                  },
+                                  "kms_key_name": {
+                                    "type": "string",
+                                    "optional": true,
+                                    "force_new": true
+                                  },
+                                  "location": {
+                                    "type": "string",
+                                    "required": true
+                                  }
+                                }
+                              },
+                              "required": true,
+                              "min_items": 1,
+                              "max_items": 1
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "exactly_one_of": [
+                          "destination_config.0.bigquery_destination_config.0.single_target_dataset",
+                          "destination_config.0.bigquery_destination_config.0.source_hierarchy_datasets"
+                        ],
+                        "max_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "exactly_one_of": [
+                    "destination_config.0.gcs_destination_config",
+                    "destination_config.0.bigquery_destination_config"
+                  ],
+                  "max_items": 1
+                },
+                "gcs_destination_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "file_rotation_interval": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "file_rotation_mb": {
+                        "type": "number",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "path": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    },
+                    "block_types": {
+                      "avro_file_format": {
+                        "nesting_mode": 3,
+                        "block": {},
+                        "optional": true,
+                        "exactly_one_of": [
+                          "destination_config.0.gcs_destination_config.0.avro_file_format",
+                          "destination_config.0.gcs_destination_config.0.json_file_format"
+                        ],
+                        "max_items": 1
+                      },
+                      "json_file_format": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "compression": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "schema_file_format": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "exactly_one_of": [
+                          "destination_config.0.gcs_destination_config.0.avro_file_format",
+                          "destination_config.0.gcs_destination_config.0.json_file_format"
+                        ],
+                        "max_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "exactly_one_of": [
+                    "destination_config.0.gcs_destination_config",
+                    "destination_config.0.bigquery_destination_config"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          },
+          "source_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "source_connection_profile": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              },
+              "block_types": {
+                "mysql_source_config": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "max_concurrent_cdc_tasks": {
+                        "type": "number",
+                        "optional": true,
+                        "computed": true
+                      }
+                    },
+                    "block_types": {
+                      "exclude_objects": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "block_types": {
+                            "mysql_databases": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "database": {
+                                    "type": "string",
+                                    "required": true
+                                  }
+                                },
+                                "block_types": {
+                                  "mysql_tables": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "table": {
+                                          "type": "string",
+                                          "required": true
+                                        }
+                                      },
+                                      "block_types": {
+                                        "mysql_columns": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "collation": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "column": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "data_type": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "length": {
+                                                "type": "number",
+                                                "computed": true
+                                              },
+                                              "nullable": {
+                                                "type": "bool",
+                                                "optional": true
+                                              },
+                                              "ordinal_position": {
+                                                "type": "number",
+                                                "optional": true
+                                              },
+                                              "primary_key": {
+                                                "type": "bool",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true
+                                        }
+                                      }
+                                    },
+                                    "optional": true
+                                  }
+                                }
+                              },
+                              "required": true,
+                              "min_items": 1
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "max_items": 1
+                      },
+                      "include_objects": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "block_types": {
+                            "mysql_databases": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "database": {
+                                    "type": "string",
+                                    "required": true
+                                  }
+                                },
+                                "block_types": {
+                                  "mysql_tables": {
+                                    "nesting_mode": 3,
+                                    "block": {
+                                      "attributes": {
+                                        "table": {
+                                          "type": "string",
+                                          "required": true
+                                        }
+                                      },
+                                      "block_types": {
+                                        "mysql_columns": {
+                                          "nesting_mode": 3,
+                                          "block": {
+                                            "attributes": {
+                                              "collation": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "column": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "data_type": {
+                                                "type": "string",
+                                                "optional": true
+                                              },
+                                              "length": {
+                                                "type": "number",
+                                                "computed": true
+                                              },
+                                              "nullable": {
+                                                "type": "bool",
+                                                "optional": true
+                                              },
+                                              "ordinal_position": {
+                                                "type": "number",
+                                                "optional": true
+                                              },
+                                              "primary_key": {
+                                                "type": "bool",
+                                                "optional": true
+                                              }
+                                            }
+                                          },
+                                          "optional": true
+                                        }
+                                      }
+                                    },
+                                    "optional": true
+                                  }
+                                }
+                              },
+                              "required": true,
+                              "min_items": 1
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "max_items": 1
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "google_deployment_manager_deployment": {
       "block": {
         "attributes": {
@@ -45820,6 +48896,149 @@ func init() {
             },
             "optional": true,
             "max_items": 1
+          }
+        }
+      }
+    },
+    "google_dns_managed_zone_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "managed_zone": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_dns_managed_zone_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "managed_zone": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "member": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_dns_managed_zone_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "managed_zone": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
           }
         }
       }
@@ -48192,6 +51411,361 @@ func init() {
         }
       }
     },
+    "google_gke_backup_backup_plan": {
+      "block": {
+        "attributes": {
+          "cluster": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "deactivated": {
+            "type": "bool",
+            "optional": true,
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "labels": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "protected_pod_count": {
+            "type": "number",
+            "computed": true
+          },
+          "uid": {
+            "type": "string",
+            "computed": true
+          }
+        },
+        "block_types": {
+          "backup_config": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "all_namespaces": {
+                  "type": "bool",
+                  "optional": true,
+                  "exactly_one_of": [
+                    "backup_config.0.all_namespaces",
+                    "backup_config.0.selected_namespaces",
+                    "backup_config.0.selected_applications"
+                  ]
+                },
+                "include_secrets": {
+                  "type": "bool",
+                  "optional": true,
+                  "computed": true
+                },
+                "include_volume_data": {
+                  "type": "bool",
+                  "optional": true,
+                  "computed": true
+                }
+              },
+              "block_types": {
+                "encryption_key": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "gcp_kms_encryption_key": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
+                "selected_applications": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "block_types": {
+                      "namespaced_names": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "name": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "namespace": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "required": true,
+                        "min_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "exactly_one_of": [
+                    "backup_config.0.all_namespaces",
+                    "backup_config.0.selected_namespaces",
+                    "backup_config.0.selected_applications"
+                  ],
+                  "max_items": 1
+                },
+                "selected_namespaces": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "namespaces": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "exactly_one_of": [
+                    "backup_config.0.all_namespaces",
+                    "backup_config.0.selected_namespaces",
+                    "backup_config.0.selected_applications"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "backup_schedule": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "cron_schedule": {
+                  "type": "string",
+                  "optional": true
+                },
+                "paused": {
+                  "type": "bool",
+                  "optional": true,
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "retention_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "backup_delete_lock_days": {
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                "backup_retain_days": {
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                "locked": {
+                  "type": "bool",
+                  "optional": true,
+                  "computed": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_gke_backup_backup_plan_iam_binding": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "members": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_gke_backup_backup_plan_iam_member": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "member": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "role": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "condition": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "expression": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "google_gke_backup_backup_plan_iam_policy": {
+      "block": {
+        "attributes": {
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "policy_data": {
+            "type": "string",
+            "required": true
+          },
+          "project": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "google_gke_hub_membership": {
       "block": {
         "attributes": {
@@ -49364,6 +52938,232 @@ func init() {
           "policy_data": {
             "type": "string",
             "required": true
+          }
+        }
+      }
+    },
+    "google_iam_access_boundary_policy": {
+      "block": {
+        "attributes": {
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "etag": {
+            "type": "string",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "parent": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "rules": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                }
+              },
+              "block_types": {
+                "access_boundary_rule": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "available_permissions": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "available_resource": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    },
+                    "block_types": {
+                      "availability_condition": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "description": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "expression": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "location": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "title": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "max_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1
+          }
+        }
+      }
+    },
+    "google_iam_workforce_pool": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "disabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "parent": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "session_duration": {
+            "type": "string",
+            "optional": true,
+            "default": "3600s"
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "workforce_pool_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "google_iam_workforce_pool_provider": {
+      "block": {
+        "attributes": {
+          "attribute_condition": {
+            "type": "string",
+            "optional": true
+          },
+          "attribute_mapping": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "disabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "display_name": {
+            "type": "string",
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "provider_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "state": {
+            "type": "string",
+            "computed": true
+          },
+          "workforce_pool_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "oidc": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "client_id": {
+                  "type": "string",
+                  "required": true
+                },
+                "issuer_uri": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "saml",
+              "oidc"
+            ],
+            "max_items": 1
+          },
+          "saml": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "idp_metadata_xml": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "exactly_one_of": [
+              "saml",
+              "oidc"
+            ],
+            "max_items": 1
           }
         }
       }
@@ -57431,6 +61231,10 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "skip_await_rollout": {
+            "type": "bool",
+            "optional": true
+          },
           "uid": {
             "type": "string",
             "computed": true
@@ -64985,6 +68789,10 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "instance_type": {
+            "type": "string",
+            "computed": true
+          },
           "ip_address": {
             "type": [
               "list",
@@ -65347,6 +69155,10 @@ func init() {
                   "optional": true,
                   "computed": true
                 },
+                "deletion_protection_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
                 "disk_autoresize": {
                   "type": "bool",
                   "optional": true,
@@ -65365,6 +69177,7 @@ func init() {
                 "disk_type": {
                   "type": "string",
                   "optional": true,
+                  "force_new": true,
                   "default": "PD_SSD"
                 },
                 "pricing_plan": {
@@ -65820,15 +69633,30 @@ func init() {
                     "attributes": {
                       "bucket": {
                         "type": "string",
-                        "required": true
+                        "optional": true,
+                        "at_least_one_of": [
+                          "settings.0.sql_server_audit_config.0.bucket",
+                          "settings.0.sql_server_audit_config.0.retention_interval",
+                          "settings.0.sql_server_audit_config.0.upload_interval"
+                        ]
                       },
                       "retention_interval": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "at_least_one_of": [
+                          "settings.0.sql_server_audit_config.0.bucket",
+                          "settings.0.sql_server_audit_config.0.retention_interval",
+                          "settings.0.sql_server_audit_config.0.upload_interval"
+                        ]
                       },
                       "upload_interval": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "at_least_one_of": [
+                          "settings.0.sql_server_audit_config.0.bucket",
+                          "settings.0.sql_server_audit_config.0.retention_interval",
+                          "settings.0.sql_server_audit_config.0.upload_interval"
+                        ]
                       }
                     }
                   },
@@ -65851,9 +69679,29 @@ func init() {
     "google_sql_source_representation_instance": {
       "block": {
         "attributes": {
+          "ca_certificate": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "client_certificate": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "client_key": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
           "database_version": {
             "type": "string",
             "required": true,
+            "force_new": true
+          },
+          "dump_file_path": {
+            "type": "string",
+            "optional": true,
             "force_new": true
           },
           "host": {
@@ -65865,6 +69713,12 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          },
+          "password": {
+            "type": "string",
+            "optional": true,
+            "force_new": true,
+            "sensitive": true
           },
           "port": {
             "type": "number",
@@ -65882,6 +69736,11 @@ func init() {
             "type": "string",
             "optional": true,
             "computed": true,
+            "force_new": true
+          },
+          "username": {
+            "type": "string",
+            "optional": true,
             "force_new": true
           }
         }
@@ -67038,23 +70897,19 @@ func init() {
                     "attributes": {
                       "day": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       },
                       "month": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       },
                       "year": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true,
                   "max_items": 1
                 },
                 "schedule_start_date": {
@@ -67063,23 +70918,19 @@ func init() {
                     "attributes": {
                       "day": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       },
                       "month": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       },
                       "year": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       }
                     }
                   },
                   "required": true,
-                  "force_new": true,
                   "min_items": 1,
                   "max_items": 1
                 },
@@ -67089,28 +70940,23 @@ func init() {
                     "attributes": {
                       "hours": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       },
                       "minutes": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       },
                       "nanos": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       },
                       "seconds": {
                         "type": "number",
-                        "required": true,
-                        "force_new": true
+                        "required": true
                       }
                     }
                   },
                   "optional": true,
-                  "force_new": true,
                   "max_items": 1
                 }
               }
@@ -67440,6 +71286,31 @@ func init() {
             "required": true,
             "min_items": 1,
             "max_items": 1
+          }
+        }
+      }
+    },
+    "google_tags_location_tag_binding": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "computed": true
+          },
+          "parent": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tag_value": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -68179,7 +72050,34 @@ func init() {
               "attributes": {
                 "fixed_node_count": {
                   "type": "number",
-                  "required": true
+                  "optional": true,
+                  "exactly_one_of": [
+                    "online_serving_config.0.fixed_node_count",
+                    "online_serving_config.0.scaling"
+                  ]
+                }
+              },
+              "block_types": {
+                "scaling": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "max_node_count": {
+                        "type": "number",
+                        "required": true
+                      },
+                      "min_node_count": {
+                        "type": "number",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "exactly_one_of": [
+                    "online_serving_config.0.fixed_node_count",
+                    "online_serving_config.0.scaling"
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -68344,7 +72242,8 @@ func init() {
           },
           "value_type": {
             "type": "string",
-            "required": true
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -68770,5 +72669,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "4.47.0"
+    ProviderSchemaInfo.Version = "4.51.0"
 }

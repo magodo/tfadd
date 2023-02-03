@@ -4218,7 +4218,8 @@ func init() {
         "attributes": {
           "api_key": {
             "type": "string",
-            "required": true
+            "required": true,
+            "sensitive": true
           },
           "api_management_name": {
             "type": "string",
@@ -6079,6 +6080,10 @@ func init() {
               "list",
               "string"
             ],
+            "computed": true
+          },
+          "hosting_environment_profile_id": {
+            "type": "string",
             "computed": true
           },
           "issue_date": {
@@ -9388,6 +9393,174 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": true
+          }
+        }
+      }
+    },
+    "azurerm_application_insights_standard_web_test": {
+      "block": {
+        "attributes": {
+          "application_insights_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "enabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "frequency": {
+            "type": "number",
+            "optional": true,
+            "default": 300
+          },
+          "geo_locations": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "retry_enabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "synthetic_monitor_id": {
+            "type": "string",
+            "computed": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "timeout": {
+            "type": "number",
+            "optional": true,
+            "default": 30
+          }
+        },
+        "block_types": {
+          "request": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "body": {
+                  "type": "string",
+                  "optional": true
+                },
+                "follow_redirects_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "http_verb": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "GET"
+                },
+                "parse_dependent_requests_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "url": {
+                  "type": "string",
+                  "required": true
+                }
+              },
+              "block_types": {
+                "header": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "value": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          },
+          "validation_rules": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "expected_status_code": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 200
+                },
+                "ssl_cert_remaining_lifetime": {
+                  "type": "number",
+                  "optional": true
+                },
+                "ssl_check_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                }
+              },
+              "block_types": {
+                "content": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "content_match": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "ignore_case": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "pass_if_text_found": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
           }
         }
       }
@@ -19318,7 +19491,8 @@ func init() {
                       },
                       "password": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "sensitive": true
                       },
                       "username": {
                         "type": "string",
@@ -19631,7 +19805,7 @@ func init() {
           "default_identity_type": {
             "type": "string",
             "optional": true,
-            "default": "FirstPartyIdentity"
+            "computed": true
           },
           "enable_automatic_failover": {
             "type": "bool",
@@ -20885,8 +21059,7 @@ func init() {
                       }
                     }
                   },
-                  "optional": true,
-                  "computed": true
+                  "optional": true
                 },
                 "included_path": {
                   "nesting_mode": 3,
@@ -20898,8 +21071,7 @@ func init() {
                       }
                     }
                   },
-                  "optional": true,
-                  "computed": true
+                  "optional": true
                 },
                 "spatial_index": {
                   "nesting_mode": 3,
@@ -21228,6 +21400,36 @@ func init() {
             },
             "optional": true,
             "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_cost_anomaly_alert": {
+      "block": {
+        "attributes": {
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "email_addresses": {
+            "type": [
+              "set",
+              "string"
+            ],
+            "required": true
+          },
+          "email_subject": {
+            "type": "string",
+            "required": true
+          },
+          "message": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -27673,8 +27875,11 @@ func init() {
           "customer_managed_key_enabled": {
             "type": "bool",
             "optional": true,
-            "force_new": true,
             "default": false
+          },
+          "disk_encryption_set_id": {
+            "type": "string",
+            "computed": true
           },
           "infrastructure_encryption_enabled": {
             "type": "bool",
@@ -27692,6 +27897,31 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "managed_disk_cmk_key_vault_key_id": {
+            "type": "string",
+            "optional": true
+          },
+          "managed_disk_cmk_rotation_to_latest_version_enabled": {
+            "type": "bool",
+            "optional": true,
+            "required_with": [
+              "managed_disk_cmk_key_vault_key_id"
+            ]
+          },
+          "managed_disk_identity": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "principal_id": "string",
+                  "tenant_id": "string",
+                  "type": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
           "managed_resource_group_id": {
             "type": "string",
             "computed": true
@@ -27704,8 +27934,7 @@ func init() {
           },
           "managed_services_cmk_key_vault_key_id": {
             "type": "string",
-            "optional": true,
-            "force_new": true
+            "optional": true
           },
           "name": {
             "type": "string",
@@ -27715,13 +27944,11 @@ func init() {
           "network_security_group_rules_required": {
             "type": "string",
             "optional": true,
-            "computed": true,
-            "force_new": true
+            "computed": true
           },
           "public_network_access_enabled": {
             "type": "bool",
             "optional": true,
-            "force_new": true,
             "default": true
           },
           "resource_group_name": {
@@ -27811,7 +28038,6 @@ func init() {
                   "type": "bool",
                   "optional": true,
                   "computed": true,
-                  "force_new": true,
                   "at_least_one_of": [
                     "custom_parameters.0.machine_learning_workspace_id",
                     "custom_parameters.0.no_public_ip",
@@ -29009,7 +29235,8 @@ func init() {
           "password": {
             "type": "string",
             "required": true,
-            "force_new": true
+            "force_new": true,
+            "sensitive": true
           },
           "resource_group_name": {
             "type": "string",
@@ -44404,6 +44631,20 @@ func init() {
             ],
             "optional": true
           },
+          "firewall_ids": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
+          "firewall_policy_ids": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
           "location": {
             "type": "string",
             "required": true,
@@ -44425,6 +44666,22 @@ func init() {
               "string"
             ],
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_ip_group_cidr": {
+      "block": {
+        "attributes": {
+          "cidr": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "ip_group_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -45375,7 +45632,11 @@ func init() {
               "set",
               "string"
             ],
-            "optional": true
+            "optional": true,
+            "computed": true,
+            "conflicts_with": [
+              "api_server_access_profile.0.authorized_ip_ranges"
+            ]
           },
           "automatic_channel_upgrade": {
             "type": "string",
@@ -45592,6 +45853,20 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "connector_identity": {
+                  "type": [
+                    "list",
+                    [
+                      "object",
+                      {
+                        "client_id": "string",
+                        "object_id": "string",
+                        "user_assigned_identity_id": "string"
+                      }
+                    ]
+                  ],
+                  "computed": true
+                },
                 "subnet_name": {
                   "type": "string",
                   "required": true
@@ -45599,6 +45874,36 @@ func init() {
               }
             },
             "optional": true,
+            "max_items": 1
+          },
+          "api_server_access_profile": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "authorized_ip_ranges": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true,
+                  "computed": true,
+                  "conflicts_with": [
+                    "api_server_authorized_ip_ranges"
+                  ]
+                },
+                "subnet_id": {
+                  "type": "string",
+                  "optional": true
+                },
+                "vnet_integration_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
             "max_items": 1
           },
           "auto_scaler_profile": {
@@ -45780,6 +46085,19 @@ func init() {
                     "azure_active_directory_role_based_access_control.0.managed",
                     "azure_active_directory_role_based_access_control.0.admin_group_object_ids"
                   ]
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "confidential_computing": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "sgx_quote_helper_enabled": {
+                  "type": "bool",
+                  "required": true
                 }
               }
             },
@@ -46213,6 +46531,23 @@ func init() {
                   "force_new": true,
                   "max_items": 1
                 },
+                "node_network_profile": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "node_public_ip_tags": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
                 "upgrade_settings": {
                   "nesting_mode": 3,
                   "block": {
@@ -46356,6 +46691,24 @@ func init() {
                     "ingress_application_gateway.0.subnet_cidr",
                     "ingress_application_gateway.0.subnet_id"
                   ]
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "key_management_service": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "key_vault_key_id": {
+                  "type": "string",
+                  "required": true
+                },
+                "key_vault_network_access": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "Public"
                 }
               }
             },
@@ -47362,6 +47715,23 @@ func init() {
             "force_new": true,
             "max_items": 1
           },
+          "node_network_profile": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "node_public_ip_tags": {
+                  "type": [
+                    "map",
+                    "string"
+                  ],
+                  "optional": true,
+                  "force_new": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
           "upgrade_settings": {
             "nesting_mode": 3,
             "block": {
@@ -48252,6 +48622,304 @@ func init() {
         }
       }
     },
+    "azurerm_lab_service_lab": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "lab_plan_id": {
+            "type": "string",
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "title": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "auto_shutdown": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "disconnect_delay": {
+                  "type": "string",
+                  "optional": true
+                },
+                "idle_delay": {
+                  "type": "string",
+                  "optional": true
+                },
+                "no_connect_delay": {
+                  "type": "string",
+                  "optional": true
+                },
+                "shutdown_on_idle": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "connection_setting": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "client_rdp_access": {
+                  "type": "string",
+                  "optional": true
+                },
+                "client_ssh_access": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "network": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "load_balancer_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "public_ip_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "subnet_id": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "roster": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "active_directory_group_id": {
+                  "type": "string",
+                  "optional": true
+                },
+                "lms_instance": {
+                  "type": "string",
+                  "optional": true
+                },
+                "lti_client_id": {
+                  "type": "string",
+                  "optional": true
+                },
+                "lti_context_id": {
+                  "type": "string",
+                  "optional": true
+                },
+                "lti_roster_endpoint": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "security": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "open_access_enabled": {
+                  "type": "bool",
+                  "required": true
+                },
+                "registration_code": {
+                  "type": "string",
+                  "computed": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          },
+          "virtual_machine": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "additional_capability_gpu_drivers_installed": {
+                  "type": "bool",
+                  "optional": true,
+                  "force_new": true,
+                  "default": false
+                },
+                "create_option": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true,
+                  "default": "Image"
+                },
+                "shared_password_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "force_new": true,
+                  "default": false
+                },
+                "usage_quota": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "PT0S"
+                }
+              },
+              "block_types": {
+                "admin_user": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "password": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true,
+                        "sensitive": true
+                      },
+                      "username": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "image_reference": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "id": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "virtual_machine.0.image_reference.0.offer",
+                          "virtual_machine.0.image_reference.0.publisher",
+                          "virtual_machine.0.image_reference.0.sku",
+                          "virtual_machine.0.image_reference.0.version"
+                        ]
+                      },
+                      "offer": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "virtual_machine.0.image_reference.0.id"
+                        ]
+                      },
+                      "publisher": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "virtual_machine.0.image_reference.0.id"
+                        ]
+                      },
+                      "sku": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "virtual_machine.0.image_reference.0.id"
+                        ]
+                      },
+                      "version": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "virtual_machine.0.image_reference.0.id"
+                        ]
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "non_admin_user": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "password": {
+                        "type": "string",
+                        "required": true,
+                        "sensitive": true
+                      },
+                      "username": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
+                "sku": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "capacity": {
+                        "type": "number",
+                        "required": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "azurerm_lab_service_plan": {
       "block": {
         "attributes": {
@@ -48368,6 +49036,94 @@ func init() {
             },
             "optional": true,
             "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_lab_service_schedule": {
+      "block": {
+        "attributes": {
+          "lab_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "notes": {
+            "type": "string",
+            "optional": true
+          },
+          "start_time": {
+            "type": "string",
+            "optional": true
+          },
+          "stop_time": {
+            "type": "string",
+            "required": true
+          },
+          "time_zone": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "recurrence": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "expiration_date": {
+                  "type": "string",
+                  "required": true
+                },
+                "frequency": {
+                  "type": "string",
+                  "required": true
+                },
+                "interval": {
+                  "type": "number",
+                  "optional": true
+                },
+                "week_days": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_lab_service_user": {
+      "block": {
+        "attributes": {
+          "additional_usage_quota": {
+            "type": "string",
+            "optional": true,
+            "default": "PT0S"
+          },
+          "email": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "lab_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -48549,6 +49305,10 @@ func init() {
               "string"
             ],
             "computed": true
+          },
+          "virtual_network_id": {
+            "type": "string",
+            "optional": true
           }
         },
         "block_types": {
@@ -50282,6 +51042,10 @@ func init() {
           "possible_outbound_ip_addresses": {
             "type": "string",
             "computed": true
+          },
+          "service_plan_id": {
+            "type": "string",
+            "optional": true
           },
           "site_credential": {
             "type": [
@@ -53493,14 +54257,15 @@ func init() {
                       "docker_image": {
                         "type": "string",
                         "optional": true,
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ],
                         "required_with": [
                           "site_config.0.application_stack.0.docker_image_tag"
@@ -53516,129 +54281,113 @@ func init() {
                       "dotnet_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.ruby_version",
-                          "site_config.0.application_stack.0.java_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
+                        ]
+                      },
+                      "go_version": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "site_config.0.application_stack.0.docker_image",
+                          "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.java_version",
+                          "site_config.0.application_stack.0.node_version",
+                          "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "java_server": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "required_with": [
+                          "site_config.0.application_stack.0.java_version"
+                        ]
                       },
                       "java_server_version": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "required_with": [
+                          "site_config.0.application_stack.0.java_server"
+                        ]
                       },
                       "java_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.ruby_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "node_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version",
-                          "site_config.0.application_stack.0.java_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "php_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.ruby_version",
-                          "site_config.0.application_stack.0.java_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "python_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.java_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.ruby_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "ruby_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.java_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       }
                     }
@@ -53948,6 +54697,10 @@ func init() {
           "possible_outbound_ip_addresses": {
             "type": "string",
             "computed": true
+          },
+          "service_plan_id": {
+            "type": "string",
+            "optional": true
           },
           "site_credential": {
             "type": [
@@ -54701,14 +55454,15 @@ func init() {
                       "docker_image": {
                         "type": "string",
                         "optional": true,
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ],
                         "required_with": [
                           "site_config.0.application_stack.0.docker_image_tag"
@@ -54724,129 +55478,113 @@ func init() {
                       "dotnet_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.ruby_version",
-                          "site_config.0.application_stack.0.java_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
+                        ]
+                      },
+                      "go_version": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "site_config.0.application_stack.0.docker_image",
+                          "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.java_version",
+                          "site_config.0.application_stack.0.node_version",
+                          "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "java_server": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "required_with": [
+                          "site_config.0.application_stack.0.java_version"
+                        ]
                       },
                       "java_server_version": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "required_with": [
+                          "site_config.0.application_stack.0.java_server"
+                        ]
                       },
                       "java_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.ruby_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "node_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version",
-                          "site_config.0.application_stack.0.java_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "php_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.ruby_version",
-                          "site_config.0.application_stack.0.java_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "python_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.java_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.ruby_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       },
                       "ruby_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.dotnet_version",
-                          "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.node_version",
-                          "site_config.0.application_stack.0.java_version"
-                        ],
-                        "at_least_one_of": [
+                        "exactly_one_of": [
                           "site_config.0.application_stack.0.docker_image",
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
                           "site_config.0.application_stack.0.python_version",
-                          "site_config.0.application_stack.0.ruby_version"
+                          "site_config.0.application_stack.0.ruby_version",
+                          "site_config.0.application_stack.0.go_version"
                         ]
                       }
                     }
@@ -55698,6 +56436,11 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": true
+          },
+          "local_authentication_disabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
           },
           "location": {
             "type": "string",
@@ -57671,6 +58414,68 @@ func init() {
         }
       }
     },
+    "azurerm_machine_learning_datastore_blobstorage": {
+      "block": {
+        "attributes": {
+          "account_key": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true,
+            "exactly_one_of": [
+              "account_key",
+              "shared_access_signature"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "is_default": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "service_data_auth_identity": {
+            "type": "string",
+            "optional": true,
+            "default": "None"
+          },
+          "shared_access_signature": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true,
+            "at_least_one_of": [
+              "account_key",
+              "shared_access_signature"
+            ]
+          },
+          "storage_container_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
+          "workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_machine_learning_inference_cluster": {
       "block": {
         "attributes": {
@@ -58107,6 +58912,10 @@ func init() {
     "azurerm_maintenance_configuration": {
       "block": {
         "attributes": {
+          "in_guest_user_patch_mode": {
+            "type": "string",
+            "optional": true
+          },
           "location": {
             "type": "string",
             "required": true,
@@ -58147,6 +58956,79 @@ func init() {
           }
         },
         "block_types": {
+          "install_patches": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "reboot": {
+                  "type": "string",
+                  "optional": true
+                }
+              },
+              "block_types": {
+                "linux": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "classifications_to_include": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "package_names_mask_to_exclude": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "package_names_mask_to_include": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "windows": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "classifications_to_include": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "kb_numbers_to_exclude": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "kb_numbers_to_include": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
           "window": {
             "nesting_mode": 3,
             "block": {
@@ -59467,6 +60349,10 @@ func init() {
                   "type": "bool",
                   "optional": true
                 },
+                "playready_response_custom_data": {
+                  "type": "string",
+                  "optional": true
+                },
                 "widevine_configuration_template": {
                   "type": "string",
                   "optional": true
@@ -59568,6 +60454,10 @@ func init() {
                       "relative_expiration_date": {
                         "type": "string",
                         "optional": true
+                      },
+                      "security_level": {
+                        "type": "string",
+                        "optional": true
                       }
                     },
                     "block_types": {
@@ -59588,6 +60478,10 @@ func init() {
                               "optional": true
                             },
                             "compressed_digital_audio_opl": {
+                              "type": "number",
+                              "optional": true
+                            },
+                            "compressed_digital_video_opl": {
                               "type": "number",
                               "optional": true
                             },
@@ -59618,6 +60512,26 @@ func init() {
                             "uncompressed_digital_video_opl": {
                               "type": "number",
                               "optional": true
+                            }
+                          },
+                          "block_types": {
+                            "explicit_analog_television_output_restriction": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "best_effort_enforced": {
+                                    "type": "bool",
+                                    "optional": true,
+                                    "default": false
+                                  },
+                                  "control_bits": {
+                                    "type": "number",
+                                    "required": true
+                                  }
+                                }
+                              },
+                              "optional": true,
+                              "max_items": 1
                             }
                           }
                         },
@@ -59670,6 +60584,34 @@ func init() {
                       }
                     },
                     "block_types": {
+                      "alternate_key": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "rsa_token_key_exponent": {
+                              "type": "string",
+                              "optional": true,
+                              "sensitive": true
+                            },
+                            "rsa_token_key_modulus": {
+                              "type": "string",
+                              "optional": true,
+                              "sensitive": true
+                            },
+                            "symmetric_token_key": {
+                              "type": "string",
+                              "optional": true,
+                              "sensitive": true
+                            },
+                            "x509_token_key_raw": {
+                              "type": "string",
+                              "optional": true,
+                              "sensitive": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
                       "required_claim": {
                         "nesting_mode": 3,
                         "block": {
@@ -60122,6 +61064,11 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
           "resource_group_name": {
             "type": "string",
             "required": true,
@@ -60141,6 +61088,48 @@ func init() {
           }
         },
         "block_types": {
+          "encryption": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "current_key_identifier": {
+                  "type": "string",
+                  "computed": true
+                },
+                "key_vault_key_identifier": {
+                  "type": "string",
+                  "optional": true
+                },
+                "type": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "SystemKey"
+                }
+              },
+              "block_types": {
+                "managed_identity": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "use_system_assigned_identity": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "user_assigned_identity_id": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
+          },
           "identity": {
             "nesting_mode": 3,
             "block": {
@@ -60203,10 +61192,153 @@ func init() {
                   "optional": true,
                   "default": false
                 }
+              },
+              "block_types": {
+                "managed_identity": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "use_system_assigned_identity": {
+                        "type": "bool",
+                        "optional": true
+                      },
+                      "user_assigned_identity_id": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
               }
             },
             "required": true,
             "min_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_media_services_account_filter": {
+      "block": {
+        "attributes": {
+          "first_quality_bitrate": {
+            "type": "number",
+            "optional": true
+          },
+          "media_services_account_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "presentation_time_range": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "end_in_units": {
+                  "type": "number",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "presentation_time_range.0.end_in_units",
+                    "presentation_time_range.0.force_end",
+                    "presentation_time_range.0.live_backoff_in_units",
+                    "presentation_time_range.0.presentation_window_in_units",
+                    "presentation_time_range.0.start_in_units"
+                  ]
+                },
+                "force_end": {
+                  "type": "bool",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "presentation_time_range.0.end_in_units",
+                    "presentation_time_range.0.force_end",
+                    "presentation_time_range.0.live_backoff_in_units",
+                    "presentation_time_range.0.presentation_window_in_units",
+                    "presentation_time_range.0.start_in_units"
+                  ]
+                },
+                "live_backoff_in_units": {
+                  "type": "number",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "presentation_time_range.0.end_in_units",
+                    "presentation_time_range.0.force_end",
+                    "presentation_time_range.0.live_backoff_in_units",
+                    "presentation_time_range.0.presentation_window_in_units",
+                    "presentation_time_range.0.start_in_units"
+                  ]
+                },
+                "presentation_window_in_units": {
+                  "type": "number",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "presentation_time_range.0.end_in_units",
+                    "presentation_time_range.0.force_end",
+                    "presentation_time_range.0.live_backoff_in_units",
+                    "presentation_time_range.0.presentation_window_in_units",
+                    "presentation_time_range.0.start_in_units"
+                  ]
+                },
+                "start_in_units": {
+                  "type": "number",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "presentation_time_range.0.end_in_units",
+                    "presentation_time_range.0.force_end",
+                    "presentation_time_range.0.live_backoff_in_units",
+                    "presentation_time_range.0.presentation_window_in_units",
+                    "presentation_time_range.0.start_in_units"
+                  ]
+                },
+                "unit_timescale_in_milliseconds": {
+                  "type": "number",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "track_selection": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "condition": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "operation": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "property": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "value": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1
+                }
+              }
+            },
+            "optional": true
           }
         }
       }
@@ -63567,7 +64699,13 @@ func init() {
           "eventhub_authorization_rule_id": {
             "type": "string",
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "at_least_one_of": [
+              "eventhub_authorization_rule_id",
+              "log_analytics_workspace_id",
+              "storage_account_id",
+              "partner_solution_id"
+            ]
           },
           "eventhub_name": {
             "type": "string",
@@ -63576,11 +64714,18 @@ func init() {
           },
           "log_analytics_destination_type": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "default": "AzureDiagnostics"
           },
           "log_analytics_workspace_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "at_least_one_of": [
+              "eventhub_authorization_rule_id",
+              "log_analytics_workspace_id",
+              "storage_account_id",
+              "partner_solution_id"
+            ]
           },
           "name": {
             "type": "string",
@@ -63589,12 +64734,24 @@ func init() {
           },
           "partner_solution_id": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "at_least_one_of": [
+              "eventhub_authorization_rule_id",
+              "log_analytics_workspace_id",
+              "storage_account_id",
+              "partner_solution_id"
+            ]
           },
           "storage_account_id": {
             "type": "string",
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "at_least_one_of": [
+              "eventhub_authorization_rule_id",
+              "log_analytics_workspace_id",
+              "storage_account_id",
+              "partner_solution_id"
+            ]
           },
           "target_resource_id": {
             "type": "string",
@@ -63603,6 +64760,50 @@ func init() {
           }
         },
         "block_types": {
+          "enabled_log": {
+            "nesting_mode": 4,
+            "block": {
+              "attributes": {
+                "category": {
+                  "type": "string",
+                  "optional": true
+                },
+                "category_group": {
+                  "type": "string",
+                  "optional": true
+                }
+              },
+              "block_types": {
+                "retention_policy": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "days": {
+                        "type": "number",
+                        "optional": true
+                      },
+                      "enabled": {
+                        "type": "bool",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "conflicts_with": [
+              "log"
+            ],
+            "at_least_one_of": [
+              "enabled_log",
+              "log",
+              "metric"
+            ]
+          },
           "log": {
             "nesting_mode": 4,
             "block": {
@@ -63641,7 +64842,13 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "computed": true,
+            "at_least_one_of": [
+              "enabled_log",
+              "log",
+              "metric"
+            ]
           },
           "metric": {
             "nesting_mode": 4,
@@ -63677,7 +64884,12 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "at_least_one_of": [
+              "enabled_log",
+              "log",
+              "metric"
+            ]
           }
         }
       }
@@ -66644,6 +67856,27 @@ func init() {
           }
         },
         "block_types": {
+          "customer_managed_key": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "key_vault_key_id": {
+                  "type": "string",
+                  "optional": true,
+                  "required_with": [
+                    "identity",
+                    "customer_managed_key.0.primary_user_assigned_identity_id"
+                  ]
+                },
+                "primary_user_assigned_identity_id": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
           "high_availability": {
             "nesting_mode": 3,
             "block": {
@@ -66655,6 +67888,34 @@ func init() {
                 "standby_availability_zone": {
                   "type": "string",
                   "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
                 }
               }
             },
@@ -68255,6 +69516,111 @@ func init() {
         }
       }
     },
+    "azurerm_network_manager_connectivity_configuration": {
+      "block": {
+        "attributes": {
+          "connectivity_topology": {
+            "type": "string",
+            "required": true
+          },
+          "delete_existing_peering_enabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "global_mesh_enabled": {
+            "type": "bool",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network_manager_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "applies_to_group": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "global_mesh_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "group_connectivity": {
+                  "type": "string",
+                  "required": true
+                },
+                "network_group_id": {
+                  "type": "string",
+                  "required": true
+                },
+                "use_hub_gateway": {
+                  "type": "bool",
+                  "optional": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1
+          },
+          "hub": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "resource_id": {
+                  "type": "string",
+                  "required": true
+                },
+                "resource_type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_network_manager_management_group_connection": {
+      "block": {
+        "attributes": {
+          "connection_state": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "management_group_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network_manager_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_network_manager_network_group": {
       "block": {
         "attributes": {
@@ -68268,6 +69634,91 @@ func init() {
             "force_new": true
           },
           "network_manager_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_network_manager_scope_connection": {
+      "block": {
+        "attributes": {
+          "connection_state": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network_manager_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "target_scope_id": {
+            "type": "string",
+            "required": true
+          },
+          "tenant_id": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
+    "azurerm_network_manager_static_member": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network_group_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "region": {
+            "type": "string",
+            "computed": true
+          },
+          "target_virtual_network_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_network_manager_subscription_connection": {
+      "block": {
+        "attributes": {
+          "connection_state": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network_manager_id": {
+            "type": "string",
+            "required": true
+          },
+          "subscription_id": {
             "type": "string",
             "required": true,
             "force_new": true
@@ -69191,6 +70642,42 @@ func init() {
               "string"
             ],
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_orbital_contact": {
+      "block": {
+        "attributes": {
+          "contact_profile_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "ground_station_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "reservation_end_time": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "reservation_start_time": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "spacecraft_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -70847,11 +72334,13 @@ func init() {
               "attributes": {
                 "active_directory_auth_enabled": {
                   "type": "bool",
-                  "optional": true
+                  "optional": true,
+                  "default": false
                 },
                 "password_auth_enabled": {
                   "type": "bool",
-                  "optional": true
+                  "optional": true,
+                  "default": true
                 },
                 "tenant_id": {
                   "type": "string",
@@ -70866,6 +72355,28 @@ func init() {
             "computed": true,
             "max_items": 1
           },
+          "customer_managed_key": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "key_vault_key_id": {
+                  "type": "string",
+                  "optional": true,
+                  "required_with": [
+                    "identity",
+                    "customer_managed_key.0.primary_user_assigned_identity_id"
+                  ]
+                },
+                "primary_user_assigned_identity_id": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          },
           "high_availability": {
             "nesting_mode": 3,
             "block": {
@@ -70877,6 +72388,34 @@ func init() {
                 "standby_availability_zone": {
                   "type": "string",
                   "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
                 }
               }
             },
@@ -72169,7 +73708,7 @@ func init() {
                 },
                 "subresource_name": {
                   "type": "string",
-                  "required": true,
+                  "optional": true,
                   "force_new": true
                 }
               }
@@ -72253,6 +73792,22 @@ func init() {
             "required": true,
             "min_items": 1,
             "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_private_endpoint_application_security_group_association": {
+      "block": {
+        "attributes": {
+          "application_security_group_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "private_endpoint_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -72678,6 +74233,11 @@ func init() {
             "optional": true,
             "default": false
           },
+          "immutability": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
           "location": {
             "type": "string",
             "required": true,
@@ -72687,6 +74247,11 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
           },
           "resource_group_name": {
             "type": "string",
@@ -72732,6 +74297,10 @@ func init() {
                   "type": "bool",
                   "optional": true,
                   "default": true
+                },
+                "user_assigned_identity_id": {
+                  "type": "string",
+                  "optional": true
                 }
               }
             },
@@ -72745,6 +74314,13 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
                 "principal_id": {
                   "type": "string",
                   "computed": true
@@ -75918,6 +77494,14 @@ func init() {
     "azurerm_sentinel_automation_rule": {
       "block": {
         "attributes": {
+          "condition_json": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "conflicts_with": [
+              "condition"
+            ]
+          },
           "display_name": {
             "type": "string",
             "required": true
@@ -75944,6 +77528,16 @@ func init() {
           "order": {
             "type": "number",
             "required": true
+          },
+          "triggers_on": {
+            "type": "string",
+            "optional": true,
+            "default": "Incidents"
+          },
+          "triggers_when": {
+            "type": "string",
+            "optional": true,
+            "default": "Created"
           }
         },
         "block_types": {
@@ -76036,7 +77630,11 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "computed": true,
+            "conflicts_with": [
+              "condition_json"
+            ]
           }
         }
       }
@@ -76419,6 +78017,82 @@ func init() {
             "type": "string",
             "optional": true,
             "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_sentinel_data_connector_threat_intelligence_taxii": {
+      "block": {
+        "attributes": {
+          "api_root_url": {
+            "type": "string",
+            "required": true
+          },
+          "collection_id": {
+            "type": "string",
+            "required": true
+          },
+          "display_name": {
+            "type": "string",
+            "required": true
+          },
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "lookback_date": {
+            "type": "string",
+            "optional": true,
+            "default": "1970-01-01T00:00:00Z"
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "password": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true
+          },
+          "polling_frequency": {
+            "type": "string",
+            "optional": true,
+            "default": "OnceAnHour"
+          },
+          "tenant_id": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          "user_name": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true
+          }
+        }
+      }
+    },
+    "azurerm_sentinel_log_analytics_workspace_onboarding": {
+      "block": {
+        "attributes": {
+          "customer_managed_key_enabled": {
+            "type": "bool",
+            "optional": true,
+            "force_new": true,
+            "default": false
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "workspace_name": {
+            "type": "string",
+            "required": true,
             "force_new": true
           }
         }
@@ -77009,11 +78683,13 @@ func init() {
           },
           "password": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "sensitive": true
           },
           "resource_group_name": {
             "type": "string",
-            "required": true
+            "required": true,
+            "force_new": true
           },
           "sku": {
             "type": "string",
@@ -78920,6 +80596,28 @@ func init() {
             "required": true,
             "force_new": true
           }
+        },
+        "block_types": {
+          "automatic_update": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "automation_account_id": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
+          }
         }
       }
     },
@@ -78972,6 +80670,10 @@ func init() {
             "optional": true,
             "force_new": true
           },
+          "multi_vm_group_name": {
+            "type": "string",
+            "optional": true
+          },
           "name": {
             "type": "string",
             "required": true,
@@ -78983,6 +80685,10 @@ func init() {
               [
                 "object",
                 {
+                  "failover_test_public_ip_address_id": "string",
+                  "failover_test_static_ip": "string",
+                  "failover_test_subnet_name": "string",
+                  "is_primary": "bool",
                   "recovery_public_ip_address_id": "string",
                   "source_network_interface_id": "string",
                   "target_static_ip": "string",
@@ -79030,10 +80736,27 @@ func init() {
               "target_zone"
             ]
           },
+          "target_boot_diagnostic_storage_account_id": {
+            "type": "string",
+            "optional": true
+          },
+          "target_capacity_reservation_group_id": {
+            "type": "string",
+            "optional": true
+          },
+          "target_edge_zone": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
           "target_network_id": {
             "type": "string",
             "optional": true,
             "computed": true
+          },
+          "target_proximity_placement_group_id": {
+            "type": "string",
+            "optional": true
           },
           "target_recovery_fabric_id": {
             "type": "string",
@@ -79050,8 +80773,32 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "target_virtual_machine_scale_set_id": {
+            "type": "string",
+            "optional": true
+          },
           "target_zone": {
             "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "test_network_id": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "unmanaged_disk": {
+            "type": [
+              "set",
+              [
+                "object",
+                {
+                  "disk_uri": "string",
+                  "staging_storage_account_id": "string",
+                  "target_storage_account_id": "string"
+                }
+              ]
+            ],
             "optional": true,
             "force_new": true
           }
@@ -79083,6 +80830,147 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_site_recovery_replication_recovery_plan": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "recovery_vault_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "source_recovery_fabric_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "target_recovery_fabric_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "recovery_group": {
+            "nesting_mode": 4,
+            "block": {
+              "attributes": {
+                "replicated_protected_items": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              },
+              "block_types": {
+                "post_action": {
+                  "nesting_mode": 4,
+                  "block": {
+                    "attributes": {
+                      "fabric_location": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "fail_over_directions": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "fail_over_types": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "manual_action_instruction": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "runbook_id": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "script_path": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "type": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "pre_action": {
+                  "nesting_mode": 4,
+                  "block": {
+                    "attributes": {
+                      "fabric_location": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "fail_over_directions": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "fail_over_types": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "manual_action_instruction": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "runbook_id": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "script_path": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "type": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
           }
         }
       }
@@ -79945,7 +81833,8 @@ func init() {
                 },
                 "password": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "sensitive": true
                 },
                 "patterns": {
                   "type": [
@@ -79956,7 +81845,8 @@ func init() {
                 },
                 "private_key": {
                   "type": "string",
-                  "optional": true
+                  "optional": true,
+                  "sensitive": true
                 },
                 "search_paths": {
                   "type": [
@@ -80365,6 +82255,21 @@ func init() {
     "azurerm_spring_cloud_gateway": {
       "block": {
         "attributes": {
+          "application_performance_monitoring_types": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          "environment_variables": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
           "https_only": {
             "type": "bool",
             "optional": true
@@ -80382,6 +82287,15 @@ func init() {
           "public_network_access_enabled": {
             "type": "bool",
             "optional": true
+          },
+          "sensitive_environment_variables": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true,
+            "sensitive": true
           },
           "spring_cloud_service_id": {
             "type": "string",
@@ -81940,7 +83854,8 @@ func init() {
         "attributes": {
           "api_key": {
             "type": "string",
-            "computed": true
+            "computed": true,
+            "sensitive": true
           },
           "default_host_name": {
             "type": "string",
@@ -82063,6 +83978,10 @@ func init() {
             "type": "bool",
             "optional": true,
             "default": true
+          },
+          "allowed_copy_scope": {
+            "type": "string",
+            "optional": true
           },
           "cross_tenant_replication_enabled": {
             "type": "bool",
@@ -82939,6 +84858,129 @@ func init() {
         }
       }
     },
+    "azurerm_storage_account_local_user": {
+      "block": {
+        "attributes": {
+          "home_directory": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "password": {
+            "type": "string",
+            "computed": true,
+            "sensitive": true
+          },
+          "sid": {
+            "type": "string",
+            "computed": true,
+            "sensitive": true
+          },
+          "ssh_key_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false,
+            "at_least_one_of": [
+              "ssh_key_enabled",
+              "ssh_password_enabled"
+            ]
+          },
+          "ssh_password_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false,
+            "at_least_one_of": [
+              "ssh_key_enabled",
+              "ssh_password_enabled"
+            ]
+          },
+          "storage_account_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "permission_scope": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "resource_name": {
+                  "type": "string",
+                  "required": true
+                },
+                "service": {
+                  "type": "string",
+                  "required": true
+                }
+              },
+              "block_types": {
+                "permissions": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "create": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "delete": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "list": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "read": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "write": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true
+          },
+          "ssh_authorized_key": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "description": {
+                  "type": "string",
+                  "optional": true
+                },
+                "key": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "required_with": [
+              "ssh_key_enabled"
+            ]
+          }
+        }
+      }
+    },
     "azurerm_storage_account_network_rules": {
       "block": {
         "attributes": {
@@ -83659,6 +85701,10 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          },
+          "resource_manager_id": {
+            "type": "string",
+            "computed": true
           },
           "storage_account_name": {
             "type": "string",
@@ -84717,12 +86763,12 @@ func init() {
           },
           "shared_access_policy_key": {
             "type": "string",
-            "required": true,
+            "optional": true,
             "sensitive": true
           },
           "shared_access_policy_name": {
             "type": "string",
-            "required": true
+            "optional": true
           },
           "stream_analytics_job_name": {
             "type": "string",
@@ -84798,12 +86844,12 @@ func init() {
           },
           "shared_access_policy_key": {
             "type": "string",
-            "required": true,
+            "optional": true,
             "sensitive": true
           },
           "shared_access_policy_name": {
             "type": "string",
-            "required": true
+            "optional": true
           },
           "stream_analytics_job_name": {
             "type": "string",
@@ -86378,6 +88424,11 @@ func init() {
           "data_encrypted": {
             "type": "bool",
             "optional": true
+          },
+          "geo_backup_policy_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
           },
           "name": {
             "type": "string",
@@ -92540,7 +94591,7 @@ func init() {
         },
         "block_types": {
           "event_handler": {
-            "nesting_mode": 4,
+            "nesting_mode": 3,
             "block": {
               "attributes": {
                 "system_events": {
@@ -93496,6 +95547,7 @@ func init() {
                       "dotnet_version": {
                         "type": "string",
                         "optional": true,
+                        "default": "v4.0",
                         "exactly_one_of": [
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
@@ -93540,6 +95592,7 @@ func init() {
                       "use_custom_runtime": {
                         "type": "bool",
                         "optional": true,
+                        "computed": true,
                         "exactly_one_of": [
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
@@ -93551,7 +95604,7 @@ func init() {
                       "use_dotnet_isolated_runtime": {
                         "type": "bool",
                         "optional": true,
-                        "default": false,
+                        "computed": true,
                         "conflicts_with": [
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
@@ -93562,6 +95615,7 @@ func init() {
                     }
                   },
                   "optional": true,
+                  "computed": true,
                   "max_items": 1
                 },
                 "cors": {
@@ -93761,6 +95815,10 @@ func init() {
           "possible_outbound_ip_addresses": {
             "type": "string",
             "computed": true
+          },
+          "service_plan_id": {
+            "type": "string",
+            "optional": true
           },
           "site_credential": {
             "type": [
@@ -94461,6 +96519,7 @@ func init() {
                       "dotnet_version": {
                         "type": "string",
                         "optional": true,
+                        "default": "v4.0",
                         "exactly_one_of": [
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
@@ -94505,6 +96564,7 @@ func init() {
                       "use_custom_runtime": {
                         "type": "bool",
                         "optional": true,
+                        "computed": true,
                         "exactly_one_of": [
                           "site_config.0.application_stack.0.dotnet_version",
                           "site_config.0.application_stack.0.java_version",
@@ -94516,7 +96576,7 @@ func init() {
                       "use_dotnet_isolated_runtime": {
                         "type": "bool",
                         "optional": true,
-                        "default": false,
+                        "computed": true,
                         "conflicts_with": [
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
@@ -94527,6 +96587,7 @@ func init() {
                     }
                   },
                   "optional": true,
+                  "computed": true,
                   "max_items": 1
                 },
                 "cors": {
@@ -96969,7 +99030,8 @@ func init() {
                     "attributes": {
                       "current_stack": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "computed": true
                       },
                       "docker_container_name": {
                         "type": "string",
@@ -96977,10 +99039,12 @@ func init() {
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version"
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.python"
                         ],
                         "required_with": [
                           "site_config.0.application_stack.0.docker_container_tag"
@@ -96997,21 +99061,41 @@ func init() {
                           "site_config.0.application_stack.0.docker_container_name"
                         ]
                       },
-                      "dotnet_version": {
+                      "dotnet_core_version": {
                         "type": "string",
                         "optional": true,
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python",
+                          "site_config.0.application_stack.0.python_version"
+                        ]
+                      },
+                      "dotnet_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true,
+                        "at_least_one_of": [
+                          "site_config.0.application_stack.0.docker_container_name",
+                          "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
+                          "site_config.0.application_stack.0.java_version",
+                          "site_config.0.application_stack.0.node_version",
+                          "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python",
                           "site_config.0.application_stack.0.python_version"
                         ]
                       },
                       "java_container": {
                         "type": "string",
                         "optional": true,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.tomcat_version"
+                        ],
                         "required_with": [
                           "site_config.0.application_stack.0.java_container_version"
                         ]
@@ -97023,55 +99107,104 @@ func init() {
                           "site_config.0.application_stack.0.java_container"
                         ]
                       },
+                      "java_embedded_server_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "computed": true,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.tomcat_version"
+                        ],
+                        "required_with": [
+                          "site_config.0.application_stack.0.java_version"
+                        ]
+                      },
                       "java_version": {
                         "type": "string",
                         "optional": true,
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version"
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.python"
                         ]
                       },
                       "node_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.java_version"
-                        ],
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version"
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.python"
                         ]
                       },
                       "php_version": {
                         "type": "string",
                         "optional": true,
+                        "computed": true,
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python",
                           "site_config.0.application_stack.0.python_version"
+                        ]
+                      },
+                      "python": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.python_version"
+                        ],
+                        "at_least_one_of": [
+                          "site_config.0.application_stack.0.docker_container_name",
+                          "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
+                          "site_config.0.application_stack.0.java_version",
+                          "site_config.0.application_stack.0.node_version",
+                          "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.python"
                         ]
                       },
                       "python_version": {
                         "type": "string",
                         "optional": true,
+                        "computed": true,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.python"
+                        ],
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python",
                           "site_config.0.application_stack.0.python_version"
+                        ]
+                      },
+                      "tomcat_version": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.java_embedded_server_enabled"
+                        ],
+                        "required_with": [
+                          "site_config.0.application_stack.0.java_version"
                         ]
                       }
                     }
@@ -97440,6 +99573,10 @@ func init() {
           "possible_outbound_ip_addresses": {
             "type": "string",
             "computed": true
+          },
+          "service_plan_id": {
+            "type": "string",
+            "optional": true
           },
           "site_credential": {
             "type": [
@@ -98193,7 +100330,8 @@ func init() {
                     "attributes": {
                       "current_stack": {
                         "type": "string",
-                        "optional": true
+                        "optional": true,
+                        "computed": true
                       },
                       "docker_container_name": {
                         "type": "string",
@@ -98201,10 +100339,12 @@ func init() {
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version"
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.python"
                         ],
                         "required_with": [
                           "site_config.0.application_stack.0.docker_container_tag"
@@ -98221,21 +100361,41 @@ func init() {
                           "site_config.0.application_stack.0.docker_container_name"
                         ]
                       },
-                      "dotnet_version": {
+                      "dotnet_core_version": {
                         "type": "string",
                         "optional": true,
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python",
+                          "site_config.0.application_stack.0.python_version"
+                        ]
+                      },
+                      "dotnet_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true,
+                        "at_least_one_of": [
+                          "site_config.0.application_stack.0.docker_container_name",
+                          "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
+                          "site_config.0.application_stack.0.java_version",
+                          "site_config.0.application_stack.0.node_version",
+                          "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python",
                           "site_config.0.application_stack.0.python_version"
                         ]
                       },
                       "java_container": {
                         "type": "string",
                         "optional": true,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.tomcat_version"
+                        ],
                         "required_with": [
                           "site_config.0.application_stack.0.java_container_version"
                         ]
@@ -98247,55 +100407,104 @@ func init() {
                           "site_config.0.application_stack.0.java_container"
                         ]
                       },
+                      "java_embedded_server_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "computed": true,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.tomcat_version"
+                        ],
+                        "required_with": [
+                          "site_config.0.application_stack.0.java_version"
+                        ]
+                      },
                       "java_version": {
                         "type": "string",
                         "optional": true,
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version"
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.python"
                         ]
                       },
                       "node_version": {
                         "type": "string",
                         "optional": true,
-                        "conflicts_with": [
-                          "site_config.0.application_stack.0.java_version"
-                        ],
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
-                          "site_config.0.application_stack.0.python_version"
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.python"
                         ]
                       },
                       "php_version": {
                         "type": "string",
                         "optional": true,
+                        "computed": true,
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python",
                           "site_config.0.application_stack.0.python_version"
+                        ]
+                      },
+                      "python": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.python_version"
+                        ],
+                        "at_least_one_of": [
+                          "site_config.0.application_stack.0.docker_container_name",
+                          "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
+                          "site_config.0.application_stack.0.java_version",
+                          "site_config.0.application_stack.0.node_version",
+                          "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python_version",
+                          "site_config.0.application_stack.0.python"
                         ]
                       },
                       "python_version": {
                         "type": "string",
                         "optional": true,
+                        "computed": true,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.python"
+                        ],
                         "at_least_one_of": [
                           "site_config.0.application_stack.0.docker_container_name",
                           "site_config.0.application_stack.0.dotnet_version",
+                          "site_config.0.application_stack.0.dotnet_core_version",
                           "site_config.0.application_stack.0.java_version",
                           "site_config.0.application_stack.0.node_version",
                           "site_config.0.application_stack.0.php_version",
+                          "site_config.0.application_stack.0.python",
                           "site_config.0.application_stack.0.python_version"
+                        ]
+                      },
+                      "tomcat_version": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "site_config.0.application_stack.0.java_embedded_server_enabled"
+                        ],
+                        "required_with": [
+                          "site_config.0.application_stack.0.java_version"
                         ]
                       }
                     }
@@ -98551,5 +100760,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.38.0"
+    ProviderSchemaInfo.Version = "3.42.0"
 }
