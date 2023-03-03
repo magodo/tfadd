@@ -728,6 +728,35 @@ func init() {
             "optional": true,
             "max_items": 10
           },
+          "delegation": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "subscriptions_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                },
+                "url": {
+                  "type": "string",
+                  "optional": true
+                },
+                "user_registration_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                },
+                "validation_key": {
+                  "type": "string",
+                  "optional": true,
+                  "sensitive": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
+          },
           "hostname_configuration": {
             "nesting_mode": 3,
             "block": {
@@ -6364,6 +6393,19 @@ func init() {
             "required": true,
             "min_items": 1,
             "max_items": 1
+          },
+          "secret_store": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "key_vault_id": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
           }
         }
       }
@@ -10869,6 +10911,10 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "error_message": {
+            "type": "string",
+            "computed": true
+          },
           "name": {
             "type": "string",
             "required": true,
@@ -11789,6 +11835,23 @@ func init() {
             },
             "required": true,
             "min_items": 1,
+            "max_items": 1
+          },
+          "instant_restore_resource_group": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "prefix": {
+                  "type": "string",
+                  "required": true
+                },
+                "suffix": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           },
           "retention_daily": {
@@ -17236,6 +17299,7 @@ func init() {
           "data_location": {
             "type": "string",
             "optional": true,
+            "force_new": true,
             "default": "United States"
           },
           "name": {
@@ -18056,6 +18120,795 @@ func init() {
             "required": true,
             "min_items": 1,
             "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_container_app": {
+      "block": {
+        "attributes": {
+          "container_app_environment_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "custom_domain_verification_id": {
+            "type": "string",
+            "computed": true,
+            "sensitive": true
+          },
+          "latest_revision_fqdn": {
+            "type": "string",
+            "computed": true
+          },
+          "latest_revision_name": {
+            "type": "string",
+            "computed": true
+          },
+          "location": {
+            "type": "string",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "outbound_ip_addresses": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "revision_mode": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "dapr": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "app_id": {
+                  "type": "string",
+                  "required": true
+                },
+                "app_port": {
+                  "type": "number",
+                  "required": true
+                },
+                "app_protocol": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "http"
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "principal_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "tenant_id": {
+                  "type": "string",
+                  "computed": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "ingress": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "allow_insecure_connections": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                },
+                "external_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": false
+                },
+                "fqdn": {
+                  "type": "string",
+                  "computed": true
+                },
+                "target_port": {
+                  "type": "number",
+                  "required": true
+                },
+                "transport": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "auto"
+                }
+              },
+              "block_types": {
+                "custom_domain": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "certificate_binding_type": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "Disabled"
+                      },
+                      "certificate_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
+                "traffic_weight": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "label": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "latest_revision": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "percentage": {
+                        "type": "number",
+                        "required": true
+                      },
+                      "revision_suffix": {
+                        "type": "string",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "registry": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity": {
+                  "type": "string",
+                  "optional": true
+                },
+                "password_secret_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "server": {
+                  "type": "string",
+                  "required": true
+                },
+                "username": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "secret": {
+            "nesting_mode": 4,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true,
+                  "sensitive": true
+                },
+                "value": {
+                  "type": "string",
+                  "required": true,
+                  "sensitive": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "template": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "max_replicas": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 10
+                },
+                "min_replicas": {
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                "revision_suffix": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true
+                }
+              },
+              "block_types": {
+                "container": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "args": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "command": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "cpu": {
+                        "type": "number",
+                        "required": true
+                      },
+                      "ephemeral_storage": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "image": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "memory": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    },
+                    "block_types": {
+                      "env": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "name": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "secret_name": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "value": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "liveness_probe": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "failure_count_threshold": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 3
+                            },
+                            "host": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "initial_delay": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 1
+                            },
+                            "interval_seconds": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 10
+                            },
+                            "path": {
+                              "type": "string",
+                              "optional": true,
+                              "computed": true
+                            },
+                            "port": {
+                              "type": "number",
+                              "required": true
+                            },
+                            "termination_grace_period_seconds": {
+                              "type": "number",
+                              "computed": true
+                            },
+                            "timeout": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 1
+                            },
+                            "transport": {
+                              "type": "string",
+                              "required": true
+                            }
+                          },
+                          "block_types": {
+                            "header": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "name": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "required": true
+                                  }
+                                }
+                              },
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "readiness_probe": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "failure_count_threshold": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 3
+                            },
+                            "host": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "interval_seconds": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 10
+                            },
+                            "path": {
+                              "type": "string",
+                              "optional": true,
+                              "computed": true
+                            },
+                            "port": {
+                              "type": "number",
+                              "required": true
+                            },
+                            "success_count_threshold": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 3
+                            },
+                            "timeout": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 1
+                            },
+                            "transport": {
+                              "type": "string",
+                              "required": true
+                            }
+                          },
+                          "block_types": {
+                            "header": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "name": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "required": true
+                                  }
+                                }
+                              },
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "startup_probe": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "failure_count_threshold": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 3
+                            },
+                            "host": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "interval_seconds": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 10
+                            },
+                            "path": {
+                              "type": "string",
+                              "optional": true,
+                              "computed": true
+                            },
+                            "port": {
+                              "type": "number",
+                              "required": true
+                            },
+                            "termination_grace_period_seconds": {
+                              "type": "number",
+                              "computed": true
+                            },
+                            "timeout": {
+                              "type": "number",
+                              "optional": true,
+                              "default": 1
+                            },
+                            "transport": {
+                              "type": "string",
+                              "required": true
+                            }
+                          },
+                          "block_types": {
+                            "header": {
+                              "nesting_mode": 3,
+                              "block": {
+                                "attributes": {
+                                  "name": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "required": true
+                                  }
+                                }
+                              },
+                              "optional": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      },
+                      "volume_mounts": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "name": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "path": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1
+                },
+                "volume": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "storage_name": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "storage_type": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "EmptyDir"
+                      }
+                    }
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_container_app_environment": {
+      "block": {
+        "attributes": {
+          "default_domain": {
+            "type": "string",
+            "computed": true
+          },
+          "docker_bridge_cidr": {
+            "type": "string",
+            "computed": true
+          },
+          "infrastructure_subnet_id": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "internal_load_balancer_enabled": {
+            "type": "bool",
+            "optional": true,
+            "force_new": true,
+            "default": false
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "platform_reserved_cidr": {
+            "type": "string",
+            "computed": true
+          },
+          "platform_reserved_dns_ip_address": {
+            "type": "string",
+            "computed": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "static_ip_address": {
+            "type": "string",
+            "computed": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_container_app_environment_certificate": {
+      "block": {
+        "attributes": {
+          "certificate_blob_base64": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "certificate_password": {
+            "type": "string",
+            "required": true,
+            "force_new": true,
+            "sensitive": true
+          },
+          "container_app_environment_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "expiration_date": {
+            "type": "string",
+            "computed": true
+          },
+          "issue_date": {
+            "type": "string",
+            "computed": true
+          },
+          "issuer": {
+            "type": "string",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "subject_name": {
+            "type": "string",
+            "computed": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          "thumbprint": {
+            "type": "string",
+            "computed": true
+          }
+        }
+      }
+    },
+    "azurerm_container_app_environment_dapr_component": {
+      "block": {
+        "attributes": {
+          "component_type": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "container_app_environment_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "ignore_errors": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "init_timeout": {
+            "type": "string",
+            "optional": true,
+            "default": "5s"
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "scopes": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          "version": {
+            "type": "string",
+            "required": true
+          }
+        },
+        "block_types": {
+          "metadata": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "secret_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "value": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "secret": {
+            "nesting_mode": 4,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true,
+                  "sensitive": true
+                },
+                "value": {
+                  "type": "string",
+                  "required": true,
+                  "sensitive": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_container_app_environment_storage": {
+      "block": {
+        "attributes": {
+          "access_key": {
+            "type": "string",
+            "required": true,
+            "sensitive": true
+          },
+          "access_mode": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "account_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "container_app_environment_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "share_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -21629,6 +22482,18 @@ func init() {
           }
         },
         "block_types": {
+          "azure_monitor_workspace_integrations": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "resource_id": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          },
           "identity": {
             "nesting_mode": 3,
             "block": {
@@ -24553,6 +25418,17 @@ func init() {
             "sensitive": true,
             "exactly_one_of": [
               "connection_string",
+              "connection_string_insecure",
+              "sas_uri",
+              "service_endpoint"
+            ]
+          },
+          "connection_string_insecure": {
+            "type": "string",
+            "optional": true,
+            "exactly_one_of": [
+              "connection_string",
+              "connection_string_insecure",
               "sas_uri",
               "service_endpoint"
             ]
@@ -24588,6 +25464,7 @@ func init() {
             "sensitive": true,
             "exactly_one_of": [
               "connection_string",
+              "connection_string_insecure",
               "sas_uri",
               "service_endpoint"
             ]
@@ -24598,6 +25475,7 @@ func init() {
             "sensitive": true,
             "exactly_one_of": [
               "connection_string",
+              "connection_string_insecure",
               "sas_uri",
               "service_endpoint"
             ]
@@ -27862,8 +28740,7 @@ func init() {
                 }
               }
             },
-            "required": true,
-            "min_items": 1,
+            "optional": true,
             "max_items": 1
           }
         }
@@ -33062,7 +33939,8 @@ func init() {
           },
           "partition_count": {
             "type": "number",
-            "required": true
+            "required": true,
+            "force_new": true
           },
           "partition_ids": {
             "type": [
@@ -33872,6 +34750,13 @@ func init() {
                   "nesting_mode": 3,
                   "block": {
                     "attributes": {
+                      "advertised_communities": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
                       "advertised_public_prefixes": {
                         "type": [
                           "list",
@@ -33903,6 +34788,13 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "advertised_communities": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
                 "advertised_public_prefixes": {
                   "type": [
                     "list",
@@ -33944,6 +34836,11 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "express_route_gateway_bypass_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
           "express_route_gateway_id": {
             "type": "string",
             "required": true,
@@ -33973,6 +34870,14 @@ func init() {
                     "routing.0.associated_route_table_id",
                     "routing.0.propagated_route_table"
                   ]
+                },
+                "inbound_route_map_id": {
+                  "type": "string",
+                  "optional": true
+                },
+                "outbound_route_map_id": {
+                  "type": "string",
+                  "optional": true
                 }
               },
               "block_types": {
@@ -34067,6 +34972,11 @@ func init() {
             "type": "number",
             "required": true,
             "force_new": true
+          },
+          "billing_type": {
+            "type": "string",
+            "optional": true,
+            "computed": true
           },
           "encapsulation": {
             "type": "string",
@@ -45392,6 +46302,65 @@ func init() {
             "type": "string",
             "computed": true
           }
+        },
+        "block_types": {
+          "rotation_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "expire_after": {
+                  "type": "string",
+                  "optional": true,
+                  "at_least_one_of": [
+                    "rotation_policy.0.expire_after",
+                    "rotation_policy.0.automatic"
+                  ],
+                  "required_with": [
+                    "rotation_policy.0.expire_after",
+                    "rotation_policy.0.notify_before_expiry"
+                  ]
+                },
+                "notify_before_expiry": {
+                  "type": "string",
+                  "optional": true,
+                  "required_with": [
+                    "rotation_policy.0.expire_after",
+                    "rotation_policy.0.notify_before_expiry"
+                  ]
+                }
+              },
+              "block_types": {
+                "automatic": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "time_after_creation": {
+                        "type": "string",
+                        "optional": true,
+                        "at_least_one_of": [
+                          "rotation_policy.0.automatic.0.time_after_creation",
+                          "rotation_policy.0.automatic.0.time_before_expiry"
+                        ]
+                      },
+                      "time_before_expiry": {
+                        "type": "string",
+                        "optional": true,
+                        "at_least_one_of": [
+                          "rotation_policy.0.automatic.0.time_after_creation",
+                          "rotation_policy.0.automatic.0.time_before_expiry"
+                        ]
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
+          }
         }
       }
     },
@@ -48142,7 +49111,7 @@ func init() {
           },
           "key_version": {
             "type": "string",
-            "required": true
+            "optional": true
           },
           "user_identity": {
             "type": "string",
@@ -50333,7 +51302,552 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true,
+            "max_items": 1
+          },
+          "auth_settings_v2": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "config_file_path": {
+                  "type": "string",
+                  "optional": true
+                },
+                "default_provider": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_paths": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "forward_proxy_convention": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "NoProxy"
+                },
+                "forward_proxy_custom_host_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "forward_proxy_custom_scheme_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "http_route_api_prefix": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "/.auth"
+                },
+                "require_authentication": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "require_https": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "runtime_version": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "~1"
+                },
+                "unauthenticated_action": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "RedirectToLoginPage"
+                }
+              },
+              "block_types": {
+                "active_directory_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_identities": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_certificate_thumbprint": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "jwt_allowed_client_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "jwt_allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "login_parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "tenant_auth_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "www_authentication_disabled": {
+                        "type": "bool",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "apple_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "azure_static_web_app_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "custom_oidc_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "authorisation_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "certification_uri": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_credential_method": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "issuer_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name_claim_type": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "openid_configuration_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "token_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ]
+                },
+                "facebook_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "app_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "app_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "graph_api_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "github_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "google_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "login": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_external_redirect_urls": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "cookie_expiration_convention": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "FixedTime"
+                      },
+                      "cookie_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "08:00:00"
+                      },
+                      "logout_endpoint": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "nonce_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "00:05:00"
+                      },
+                      "preserve_url_fragments_for_logins": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_refresh_extension_time": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 72
+                      },
+                      "token_store_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_store_path": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_sas_setting_name"
+                        ]
+                      },
+                      "token_store_sas_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_path"
+                        ]
+                      },
+                      "validate_nonce": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "microsoft_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "twitter_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consumer_key": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "consumer_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           },
           "backup": {
@@ -51373,7 +52887,552 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true,
+            "max_items": 1
+          },
+          "auth_settings_v2": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "config_file_path": {
+                  "type": "string",
+                  "optional": true
+                },
+                "default_provider": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_paths": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "forward_proxy_convention": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "NoProxy"
+                },
+                "forward_proxy_custom_host_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "forward_proxy_custom_scheme_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "http_route_api_prefix": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "/.auth"
+                },
+                "require_authentication": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "require_https": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "runtime_version": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "~1"
+                },
+                "unauthenticated_action": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "RedirectToLoginPage"
+                }
+              },
+              "block_types": {
+                "active_directory_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_identities": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_certificate_thumbprint": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "jwt_allowed_client_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "jwt_allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "login_parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "tenant_auth_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "www_authentication_disabled": {
+                        "type": "bool",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "apple_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "azure_static_web_app_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "custom_oidc_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "authorisation_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "certification_uri": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_credential_method": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "issuer_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name_claim_type": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "openid_configuration_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "token_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ]
+                },
+                "facebook_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "app_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "app_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "graph_api_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "github_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "google_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "login": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_external_redirect_urls": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "cookie_expiration_convention": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "FixedTime"
+                      },
+                      "cookie_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "08:00:00"
+                      },
+                      "logout_endpoint": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "nonce_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "00:05:00"
+                      },
+                      "preserve_url_fragments_for_logins": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_refresh_extension_time": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 72
+                      },
+                      "token_store_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_store_path": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_sas_setting_name"
+                        ]
+                      },
+                      "token_store_sas_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_path"
+                        ]
+                      },
+                      "validate_nonce": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "microsoft_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "twitter_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consumer_key": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "consumer_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           },
           "backup": {
@@ -53806,7 +55865,552 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true,
+            "max_items": 1
+          },
+          "auth_settings_v2": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "config_file_path": {
+                  "type": "string",
+                  "optional": true
+                },
+                "default_provider": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_paths": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "forward_proxy_convention": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "NoProxy"
+                },
+                "forward_proxy_custom_host_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "forward_proxy_custom_scheme_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "http_route_api_prefix": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "/.auth"
+                },
+                "require_authentication": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "require_https": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "runtime_version": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "~1"
+                },
+                "unauthenticated_action": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "RedirectToLoginPage"
+                }
+              },
+              "block_types": {
+                "active_directory_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_identities": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_certificate_thumbprint": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "jwt_allowed_client_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "jwt_allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "login_parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "tenant_auth_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "www_authentication_disabled": {
+                        "type": "bool",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "apple_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "azure_static_web_app_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "custom_oidc_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "authorisation_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "certification_uri": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_credential_method": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "issuer_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name_claim_type": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "openid_configuration_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "token_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ]
+                },
+                "facebook_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "app_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "app_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "graph_api_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "github_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "google_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "login": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_external_redirect_urls": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "cookie_expiration_convention": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "FixedTime"
+                      },
+                      "cookie_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "08:00:00"
+                      },
+                      "logout_endpoint": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "nonce_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "00:05:00"
+                      },
+                      "preserve_url_fragments_for_logins": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_refresh_extension_time": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 72
+                      },
+                      "token_store_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_store_path": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_sas_setting_name"
+                        ]
+                      },
+                      "token_store_sas_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_path"
+                        ]
+                      },
+                      "validate_nonce": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "microsoft_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "twitter_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consumer_key": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "consumer_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           },
           "backup": {
@@ -54999,7 +57603,552 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true,
+            "max_items": 1
+          },
+          "auth_settings_v2": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "config_file_path": {
+                  "type": "string",
+                  "optional": true
+                },
+                "default_provider": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_paths": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "forward_proxy_convention": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "NoProxy"
+                },
+                "forward_proxy_custom_host_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "forward_proxy_custom_scheme_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "http_route_api_prefix": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "/.auth"
+                },
+                "require_authentication": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "require_https": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "runtime_version": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "~1"
+                },
+                "unauthenticated_action": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "RedirectToLoginPage"
+                }
+              },
+              "block_types": {
+                "active_directory_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_identities": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_certificate_thumbprint": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "jwt_allowed_client_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "jwt_allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "login_parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "tenant_auth_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "www_authentication_disabled": {
+                        "type": "bool",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "apple_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "azure_static_web_app_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "custom_oidc_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "authorisation_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "certification_uri": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_credential_method": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "issuer_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name_claim_type": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "openid_configuration_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "token_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ]
+                },
+                "facebook_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "app_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "app_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "graph_api_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "github_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "google_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "login": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_external_redirect_urls": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "cookie_expiration_convention": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "FixedTime"
+                      },
+                      "cookie_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "08:00:00"
+                      },
+                      "logout_endpoint": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "nonce_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "00:05:00"
+                      },
+                      "preserve_url_fragments_for_logins": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_refresh_extension_time": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 72
+                      },
+                      "token_store_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_store_path": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_sas_setting_name"
+                        ]
+                      },
+                      "token_store_sas_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_path"
+                        ]
+                      },
+                      "validate_nonce": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "microsoft_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "twitter_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consumer_key": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "consumer_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           },
           "backup": {
@@ -58476,6 +61625,140 @@ func init() {
         }
       }
     },
+    "azurerm_machine_learning_datastore_datalake_gen2": {
+      "block": {
+        "attributes": {
+          "authority_url": {
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          "client_id": {
+            "type": "string",
+            "optional": true,
+            "required_with": [
+              "tenant_id",
+              "client_secret"
+            ]
+          },
+          "client_secret": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true,
+            "required_with": [
+              "tenant_id",
+              "client_id"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "is_default": {
+            "type": "bool",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "service_data_identity": {
+            "type": "string",
+            "optional": true,
+            "default": "None"
+          },
+          "storage_container_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
+          "tenant_id": {
+            "type": "string",
+            "optional": true,
+            "required_with": [
+              "client_id",
+              "client_secret"
+            ]
+          },
+          "workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
+    "azurerm_machine_learning_datastore_fileshare": {
+      "block": {
+        "attributes": {
+          "account_key": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true,
+            "exactly_one_of": [
+              "account_key",
+              "shared_access_signature"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "is_default": {
+            "type": "bool",
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "service_data_identity": {
+            "type": "string",
+            "optional": true,
+            "default": "None"
+          },
+          "shared_access_signature": {
+            "type": "string",
+            "optional": true,
+            "sensitive": true,
+            "at_least_one_of": [
+              "account_key",
+              "shared_access_signature"
+            ]
+          },
+          "storage_fileshare_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
+          "workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_machine_learning_inference_cluster": {
       "block": {
         "attributes": {
@@ -58725,8 +62008,7 @@ func init() {
           },
           "image_build_compute_name": {
             "type": "string",
-            "optional": true,
-            "force_new": true
+            "optional": true
           },
           "key_vault_id": {
             "type": "string",
@@ -60756,6 +64038,14 @@ func init() {
             "required": true,
             "force_new": true
           },
+          "stream_options": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
           "tags": {
             "type": [
               "map",
@@ -61045,6 +64335,11 @@ func init() {
           },
           "output_snap_time_in_seconds": {
             "type": "number",
+            "optional": true,
+            "force_new": true
+          },
+          "rewind_window_duration": {
+            "type": "string",
             "optional": true,
             "force_new": true
           }
@@ -61408,6 +64703,19 @@ func init() {
             "type": "number",
             "required": true
           },
+          "sku": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "capacity": "number",
+                  "name": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
           "tags": {
             "type": [
               "map",
@@ -61528,6 +64836,14 @@ func init() {
             "computed": true,
             "force_new": true
           },
+          "filter_names": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
           "media_services_account_name": {
             "type": "string",
             "required": true,
@@ -61627,6 +64943,25 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "block_types": {
+                "clear_key_encryption": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "custom_keys_acquisition_url_template": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true,
+                  "exactly_one_of": [
+                    "common_encryption_cbcs.0.drm_fairplay",
+                    "common_encryption_cbcs.0.clear_key_encryption"
+                  ],
+                  "max_items": 1
+                },
                 "default_content_key": {
                   "nesting_mode": 3,
                   "block": {
@@ -61673,6 +65008,10 @@ func init() {
                   },
                   "optional": true,
                   "force_new": true,
+                  "exactly_one_of": [
+                    "common_encryption_cbcs.0.drm_fairplay",
+                    "common_encryption_cbcs.0.clear_key_encryption"
+                  ],
                   "max_items": 1
                 },
                 "enabled_protocols": {
@@ -61718,10 +65057,127 @@ func init() {
                 "drm_widevine_custom_license_acquisition_url_template": {
                   "type": "string",
                   "optional": true,
-                  "force_new": true
+                  "force_new": true,
+                  "conflicts_with": [
+                    "common_encryption_cenc.0.clear_key_encryption"
+                  ]
                 }
               },
               "block_types": {
+                "clear_key_encryption": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "custom_keys_acquisition_url_template": {
+                        "type": "string",
+                        "required": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true,
+                  "conflicts_with": [
+                    "common_encryption_cenc.0.drm_widevine_custom_license_acquisition_url_template",
+                    "common_encryption_cenc.0.drm_playready"
+                  ],
+                  "at_least_one_of": [
+                    "common_encryption_cenc.0.drm_widevine_custom_license_acquisition_url_template",
+                    "common_encryption_cenc.0.drm_playready",
+                    "common_encryption_cenc.0.clear_key_encryption"
+                  ],
+                  "max_items": 1
+                },
+                "clear_track": {
+                  "nesting_mode": 4,
+                  "block": {
+                    "block_types": {
+                      "condition": {
+                        "nesting_mode": 4,
+                        "block": {
+                          "attributes": {
+                            "operation": {
+                              "type": "string",
+                              "required": true,
+                              "force_new": true
+                            },
+                            "property": {
+                              "type": "string",
+                              "required": true,
+                              "force_new": true
+                            },
+                            "value": {
+                              "type": "string",
+                              "required": true,
+                              "force_new": true
+                            }
+                          }
+                        },
+                        "required": true,
+                        "force_new": true,
+                        "min_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true
+                },
+                "content_key_to_track_mapping": {
+                  "nesting_mode": 4,
+                  "block": {
+                    "attributes": {
+                      "label": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
+                      },
+                      "policy_name": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
+                      }
+                    },
+                    "block_types": {
+                      "track": {
+                        "nesting_mode": 4,
+                        "block": {
+                          "block_types": {
+                            "condition": {
+                              "nesting_mode": 4,
+                              "block": {
+                                "attributes": {
+                                  "operation": {
+                                    "type": "string",
+                                    "required": true,
+                                    "force_new": true
+                                  },
+                                  "property": {
+                                    "type": "string",
+                                    "required": true,
+                                    "force_new": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "required": true,
+                                    "force_new": true
+                                  }
+                                }
+                              },
+                              "required": true,
+                              "force_new": true,
+                              "min_items": 1
+                            }
+                          }
+                        },
+                        "required": true,
+                        "force_new": true,
+                        "min_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true
+                },
                 "default_content_key": {
                   "nesting_mode": 3,
                   "block": {
@@ -61763,6 +65219,76 @@ func init() {
                           "common_encryption_cenc.0.drm_playready.0.custom_license_acquisition_url_template",
                           "common_encryption_cenc.0.drm_playready.0.custom_attributes"
                         ]
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true,
+                  "conflicts_with": [
+                    "common_encryption_cenc.0.clear_key_encryption"
+                  ],
+                  "max_items": 1
+                },
+                "enabled_protocols": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "dash": {
+                        "type": "bool",
+                        "optional": true,
+                        "force_new": true
+                      },
+                      "download": {
+                        "type": "bool",
+                        "optional": true,
+                        "force_new": true
+                      },
+                      "hls": {
+                        "type": "bool",
+                        "optional": true,
+                        "force_new": true
+                      },
+                      "smooth_streaming": {
+                        "type": "bool",
+                        "optional": true,
+                        "force_new": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "force_new": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          },
+          "envelope_encryption": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "custom_keys_acquisition_url_template": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                }
+              },
+              "block_types": {
+                "default_content_key": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "label": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
+                      },
+                      "policy_name": {
+                        "type": "string",
+                        "optional": true,
+                        "force_new": true
                       }
                     }
                   },
@@ -61944,6 +65470,427 @@ func init() {
               }
             },
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_mobile_network": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "mobile_country_code": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "mobile_network_code": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "service_key": {
+            "type": "string",
+            "computed": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_mobile_network_data_network": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "mobile_network_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_mobile_network_service": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "mobile_network_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "service_precedence": {
+            "type": "number",
+            "required": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "pcc_rule": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "precedence": {
+                  "type": "number",
+                  "required": true
+                },
+                "traffic_control_enabled": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                }
+              },
+              "block_types": {
+                "qos_policy": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allocation_and_retention_priority_level": {
+                        "type": "number",
+                        "optional": true
+                      },
+                      "preemption_capability": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "NotPreempt"
+                      },
+                      "preemption_vulnerability": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "Preemptable"
+                      },
+                      "qos_indicator": {
+                        "type": "number",
+                        "required": true
+                      }
+                    },
+                    "block_types": {
+                      "guaranteed_bit_rate": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "downlink": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "uplink": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true,
+                        "max_items": 1
+                      },
+                      "maximum_bit_rate": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "downlink": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "uplink": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "required": true,
+                        "min_items": 1,
+                        "max_items": 1
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                },
+                "service_data_flow_template": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "direction": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "ports": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "protocol": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      },
+                      "remote_ip_list": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "required": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1
+          },
+          "service_qos_policy": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "allocation_and_retention_priority_level": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 9
+                },
+                "preemption_capability": {
+                  "type": "string",
+                  "optional": true
+                },
+                "preemption_vulnerability": {
+                  "type": "string",
+                  "optional": true
+                },
+                "qos_indicator": {
+                  "type": "number",
+                  "optional": true
+                }
+              },
+              "block_types": {
+                "maximum_bit_rate": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "downlink": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "uplink": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_mobile_network_sim_group": {
+      "block": {
+        "attributes": {
+          "encryption_key_url": {
+            "type": "string",
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "mobile_network_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "identity": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "identity_ids": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "required": true
+                },
+                "type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_mobile_network_site": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "mobile_network_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network_function_ids": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_mobile_network_slice": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "mobile_network_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "single_network_slice_selection_assistance_information": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "slice_differentiator": {
+                  "type": "string",
+                  "optional": true
+                },
+                "slice_service_type": {
+                  "type": "number",
+                  "required": true
+                }
+              }
+            },
+            "required": true,
+            "min_items": 1,
+            "max_items": 1
           }
         }
       }
@@ -64699,7 +68646,6 @@ func init() {
           "eventhub_authorization_rule_id": {
             "type": "string",
             "optional": true,
-            "force_new": true,
             "at_least_one_of": [
               "eventhub_authorization_rule_id",
               "log_analytics_workspace_id",
@@ -64709,13 +68655,12 @@ func init() {
           },
           "eventhub_name": {
             "type": "string",
-            "optional": true,
-            "force_new": true
+            "optional": true
           },
           "log_analytics_destination_type": {
             "type": "string",
             "optional": true,
-            "default": "AzureDiagnostics"
+            "computed": true
           },
           "log_analytics_workspace_id": {
             "type": "string",
@@ -64745,7 +68690,6 @@ func init() {
           "storage_account_id": {
             "type": "string",
             "optional": true,
-            "force_new": true,
             "at_least_one_of": [
               "eventhub_authorization_rule_id",
               "log_analytics_workspace_id",
@@ -69516,6 +73460,117 @@ func init() {
         }
       }
     },
+    "azurerm_network_manager_admin_rule": {
+      "block": {
+        "attributes": {
+          "action": {
+            "type": "string",
+            "required": true
+          },
+          "admin_rule_collection_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "destination_port_ranges": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          "direction": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "priority": {
+            "type": "number",
+            "required": true
+          },
+          "protocol": {
+            "type": "string",
+            "required": true
+          },
+          "source_port_ranges": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          }
+        },
+        "block_types": {
+          "destination": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "address_prefix": {
+                  "type": "string",
+                  "required": true
+                },
+                "address_prefix_type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "source": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "address_prefix": {
+                  "type": "string",
+                  "required": true
+                },
+                "address_prefix_type": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_network_manager_admin_rule_collection": {
+      "block": {
+        "attributes": {
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network_group_ids": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "required": true
+          },
+          "security_admin_configuration_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_network_manager_connectivity_configuration": {
       "block": {
         "attributes": {
@@ -69669,6 +73724,33 @@ func init() {
           "tenant_id": {
             "type": "string",
             "required": true
+          }
+        }
+      }
+    },
+    "azurerm_network_manager_security_admin_configuration": {
+      "block": {
+        "attributes": {
+          "apply_on_network_intent_policy_based_services": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          "description": {
+            "type": "string",
+            "optional": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "network_manager_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -70275,7 +74357,15 @@ func init() {
           },
           "package_data": {
             "type": "string",
-            "optional": true
+            "optional": true,
+            "conflicts_with": [
+              "protected_file",
+              "config_file"
+            ],
+            "at_least_one_of": [
+              "config_file",
+              "package_data"
+            ]
           },
           "root_file": {
             "type": "string",
@@ -70297,8 +74387,11 @@ func init() {
                 }
               }
             },
-            "required": true,
-            "min_items": 1
+            "optional": true,
+            "at_least_one_of": [
+              "config_file",
+              "package_data"
+            ]
           },
           "protected_file": {
             "nesting_mode": 4,
@@ -70315,7 +74408,10 @@ func init() {
                 }
               }
             },
-            "optional": true
+            "optional": true,
+            "required_with": [
+              "config_file"
+            ]
           }
         }
       }
@@ -71652,6 +75748,25 @@ func init() {
             "force_new": true,
             "max_items": 1
           },
+          "priority_mix": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "base_regular_count": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 0
+                },
+                "regular_percentage_above_base": {
+                  "type": "number",
+                  "optional": true,
+                  "default": 0
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
           "source_image_reference": {
             "nesting_mode": 3,
             "block": {
@@ -72231,8 +76346,7 @@ func init() {
           "administrator_login": {
             "type": "string",
             "optional": true,
-            "computed": true,
-            "force_new": true
+            "computed": true
           },
           "administrator_password": {
             "type": "string",
@@ -72246,8 +76360,7 @@ func init() {
           },
           "create_mode": {
             "type": "string",
-            "optional": true,
-            "force_new": true
+            "optional": true
           },
           "delegated_subnet_id": {
             "type": "string",
@@ -72289,6 +76402,10 @@ func init() {
             "type": "bool",
             "computed": true
           },
+          "replication_role": {
+            "type": "string",
+            "optional": true
+          },
           "resource_group_name": {
             "type": "string",
             "required": true,
@@ -72319,8 +76436,7 @@ func init() {
           "version": {
             "type": "string",
             "optional": true,
-            "computed": true,
-            "force_new": true
+            "computed": true
           },
           "zone": {
             "type": "string",
@@ -74228,6 +78344,12 @@ func init() {
     "azurerm_recovery_services_vault": {
       "block": {
         "attributes": {
+          "classic_vmware_replication_enabled": {
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
           "cross_region_restore_enabled": {
             "type": "bool",
             "optional": true,
@@ -76892,6 +81014,163 @@ func init() {
         }
       }
     },
+    "azurerm_sentinel_alert_rule_anomaly_built_in": {
+      "block": {
+        "attributes": {
+          "anomaly_settings_version": {
+            "type": "number",
+            "computed": true
+          },
+          "anomaly_version": {
+            "type": "string",
+            "computed": true
+          },
+          "description": {
+            "type": "string",
+            "computed": true
+          },
+          "display_name": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "exactly_one_of": [
+              "name",
+              "display_name"
+            ]
+          },
+          "enabled": {
+            "type": "bool",
+            "required": true
+          },
+          "frequency": {
+            "type": "string",
+            "computed": true
+          },
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "mode": {
+            "type": "string",
+            "required": true
+          },
+          "multi_select_observation": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "description": "string",
+                  "name": "string",
+                  "supported_values": [
+                    "list",
+                    "string"
+                  ],
+                  "values": [
+                    "list",
+                    "string"
+                  ]
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "name": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "exactly_one_of": [
+              "name",
+              "display_name"
+            ]
+          },
+          "prioritized_exclude_observation": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "description": "string",
+                  "exclude": "string",
+                  "name": "string",
+                  "prioritize": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "required_data_connector": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "connector_id": "string",
+                  "data_types": [
+                    "list",
+                    "string"
+                  ]
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "settings_definition_id": {
+            "type": "string",
+            "computed": true
+          },
+          "single_select_observation": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "description": "string",
+                  "name": "string",
+                  "supported_values": [
+                    "list",
+                    "string"
+                  ],
+                  "value": "string"
+                }
+              ]
+            ],
+            "computed": true
+          },
+          "tactics": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
+          "techniques": {
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true
+          },
+          "threshold_observation": {
+            "type": [
+              "list",
+              [
+                "object",
+                {
+                  "description": "string",
+                  "max": "string",
+                  "min": "string",
+                  "name": "string",
+                  "value": "string"
+                }
+              ]
+            ],
+            "computed": true
+          }
+        }
+      }
+    },
     "azurerm_sentinel_alert_rule_fusion": {
       "block": {
         "attributes": {
@@ -77147,6 +81426,24 @@ func init() {
                   "type": "string",
                   "optional": true
                 }
+              },
+              "block_types": {
+                "dynamic_property": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "value": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
               }
             },
             "optional": true
@@ -77183,6 +81480,20 @@ func init() {
             },
             "optional": true,
             "max_items": 5
+          },
+          "event_grouping": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "aggregation_method": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "computed": true,
+            "max_items": 1
           },
           "incident": {
             "nesting_mode": 3,
@@ -77250,6 +81561,19 @@ func init() {
             "optional": true,
             "computed": true,
             "max_items": 1
+          },
+          "sentinel_entity_mapping": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "column_name": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 5
           }
         }
       }
@@ -77371,6 +81695,24 @@ func init() {
                   "type": "string",
                   "optional": true
                 }
+              },
+              "block_types": {
+                "dynamic_property": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "value": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true
+                }
               }
             },
             "optional": true
@@ -77487,6 +81829,45 @@ func init() {
             "optional": true,
             "computed": true,
             "max_items": 1
+          },
+          "sentinel_entity_mapping": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "column_name": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 5
+          }
+        }
+      }
+    },
+    "azurerm_sentinel_alert_rule_threat_intelligence": {
+      "block": {
+        "attributes": {
+          "alert_rule_template_guid": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -77853,6 +82234,46 @@ func init() {
         }
       }
     },
+    "azurerm_sentinel_data_connector_microsoft_threat_intelligence": {
+      "block": {
+        "attributes": {
+          "bing_safety_phishing_url_lookback_date": {
+            "type": "string",
+            "optional": true,
+            "force_new": true,
+            "at_least_one_of": [
+              "bing_safety_phishing_url_lookback_date",
+              "microsoft_emerging_threat_feed_lookback_date"
+            ]
+          },
+          "log_analytics_workspace_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "microsoft_emerging_threat_feed_lookback_date": {
+            "type": "string",
+            "optional": true,
+            "force_new": true,
+            "at_least_one_of": [
+              "bing_safety_phishing_url_lookback_date",
+              "microsoft_emerging_threat_feed_lookback_date"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tenant_id": {
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_sentinel_data_connector_microsoft_threat_protection": {
       "block": {
         "attributes": {
@@ -78007,6 +82428,12 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          },
+          "lookback_date": {
+            "type": "string",
+            "optional": true,
+            "force_new": true,
+            "default": "1970-01-01T00:00:00Z"
           },
           "name": {
             "type": "string",
@@ -79870,6 +84297,24 @@ func init() {
             "force_new": true,
             "default": "x64"
           },
+          "confidential_vm_enabled": {
+            "type": "bool",
+            "optional": true,
+            "force_new": true,
+            "conflicts_with": [
+              "trusted_launch_enabled",
+              "confidential_vm_supported"
+            ]
+          },
+          "confidential_vm_supported": {
+            "type": "bool",
+            "optional": true,
+            "force_new": true,
+            "conflicts_with": [
+              "trusted_launch_enabled",
+              "confidential_vm_enabled"
+            ]
+          },
           "description": {
             "type": "string",
             "optional": true
@@ -79961,7 +84406,11 @@ func init() {
           "trusted_launch_enabled": {
             "type": "bool",
             "optional": true,
-            "force_new": true
+            "force_new": true,
+            "conflicts_with": [
+              "confidential_vm_supported",
+              "confidential_vm_enabled"
+            ]
           }
         },
         "block_types": {
@@ -80491,6 +84940,55 @@ func init() {
         }
       }
     },
+    "azurerm_site_recovery_hyperv_replication_policy": {
+      "block": {
+        "attributes": {
+          "application_consistent_snapshot_frequency_in_hours": {
+            "type": "number",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "recovery_point_retention_in_hours": {
+            "type": "number",
+            "required": true
+          },
+          "recovery_vault_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "replication_interval_in_seconds": {
+            "type": "number",
+            "required": true
+          }
+        }
+      }
+    },
+    "azurerm_site_recovery_hyperv_replication_policy_association": {
+      "block": {
+        "attributes": {
+          "hyperv_site_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "policy_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        }
+      }
+    },
     "azurerm_site_recovery_network_mapping": {
       "block": {
         "attributes": {
@@ -80605,7 +85103,9 @@ func init() {
                 "automation_account_id": {
                   "type": "string",
                   "optional": true,
-                  "force_new": true
+                  "required_with": [
+                    "automatic_update.0.enabled"
+                  ]
                 },
                 "enabled": {
                   "type": "bool",
@@ -80971,6 +85471,22 @@ func init() {
               }
             },
             "optional": true
+          }
+        }
+      }
+    },
+    "azurerm_site_recovery_services_vault_hyperv_site": {
+      "block": {
+        "attributes": {
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "recovery_vault_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -81942,6 +86458,19 @@ func init() {
             },
             "required": true,
             "min_items": 1,
+            "max_items": 1
+          },
+          "secret_store": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "key_vault_id": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           }
         }
@@ -85192,6 +89721,13 @@ func init() {
                         ],
                         "required": true
                       },
+                      "exclude_prefixes": {
+                        "type": [
+                          "set",
+                          "string"
+                        ],
+                        "optional": true
+                      },
                       "include_blob_versions": {
                         "type": "bool",
                         "optional": true,
@@ -85454,6 +89990,10 @@ func init() {
                         "nesting_mode": 3,
                         "block": {
                           "attributes": {
+                            "auto_tier_to_hot_from_cool_enabled": {
+                              "type": "bool",
+                              "optional": true
+                            },
                             "delete_after_days_since_creation_greater_than": {
                               "type": "number",
                               "optional": true,
@@ -85616,7 +90156,8 @@ func init() {
                       }
                     }
                   },
-                  "optional": true,
+                  "required": true,
+                  "min_items": 1,
                   "max_items": 1
                 }
               }
@@ -95178,7 +99719,552 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true,
+            "max_items": 1
+          },
+          "auth_settings_v2": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "config_file_path": {
+                  "type": "string",
+                  "optional": true
+                },
+                "default_provider": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_paths": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "forward_proxy_convention": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "NoProxy"
+                },
+                "forward_proxy_custom_host_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "forward_proxy_custom_scheme_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "http_route_api_prefix": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "/.auth"
+                },
+                "require_authentication": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "require_https": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "runtime_version": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "~1"
+                },
+                "unauthenticated_action": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "RedirectToLoginPage"
+                }
+              },
+              "block_types": {
+                "active_directory_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_identities": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_certificate_thumbprint": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "jwt_allowed_client_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "jwt_allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "login_parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "tenant_auth_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "www_authentication_disabled": {
+                        "type": "bool",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "apple_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "azure_static_web_app_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "custom_oidc_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "authorisation_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "certification_uri": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_credential_method": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "issuer_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name_claim_type": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "openid_configuration_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "token_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ]
+                },
+                "facebook_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "app_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "app_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "graph_api_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "github_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "google_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "login": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_external_redirect_urls": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "cookie_expiration_convention": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "FixedTime"
+                      },
+                      "cookie_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "08:00:00"
+                      },
+                      "logout_endpoint": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "nonce_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "00:05:00"
+                      },
+                      "preserve_url_fragments_for_logins": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_refresh_extension_time": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 72
+                      },
+                      "token_store_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_store_path": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_sas_setting_name"
+                        ]
+                      },
+                      "token_store_sas_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_path"
+                        ]
+                      },
+                      "validate_nonce": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "microsoft_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "twitter_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consumer_key": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "consumer_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           },
           "backup": {
@@ -96146,7 +101232,552 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true,
+            "max_items": 1
+          },
+          "auth_settings_v2": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "config_file_path": {
+                  "type": "string",
+                  "optional": true
+                },
+                "default_provider": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_paths": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "forward_proxy_convention": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "NoProxy"
+                },
+                "forward_proxy_custom_host_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "forward_proxy_custom_scheme_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "http_route_api_prefix": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "/.auth"
+                },
+                "require_authentication": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "require_https": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "runtime_version": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "~1"
+                },
+                "unauthenticated_action": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "RedirectToLoginPage"
+                }
+              },
+              "block_types": {
+                "active_directory_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_identities": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_certificate_thumbprint": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "jwt_allowed_client_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "jwt_allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "login_parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "tenant_auth_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "www_authentication_disabled": {
+                        "type": "bool",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "apple_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "azure_static_web_app_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "custom_oidc_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "authorisation_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "certification_uri": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_credential_method": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "issuer_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name_claim_type": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "openid_configuration_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "token_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ]
+                },
+                "facebook_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "app_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "app_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "graph_api_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "github_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "google_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "login": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_external_redirect_urls": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "cookie_expiration_convention": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "FixedTime"
+                      },
+                      "cookie_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "08:00:00"
+                      },
+                      "logout_endpoint": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "nonce_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "00:05:00"
+                      },
+                      "preserve_url_fragments_for_logins": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_refresh_extension_time": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 72
+                      },
+                      "token_store_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_store_path": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_sas_setting_name"
+                        ]
+                      },
+                      "token_store_sas_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_path"
+                        ]
+                      },
+                      "validate_nonce": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "microsoft_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "twitter_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consumer_key": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "consumer_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           },
           "backup": {
@@ -98575,7 +104206,552 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true,
+            "max_items": 1
+          },
+          "auth_settings_v2": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "config_file_path": {
+                  "type": "string",
+                  "optional": true
+                },
+                "default_provider": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_paths": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "forward_proxy_convention": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "NoProxy"
+                },
+                "forward_proxy_custom_host_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "forward_proxy_custom_scheme_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "http_route_api_prefix": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "/.auth"
+                },
+                "require_authentication": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "require_https": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "runtime_version": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "~1"
+                },
+                "unauthenticated_action": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "RedirectToLoginPage"
+                }
+              },
+              "block_types": {
+                "active_directory_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_identities": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_certificate_thumbprint": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "jwt_allowed_client_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "jwt_allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "login_parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "tenant_auth_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "www_authentication_disabled": {
+                        "type": "bool",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "apple_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "azure_static_web_app_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "custom_oidc_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "authorisation_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "certification_uri": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_credential_method": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "issuer_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name_claim_type": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "openid_configuration_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "token_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ]
+                },
+                "facebook_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "app_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "app_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "graph_api_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "github_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "google_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "login": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_external_redirect_urls": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "cookie_expiration_convention": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "FixedTime"
+                      },
+                      "cookie_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "08:00:00"
+                      },
+                      "logout_endpoint": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "nonce_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "00:05:00"
+                      },
+                      "preserve_url_fragments_for_logins": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_refresh_extension_time": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 72
+                      },
+                      "token_store_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_store_path": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_sas_setting_name"
+                        ]
+                      },
+                      "token_store_sas_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_path"
+                        ]
+                      },
+                      "validate_nonce": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "microsoft_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "twitter_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consumer_key": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "consumer_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           },
           "backup": {
@@ -99875,7 +106051,552 @@ func init() {
               }
             },
             "optional": true,
-            "computed": true,
+            "max_items": 1
+          },
+          "auth_settings_v2": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "auth_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "config_file_path": {
+                  "type": "string",
+                  "optional": true
+                },
+                "default_provider": {
+                  "type": "string",
+                  "optional": true
+                },
+                "excluded_paths": {
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "forward_proxy_convention": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "NoProxy"
+                },
+                "forward_proxy_custom_host_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "forward_proxy_custom_scheme_header_name": {
+                  "type": "string",
+                  "optional": true
+                },
+                "http_route_api_prefix": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "/.auth"
+                },
+                "require_authentication": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "require_https": {
+                  "type": "bool",
+                  "optional": true,
+                  "default": true
+                },
+                "runtime_version": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "~1"
+                },
+                "unauthenticated_action": {
+                  "type": "string",
+                  "optional": true,
+                  "default": "RedirectToLoginPage"
+                }
+              },
+              "block_types": {
+                "active_directory_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "allowed_identities": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_certificate_thumbprint": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "exactly_one_of": [
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_setting_name",
+                          "auth_settings_v2.0.active_directory_v2.0.client_secret_certificate_thumbprint"
+                        ]
+                      },
+                      "jwt_allowed_client_applications": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "jwt_allowed_groups": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "login_parameters": {
+                        "type": [
+                          "map",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "tenant_auth_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "www_authentication_disabled": {
+                        "type": "bool",
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "apple_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "azure_static_web_app_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "custom_oidc_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "authorisation_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "certification_uri": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_credential_method": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "issuer_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "name_claim_type": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "openid_configuration_endpoint": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "token_endpoint": {
+                        "type": "string",
+                        "computed": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ]
+                },
+                "facebook_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "app_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "app_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "graph_api_version": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "github_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "google_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "login": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_external_redirect_urls": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "cookie_expiration_convention": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "FixedTime"
+                      },
+                      "cookie_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "08:00:00"
+                      },
+                      "logout_endpoint": {
+                        "type": "string",
+                        "optional": true
+                      },
+                      "nonce_expiration_time": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "00:05:00"
+                      },
+                      "preserve_url_fragments_for_logins": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_refresh_extension_time": {
+                        "type": "number",
+                        "optional": true,
+                        "default": 72
+                      },
+                      "token_store_enabled": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": false
+                      },
+                      "token_store_path": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_sas_setting_name"
+                        ]
+                      },
+                      "token_store_sas_setting_name": {
+                        "type": "string",
+                        "optional": true,
+                        "conflicts_with": [
+                          "auth_settings_v2.0.login.0.token_store_path"
+                        ]
+                      },
+                      "validate_nonce": {
+                        "type": "bool",
+                        "optional": true,
+                        "default": true
+                      }
+                    }
+                  },
+                  "required": true,
+                  "min_items": 1,
+                  "max_items": 1
+                },
+                "microsoft_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "allowed_audiences": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "client_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "login_scopes": {
+                        "type": [
+                          "list",
+                          "string"
+                        ],
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                },
+                "twitter_v2": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "consumer_key": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "consumer_secret_setting_name": {
+                        "type": "string",
+                        "required": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "auth_settings_v2.0.apple_v2",
+                    "auth_settings_v2.0.active_directory_v2",
+                    "auth_settings_v2.0.azure_static_web_app_v2",
+                    "auth_settings_v2.0.custom_oidc_v2",
+                    "auth_settings_v2.0.facebook_v2",
+                    "auth_settings_v2.0.github_v2",
+                    "auth_settings_v2.0.google_v2",
+                    "auth_settings_v2.0.microsoft_v2",
+                    "auth_settings_v2.0.twitter_v2"
+                  ],
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
             "max_items": 1
           },
           "backup": {
@@ -100760,5 +107481,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.42.0"
+    ProviderSchemaInfo.Version = "3.46.0"
 }
