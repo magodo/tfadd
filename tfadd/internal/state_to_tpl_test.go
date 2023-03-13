@@ -1,4 +1,4 @@
-package tfadd
+package internal
 
 import (
 	"strings"
