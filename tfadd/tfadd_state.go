@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/magodo/tfadd/tfadd/internal"
-
 	"github.com/magodo/tfadd/addr"
 
 	"github.com/hashicorp/terraform-exec/tfexec"
@@ -153,7 +151,7 @@ func generateForOneResource(pschs *tfjson.ProviderSchemas, res tfstate.StateReso
 	if !ok {
 		return nil, fmt.Errorf("no resource type %s found in provider's schema", res.Type)
 	}
-	b, err := internal.StateToTpl(&res, rsch.Block)
+	b, err := StateToTpl(&res, rsch.Block)
 	if err != nil {
 		return nil, fmt.Errorf("generate template from state for %s: %v", res.Type, err)
 	}
@@ -166,7 +164,7 @@ func generateForOneResource(pschs *tfjson.ProviderSchemas, res tfstate.StateReso
 		if !ok {
 			return b, nil
 		}
-		b, err = internal.TuneTpl(*sch, b, res.Type)
+		b, err = TuneTpl(*sch, b, res.Type)
 		if err != nil {
 			return nil, fmt.Errorf("tune template for %s: %v", res.Type, err)
 		}
