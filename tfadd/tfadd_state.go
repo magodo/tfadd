@@ -104,7 +104,15 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 		if targetResource == nil {
 			return nil, fmt.Errorf("can't find target resource")
 		}
-		b, err := GenerateForOneResource(pschs, *targetResource, cfg.full)
+		psch, ok := pschs.Schemas[targetResource.ProviderName]
+		if !ok {
+			return nil, fmt.Errorf("no provider named %s found in provider schemas of current workspace", targetResource.ProviderName)
+		}
+		rsch, ok := psch.ResourceSchemas[targetResource.Type]
+		if !ok {
+			return nil, fmt.Errorf("no resource type %s found in provider's schema", targetResource.Type)
+		}
+		b, err := GenerateForOneResource(rsch, *targetResource, cfg.full)
 		if err != nil {
 			return nil, fmt.Errorf("generate for one resource: %v", err)
 		}
@@ -119,7 +127,15 @@ func GenerateForOneModuleModule(pschs *tfjson.ProviderSchemas, module tfstate.St
 		templates = append(templates, []byte("# "+module.Address+"\n")...)
 	}
 	for _, res := range module.Resources {
-		b, err := GenerateForOneResource(pschs, *res, full)
+		psch, ok := pschs.Schemas[res.ProviderName]
+		if !ok {
+			return nil, fmt.Errorf("no provider named %s found in provider schemas of current workspace", res.ProviderName)
+		}
+		rsch, ok := psch.ResourceSchemas[res.Type]
+		if !ok {
+			return nil, fmt.Errorf("no resource type %s found in provider's schema", res.Type)
+		}
+		b, err := GenerateForOneResource(rsch, *res, full)
 		if err != nil {
 			return nil, err
 		}
@@ -141,17 +157,9 @@ func GenerateForOneModuleModule(pschs *tfjson.ProviderSchemas, module tfstate.St
 	return templates, nil
 }
 
-func GenerateForOneResource(pschs *tfjson.ProviderSchemas, res tfstate.StateResource, full bool) ([]byte, error) {
+func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, full bool) ([]byte, error) {
 	if res.Mode != tfjson.ManagedResourceMode {
 		return nil, nil
-	}
-	psch, ok := pschs.Schemas[res.ProviderName]
-	if !ok {
-		return nil, fmt.Errorf("no provider named %s found in provider schemas of current workspace", res.ProviderName)
-	}
-	rsch, ok := psch.ResourceSchemas[res.Type]
-	if !ok {
-		return nil, fmt.Errorf("no resource type %s found in provider's schema", res.Type)
 	}
 	b, err := internal.StateToTpl(&res, rsch.Block)
 	if err != nil {
