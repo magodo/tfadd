@@ -68,7 +68,7 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 	}
 
 	if len(targets) == 0 {
-		b, err := generateForOneModuleModule(pschs, *state.Values.RootModule, cfg.full)
+		b, err := GenerateForOneModuleModule(pschs, *state.Values.RootModule, cfg.full)
 		if err != nil {
 			return nil, err
 		}
@@ -104,7 +104,7 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 		if targetResource == nil {
 			return nil, fmt.Errorf("can't find target resource")
 		}
-		b, err := generateForOneResource(pschs, *targetResource, cfg.full)
+		b, err := GenerateForOneResource(pschs, *targetResource, cfg.full)
 		if err != nil {
 			return nil, fmt.Errorf("generate for one resource: %v", err)
 		}
@@ -113,13 +113,13 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 	return out, nil
 }
 
-func generateForOneModuleModule(pschs *tfjson.ProviderSchemas, module tfstate.StateModule, full bool) ([]byte, error) {
+func GenerateForOneModuleModule(pschs *tfjson.ProviderSchemas, module tfstate.StateModule, full bool) ([]byte, error) {
 	var templates []byte
 	if module.Address != "" {
 		templates = append(templates, []byte("# "+module.Address+"\n")...)
 	}
 	for _, res := range module.Resources {
-		b, err := generateForOneResource(pschs, *res, full)
+		b, err := GenerateForOneResource(pschs, *res, full)
 		if err != nil {
 			return nil, err
 		}
@@ -129,7 +129,7 @@ func generateForOneModuleModule(pschs *tfjson.ProviderSchemas, module tfstate.St
 		templates = append(templates, b...)
 	}
 	for _, mod := range module.ChildModules {
-		ctemplates, err := generateForOneModuleModule(pschs, *mod, full)
+		ctemplates, err := GenerateForOneModuleModule(pschs, *mod, full)
 		if err != nil {
 			return nil, err
 		}
@@ -141,7 +141,7 @@ func generateForOneModuleModule(pschs *tfjson.ProviderSchemas, module tfstate.St
 	return templates, nil
 }
 
-func generateForOneResource(pschs *tfjson.ProviderSchemas, res tfstate.StateResource, full bool) ([]byte, error) {
+func GenerateForOneResource(pschs *tfjson.ProviderSchemas, res tfstate.StateResource, full bool) ([]byte, error) {
 	if res.Mode != tfjson.ManagedResourceMode {
 		return nil, nil
 	}
