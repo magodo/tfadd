@@ -21,9 +21,9 @@ Currently to generate the state, the tool supports *full mode* (with `-full`) or
 
     |Name|Version|
     |-|-|
-    |registry.terraform.io/hashicorp/aws|v4.56.0|
-    |registry.terraform.io/hashicorp/azurerm|v3.46.0|
-    |registry.terraform.io/hashicorp/google|v4.55.0|
+    |registry.terraform.io/hashicorp/aws|v4.67.0|
+    |registry.terraform.io/hashicorp/azurerm|v3.56.0|
+    |registry.terraform.io/hashicorp/google|v4.64.0|
 
 ## Usage
 
