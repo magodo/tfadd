@@ -10485,6 +10485,39 @@ func init() {
         }
       }
     },
+    "azurerm_arc_private_link_scope": {
+      "block": {
+        "attributes": {
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": false
+          },
+          "resource_group_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "tags": {
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          }
+        }
+      }
+    },
     "azurerm_attestation_provider": {
       "block": {
         "attributes": {
@@ -10515,6 +10548,10 @@ func init() {
             "type": "string",
             "required": true,
             "force_new": true
+          },
+          "sev_snp_policy_base64": {
+            "type": "string",
+            "optional": true
           },
           "sgx_enclave_policy_base64": {
             "type": "string",
@@ -13685,6 +13722,89 @@ func init() {
                 "url": {
                   "type": "string",
                   "required": true
+                }
+              }
+            },
+            "optional": true,
+            "max_items": 1
+          },
+          "network_profile": {
+            "nesting_mode": 3,
+            "block": {
+              "block_types": {
+                "account_access": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "default_action": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "Deny"
+                      }
+                    },
+                    "block_types": {
+                      "ip_rule": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "action": {
+                              "type": "string",
+                              "optional": true,
+                              "default": "Allow"
+                            },
+                            "ip_range": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "network_profile.0.account_access",
+                    "network_profile.0.node_management_access"
+                  ],
+                  "max_items": 1
+                },
+                "node_management_access": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "default_action": {
+                        "type": "string",
+                        "optional": true,
+                        "default": "Deny"
+                      }
+                    },
+                    "block_types": {
+                      "ip_rule": {
+                        "nesting_mode": 3,
+                        "block": {
+                          "attributes": {
+                            "action": {
+                              "type": "string",
+                              "optional": true,
+                              "default": "Allow"
+                            },
+                            "ip_range": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "at_least_one_of": [
+                    "network_profile.0.account_access",
+                    "network_profile.0.node_management_access"
+                  ],
+                  "max_items": 1
                 }
               }
             },
@@ -18543,6 +18663,27 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "capacity": {
+                  "type": "number",
+                  "optional": true,
+                  "force_new": true,
+                  "default": 1
+                },
+                "family": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "size": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
+                "tier": {
+                  "type": "string",
+                  "optional": true,
+                  "force_new": true
+                },
                 "type": {
                   "type": "string",
                   "required": true,
@@ -23236,8 +23377,7 @@ func init() {
             "optional": true,
             "force_new": true,
             "required_with": [
-              "source_resource_id",
-              "point_in_time_in_utc"
+              "source_resource_id"
             ]
           },
           "source_resource_id": {
@@ -23245,8 +23385,7 @@ func init() {
             "optional": true,
             "force_new": true,
             "required_with": [
-              "source_location",
-              "point_in_time_in_utc"
+              "source_location"
             ]
           },
           "sql_version": {
@@ -32917,7 +33056,8 @@ func init() {
                 },
                 "host_name": {
                   "type": "string",
-                  "required": true
+                  "optional": true,
+                  "computed": true
                 },
                 "minimum_ttl": {
                   "type": "number",
@@ -32955,7 +33095,6 @@ func init() {
             },
             "optional": true,
             "computed": true,
-            "force_new": true,
             "max_items": 1
           }
         }
@@ -50156,6 +50295,14 @@ func init() {
             "nesting_mode": 3,
             "block": {
               "attributes": {
+                "external_ingress_gateway_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
+                "internal_ingress_gateway_enabled": {
+                  "type": "bool",
+                  "optional": true
+                },
                 "mode": {
                   "type": "string",
                   "required": true
@@ -51782,6 +51929,52 @@ func init() {
           "tenant_name": {
             "type": "string",
             "computed": true
+          }
+        }
+      }
+    },
+    "azurerm_kusto_cosmosdb_data_connection": {
+      "block": {
+        "attributes": {
+          "cosmosdb_container_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "kusto_database_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "location": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "managed_identity_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "mapping_rule_name": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "retrieval_start_date": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "table_name": {
+            "type": "string",
+            "required": true,
+            "force_new": true
           }
         }
       }
@@ -53548,6 +53741,11 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
           "resource_group_name": {
             "type": "string",
             "required": true,
@@ -55187,6 +55385,11 @@ func init() {
           "possible_outbound_ip_addresses": {
             "type": "string",
             "computed": true
+          },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
           },
           "service_plan_id": {
             "type": "string",
@@ -58235,6 +58438,11 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
           "resource_group_name": {
             "type": "string",
             "required": true,
@@ -60064,6 +60272,11 @@ func init() {
           "possible_outbound_ip_addresses": {
             "type": "string",
             "computed": true
+          },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
           },
           "service_plan_id": {
             "type": "string",
@@ -65319,6 +65532,9 @@ func init() {
             "optional": true,
             "conflicts_with": [
               "package_file_uri"
+            ],
+            "required_with": [
+              "main_template"
             ]
           },
           "description": {
@@ -65344,6 +65560,9 @@ func init() {
             "optional": true,
             "conflicts_with": [
               "package_file_uri"
+            ],
+            "required_with": [
+              "create_ui_definition"
             ]
           },
           "name": {
@@ -81279,6 +81498,220 @@ func init() {
         }
       }
     },
+    "azurerm_pim_active_role_assignment": {
+      "block": {
+        "attributes": {
+          "justification": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "principal_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "principal_type": {
+            "type": "string",
+            "computed": true
+          },
+          "role_definition_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "scope": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "schedule": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "start_date_time": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true,
+                  "force_new": true
+                }
+              },
+              "block_types": {
+                "expiration": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "duration_days": {
+                        "type": "number",
+                        "optional": true,
+                        "computed": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "schedule.0.expiration.0.duration_hours",
+                          "schedule.0.expiration.0.end_date_time"
+                        ]
+                      },
+                      "duration_hours": {
+                        "type": "number",
+                        "optional": true,
+                        "computed": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "schedule.0.expiration.0.duration_days",
+                          "schedule.0.expiration.0.end_date_time"
+                        ]
+                      },
+                      "end_date_time": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "schedule.0.expiration.0.duration_days",
+                          "schedule.0.expiration.0.duration_hours"
+                        ]
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          },
+          "ticket": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "number": {
+                  "type": "string",
+                  "optional": true
+                },
+                "system": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
+    "azurerm_pim_eligible_role_assignment": {
+      "block": {
+        "attributes": {
+          "justification": {
+            "type": "string",
+            "optional": true,
+            "force_new": true
+          },
+          "principal_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "principal_type": {
+            "type": "string",
+            "computed": true
+          },
+          "role_definition_id": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          },
+          "scope": {
+            "type": "string",
+            "required": true,
+            "force_new": true
+          }
+        },
+        "block_types": {
+          "schedule": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "start_date_time": {
+                  "type": "string",
+                  "optional": true,
+                  "computed": true,
+                  "force_new": true
+                }
+              },
+              "block_types": {
+                "expiration": {
+                  "nesting_mode": 3,
+                  "block": {
+                    "attributes": {
+                      "duration_days": {
+                        "type": "number",
+                        "optional": true,
+                        "computed": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "schedule.0.expiration.0.duration_hours",
+                          "schedule.0.expiration.0.end_date_time"
+                        ]
+                      },
+                      "duration_hours": {
+                        "type": "number",
+                        "optional": true,
+                        "computed": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "schedule.0.expiration.0.duration_days",
+                          "schedule.0.expiration.0.end_date_time"
+                        ]
+                      },
+                      "end_date_time": {
+                        "type": "string",
+                        "optional": true,
+                        "computed": true,
+                        "force_new": true,
+                        "conflicts_with": [
+                          "schedule.0.expiration.0.duration_days",
+                          "schedule.0.expiration.0.duration_hours"
+                        ]
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "max_items": 1
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          },
+          "ticket": {
+            "nesting_mode": 3,
+            "block": {
+              "attributes": {
+                "number": {
+                  "type": "string",
+                  "optional": true
+                },
+                "system": {
+                  "type": "string",
+                  "optional": true
+                }
+              }
+            },
+            "optional": true,
+            "force_new": true,
+            "max_items": 1
+          }
+        }
+      }
+    },
     "azurerm_point_to_site_vpn_gateway": {
       "block": {
         "attributes": {
@@ -82751,7 +83184,8 @@ func init() {
           },
           "domain_name": {
             "type": "string",
-            "required": true
+            "required": true,
+            "force_new": true
           },
           "enabled": {
             "type": "bool",
@@ -93578,6 +94012,13 @@ func init() {
                   "optional": true
                 },
                 "allowed_methods": {
+                  "type": [
+                    "set",
+                    "string"
+                  ],
+                  "optional": true
+                },
+                "allowed_origin_patterns": {
                   "type": [
                     "set",
                     "string"
@@ -106790,6 +107231,11 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
           "resource_group_name": {
             "type": "string",
             "required": true,
@@ -108357,6 +108803,11 @@ func init() {
           "possible_outbound_ip_addresses": {
             "type": "string",
             "computed": true
+          },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
           },
           "service_plan_id": {
             "type": "string",
@@ -111401,6 +111852,11 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
           "resource_group_name": {
             "type": "string",
             "required": true,
@@ -113338,6 +113794,11 @@ func init() {
             "type": "string",
             "computed": true
           },
+          "public_network_access_enabled": {
+            "type": "bool",
+            "optional": true,
+            "default": true
+          },
           "service_plan_id": {
             "type": "string",
             "optional": true
@@ -115152,5 +115613,5 @@ func init() {
 		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.63.0"
+    ProviderSchemaInfo.Version = "3.65.0"
 }
