@@ -6,6 +6,8 @@ import (
 	"strings"
 
 	"github.com/magodo/tfadd/schema"
+	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/function/stdlib"
 
 	"github.com/zclconf/go-cty/cty/gocty"
 
@@ -80,7 +82,10 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 		if diags.HasErrors() {
 			return fmt.Errorf(`parsing HCL expression %q: %s`, string(attrValLit), diags.Error())
 		}
-		aval, diags := dexpr.Value(nil)
+		aval, diags := dexpr.Value(&hcl.EvalContext{Functions: map[string]function.Function{
+			"jsondecode": stdlib.JSONDecodeFunc,
+			"jsonencode": stdlib.JSONEncodeFunc,
+		}})
 		if diags.HasErrors() {
 			return fmt.Errorf(`evaluating value of HCL expression %q: %s`, string(attrValLit), diags.Error())
 		}

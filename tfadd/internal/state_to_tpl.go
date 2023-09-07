@@ -1,8 +1,10 @@
 package internal
 
 import (
+	"encoding/json"
 	"fmt"
 	"sort"
+	"strconv"
 	"strings"
 
 	addr2 "github.com/magodo/tfadd/addr"
@@ -84,9 +86,20 @@ func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*t
 			buf.WriteString(strings.Repeat(" ", indent))
 			buf.WriteString(fmt.Sprintf("%s = ", name))
 			tok := hclwrite.TokensForValue(val)
-			if _, err := tok.WriteTo(buf); err != nil {
-				return err
+			// use jsonencode if val is valid json object
+			bs := tok.Bytes()
+			if val.Type().Equals(cty.String) {
+				if jsonStr, err := strconv.Unquote(string(bs)); err == nil && len(jsonStr) > 0 {
+					jsonBytes := []byte(jsonStr)
+					if (jsonBytes[0] == '{' || jsonBytes[0] == '[') && json.Valid(jsonBytes) {
+						var jsonObj interface{}
+						_ = json.Unmarshal(jsonBytes, &jsonObj)
+						jsonBytes, _ = json.MarshalIndent(jsonObj, strings.Repeat(" ", indent), "  ")
+						bs = append([]byte("jsonencode("), append(jsonBytes, ')')...)
+					}
+				}
 			}
+			buf.Write(bs)
 
 			buf.WriteString("\n")
 		}
