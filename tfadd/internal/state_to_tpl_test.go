@@ -40,7 +40,7 @@ func Test_StateToTpl(t *testing.T) {
     size        = "50GB"
   }
   foo_json = jsonencode({
-    "foo" : "bar"
+    foo = "bar"
   })
   foo_list = [1, 2, 3]
 }

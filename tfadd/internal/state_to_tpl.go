@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	addr2 "github.com/magodo/tfadd/addr"
+	"github.com/zclconf/go-cty/cty/function/stdlib"
 
 	"github.com/hashicorp/hcl/v2/hclwrite"
 	tfjson "github.com/hashicorp/terraform-json"
@@ -91,11 +92,10 @@ func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*t
 			if attrS.AttributeType.Equals(cty.String) {
 				if unquoted, err := strconv.Unquote(string(bs)); err == nil && len(unquoted) > 0 {
 					if (unquoted[0] == '{' || unquoted[0] == '[') && json.Valid([]byte(unquoted)) {
-						var jsonObj interface{}
-						// ignore error here, as we have already validated the json string
-						json.Unmarshal([]byte(unquoted), &jsonObj)
-						indentBs, _ := json.MarshalIndent(jsonObj, strings.Repeat(" ", indent), "  ")
-						bs = append([]byte("jsonencode("), append(indentBs, ')')...)
+						if decodeVal, err := stdlib.JSONDecode(val); err == nil {
+							bs2 := hclwrite.TokensForValue(decodeVal).Bytes()
+							bs = append([]byte("jsonencode("), append(bs2, ')')...)
+						}
 					}
 				}
 			}
