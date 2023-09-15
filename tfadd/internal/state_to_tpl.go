@@ -88,14 +88,14 @@ func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*t
 			tok := hclwrite.TokensForValue(val)
 			// use jsonencode if val is valid json object
 			bs := tok.Bytes()
-			if val.Type().Equals(cty.String) {
-				if jsonStr, err := strconv.Unquote(string(bs)); err == nil && len(jsonStr) > 0 {
-					jsonBytes := []byte(jsonStr)
-					if (jsonBytes[0] == '{' || jsonBytes[0] == '[') && json.Valid(jsonBytes) {
+			if attrS.AttributeType.Equals(cty.String) {
+				if unquoted, err := strconv.Unquote(string(bs)); err == nil && len(unquoted) > 0 {
+					if (unquoted[0] == '{' || unquoted[0] == '[') && json.Valid([]byte(unquoted)) {
 						var jsonObj interface{}
-						_ = json.Unmarshal(jsonBytes, &jsonObj)
-						jsonBytes, _ = json.MarshalIndent(jsonObj, strings.Repeat(" ", indent), "  ")
-						bs = append([]byte("jsonencode("), append(jsonBytes, ')')...)
+						// ignore error here, as we have already validated the json string
+						json.Unmarshal([]byte(unquoted), &jsonObj)
+						indentBs, _ := json.MarshalIndent(jsonObj, strings.Repeat(" ", indent), "  ")
+						bs = append([]byte("jsonencode("), append(indentBs, ')')...)
 					}
 				}
 			}

@@ -83,7 +83,6 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 			return fmt.Errorf(`parsing HCL expression %q: %s`, string(attrValLit), diags.Error())
 		}
 		aval, diags := dexpr.Value(&hcl.EvalContext{Functions: map[string]function.Function{
-			"jsondecode": stdlib.JSONDecodeFunc,
 			"jsonencode": stdlib.JSONEncodeFunc,
 		}})
 		if diags.HasErrors() {
