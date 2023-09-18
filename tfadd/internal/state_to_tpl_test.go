@@ -20,6 +20,13 @@ func Test_StateToTpl(t *testing.T) {
 				"mount_point": cty.StringVal("/mnt/foo"),
 				"size":        cty.StringVal("50GB"),
 			}),
+			"list_str": cty.StringVal(`[1, 2, 3]`),
+			"foo_list": cty.ListVal([]cty.Value{
+				cty.NumberIntVal(1),
+				cty.NumberIntVal(2),
+				cty.NumberIntVal(3),
+			}),
+			"foo_json": cty.StringVal(`{"foo": "bar", "block1": { "foo2": "bar2"}}`),
 		}),
 	}
 	b, err := StateToTpl(res, addTestSchema(tfjson.SchemaNestingModeSingle))
@@ -33,6 +40,14 @@ func Test_StateToTpl(t *testing.T) {
     mount_point = "/mnt/foo"
     size        = "50GB"
   }
+  foo_json = jsonencode({
+    block1 = {
+      foo2 = "bar2"
+    }
+    foo = "bar"
+  })
+  foo_list = [1, 2, 3]
+  list_str = jsonencode([1, 2, 3])
 }
 `
 	if string(b) != expected {
@@ -293,6 +308,9 @@ func addTestSchema(nesting tfjson.SchemaNestingMode) *tfjson.SchemaBlock {
 					NestingMode: nesting,
 				},
 			},
+			"list_str": {AttributeType: cty.String, Optional: true},
+			"foo_list": {AttributeType: cty.List(cty.Number), Optional: true},
+			"foo_json": {AttributeType: cty.String, Optional: true},
 		},
 		NestedBlocks: map[string]*tfjson.SchemaBlockType{
 			"root_block_device": {

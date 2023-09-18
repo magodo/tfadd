@@ -1,11 +1,14 @@
 package internal
 
 import (
+	"encoding/json"
 	"fmt"
 	"sort"
+	"strconv"
 	"strings"
 
 	addr2 "github.com/magodo/tfadd/addr"
+	"github.com/zclconf/go-cty/cty/function/stdlib"
 
 	"github.com/hashicorp/hcl/v2/hclwrite"
 	tfjson "github.com/hashicorp/terraform-json"
@@ -84,9 +87,19 @@ func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*t
 			buf.WriteString(strings.Repeat(" ", indent))
 			buf.WriteString(fmt.Sprintf("%s = ", name))
 			tok := hclwrite.TokensForValue(val)
-			if _, err := tok.WriteTo(buf); err != nil {
-				return err
+			// use jsonencode if val is valid json object
+			bs := tok.Bytes()
+			if attrS.AttributeType.Equals(cty.String) {
+				if unquoted, err := strconv.Unquote(string(bs)); err == nil && len(unquoted) > 0 {
+					if (unquoted[0] == '{' || unquoted[0] == '[') && json.Valid([]byte(unquoted)) {
+						if decodeVal, err := stdlib.JSONDecode(val); err == nil {
+							bs2 := hclwrite.TokensForValue(decodeVal).Bytes()
+							bs = append([]byte("jsonencode("), append(bs2, ')')...)
+						}
+					}
+				}
 			}
+			buf.Write(bs)
 
 			buf.WriteString("\n")
 		}
