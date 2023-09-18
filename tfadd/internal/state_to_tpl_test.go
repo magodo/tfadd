@@ -26,7 +26,7 @@ func Test_StateToTpl(t *testing.T) {
 				cty.NumberIntVal(2),
 				cty.NumberIntVal(3),
 			}),
-			"foo_json": cty.StringVal(`{"foo": "bar"}`),
+			"foo_json": cty.StringVal(`{"foo": "bar", "block1": { "foo2": "bar2"}}`),
 		}),
 	}
 	b, err := StateToTpl(res, addTestSchema(tfjson.SchemaNestingModeSingle))
@@ -41,6 +41,9 @@ func Test_StateToTpl(t *testing.T) {
     size        = "50GB"
   }
   foo_json = jsonencode({
+    block1 = {
+      foo2 = "bar2"
+    }
     foo = "bar"
   })
   foo_list = [1, 2, 3]
