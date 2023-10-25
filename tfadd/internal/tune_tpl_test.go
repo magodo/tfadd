@@ -36,17 +36,18 @@ func TestTuneTpl(t *testing.T) {
 	expect := `resource "foo" "test" {
   req {}
 }`
-	actual, err := TuneTpl(sch, []byte(input), "foo")
+	actual, err := TuneTpl(sch, []byte(input), "foo", nil)
 	require.NoError(t, err)
 	require.Equal(t, expect, string(actual))
 }
 
 func TestTuneForBlock(t *testing.T) {
 	cases := []struct {
-		name   string
-		schema tfpluginschema.Block
-		input  string
-		expect string
+		name        string
+		schema      tfpluginschema.Block
+		input       string
+		expect      string
+		ocAttrsKeep map[string]bool
 	}{
 		{
 			name: "primary attributes only",
@@ -305,6 +306,31 @@ func TestTuneForBlock(t *testing.T) {
 }`,
 		},
 		{
+			name: "O+C attributes that is specified to keep",
+			schema: tfpluginschema.Block{
+				Attributes: map[string]*tfpluginschema.Attribute{
+					"attr1": {
+						Type:     cty.Number,
+						Optional: true,
+						Computed: true,
+					},
+					"attr2": {
+						Type:     cty.Number,
+						Optional: true,
+						Computed: true,
+					},
+				},
+			},
+			ocAttrsKeep: map[string]bool{"attr1": true},
+			input: `resource "foo" "test" {
+  attr1 = 1
+  attr2 = 2
+}`,
+			expect: `resource "foo" "test" {
+  attr1 = 1
+}`,
+		},
+		{
 			name: "Blocks",
 			schema: tfpluginschema.Block{
 				NestedBlocks: map[string]*tfpluginschema.NestedBlock{
@@ -465,7 +491,7 @@ func TestTuneForBlock(t *testing.T) {
 			f, diag := hclwrite.ParseConfig([]byte(c.input), "", hcl.InitialPos)
 			require.False(t, diag.HasErrors(), diag.Error())
 			rb := f.Body().Blocks()[0].Body()
-			require.NoError(t, tuneForBlock(rb, &c.schema, nil))
+			require.NoError(t, tuneForBlock(rb, &c.schema, nil, c.ocAttrsKeep))
 			require.Equal(t, c.expect, string(f.Bytes()))
 		})
 	}

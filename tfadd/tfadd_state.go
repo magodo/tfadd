@@ -167,7 +167,8 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, full
 		return nil, fmt.Errorf("generate template from state for %s: %v", res.Type, err)
 	}
 	if !full {
-		pinfo, ok := supportedProviders[strings.TrimPrefix(res.ProviderName, "registry.terraform.io/")]
+		providerName := strings.TrimPrefix(res.ProviderName, "registry.terraform.io/")
+		pinfo, ok := supportedProviders[providerName]
 		if !ok {
 			return b, nil
 		}
@@ -176,7 +177,18 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, full
 		if !ok {
 			return b, nil
 		}
-		b, err = internal.TuneTpl(*sch, b, res.Type)
+		if providerName == "azure/azapi" {
+			b, err = internal.TuneTpl(*sch, b, res.Type,
+				map[string]bool{
+					"name":      true,
+					"parent_id": true,
+					"location":  true,
+					"tags":      true,
+				},
+			)
+		} else {
+			b, err = internal.TuneTpl(*sch, b, res.Type, nil)
+		}
 		if err != nil {
 			return nil, fmt.Errorf("tune template for %s: %v", res.Type, err)
 		}
