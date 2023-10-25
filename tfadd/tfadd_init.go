@@ -3,6 +3,7 @@ package tfadd
 import (
 	"bytes"
 	"fmt"
+	"strings"
 	"text/template"
 )
 
@@ -19,14 +20,14 @@ func Init(providers []string) ([]byte, error) {
 
 	var infos []info
 	for _, p := range providers {
-		pinfo, ok := sdkProviderSchemas["registry.terraform.io/hashicorp/"+p]
+		pinfo, ok := supportedProviders[p]
 		if !ok {
 			return nil, fmt.Errorf("Unsupported provider %q\n", p)
 		}
 		infos = append(infos, info{
-			Name:    p,
-			Source:  "hashicorp/" + p,
-			Version: pinfo.Version,
+			Name:    strings.Split(p, "/")[1],
+			Source:  p,
+			Version: pinfo.SDKSchema.Version,
 		})
 	}
 
@@ -35,7 +36,7 @@ func Init(providers []string) ([]byte, error) {
   required_providers {
   {{- range . }}
     {{.Name}} = {
-      source = "hashicorp/{{.Name}}"
+      source = "{{.Source}}"
       version = "{{.Version}}"
     }
   {{- end }}

@@ -3,6 +3,7 @@ package tfadd
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/magodo/tfadd/tfadd/internal"
 
@@ -166,10 +167,11 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, full
 		return nil, fmt.Errorf("generate template from state for %s: %v", res.Type, err)
 	}
 	if !full {
-		sdkPsch, ok := sdkProviderSchemas[res.ProviderName]
+		pinfo, ok := supportedProviders[strings.TrimPrefix(res.ProviderName, "registry.terraform.io/")]
 		if !ok {
 			return b, nil
 		}
+		sdkPsch := pinfo.SDKSchema
 		sch, ok := sdkPsch.ResourceSchemas[res.Type]
 		if !ok {
 			return b, nil

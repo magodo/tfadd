@@ -21,7 +21,7 @@ func TestTFAdd_init(t *testing.T) {
 		},
 		{
 			name:      "azurerm provider only",
-			providers: []string{"azurerm"},
+			providers: []string{"hashicorp/azurerm"},
 			expect: regexp.MustCompile(`^terraform {
   required_providers {
     azurerm = {
@@ -33,8 +33,8 @@ func TestTFAdd_init(t *testing.T) {
 $`),
 		},
 		{
-			name:      "three providers only",
-			providers: []string{"azurerm", "google", "aws"},
+			name:      "four providers only",
+			providers: []string{"hashicorp/azurerm", "hashicorp/google", "hashicorp/aws", "azure/azapi"},
 			expect: regexp.MustCompile(`^terraform {
   required_providers {
     azurerm = {
@@ -47,6 +47,10 @@ $`),
     }
     aws = {
       source = "hashicorp/aws"
+      version = "\d+\.\d+\.\d+"
+    }
+    azapi = {
+      source = "azure/azapi"
       version = "\d+\.\d+\.\d+"
     }
   }
