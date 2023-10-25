@@ -18,7 +18,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func TuneTpl(sch schema.Schema, tpl []byte, rt string) ([]byte, error) {
+func TuneTpl(sch schema.Schema, tpl []byte, rt string, ocToKeep map[string]bool) ([]byte, error) {
 	f, diag := hclwrite.ParseConfig(tpl, "", hcl.InitialPos)
 	if diag.HasErrors() {
 		return nil, fmt.Errorf("parsing the generated template for %s: %s", rt, diag.Error())
@@ -28,13 +28,13 @@ func TuneTpl(sch schema.Schema, tpl []byte, rt string) ([]byte, error) {
 	rb.RemoveAttribute("id")
 	rb.RemoveBlock(rb.FirstMatchingBlock("timeouts", nil))
 
-	if err := tuneForBlock(rb, sch.Block, nil); err != nil {
+	if err := tuneForBlock(rb, sch.Block, nil, ocToKeep); err != nil {
 		return nil, err
 	}
 	return f.Bytes(), nil
 }
 
-func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames []string) error {
+func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames []string, ocToKeep map[string]bool) error {
 	for attrName, attrVal := range rb.Attributes() {
 		schAttr, ok := sch.Attributes[attrName]
 		if !ok {
@@ -62,9 +62,11 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 						continue
 					}
 				} else if len(schAttr.AtLeastOneOf) == 0 {
-					// For O+C attribute that has "AtLeastOneOf" constraint, keep it.
-					rb.RemoveAttribute(attrName)
-					continue
+					// For O+C attribute that has "AtLeastOneOf" constraint, or is explicitly specified, keep it.
+					if !(len(ocToKeep) != 0 && ocToKeep[attrName]) {
+						rb.RemoveAttribute(attrName)
+						continue
+					}
 				}
 			} else {
 				rb.RemoveAttribute(attrName)
@@ -73,22 +75,10 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 		}
 
 		// For optional only attributes, remove it from the output config if it either holds the default value or is null.
-		attrExpr, diags := hclwrite.ParseConfig(attrVal.BuildTokens(nil).Bytes(), "generate_attr", hcl.InitialPos)
-		if diags.HasErrors() {
-			return fmt.Errorf(`building attribute %q attribute: %s`, attrName, diags.Error())
+		aval, err := attrValue(attrName, attrVal)
+		if err != nil {
+			return err
 		}
-		attrValLit := attrExpr.Body().GetAttribute(attrName).Expr().BuildTokens(nil).Bytes()
-		dexpr, diags := hclsyntax.ParseExpression(attrValLit, "", hcl.InitialPos)
-		if diags.HasErrors() {
-			return fmt.Errorf(`parsing HCL expression %q: %s`, string(attrValLit), diags.Error())
-		}
-		aval, diags := dexpr.Value(&hcl.EvalContext{Functions: map[string]function.Function{
-			"jsonencode": stdlib.JSONEncodeFunc,
-		}})
-		if diags.HasErrors() {
-			return fmt.Errorf(`evaluating value of HCL expression %q: %s`, string(attrValLit), diags.Error())
-		}
-
 		if aval.IsNull() {
 			rb.RemoveAttribute(attrName)
 			continue
@@ -162,8 +152,11 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 						continue
 					}
 				} else if len(scht.AtLeastOneOf) == 0 {
-					// For O+C block that has "AtLeastOneOf" constraint, keep it.
-					rb.RemoveBlock(blkVal)
+					// For O+blocks attribute that has "AtLeastOneOf" constraint, or is explicitly specified, keep it.
+					if !(len(ocToKeep) != 0 && ocToKeep[blkVal.Type()]) {
+						rb.RemoveBlock(blkVal)
+						continue
+					}
 					continue
 				}
 			} else {
@@ -173,9 +166,28 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 			}
 		}
 
-		if err := tuneForBlock(blkVal.Body(), scht.Block, append(parentAttrNames, blkVal.Type())); err != nil {
+		if err := tuneForBlock(blkVal.Body(), scht.Block, append(parentAttrNames, blkVal.Type()), nil); err != nil {
 			return err
 		}
 	}
 	return nil
+}
+
+func attrValue(attrName string, attr *hclwrite.Attribute) (cty.Value, error) {
+	attrExpr, diags := hclwrite.ParseConfig(attr.BuildTokens(nil).Bytes(), "generate_attr", hcl.InitialPos)
+	if diags.HasErrors() {
+		return cty.Zero, fmt.Errorf(`building attribute %q attribute: %s`, attrName, diags.Error())
+	}
+	attrValLit := attrExpr.Body().GetAttribute(attrName).Expr().BuildTokens(nil).Bytes()
+	dexpr, diags := hclsyntax.ParseExpression(attrValLit, "", hcl.InitialPos)
+	if diags.HasErrors() {
+		return cty.Zero, fmt.Errorf(`parsing HCL expression %q: %s`, string(attrValLit), diags.Error())
+	}
+	aval, diags := dexpr.Value(&hcl.EvalContext{Functions: map[string]function.Function{
+		"jsonencode": stdlib.JSONEncodeFunc,
+	}})
+	if diags.HasErrors() {
+		return cty.Zero, fmt.Errorf(`evaluating value of HCL expression %q: %s`, string(attrValLit), diags.Error())
+	}
+	return aval, nil
 }
