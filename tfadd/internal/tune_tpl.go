@@ -18,7 +18,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func TuneTpl(sch schema.Schema, tpl []byte, rt string, ocAttrsToKeep map[string]bool) ([]byte, error) {
+func TuneTpl(sch schema.Schema, tpl []byte, rt string, ocToKeep map[string]bool) ([]byte, error) {
 	f, diag := hclwrite.ParseConfig(tpl, "", hcl.InitialPos)
 	if diag.HasErrors() {
 		return nil, fmt.Errorf("parsing the generated template for %s: %s", rt, diag.Error())
@@ -28,13 +28,13 @@ func TuneTpl(sch schema.Schema, tpl []byte, rt string, ocAttrsToKeep map[string]
 	rb.RemoveAttribute("id")
 	rb.RemoveBlock(rb.FirstMatchingBlock("timeouts", nil))
 
-	if err := tuneForBlock(rb, sch.Block, nil, ocAttrsToKeep); err != nil {
+	if err := tuneForBlock(rb, sch.Block, nil, ocToKeep); err != nil {
 		return nil, err
 	}
 	return f.Bytes(), nil
 }
 
-func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames []string, ocAttrsToKeep map[string]bool) error {
+func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames []string, ocToKeep map[string]bool) error {
 	for attrName, attrVal := range rb.Attributes() {
 		schAttr, ok := sch.Attributes[attrName]
 		if !ok {
@@ -63,7 +63,7 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 					}
 				} else if len(schAttr.AtLeastOneOf) == 0 {
 					// For O+C attribute that has "AtLeastOneOf" constraint, or is explicitly specified, keep it.
-					if !(len(ocAttrsToKeep) != 0 && ocAttrsToKeep[attrName]) {
+					if !(len(ocToKeep) != 0 && ocToKeep[attrName]) {
 						rb.RemoveAttribute(attrName)
 						continue
 					}
@@ -152,8 +152,11 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 						continue
 					}
 				} else if len(scht.AtLeastOneOf) == 0 {
-					// For O+C block that has "AtLeastOneOf" constraint, keep it.
-					rb.RemoveBlock(blkVal)
+					// For O+blocks attribute that has "AtLeastOneOf" constraint, or is explicitly specified, keep it.
+					if !(len(ocToKeep) != 0 && ocToKeep[blkVal.Type()]) {
+						rb.RemoveBlock(blkVal)
+						continue
+					}
 					continue
 				}
 			} else {

@@ -182,6 +182,7 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, full
 				map[string]bool{
 					"name":      true,
 					"parent_id": true,
+					"identity":  true,
 					"location":  true,
 					"tags":      true,
 				},
