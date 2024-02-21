@@ -69,7 +69,7 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 	}
 
 	if len(targets) == 0 {
-		b, err := GenerateForOneModuleModule(pschs, *state.Values.RootModule, cfg.full)
+		b, err := GenerateForOneModule(pschs, *state.Values.RootModule, cfg.full)
 		if err != nil {
 			return nil, err
 		}
@@ -122,7 +122,7 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 	return out, nil
 }
 
-func GenerateForOneModuleModule(pschs *tfjson.ProviderSchemas, module tfstate.StateModule, full bool) ([]byte, error) {
+func GenerateForOneModule(pschs *tfjson.ProviderSchemas, module tfstate.StateModule, full bool) ([]byte, error) {
 	var templates []byte
 	if module.Address != "" {
 		templates = append(templates, []byte("# "+module.Address+"\n")...)
@@ -146,7 +146,7 @@ func GenerateForOneModuleModule(pschs *tfjson.ProviderSchemas, module tfstate.St
 		templates = append(templates, b...)
 	}
 	for _, mod := range module.ChildModules {
-		ctemplates, err := GenerateForOneModuleModule(pschs, *mod, full)
+		ctemplates, err := GenerateForOneModule(pschs, *mod, full)
 		if err != nil {
 			return nil, err
 		}
