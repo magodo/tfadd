@@ -292,6 +292,22 @@ root_block_device "2" {
 	})
 }
 
+func TestAdd_addDependency(t *testing.T) {
+	t.Run("Dependency", func(t *testing.T) {
+		var buf strings.Builder
+		addDependency(&buf, []string{"foo", "bar"}, 0)
+		expected := `depends_on = [
+  foo,
+  bar,
+]
+`
+
+		if !cmp.Equal(buf.String(), expected) {
+			t.Errorf("wrong output:\n%s", cmp.Diff(expected, buf.String()))
+		}
+	})
+}
+
 func addTestSchema(nesting tfjson.SchemaNestingMode) *tfjson.SchemaBlock {
 	return &tfjson.SchemaBlock{
 		Attributes: map[string]*tfjson.SchemaAttribute{

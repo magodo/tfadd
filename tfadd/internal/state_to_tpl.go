@@ -36,8 +36,22 @@ func StateToTpl(r *tfstate.StateResource, schema *tfjson.SchemaBlock) ([]byte, e
 	if err := addBlocks(&buf, r.Value, schema.NestedBlocks, 2); err != nil {
 		return nil, err
 	}
+	addDependency(&buf, r.DependsOn, 2)
 	buf.WriteString("}\n")
 	return hclwrite.Format([]byte(buf.String())), nil
+}
+
+func addDependency(buf *strings.Builder, deps []string, indent int) {
+	if len(deps) == 0 {
+		return
+	}
+	buf.WriteString(strings.Repeat(" ", indent))
+	buf.WriteString("depends_on = [\n")
+	for _, dep := range deps {
+		buf.WriteString(strings.Repeat(" ", indent+2) + dep + ",\n")
+	}
+	buf.WriteString(strings.Repeat(" ", indent))
+	buf.WriteString("]\n")
 }
 
 func addAttributes(buf *strings.Builder, stateVal cty.Value, attrs map[string]*tfjson.SchemaAttribute, indent int) error {
