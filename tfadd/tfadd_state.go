@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/magodo/tfadd/tfadd/internal"
+	"github.com/zclconf/go-cty/cty"
 
 	"github.com/magodo/tfadd/addr"
 
@@ -195,4 +196,8 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, full
 		}
 	}
 	return b, nil
+}
+
+func GenerateForProvider(name string, psch *tfjson.Schema, v cty.Value) ([]byte, error) {
+	return internal.ProviderTpl(name, v, psch.Block)
 }

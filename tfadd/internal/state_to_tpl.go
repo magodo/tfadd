@@ -16,6 +16,19 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
+func ProviderTpl(name string, v cty.Value, schema *tfjson.SchemaBlock) ([]byte, error) {
+	var buf strings.Builder
+	buf.WriteString(fmt.Sprintf("provider %q {\n", name))
+	if err := addAttributes(&buf, v, schema.Attributes, 2); err != nil {
+		return nil, err
+	}
+	if err := addBlocks(&buf, v, schema.NestedBlocks, 2); err != nil {
+		return nil, err
+	}
+	buf.WriteString("}\n")
+	return hclwrite.Format([]byte(buf.String())), nil
+}
+
 func StateToTpl(r *tfstate.StateResource, schema *tfjson.SchemaBlock) ([]byte, error) {
 	var buf strings.Builder
 	addr, err := addr2.ParseResourceAddr(r.Address)
@@ -217,6 +230,14 @@ func addNestedBlock(buf *strings.Builder, name string, schema *tfjson.SchemaBloc
 	if stateVal.IsNull() {
 		return nil
 	}
+
+	// // Converting the List and Set modes that have single-element constraint to Single mode.
+	// // This is how the legacy SDK defines the Single mode.
+	// if schema.MaxItems == 1 &&
+	// 	slices.Index([]tfjson.SchemaNestingMode{tfjson.SchemaNestingModeList, tfjson.SchemaNestingModeSet}, schema.NestingMode) != -1 {
+	// 	schema.NestingMode = tfjson.SchemaNestingModeSingle
+	// }
+
 	switch schema.NestingMode {
 	case tfjson.SchemaNestingModeSingle, tfjson.SchemaNestingModeGroup:
 		buf.WriteString(strings.Repeat(" ", indent))
