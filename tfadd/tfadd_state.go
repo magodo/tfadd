@@ -15,19 +15,7 @@ import (
 	"github.com/magodo/tfstate"
 )
 
-type stateConfig struct {
-	// Whether the generated config contains all the non-computed properties?
-	// Set via Full option.
-	full bool
-}
-
-func defaultStateConfig() stateConfig {
-	return stateConfig{
-		full: false,
-	}
-}
-
-func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]byte, error) {
+func State(ctx context.Context, tf *tfexec.Terraform, opts ...OptionSetter) ([]byte, error) {
 	bs, err := fromState(ctx, tf, nil, opts...)
 	if err != nil {
 		return nil, err
@@ -35,7 +23,7 @@ func State(ctx context.Context, tf *tfexec.Terraform, opts ...StateOption) ([]by
 	return bs[0], nil
 }
 
-func StateForTargets(ctx context.Context, tf *tfexec.Terraform, targets []string, opts ...StateOption) ([][]byte, error) {
+func StateForTargets(ctx context.Context, tf *tfexec.Terraform, targets []string, opts ...OptionSetter) ([][]byte, error) {
 	var targetAddrs []addr.ResourceAddr
 	for _, target := range targets {
 		targetAddr, err := addr.ParseResourceAddr(target)
@@ -47,12 +35,7 @@ func StateForTargets(ctx context.Context, tf *tfexec.Terraform, targets []string
 	return fromState(ctx, tf, targetAddrs, opts...)
 }
 
-func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.ResourceAddr, opts ...StateOption) ([][]byte, error) {
-	cfg := defaultStateConfig()
-	for _, o := range opts {
-		o.configureState(&cfg)
-	}
-
+func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.ResourceAddr, opts ...OptionSetter) ([][]byte, error) {
 	rawState, err := tf.Show(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("show state: %v", err)
@@ -70,7 +53,7 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 	}
 
 	if len(targets) == 0 {
-		b, err := GenerateForOneModule(pschs, *state.Values.RootModule, cfg.full)
+		b, err := GenerateForOneModule(pschs, *state.Values.RootModule, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -114,7 +97,7 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 		if !ok {
 			return nil, fmt.Errorf("no resource type %s found in provider's schema", targetResource.Type)
 		}
-		b, err := GenerateForOneResource(rsch, *targetResource, cfg.full)
+		b, err := GenerateForOneResource(rsch, *targetResource, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("generate for one resource: %v", err)
 		}
@@ -123,7 +106,7 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 	return out, nil
 }
 
-func GenerateForOneModule(pschs *tfjson.ProviderSchemas, module tfstate.StateModule, full bool) ([]byte, error) {
+func GenerateForOneModule(pschs *tfjson.ProviderSchemas, module tfstate.StateModule, opts ...OptionSetter) ([]byte, error) {
 	var templates []byte
 	if module.Address != "" {
 		templates = append(templates, []byte("# "+module.Address+"\n")...)
@@ -137,7 +120,7 @@ func GenerateForOneModule(pschs *tfjson.ProviderSchemas, module tfstate.StateMod
 		if !ok {
 			return nil, fmt.Errorf("no resource type %s found in provider's schema", res.Type)
 		}
-		b, err := GenerateForOneResource(rsch, *res, full)
+		b, err := GenerateForOneResource(rsch, *res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -147,7 +130,7 @@ func GenerateForOneModule(pschs *tfjson.ProviderSchemas, module tfstate.StateMod
 		templates = append(templates, b...)
 	}
 	for _, mod := range module.ChildModules {
-		ctemplates, err := GenerateForOneModule(pschs, *mod, full)
+		ctemplates, err := GenerateForOneModule(pschs, *mod, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -159,15 +142,24 @@ func GenerateForOneModule(pschs *tfjson.ProviderSchemas, module tfstate.StateMod
 	return templates, nil
 }
 
-func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, full bool) ([]byte, error) {
+func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, opts ...OptionSetter) ([]byte, error) {
+	var opt Option
+	for _, o := range opts {
+		o.configureState(&opt)
+	}
+
+	iopt := internal.Option{
+		MaskSensitive: opt.maskSensitive,
+	}
+
 	if res.Mode != tfjson.ManagedResourceMode {
 		return nil, nil
 	}
-	b, err := internal.StateToTpl(&res, rsch.Block)
+	b, err := internal.StateToTpl(&res, rsch.Block, &iopt)
 	if err != nil {
 		return nil, fmt.Errorf("generate template from state for %s: %v", res.Type, err)
 	}
-	if !full {
+	if !opt.full {
 		providerName := strings.TrimPrefix(res.ProviderName, "registry.terraform.io/")
 		pinfo, ok := supportedProviders[providerName]
 		if !ok {
