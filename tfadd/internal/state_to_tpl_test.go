@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -26,15 +25,28 @@ func Test_StateToTpl(t *testing.T) {
 				cty.NumberIntVal(2),
 				cty.NumberIntVal(3),
 			}),
-			"foo_json": cty.StringVal(`{"foo": "bar", "block1": { "foo2": "bar2"}}`),
+			"foo_json":     cty.StringVal(`{"foo": "bar", "block1": { "foo2": "bar2"}}`),
+			"s_number":     cty.NumberIntVal(123),
+			"s_bool":       cty.BoolVal(true),
+			"s_string":     cty.StringVal("abc"),
+			"s_list":       cty.ListVal([]cty.Value{cty.StringVal("abc")}),
+			"s_set":        cty.SetVal([]cty.Value{cty.StringVal("abc")}),
+			"s_map":        cty.MapVal(map[string]cty.Value{"foo": cty.StringVal("abc")}),
+			"s_blk_single": cty.ObjectVal(map[string]cty.Value{"foo": cty.StringVal("abc")}),
+			"s_blk_map":    cty.MapVal(map[string]cty.Value{"bar": cty.ObjectVal(map[string]cty.Value{"foo": cty.StringVal("abc")})}),
+			"s_blk_list":   cty.ListVal([]cty.Value{cty.ObjectVal(map[string]cty.Value{"foo": cty.StringVal("abc")})}),
+			"s_blk_set":    cty.SetVal([]cty.Value{cty.ObjectVal(map[string]cty.Value{"foo": cty.StringVal("abc")})}),
 		}),
 	}
-	b, err := StateToTpl(res, addTestSchema(tfjson.SchemaNestingModeSingle))
-	if err != nil {
-		t.Fatal(err.Error())
-	}
 
-	expected := `resource "test_instance" "foo" {
+	for _, tt := range []struct {
+		name   string
+		opt    *Option
+		expect string
+	}{
+		{
+			name: "Default behavior",
+			expect: `resource "test_instance" "foo" {
   ami = "ami-123456789"
   disks = {
     mount_point = "/mnt/foo"
@@ -48,10 +60,75 @@ func Test_StateToTpl(t *testing.T) {
   })
   foo_list = [1, 2, 3]
   list_str = jsonencode([1, 2, 3])
+  s_blk_list = [
+    {
+      foo = "abc"
+    },
+  ]
+  s_blk_map = {
+    bar = {
+      foo = "abc"
+    }
+  }
+  s_blk_set = [
+    {
+      foo = "abc"
+    },
+  ]
+  s_blk_single = {
+    foo = "abc"
+  }
+  s_bool = true
+  s_list = ["abc"]
+  s_map = {
+    foo = "abc"
+  }
+  s_number = 123
+  s_set    = ["abc"]
+  s_string = "abc"
 }
-`
-	if string(b) != expected {
-		t.Errorf("wrong result: %s", cmp.Diff(expected, string(b)))
+`,
+		},
+		{
+			name: "SensitveMasked",
+			opt:  &Option{MaskSensitive: true},
+			expect: `resource "test_instance" "foo" {
+  ami = "ami-123456789"
+  disks = {
+    mount_point = "/mnt/foo"
+    size        = "50GB"
+  }
+  foo_json = jsonencode({
+    block1 = {
+      foo2 = "bar2"
+    }
+    foo = "bar"
+  })
+  foo_list     = [1, 2, 3]
+  list_str     = jsonencode([1, 2, 3])
+  s_blk_list   = []    # Masked sensitive attribute
+  s_blk_map    = {}    # Masked sensitive attribute
+  s_blk_set    = []    # Masked sensitive attribute
+  s_blk_single = {}    # Masked sensitive attribute
+  s_bool       = false # Masked sensitive attribute
+  s_list       = []    # Masked sensitive attribute
+  s_map        = {}    # Masked sensitive attribute
+  s_number     = 0     # Masked sensitive attribute
+  s_set        = []    # Masked sensitive attribute
+  s_string     = ""    # Masked sensitive attribute
+}
+`,
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			b, err := StateToTpl(res, addTestSchema(tfjson.SchemaNestingModeSingle), tt.opt)
+			if err != nil {
+				t.Fatal(err.Error())
+			}
+			if string(b) != tt.expect {
+				t.Errorf("wrong result: %s", cmp.Diff(tt.expect, string(b)))
+			}
+		})
 	}
 }
 
@@ -157,12 +234,12 @@ tags = {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-			var buf strings.Builder
-			if err := addAttributes(&buf, test.val, test.attrs, 0); err != nil {
+			c := newConverter(nil, nil)
+			if err := c.AddAttributes(test.val, test.attrs, 0); err != nil {
 				t.Errorf("unexpected error")
 			}
-			if buf.String() != test.expected {
-				t.Errorf("wrong result: %s", cmp.Diff(test.expected, buf.String()))
+			if c.String() != test.expected {
+				t.Errorf("wrong result: %s", cmp.Diff(test.expected, c.String()))
 			}
 		})
 	}
@@ -179,16 +256,16 @@ func TestAdd_addBlocks(t *testing.T) {
 			})),
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeSingle)
-		var buf strings.Builder
-		addBlocks(&buf, val, schema.NestedBlocks, 0)
+		c := newConverter(nil, nil)
+		c.AddBlocks(val, schema.NestedBlocks, 0)
 
 		expected := `root_block_device {
   volume_type = "foo"
 }
 `
 
-		if !cmp.Equal(buf.String(), expected) {
-			t.Errorf("wrong output:\n%s", cmp.Diff(expected, buf.String()))
+		if !cmp.Equal(c.String(), expected) {
+			t.Errorf("wrong output:\n%s", cmp.Diff(expected, c.String()))
 		}
 	})
 
@@ -209,8 +286,8 @@ func TestAdd_addBlocks(t *testing.T) {
 			),
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeList)
-		var buf strings.Builder
-		addBlocks(&buf, val, schema.NestedBlocks, 0)
+		c := newConverter(nil, nil)
+		c.AddBlocks(val, schema.NestedBlocks, 0)
 
 		expected := `root_block_device {
   volume_type = "foo"
@@ -220,8 +297,8 @@ root_block_device {
 }
 `
 
-		if !cmp.Equal(buf.String(), expected) {
-			t.Fatalf("wrong output:\n%s", cmp.Diff(expected, buf.String()))
+		if !cmp.Equal(c.String(), expected) {
+			t.Fatalf("wrong output:\n%s", cmp.Diff(expected, c.String()))
 		}
 	})
 
@@ -242,8 +319,8 @@ root_block_device {
 			),
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeSet)
-		var buf strings.Builder
-		addBlocks(&buf, val, schema.NestedBlocks, 0)
+		c := newConverter(nil, nil)
+		c.AddBlocks(val, schema.NestedBlocks, 0)
 
 		expected := `root_block_device {
   volume_type = "bar"
@@ -253,8 +330,8 @@ root_block_device {
 }
 `
 
-		if !cmp.Equal(buf.String(), expected) {
-			t.Fatalf("wrong output:\n%s", cmp.Diff(expected, buf.String()))
+		if !cmp.Equal(c.String(), expected) {
+			t.Fatalf("wrong output:\n%s", cmp.Diff(expected, c.String()))
 		}
 	})
 
@@ -275,8 +352,8 @@ root_block_device {
 			),
 		})
 		schema := addTestSchema(tfjson.SchemaNestingModeMap)
-		var buf strings.Builder
-		addBlocks(&buf, val, schema.NestedBlocks, 0)
+		c := newConverter(nil, nil)
+		c.AddBlocks(val, schema.NestedBlocks, 0)
 
 		expected := `root_block_device "1" {
   volume_type = "foo"
@@ -286,24 +363,24 @@ root_block_device "2" {
 }
 `
 
-		if !cmp.Equal(buf.String(), expected) {
-			t.Fatalf("wrong output:\n%s", cmp.Diff(expected, buf.String()))
+		if !cmp.Equal(c.String(), expected) {
+			t.Fatalf("wrong output:\n%s", cmp.Diff(expected, c.String()))
 		}
 	})
 }
 
 func TestAdd_addDependency(t *testing.T) {
 	t.Run("Dependency", func(t *testing.T) {
-		var buf strings.Builder
-		addDependency(&buf, []string{"foo", "bar"}, 0)
+		c := newConverter(nil, nil)
+		c.AddDependency([]string{"foo", "bar"}, 0)
 		expected := `depends_on = [
   foo,
   bar,
 ]
 `
 
-		if !cmp.Equal(buf.String(), expected) {
-			t.Errorf("wrong output:\n%s", cmp.Diff(expected, buf.String()))
+		if !cmp.Equal(c.String(), expected) {
+			t.Errorf("wrong output:\n%s", cmp.Diff(expected, c.String()))
 		}
 	})
 }
@@ -327,6 +404,42 @@ func addTestSchema(nesting tfjson.SchemaNestingMode) *tfjson.SchemaBlock {
 			"list_str": {AttributeType: cty.String, Optional: true},
 			"foo_list": {AttributeType: cty.List(cty.Number), Optional: true},
 			"foo_json": {AttributeType: cty.String, Optional: true},
+
+			// Sensitive attributes
+			"s_number": {AttributeType: cty.Number, Optional: true, Sensitive: true},
+			"s_bool":   {AttributeType: cty.Bool, Optional: true, Sensitive: true},
+			"s_string": {AttributeType: cty.String, Optional: true, Sensitive: true},
+			"s_list":   {AttributeType: cty.List(cty.String), Optional: true, Sensitive: true},
+			"s_set":    {AttributeType: cty.Set(cty.String), Optional: true, Sensitive: true},
+			"s_map":    {AttributeType: cty.Map(cty.String), Optional: true, Sensitive: true},
+			"s_blk_single": {
+				AttributeNestedType: &tfjson.SchemaNestedAttributeType{
+					NestingMode: tfjson.SchemaNestingModeSingle,
+					Attributes:  map[string]*tfjson.SchemaAttribute{"foo": {AttributeType: cty.String, Optional: true}}},
+				Optional:  true,
+				Sensitive: true,
+			},
+			"s_blk_map": {
+				AttributeNestedType: &tfjson.SchemaNestedAttributeType{
+					NestingMode: tfjson.SchemaNestingModeMap,
+					Attributes:  map[string]*tfjson.SchemaAttribute{"foo": {AttributeType: cty.String, Optional: true}}},
+				Optional:  true,
+				Sensitive: true,
+			},
+			"s_blk_list": {
+				AttributeNestedType: &tfjson.SchemaNestedAttributeType{
+					NestingMode: tfjson.SchemaNestingModeList,
+					Attributes:  map[string]*tfjson.SchemaAttribute{"foo": {AttributeType: cty.String, Optional: true}}},
+				Optional:  true,
+				Sensitive: true,
+			},
+			"s_blk_set": {
+				AttributeNestedType: &tfjson.SchemaNestedAttributeType{
+					NestingMode: tfjson.SchemaNestingModeSet,
+					Attributes:  map[string]*tfjson.SchemaAttribute{"foo": {AttributeType: cty.String, Optional: true}}},
+				Optional:  true,
+				Sensitive: true,
+			},
 		},
 		NestedBlocks: map[string]*tfjson.SchemaBlockType{
 			"root_block_device": {

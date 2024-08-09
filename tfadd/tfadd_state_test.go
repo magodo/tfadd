@@ -55,7 +55,7 @@ func TestTFAdd_resource(t *testing.T) {
 	cases := []struct {
 		name        string
 		statefile   string
-		options     []StateOption
+		options     []OptionSetter
 		targets     []string
 		expectError *regexp.Regexp
 		expect      string
@@ -80,7 +80,7 @@ resource "azurerm_resource_group" "b" {
 		{
 			name:      "generate all supported resources in the state, full",
 			statefile: "azurerm_resource_groups",
-			options:   []StateOption{Full(true)},
+			options:   []OptionSetter{Full(true)},
 			expect: `resource "azurerm_resource_group" "a" {
   location = "eastus2"
   name     = "foo"
