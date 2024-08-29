@@ -76,6 +76,7 @@ Options:
   -full               Output all non-computed properties in the generated config
   -mask-sensitive     Mask sensitive properties
   -target=addr        Only generate for the specified resource (can specify multiple times)
+  -chdir              Change the current working directory
 `
 	return strings.TrimSpace(helpText)
 }
@@ -83,6 +84,7 @@ Options:
 func (r *stateCommand) Run(args []string) int {
 	fset := defaultFlagSet("state")
 	flagFull := fset.Bool("full", false, "Whether to generate all non-computed properties")
+	flagChdir := fset.String("chdir", ".", "Change the current working directory")
 	flagMaskSensitive := fset.Bool("mask-sensitive", false, "Whether to mask sensitive properties")
 	var flagTargets arrayFlag
 	fset.Var(&flagTargets, "target", "Only generate for the specified resource")
@@ -100,7 +102,7 @@ func (r *stateCommand) Run(args []string) int {
 		fmt.Fprintf(os.Stderr, err.Error())
 		return 1
 	}
-	tf, err := tfexec.NewTerraform(".", execPath)
+	tf, err := tfexec.NewTerraform(*flagChdir, execPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error())
 		return 1
