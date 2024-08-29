@@ -34,7 +34,7 @@ $`),
 		},
 		{
 			name:      "four providers only",
-			providers: []string{"hashicorp/azurerm", "hashicorp/google", "hashicorp/aws"},
+			providers: []string{"hashicorp/azurerm", "hashicorp/google", "hashicorp/aws", "azure/azapi"},
 			expect: regexp.MustCompile(`^terraform {
   required_providers {
     azurerm = {
@@ -47,6 +47,10 @@ $`),
     }
     aws = {
       source = "hashicorp/aws"
+      version = "\d+\.\d+\.\d+"
+    }
+    azapi = {
+      source = "azure/azapi"
       version = "\d+\.\d+\.\d+"
     }
   }

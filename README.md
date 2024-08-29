@@ -24,6 +24,7 @@ Currently to generate the state, the tool supports *full mode* (with `-full`) or
     |hashicorp/aws|v4.67.0|
     |hashicorp/azurerm|v3.99.0|
     |hashicorp/google|v4.64.0|
+    |azure/azapi|v1.9.0|
 
 ## Usage
 

@@ -170,7 +170,19 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, opts
 		if !ok {
 			return b, nil
 		}
-		b, err = internal.TuneTpl(*sch, b, res.Type, nil)
+		if providerName == "azure/azapi" {
+			b, err = internal.TuneTpl(*sch, b, res.Type,
+				map[string]bool{
+					"name":      true,
+					"parent_id": true,
+					"identity":  true,
+					"location":  true,
+					"tags":      true,
+				},
+			)
+		} else {
+			b, err = internal.TuneTpl(*sch, b, res.Type, nil)
+		}
 		if err != nil {
 			return nil, fmt.Errorf("tune template for %s: %v", res.Type, err)
 		}
