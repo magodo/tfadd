@@ -10,6 +10,8 @@ import (
 	addr2 "github.com/magodo/tfadd/addr"
 	"github.com/zclconf/go-cty/cty/function/stdlib"
 
+	"github.com/hashicorp/hcl/v2"
+	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/hashicorp/hcl/v2/hclwrite"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/magodo/tfstate"
@@ -140,7 +142,11 @@ func (c converter) AddAttributes(stateVal cty.Value, attrs map[string]*tfjson.Sc
 					if (unquoted[0] == '{' || unquoted[0] == '[') && json.Valid([]byte(unquoted)) {
 						if decodeVal, err := stdlib.JSONDecode(val); err == nil {
 							bs2 := hclwrite.TokensForValue(decodeVal).Bytes()
-							bs = append([]byte("jsonencode("), append(bs2, ')')...)
+							// Ensure the HCL representation of the JSON is still a valid HCL
+							// See: https://github.com/Azure/aztfexport/issues/557 for details.
+							if _, err := hclsyntax.ParseExpression(bs2, "", hcl.InitialPos); err == nil {
+								bs = append([]byte("jsonencode("), append(bs2, ')')...)
+							}
 						}
 					}
 				}
