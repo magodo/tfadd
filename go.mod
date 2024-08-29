@@ -11,7 +11,7 @@ require (
 	github.com/hashicorp/terraform-exec v0.21.0
 	github.com/hashicorp/terraform-json v0.22.1
 	github.com/magodo/tfpluginschema v0.0.0-20240829104406-475dca949d75
-	github.com/magodo/tfstate v0.0.0-20240829081526-19c90cae020e
+	github.com/magodo/tfstate v0.0.0-20240829105815-03d52976fa13
 	github.com/mitchellh/cli v1.1.2
 	github.com/stretchr/testify v1.7.2
 	github.com/zclconf/go-cty v1.15.0
