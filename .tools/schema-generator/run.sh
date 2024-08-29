@@ -91,7 +91,7 @@ var ProviderSchemaInfo schema.ProviderSchema
 func init() {
     b := []byte(\`$out\`)
 	if err := json.Unmarshal(b, &ProviderSchemaInfo); err != nil {
-		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
+        fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (${provider_name}): %s", err)
 		os.Exit(1)
 	}
     ProviderSchemaInfo.Version = "${provider_version#v}"

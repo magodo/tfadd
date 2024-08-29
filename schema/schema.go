@@ -9,5 +9,5 @@ type ProviderSchema struct {
 }
 
 type Schema struct {
-	Block *tfpluginschema.Block `json:"block,omitempty"`
+	Block *tfpluginschema.SchemaBlock `json:"block,omitempty"`
 }

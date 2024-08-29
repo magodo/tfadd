@@ -18,7 +18,7 @@ func main() {
 		log.Fatal(err)
 	}
 	for name, rs := range provider.ResourcesMap {
-		schemas[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2ProviderSchemaMap(rs.Schema)}
+		schemas[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2SchemaMap(rs.Schema)}
 	}
 	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")
 	if err != nil {

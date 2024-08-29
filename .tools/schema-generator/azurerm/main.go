@@ -40,7 +40,7 @@ func run() error {
 
 	schemas := map[string]*tfschema.Schema{}
 	for name, res := range resources {
-		schemas[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2ProviderSchemaMap(res.Schema)}
+		schemas[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2SchemaMap(res.Schema)}
 	}
 
 	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")

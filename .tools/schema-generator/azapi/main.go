@@ -11,9 +11,13 @@ import (
 )
 
 func main() {
+	sch, err := tfpluginschema.FromFWProvider(&provider.Provider{})
+	if err != nil {
+		log.Fatal(err)
+	}
 	schemas := map[string]*tfschema.Schema{}
-	for name, rs := range provider.AzureProvider().ResourcesMap {
-		schemas[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2ProviderSchemaMap(rs.Schema)}
+	for name, rs := range sch.ResourceSchemas {
+		schemas[name] = &tfschema.Schema{Block: rs.Block}
 	}
 	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")
 	if err != nil {

@@ -16,129 +16,194 @@ func init() {
   "resource_schemas": {
     "azapi_data_plane_resource": {
       "block": {
-        "attributes": {
-          "body": {
-            "type": "string",
+        "attributes": [
+          {
+            "name": "body",
+            "type": "dynamic",
             "optional": true,
+            "computed": true,
             "default": "{}"
           },
-          "ignore_casing": {
-            "type": "bool",
-            "optional": true,
-            "default": false
-          },
-          "ignore_missing_property": {
-            "type": "bool",
-            "optional": true,
-            "default": true
-          },
-          "locks": {
-            "type": [
-              "list",
-              "string"
-            ],
-            "optional": true
-          },
-          "name": {
-            "type": "string",
-            "required": true,
-            "force_new": true
-          },
-          "output": {
+          {
+            "name": "id",
             "type": "string",
             "computed": true
           },
-          "parent_id": {
-            "type": "string",
-            "required": true,
-            "force_new": true
+          {
+            "name": "ignore_casing",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "default": false
           },
-          "response_export_values": {
+          {
+            "name": "ignore_missing_property",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "default": true
+          },
+          {
+            "name": "locks",
             "type": [
               "list",
               "string"
             ],
             "optional": true
           },
-          "type": {
+          {
+            "name": "name",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "output",
+            "type": "dynamic",
+            "computed": true
+          },
+          {
+            "name": "parent_id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "response_export_values",
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "type",
             "type": "string",
             "required": true
           }
-        }
+        ],
+        "block_types": [
+          {
+            "type_name": "timeouts",
+            "block": {
+              "attributes": [
+                {
+                  "name": "create",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "delete",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "read",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "update",
+                  "type": "string",
+                  "optional": true
+                }
+              ]
+            },
+            "nesting_mode": 1
+          }
+        ]
       }
     },
     "azapi_resource": {
       "block": {
-        "attributes": {
-          "body": {
-            "type": "string",
+        "attributes": [
+          {
+            "name": "body",
+            "type": "dynamic",
             "optional": true,
+            "computed": true,
             "default": "{}"
           },
-          "ignore_body_changes": {
-            "type": [
-              "list",
-              "string"
-            ],
-            "optional": true
-          },
-          "ignore_casing": {
-            "type": "bool",
-            "optional": true,
-            "default": false
-          },
-          "ignore_missing_property": {
-            "type": "bool",
-            "optional": true,
-            "default": true
-          },
-          "location": {
-            "type": "string",
-            "optional": true,
-            "computed": true,
-            "force_new": true
-          },
-          "locks": {
-            "type": [
-              "list",
-              "string"
-            ],
-            "optional": true
-          },
-          "name": {
-            "type": "string",
-            "optional": true,
-            "computed": true,
-            "force_new": true
-          },
-          "output": {
+          {
+            "name": "id",
             "type": "string",
             "computed": true
           },
-          "parent_id": {
-            "type": "string",
-            "optional": true,
-            "computed": true,
-            "force_new": true
-          },
-          "removing_special_chars": {
-            "type": "bool",
-            "optional": true,
-            "default": false
-          },
-          "response_export_values": {
+          {
+            "name": "ignore_body_changes",
             "type": [
               "list",
               "string"
             ],
             "optional": true
           },
-          "schema_validation_enabled": {
+          {
+            "name": "ignore_casing",
             "type": "bool",
             "optional": true,
+            "computed": true,
+            "default": false
+          },
+          {
+            "name": "ignore_missing_property",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
             "default": true
           },
-          "tags": {
+          {
+            "name": "location",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "locks",
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "output",
+            "type": "dynamic",
+            "computed": true
+          },
+          {
+            "name": "parent_id",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "removing_special_chars",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "default": false
+          },
+          {
+            "name": "response_export_values",
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "schema_validation_enabled",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "default": true
+          },
+          {
+            "name": "tags",
             "type": [
               "map",
               "string"
@@ -146,179 +211,290 @@ func init() {
             "optional": true,
             "computed": true
           },
-          "type": {
+          {
+            "name": "type",
             "type": "string",
             "required": true
           }
-        },
-        "block_types": {
-          "identity": {
-            "nesting_mode": 3,
+        ],
+        "block_types": [
+          {
+            "type_name": "identity",
             "block": {
-              "attributes": {
-                "identity_ids": {
+              "attributes": [
+                {
+                  "name": "identity_ids",
                   "type": [
                     "list",
                     "string"
                   ],
                   "optional": true
                 },
-                "principal_id": {
+                {
+                  "name": "principal_id",
                   "type": "string",
                   "computed": true
                 },
-                "tenant_id": {
+                {
+                  "name": "tenant_id",
                   "type": "string",
                   "computed": true
                 },
-                "type": {
+                {
+                  "name": "type",
                   "type": "string",
                   "required": true
                 }
-              }
+              ]
             },
-            "optional": true,
-            "computed": true,
-            "max_items": 1
+            "nesting_mode": 2
+          },
+          {
+            "type_name": "timeouts",
+            "block": {
+              "attributes": [
+                {
+                  "name": "create",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "delete",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "read",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "update",
+                  "type": "string",
+                  "optional": true
+                }
+              ]
+            },
+            "nesting_mode": 1
           }
-        }
+        ]
       }
     },
     "azapi_resource_action": {
       "block": {
-        "attributes": {
-          "action": {
-            "type": "string",
-            "optional": true,
-            "force_new": true
-          },
-          "body": {
+        "attributes": [
+          {
+            "name": "action",
             "type": "string",
             "optional": true
           },
-          "locks": {
-            "type": [
-              "list",
-              "string"
-            ],
+          {
+            "name": "body",
+            "type": "dynamic",
             "optional": true
           },
-          "method": {
-            "type": "string",
-            "optional": true,
-            "default": "POST"
-          },
-          "output": {
+          {
+            "name": "id",
             "type": "string",
             "computed": true
           },
-          "resource_id": {
-            "type": "string",
-            "required": true,
-            "force_new": true
-          },
-          "response_export_values": {
+          {
+            "name": "locks",
             "type": [
               "list",
               "string"
             ],
             "optional": true
           },
-          "type": {
+          {
+            "name": "method",
             "type": "string",
-            "required": true,
-            "force_new": true
+            "optional": true,
+            "computed": true,
+            "default": "POST"
+          },
+          {
+            "name": "output",
+            "type": "dynamic",
+            "computed": true
+          },
+          {
+            "name": "resource_id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "response_export_values",
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "when",
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "default": "apply"
           }
-        }
+        ],
+        "block_types": [
+          {
+            "type_name": "timeouts",
+            "block": {
+              "attributes": [
+                {
+                  "name": "create",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "delete",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "read",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "update",
+                  "type": "string",
+                  "optional": true
+                }
+              ]
+            },
+            "nesting_mode": 1
+          }
+        ]
       }
     },
     "azapi_update_resource": {
       "block": {
-        "attributes": {
-          "body": {
-            "type": "string",
-            "optional": true,
-            "default": "{}"
-          },
-          "ignore_body_changes": {
-            "type": [
-              "list",
-              "string"
-            ],
-            "optional": true
-          },
-          "ignore_casing": {
-            "type": "bool",
-            "optional": true,
-            "default": false
-          },
-          "ignore_missing_property": {
-            "type": "bool",
-            "optional": true,
-            "default": true
-          },
-          "locks": {
-            "type": [
-              "list",
-              "string"
-            ],
-            "optional": true
-          },
-          "name": {
-            "type": "string",
+        "attributes": [
+          {
+            "name": "body",
+            "type": "dynamic",
             "optional": true,
             "computed": true,
-            "force_new": true,
-            "exactly_one_of": [
-              "name",
-              "resource_id"
-            ],
-            "required_with": [
-              "parent_id"
-            ]
+            "default": "{}"
           },
-          "output": {
+          {
+            "name": "id",
             "type": "string",
             "computed": true
           },
-          "parent_id": {
-            "type": "string",
-            "optional": true,
-            "computed": true,
-            "force_new": true,
-            "required_with": [
-              "name"
-            ]
-          },
-          "resource_id": {
-            "type": "string",
-            "optional": true,
-            "computed": true,
-            "force_new": true,
-            "exactly_one_of": [
-              "name",
-              "resource_id"
-            ]
-          },
-          "response_export_values": {
+          {
+            "name": "ignore_body_changes",
             "type": [
               "list",
               "string"
             ],
             "optional": true
           },
-          "type": {
+          {
+            "name": "ignore_casing",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "default": false
+          },
+          {
+            "name": "ignore_missing_property",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "default": true
+          },
+          {
+            "name": "locks",
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "output",
+            "type": "dynamic",
+            "computed": true
+          },
+          {
+            "name": "parent_id",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "resource_id",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "response_export_values",
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "type",
             "type": "string",
             "required": true
           }
-        }
+        ],
+        "block_types": [
+          {
+            "type_name": "timeouts",
+            "block": {
+              "attributes": [
+                {
+                  "name": "create",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "delete",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "read",
+                  "type": "string",
+                  "optional": true
+                },
+                {
+                  "name": "update",
+                  "type": "string",
+                  "optional": true
+                }
+              ]
+            },
+            "nesting_mode": 1
+          }
+        ]
       }
     }
   }
 }`)
 	if err := json.Unmarshal(b, &ProviderSchemaInfo); err != nil {
-		fmt.Fprintf(os.Stderr, "unmarshalling the provider schema: %s", err)
+        fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azapi): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "1.9.0"
+    ProviderSchemaInfo.Version = "1.15.0"
 }

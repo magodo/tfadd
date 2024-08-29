@@ -34,9 +34,9 @@ func TuneTpl(sch schema.Schema, tpl []byte, rt string, ocToKeep map[string]bool)
 	return f.Bytes(), nil
 }
 
-func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames []string, ocToKeep map[string]bool) error {
+func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.SchemaBlock, parentAttrNames []string, ocToKeep map[string]bool) error {
 	for attrName, attrVal := range rb.Attributes() {
-		schAttr, ok := sch.Attributes[attrName]
+		schAttr, ok := sch.AttributesMap()[attrName]
 		if !ok {
 			// This might because the provider under used is a newer one than the version where we ingest the schema information.
 			// This might happen when the user has a newer version provider installed in its local fs, and has set the "dev_overrides" for that provider.
@@ -86,45 +86,51 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 
 		// Non null attribute, continue checking whether it equals to the default value.
 		var dval cty.Value
-		switch schAttr.Type {
-		case cty.Number:
-			dval = cty.Zero
-		case cty.Bool:
-			dval = cty.False
-		case cty.String:
-			dval = cty.StringVal("")
-		default:
-			if schAttr.Type.IsListType() {
-				dval = cty.ListValEmpty(schAttr.Type.ElementType())
-				if len(aval.AsValueSlice()) == 0 {
-					aval = dval
-				} else {
-					aval = cty.ListVal(aval.AsValueSlice())
+
+		if schAttr.Type != nil {
+			switch *schAttr.Type {
+			case cty.Number:
+				dval = cty.Zero
+			case cty.Bool:
+				dval = cty.False
+			case cty.String:
+				dval = cty.StringVal("")
+			default:
+				if schAttr.Type.IsListType() {
+					dval = cty.ListValEmpty(schAttr.Type.ElementType())
+					if len(aval.AsValueSlice()) == 0 {
+						aval = dval
+					} else {
+						aval = cty.ListVal(aval.AsValueSlice())
+					}
+					break
 				}
-				break
-			}
-			if schAttr.Type.IsSetType() {
-				dval = cty.SetValEmpty(schAttr.Type.ElementType())
-				if len(aval.AsValueSlice()) == 0 {
-					aval = dval
-				} else {
-					aval = cty.SetVal(aval.AsValueSlice())
+				if schAttr.Type.IsSetType() {
+					dval = cty.SetValEmpty(schAttr.Type.ElementType())
+					if len(aval.AsValueSlice()) == 0 {
+						aval = dval
+					} else {
+						aval = cty.SetVal(aval.AsValueSlice())
+					}
+					break
 				}
-				break
-			}
-			if schAttr.Type.IsMapType() {
-				dval = cty.MapValEmpty(schAttr.Type.ElementType())
-				if len(aval.AsValueMap()) == 0 {
-					aval = dval
-				} else {
-					aval = cty.MapVal(aval.AsValueMap())
+				if schAttr.Type.IsMapType() {
+					dval = cty.MapValEmpty(schAttr.Type.ElementType())
+					if len(aval.AsValueMap()) == 0 {
+						aval = dval
+					} else {
+						aval = cty.MapVal(aval.AsValueMap())
+					}
+					break
 				}
-				break
 			}
+		} else {
+			// TODO: handle NestedType
 		}
-		if schAttr.Default != nil {
+
+		if schAttr.Default != nil && schAttr.Type != nil {
 			var err error
-			dval, err = gocty.ToCtyValue(schAttr.Default, schAttr.Type)
+			dval, err = gocty.ToCtyValue(schAttr.Default, *schAttr.Type)
 			if err != nil {
 				return fmt.Errorf("converting cty value %v to Go: %v", schAttr.Default, err)
 			}
@@ -136,10 +142,10 @@ func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.Block, parentAttrNames 
 	}
 
 	for _, blkVal := range rb.Blocks() {
-		scht := sch.NestedBlocks[blkVal.Type()]
+		scht := sch.BlocksMap()[blkVal.Type()]
 
-		if scht.Computed {
-			if scht.Optional {
+		if scht.Computed != nil && *scht.Computed {
+			if scht.Optional != nil && *scht.Optional {
 				if len(scht.ExactlyOneOf) != 0 {
 					// For O+C block that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
 					l := make([]string, len(scht.ExactlyOneOf))
