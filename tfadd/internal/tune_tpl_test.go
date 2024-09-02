@@ -3,8 +3,6 @@ package internal
 import (
 	"testing"
 
-	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/hcl/v2/hclwrite"
 	"github.com/magodo/tfadd/schema"
 	tfpluginschema "github.com/magodo/tfpluginschema/schema"
 	"github.com/stretchr/testify/require"
@@ -37,7 +35,7 @@ func TestTuneTpl(t *testing.T) {
 	expect := `resource "foo" "test" {
   req {}
 }`
-	actual, err := TuneTpl(sch, []byte(input), "foo", nil)
+	actual, err := TuneTpl(sch, []byte(input), &TuneOption{RemoveOC: true, RemoveOZAttribute: true})
 	require.NoError(t, err)
 	require.Equal(t, expect, string(actual))
 }
@@ -562,11 +560,9 @@ func TestTuneForBlock(t *testing.T) {
 	}
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			f, diag := hclwrite.ParseConfig([]byte(c.input), "", hcl.InitialPos)
-			require.False(t, diag.HasErrors(), diag.Error())
-			rb := f.Body().Blocks()[0].Body()
-			require.NoError(t, tuneForBlock(rb, &c.schema, nil, c.ocKeep))
-			require.Equal(t, c.expect, string(f.Bytes()))
+			actual, err := TuneTpl(schema.Schema{Block: &c.schema}, []byte(c.input), &TuneOption{RemoveOC: true, RemoveOZAttribute: true, OCToKeep: c.ocKeep})
+			require.NoError(t, err)
+			require.Equal(t, c.expect, string(actual))
 		})
 	}
 }

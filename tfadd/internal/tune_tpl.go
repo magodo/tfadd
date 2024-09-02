@@ -18,168 +18,246 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func TuneTpl(sch schema.Schema, tpl []byte, rt string, ocToKeep map[string]bool) ([]byte, error) {
+func TuneTpl(sch schema.Schema, tpl []byte, option *TuneOption) ([]byte, error) {
+	t, err := newTrimmer(tpl, option)
+	if err != nil {
+		return nil, err
+	}
+	if err := t.tuneBlock(t.Body, sch.Block, Addr{}); err != nil {
+		return nil, err
+	}
+	return t.Bytes(), nil
+}
+
+type trimmer struct {
+	File   *hclwrite.File
+	Body   *hclwrite.Body
+	Option TuneOption
+}
+
+func newTrimmer(tpl []byte, option *TuneOption) (*trimmer, error) {
 	f, diag := hclwrite.ParseConfig(tpl, "", hcl.InitialPos)
 	if diag.HasErrors() {
-		return nil, fmt.Errorf("parsing the generated template for %s: %s", rt, diag.Error())
+		return nil, fmt.Errorf("parsing the template: %s", diag.Error())
+	}
+	if n := len(f.Body().Blocks()); n != 1 {
+		return nil, fmt.Errorf("invalid template: expect one top level block, got=%d", n)
 	}
 	rb := f.Body().Blocks()[0].Body()
 
 	rb.RemoveAttribute("id")
 	rb.RemoveBlock(rb.FirstMatchingBlock("timeouts", nil))
 
-	if err := tuneForBlock(rb, sch.Block, nil, ocToKeep); err != nil {
-		return nil, err
+	var opt TuneOption
+	if option != nil {
+		opt = *option
 	}
-	return f.Bytes(), nil
+	if opt.OCToKeep == nil {
+		opt.OCToKeep = map[string]bool{}
+	}
+
+	return &trimmer{
+		File:   f,
+		Body:   rb,
+		Option: opt,
+	}, nil
 }
 
-func tuneForBlock(rb *hclwrite.Body, sch *tfpluginschema.SchemaBlock, parentAttrNames []string, ocToKeep map[string]bool) error {
+func (t trimmer) Bytes() []byte {
+	return t.File.Bytes()
+}
+
+func (t trimmer) removeAttribute(body *hclwrite.Body, addr Addr, name string) {
+	if t.Option.OCToKeep[addr.String()] {
+		return
+	}
+	body.RemoveAttribute(name)
+}
+
+func (t trimmer) removeBlock(body *hclwrite.Body, addr Addr, blk *hclwrite.Block) {
+	if t.Option.OCToKeep[addr.String()] {
+		return
+	}
+	body.RemoveBlock(blk)
+}
+
+func (t trimmer) tuneAttributes(parentAddr Addr, rb *hclwrite.Body, attrSchs tfpluginschema.SchemaAttributes) error {
+	schMap := attrSchs.Map()
 	for attrName, attrVal := range rb.Attributes() {
-		schAttr, ok := sch.AttributesMap()[attrName]
+		addr := parentAddr.AppendAttributeStep(attrName)
+
+		sch, ok := schMap[attrName]
 		if !ok {
 			// This might because the provider under used is a newer one than the version where we ingest the schema information.
 			// This might happen when the user has a newer version provider installed in its local fs, and has set the "dev_overrides" for that provider.
 			// We simply remove that attribute from the config.
-			rb.RemoveAttribute(attrName)
-			continue
-		}
-		if schAttr.Required {
+			t.removeAttribute(rb, addr, attrName)
 			continue
 		}
 
-		if schAttr.Computed {
-			if schAttr.Optional {
-				if len(schAttr.ExactlyOneOf) != 0 {
+		// Always remove C only attribute
+		if sch.Computed && !sch.Optional {
+			t.removeAttribute(rb, addr, attrName)
+			continue
+		}
+
+		// Removing O+C attribute
+		if t.Option.RemoveOC {
+			if sch.Computed && sch.Optional {
+				// Removing O+C attributes as long as they meet the property constraints
+				if len(sch.ExactlyOneOf) != 0 {
 					// For O+C attribute that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
-					l := make([]string, len(schAttr.ExactlyOneOf))
-					copy(l, schAttr.ExactlyOneOf)
+					l := make([]string, len(sch.ExactlyOneOf))
+					copy(l, sch.ExactlyOneOf)
 					sort.Strings(l)
 
-					addrs := append(parentAttrNames, attrName)
-					if l[0] != strings.Join(addrs, ".0.") {
-						rb.RemoveAttribute(attrName)
+					if l[0] != addr.String() {
+						t.removeAttribute(rb, addr, attrName)
 						continue
 					}
-				} else if len(schAttr.AtLeastOneOf) == 0 {
-					// For O+C attribute that has "AtLeastOneOf" constraint, or is explicitly specified, keep it.
-					if !(len(ocToKeep) != 0 && ocToKeep[attrName]) {
-						rb.RemoveAttribute(attrName)
-						continue
-					}
-				}
-			} else {
-				rb.RemoveAttribute(attrName)
-				continue
-			}
-		}
-
-		// For optional only attributes, remove it from the output config if it either holds the default value or is null.
-		aval, err := attrValue(attrName, attrVal)
-		if err != nil {
-			return err
-		}
-		if aval.IsNull() {
-			rb.RemoveAttribute(attrName)
-			continue
-		}
-
-		// Non null attribute, continue checking whether it equals to the default value.
-		var dval cty.Value
-
-		if schAttr.Type != nil {
-			switch *schAttr.Type {
-			case cty.Number:
-				dval = cty.Zero
-			case cty.Bool:
-				dval = cty.False
-			case cty.String:
-				dval = cty.StringVal("")
-			default:
-				if schAttr.Type.IsListType() {
-					dval = cty.ListValEmpty(schAttr.Type.ElementType())
-					if len(aval.AsValueSlice()) == 0 {
-						aval = dval
-					} else {
-						aval = cty.ListVal(aval.AsValueSlice())
-					}
-					break
-				}
-				if schAttr.Type.IsSetType() {
-					dval = cty.SetValEmpty(schAttr.Type.ElementType())
-					if len(aval.AsValueSlice()) == 0 {
-						aval = dval
-					} else {
-						aval = cty.SetVal(aval.AsValueSlice())
-					}
-					break
-				}
-				if schAttr.Type.IsMapType() {
-					dval = cty.MapValEmpty(schAttr.Type.ElementType())
-					if len(aval.AsValueMap()) == 0 {
-						aval = dval
-					} else {
-						aval = cty.MapVal(aval.AsValueMap())
-					}
-					break
-				}
-			}
-		} else {
-			// TODO: handle NestedType
-		}
-
-		if schAttr.Default != nil && schAttr.Type != nil {
-			var err error
-			dval, err = gocty.ToCtyValue(schAttr.Default, *schAttr.Type)
-			if err != nil {
-				return fmt.Errorf("converting cty value %v to Go: %v", schAttr.Default, err)
-			}
-		}
-		if aval.Equals(dval).True() {
-			rb.RemoveAttribute(attrName)
-			continue
-		}
-	}
-
-	for _, blkVal := range rb.Blocks() {
-		scht := sch.BlocksMap()[blkVal.Type()]
-
-		if scht.Computed != nil && *scht.Computed {
-			if scht.Optional != nil && *scht.Optional {
-				if len(scht.ExactlyOneOf) != 0 {
-					// For O+C block that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
-					l := make([]string, len(scht.ExactlyOneOf))
-					copy(l, scht.ExactlyOneOf)
-					sort.Strings(l)
-
-					addrs := append(parentAttrNames, blkVal.Type())
-					if l[0] != strings.Join(addrs, ".0.") {
-						rb.RemoveBlock(blkVal)
-						continue
-					}
-				} else if len(scht.AtLeastOneOf) == 0 {
-					// For O+blocks attribute that has "AtLeastOneOf" constraint, or is explicitly specified, keep it.
-					if !(len(ocToKeep) != 0 && ocToKeep[blkVal.Type()]) {
-						rb.RemoveBlock(blkVal)
-						continue
-					}
+				} else if len(sch.AtLeastOneOf) == 0 {
+					// For O+C attribute that has "AtLeastOneOf" constraint, keep it
+					t.removeAttribute(rb, addr, attrName)
 					continue
 				}
-			} else {
-				// Computed only
-				rb.RemoveBlock(blkVal)
-				continue
 			}
 		}
 
-		if err := tuneForBlock(blkVal.Body(), scht.Block, append(parentAttrNames, blkVal.Type()), nil); err != nil {
-			return err
+		// Removing Optional "zero" valued attribute
+		if t.Option.RemoveOZAttribute {
+			if sch.NestedType == nil {
+				ok, err := t.attributeIsDefaultOrZeroValue(attrName, attrVal, sch)
+				if err != nil {
+					return addr.NewErrorf("checking attribute value is default or zero: %v", err)
+				}
+				if ok {
+					t.removeAttribute(rb, addr, attrName)
+					continue
+				}
+			}
+		}
+
+		// TODO: Attributes that are kept (either kept O+C, O or R attributes), continue trim the nested objects, or trim the attribute by value.
+		if sch.NestedType != nil {
 		}
 	}
 	return nil
 }
 
-func attrValue(attrName string, attr *hclwrite.Attribute) (cty.Value, error) {
+func (t trimmer) tuneBlock(rb *hclwrite.Body, sch *tfpluginschema.SchemaBlock, parentAddr Addr) error {
+	if sch == nil {
+		return nil
+	}
+
+	if err := t.tuneAttributes(parentAddr, rb, sch.Attributes); err != nil {
+		return parentAddr.NewErrorf("tunning attributes: %v", err)
+	}
+
+	for _, blk := range rb.Blocks() {
+		sch := sch.BlockTypes.Map()[blk.Type()]
+		addr := parentAddr.AppendBlockStep(blk.Type())
+
+		// Always remove C only attribute
+		if (sch.Computed != nil && *sch.Computed) && !(sch.Optional != nil && *sch.Optional) {
+			t.removeBlock(rb, addr, blk)
+			continue
+		}
+
+		if t.Option.RemoveOC {
+			if sch.Computed != nil && *sch.Computed && sch.Optional != nil && *sch.Optional {
+				// Removing O+C blocks as long as they meet the property constraints
+				if len(sch.ExactlyOneOf) != 0 {
+					// For O+C blocks that has "ExactlyOneOf" constraint, keeps the first one in alphabetic order.
+					l := make([]string, len(sch.ExactlyOneOf))
+					copy(l, sch.ExactlyOneOf)
+					sort.Strings(l)
+
+					if l[0] != addr.String() {
+						t.removeBlock(rb, addr, blk)
+						continue
+					}
+				} else if len(sch.AtLeastOneOf) == 0 {
+					// For O+C attribute that has "AtLeastOneOf" constraint, keep it
+					t.removeBlock(rb, addr, blk)
+					continue
+				}
+			}
+		}
+
+		if err := t.tuneBlock(blk.Body(), sch.Block, addr); err != nil {
+			return addr.NewErrorf("tunning blocks: %v", err)
+		}
+	}
+	return nil
+}
+
+// attributeIsDefaultOrZeroValue returns if the attribute is null, or equals to either its default value (defined in schema), or (default value undefined) zero value.
+func (t trimmer) attributeIsDefaultOrZeroValue(attrName string, attrVal *hclwrite.Attribute, attrSch *tfpluginschema.SchemaAttribute) (bool, error) {
+	if attrSch.NestedType != nil {
+		panic("attributes of nested object are not supported")
+	}
+	aval, err := t.attrValue(attrName, attrVal)
+	if err != nil {
+		return false, err
+	}
+	if aval.IsNull() {
+		return true, nil
+	}
+
+	// Non null attribute, continue checking whether it equals to the default value.
+	var dval cty.Value
+
+	if attrSch.Type != nil {
+		switch *attrSch.Type {
+		case cty.Number:
+			dval = cty.Zero
+		case cty.Bool:
+			dval = cty.False
+		case cty.String:
+			dval = cty.StringVal("")
+		default:
+			if attrSch.Type.IsListType() {
+				dval = cty.ListValEmpty(attrSch.Type.ElementType())
+				if len(aval.AsValueSlice()) == 0 {
+					aval = dval
+				} else {
+					aval = cty.ListVal(aval.AsValueSlice())
+				}
+				break
+			}
+			if attrSch.Type.IsSetType() {
+				dval = cty.SetValEmpty(attrSch.Type.ElementType())
+				if len(aval.AsValueSlice()) == 0 {
+					aval = dval
+				} else {
+					aval = cty.SetVal(aval.AsValueSlice())
+				}
+				break
+			}
+			if attrSch.Type.IsMapType() {
+				dval = cty.MapValEmpty(attrSch.Type.ElementType())
+				if len(aval.AsValueMap()) == 0 {
+					aval = dval
+				} else {
+					aval = cty.MapVal(aval.AsValueMap())
+				}
+				break
+			}
+		}
+	}
+
+	if attrSch.Default != nil && attrSch.Type != nil {
+		var err error
+		dval, err = gocty.ToCtyValue(attrSch.Default, *attrSch.Type)
+		if err != nil {
+			return false, fmt.Errorf("converting cty value %v to Go: %v", attrSch.Default, err)
+		}
+	}
+
+	return aval.Equals(dval).True(), nil
+}
+
+func (t trimmer) attrValue(attrName string, attr *hclwrite.Attribute) (cty.Value, error) {
 	attrExpr, diags := hclwrite.ParseConfig(attr.BuildTokens(nil).Bytes(), "generate_attr", hcl.InitialPos)
 	if diags.HasErrors() {
 		return cty.Zero, fmt.Errorf(`building attribute %q attribute: %s`, attrName, diags.Error())
@@ -196,4 +274,34 @@ func attrValue(attrName string, attr *hclwrite.Attribute) (cty.Value, error) {
 		return cty.Zero, fmt.Errorf(`evaluating value of HCL expression %q: %s`, string(attrValLit), diags.Error())
 	}
 	return aval, nil
+}
+
+type Addr struct {
+	segs    []string
+	inBlock bool
+}
+
+func (addr Addr) NewErrorf(msg string, a ...any) error {
+	return fmt.Errorf(fmt.Sprintf("(%s) %s", strings.Join(addr.segs, "."), msg), a...)
+}
+
+func (addr Addr) AppendAttributeStep(step string) Addr {
+	return addr.appendStep(step, true)
+}
+
+func (addr Addr) AppendBlockStep(step string) Addr {
+	return addr.appendStep(step, true)
+}
+
+func (addr Addr) appendStep(step string, inBlock bool) Addr {
+	nsegs := append([]string{}, addr.segs...)
+	if addr.inBlock {
+		nsegs = append(nsegs, "0")
+	}
+	nsegs = append(nsegs, step)
+	return Addr{segs: nsegs, inBlock: inBlock}
+}
+
+func (addr Addr) String() string {
+	return strings.Join(addr.segs, ".")
 }
