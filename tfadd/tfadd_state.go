@@ -180,6 +180,7 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, opts
 					"identity":  true,
 					"location":  true,
 					"tags":      true,
+					"body":      true,
 				},
 			})
 		} else {
