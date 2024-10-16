@@ -22,9 +22,9 @@ Currently to generate the state, the tool supports *full mode* (with `-full`) or
     |Name|Version|
     |-|-|
     |hashicorp/aws|v5.64.0|
-    |hashicorp/azurerm|v4.0.1|
+    |hashicorp/azurerm|v4.5.0|
     |hashicorp/google|v6.0.1|
-    |azure/azapi|v1.15.0|
+    |azure/azapi|v2.0.1|
 
 ## Usage
 

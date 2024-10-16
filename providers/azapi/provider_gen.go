@@ -22,7 +22,45 @@ func init() {
             "type": "dynamic",
             "optional": true,
             "computed": true,
-            "default": "{}"
+            "default": {}
+          },
+          {
+            "name": "create_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "create_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
+          },
+          {
+            "name": "delete_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "delete_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
           },
           {
             "name": "id",
@@ -67,7 +105,31 @@ func init() {
             "required": true
           },
           {
-            "name": "response_export_values",
+            "name": "read_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "read_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
+          },
+          {
+            "name": "replace_triggers_external_values",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "replace_triggers_refs",
             "type": [
               "list",
               "string"
@@ -75,9 +137,78 @@ func init() {
             "optional": true
           },
           {
+            "name": "response_export_values",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "retry",
+            "nested_type": {
+              "Attributes": [
+                {
+                  "name": "error_message_regex",
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": 10
+                },
+                {
+                  "name": "max_interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": 180
+                },
+                {
+                  "name": "multiplier",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": "1.5"
+                },
+                {
+                  "name": "randomization_factor",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": "0.5"
+                }
+              ],
+              "Nesting": 1
+            },
+            "optional": true
+          },
+          {
             "name": "type",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "update_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "update_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
           }
         ],
         "block_types": [
@@ -120,20 +251,50 @@ func init() {
             "type": "dynamic",
             "optional": true,
             "computed": true,
-            "default": "{}"
+            "default": {}
+          },
+          {
+            "name": "create_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "create_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
+          },
+          {
+            "name": "delete_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "delete_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
           },
           {
             "name": "id",
             "type": "string",
             "computed": true
-          },
-          {
-            "name": "ignore_body_changes",
-            "type": [
-              "list",
-              "string"
-            ],
-            "optional": true
           },
           {
             "name": "ignore_casing",
@@ -181,18 +342,85 @@ func init() {
             "computed": true
           },
           {
-            "name": "removing_special_chars",
-            "type": "bool",
-            "optional": true,
-            "computed": true,
-            "default": false
+            "name": "read_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
           },
           {
-            "name": "response_export_values",
+            "name": "read_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
+          },
+          {
+            "name": "replace_triggers_external_values",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "replace_triggers_refs",
             "type": [
               "list",
               "string"
             ],
+            "optional": true
+          },
+          {
+            "name": "response_export_values",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "retry",
+            "nested_type": {
+              "Attributes": [
+                {
+                  "name": "error_message_regex",
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": 10
+                },
+                {
+                  "name": "max_interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": 180
+                },
+                {
+                  "name": "multiplier",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": "1.5"
+                },
+                {
+                  "name": "randomization_factor",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": "0.5"
+                }
+              ],
+              "Nesting": 1
+            },
             "optional": true
           },
           {
@@ -215,6 +443,25 @@ func init() {
             "name": "type",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "update_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "update_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
           }
         ],
         "block_types": [
@@ -294,6 +541,14 @@ func init() {
             "optional": true
           },
           {
+            "name": "headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
             "name": "id",
             "type": "string",
             "computed": true
@@ -319,16 +574,69 @@ func init() {
             "computed": true
           },
           {
+            "name": "query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
+          },
+          {
             "name": "resource_id",
             "type": "string",
             "required": true
           },
           {
             "name": "response_export_values",
-            "type": [
-              "list",
-              "string"
-            ],
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "retry",
+            "nested_type": {
+              "Attributes": [
+                {
+                  "name": "error_message_regex",
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": 10
+                },
+                {
+                  "name": "max_interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": 180
+                },
+                {
+                  "name": "multiplier",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": "1.5"
+                },
+                {
+                  "name": "randomization_factor",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": "0.5"
+                }
+              ],
+              "Nesting": 1
+            },
             "optional": true
           },
           {
@@ -382,22 +690,12 @@ func init() {
           {
             "name": "body",
             "type": "dynamic",
-            "optional": true,
-            "computed": true,
-            "default": "{}"
+            "optional": true
           },
           {
             "name": "id",
             "type": "string",
             "computed": true
-          },
-          {
-            "name": "ignore_body_changes",
-            "type": [
-              "list",
-              "string"
-            ],
-            "optional": true
           },
           {
             "name": "ignore_casing",
@@ -439,6 +737,25 @@ func init() {
             "computed": true
           },
           {
+            "name": "read_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "read_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
+          },
+          {
             "name": "resource_id",
             "type": "string",
             "optional": true,
@@ -446,16 +763,77 @@ func init() {
           },
           {
             "name": "response_export_values",
-            "type": [
-              "list",
-              "string"
-            ],
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "retry",
+            "nested_type": {
+              "Attributes": [
+                {
+                  "name": "error_message_regex",
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": 10
+                },
+                {
+                  "name": "max_interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": 180
+                },
+                {
+                  "name": "multiplier",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": "1.5"
+                },
+                {
+                  "name": "randomization_factor",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true,
+                  "default": "0.5"
+                }
+              ],
+              "Nesting": 1
+            },
             "optional": true
           },
           {
             "name": "type",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "update_headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "update_query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
           }
         ],
         "block_types": [
@@ -496,5 +874,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azapi): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "1.15.0"
+    ProviderSchemaInfo.Version = "2.0.1"
 }
