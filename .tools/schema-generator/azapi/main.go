@@ -15,11 +15,17 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	schemas := map[string]*tfschema.Schema{}
+	rschs := map[string]*tfschema.Schema{}
 	for name, rs := range sch.ResourceSchemas {
-		schemas[name] = &tfschema.Schema{Block: rs.Block}
+		rschs[name] = &tfschema.Schema{Block: rs.Block}
 	}
-	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")
+
+	dschs := map[string]*tfschema.Schema{}
+	for name, ds := range sch.DataSourceSchemas {
+		dschs[name] = &tfschema.Schema{Block: ds.Block}
+	}
+
+	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: rschs, DatasourceSchemas: dschs}, "", "  ")
 	if err != nil {
 		log.Fatal(err)
 	}

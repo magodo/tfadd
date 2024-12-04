@@ -868,6 +868,508 @@ func init() {
         ]
       }
     }
+  },
+  "datasource_schemas": {
+    "azapi_client_config": {
+      "block": {
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "subscription_id",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "tenant_id",
+            "type": "string",
+            "computed": true
+          }
+        ],
+        "block_types": [
+          {
+            "type_name": "timeouts",
+            "block": {
+              "attributes": [
+                {
+                  "name": "read",
+                  "type": "string",
+                  "optional": true
+                }
+              ]
+            },
+            "nesting_mode": 1
+          }
+        ]
+      }
+    },
+    "azapi_resource": {
+      "block": {
+        "attributes": [
+          {
+            "name": "headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "identity",
+            "nested_type": {
+              "Attributes": [
+                {
+                  "name": "identity_ids",
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "computed": true
+                },
+                {
+                  "name": "principal_id",
+                  "type": "string",
+                  "computed": true
+                },
+                {
+                  "name": "tenant_id",
+                  "type": "string",
+                  "computed": true
+                },
+                {
+                  "name": "type",
+                  "type": "string",
+                  "computed": true
+                }
+              ],
+              "Nesting": 2
+            },
+            "computed": true
+          },
+          {
+            "name": "location",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "output",
+            "type": "dynamic",
+            "computed": true
+          },
+          {
+            "name": "parent_id",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
+          },
+          {
+            "name": "resource_id",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "response_export_values",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "retry",
+            "nested_type": {
+              "Attributes": [
+                {
+                  "name": "error_message_regex",
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                {
+                  "name": "max_interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                {
+                  "name": "multiplier",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                {
+                  "name": "randomization_factor",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                }
+              ],
+              "Nesting": 1
+            },
+            "optional": true
+          },
+          {
+            "name": "tags",
+            "type": [
+              "map",
+              "string"
+            ],
+            "computed": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "block_types": [
+          {
+            "type_name": "timeouts",
+            "block": {
+              "attributes": [
+                {
+                  "name": "read",
+                  "type": "string",
+                  "optional": true
+                }
+              ]
+            },
+            "nesting_mode": 1
+          }
+        ]
+      }
+    },
+    "azapi_resource_action": {
+      "block": {
+        "attributes": [
+          {
+            "name": "action",
+            "type": "string",
+            "optional": true
+          },
+          {
+            "name": "body",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "method",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "output",
+            "type": "dynamic",
+            "computed": true
+          },
+          {
+            "name": "query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
+          },
+          {
+            "name": "resource_id",
+            "type": "string",
+            "optional": true
+          },
+          {
+            "name": "response_export_values",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "retry",
+            "nested_type": {
+              "Attributes": [
+                {
+                  "name": "error_message_regex",
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                {
+                  "name": "max_interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                {
+                  "name": "multiplier",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                {
+                  "name": "randomization_factor",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                }
+              ],
+              "Nesting": 1
+            },
+            "optional": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "block_types": [
+          {
+            "type_name": "timeouts",
+            "block": {
+              "attributes": [
+                {
+                  "name": "read",
+                  "type": "string",
+                  "optional": true
+                }
+              ]
+            },
+            "nesting_mode": 1
+          }
+        ]
+      }
+    },
+    "azapi_resource_id": {
+      "block": {
+        "attributes": [
+          {
+            "name": "id",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "parent_id",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "parts",
+            "type": [
+              "map",
+              "string"
+            ],
+            "computed": true
+          },
+          {
+            "name": "provider_namespace",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "resource_group_name",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "resource_id",
+            "type": "string",
+            "optional": true,
+            "computed": true
+          },
+          {
+            "name": "subscription_id",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "block_types": [
+          {
+            "type_name": "timeouts",
+            "block": {
+              "attributes": [
+                {
+                  "name": "read",
+                  "type": "string",
+                  "optional": true
+                }
+              ]
+            },
+            "nesting_mode": 1
+          }
+        ]
+      }
+    },
+    "azapi_resource_list": {
+      "block": {
+        "attributes": [
+          {
+            "name": "headers",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "output",
+            "type": "dynamic",
+            "computed": true
+          },
+          {
+            "name": "parent_id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "query_parameters",
+            "type": [
+              "map",
+              [
+                "list",
+                "string"
+              ]
+            ],
+            "optional": true
+          },
+          {
+            "name": "response_export_values",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "retry",
+            "nested_type": {
+              "Attributes": [
+                {
+                  "name": "error_message_regex",
+                  "type": [
+                    "list",
+                    "string"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                {
+                  "name": "max_interval_seconds",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                {
+                  "name": "multiplier",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                },
+                {
+                  "name": "randomization_factor",
+                  "type": "number",
+                  "optional": true,
+                  "computed": true
+                }
+              ],
+              "Nesting": 1
+            },
+            "optional": true
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "block_types": [
+          {
+            "type_name": "timeouts",
+            "block": {
+              "attributes": [
+                {
+                  "name": "read",
+                  "type": "string",
+                  "optional": true
+                }
+              ]
+            },
+            "nesting_mode": 1
+          }
+        ]
+      }
+    }
   }
 }`)
 	if err := json.Unmarshal(b, &ProviderSchemaInfo); err != nil {

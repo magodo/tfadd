@@ -5,6 +5,8 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+
+	tfjson "github.com/hashicorp/terraform-json"
 )
 
 type ModuleStep struct {
@@ -86,12 +88,16 @@ func ParseModuleAddr(addr string) (ModuleAddr, error) {
 
 type ResourceAddr struct {
 	ModuleAddr ModuleAddr
+	Mode       tfjson.ResourceMode
 	Type       string
 	Name       string
 }
 
 func (addr ResourceAddr) String() string {
 	raddr := addr.Type + "." + addr.Name
+	if addr.Mode == tfjson.DataResourceMode {
+		raddr = "data." + raddr
+	}
 	if moduleAddr := addr.ModuleAddr.String(); moduleAddr != "" {
 		raddr = moduleAddr + "." + raddr
 	}
@@ -101,27 +107,41 @@ func (addr ResourceAddr) String() string {
 func ParseResourceAddr(addr string) (*ResourceAddr, error) {
 	segs := strings.Split(addr, ".")
 
+	mode := tfjson.ManagedResourceMode
 	if len(segs)%2 != 0 {
-		return nil, fmt.Errorf("invalid resource address")
+		// Data source's address starts with modules (e.g. "module.mod1.module.mod2"), if any,
+		// then ends with "data.rt.rn".
+		if len(segs) < 3 {
+			return nil, fmt.Errorf("invalid resource address (expect the length > 3)")
+		}
+		if segs[len(segs)-3] != "data" {
+			return nil, fmt.Errorf("invalid resource address (expect the last 3rd segment is \"data\")")
+		}
+		mode = tfjson.DataResourceMode
 	}
 
 	raddr := &ResourceAddr{
+		Mode: mode,
 		Type: segs[len(segs)-2],
 		Name: segs[len(segs)-1],
 	}
 
-	if len(segs) == 2 {
+	minLen := 2
+	if mode == tfjson.DataResourceMode {
+		minLen = 3
+	}
+
+	if len(segs) == minLen {
 		return raddr, nil
 	}
 
-	maddr, err := ParseModuleAddr(strings.Join(segs[:len(segs)-2], "."))
+	maddr, err := ParseModuleAddr(strings.Join(segs[:len(segs)-minLen], "."))
 	if err != nil {
 		return nil, err
 	}
 
 	raddr.ModuleAddr = maddr
 	return raddr, nil
-
 }
 
 func MustParseResourceAddr(addr string) *ResourceAddr {

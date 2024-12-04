@@ -30,6 +30,91 @@ const (
 	ENV_TFADD_DEV_PROVIDER = "TFADD_DEV_PROVIDER"
 )
 
+func TestTFAdd_datasource(t *testing.T) {
+	if os.Getenv(ENV_TFADD_E2E) == "" {
+		t.Skipf("Skipping e2e test as %q is not set", ENV_TFADD_E2E)
+	}
+
+	const testfixture string = "./testdata/tfadd_state"
+
+	// Ensure terraform executable
+	ctx := context.TODO()
+	i := install.NewInstaller()
+	tfexecutable, err := i.Ensure(ctx, []src.Source{
+		&tffs.AnyVersion{
+			Product: &product.Terraform,
+		},
+		&checkpoint.LatestVersion{
+			Product: product.Terraform,
+		},
+	})
+	if err != nil {
+		t.Fatalf("failed to install terraform: %v", err)
+	}
+
+	cases := []struct {
+		name        string
+		statefile   string
+		options     []OptionSetter
+		targets     []string
+		expectError *regexp.Regexp
+		expect      string
+	}{
+		{
+			name:      "Generate for DS",
+			statefile: "datasource",
+			options:   []OptionSetter{Full(true)},
+			expect: `data "azurerm_resource_group" "current" {
+  name = "foo"
+}
+`,
+		},
+	}
+
+	for _, tt := range cases {
+		t.Run(tt.name, func(t *testing.T) {
+			wsp := t.TempDir()
+
+			if tt.statefile != "" {
+				b, err := os.ReadFile(filepath.Join(testfixture, tt.statefile))
+				require.NoError(t, err)
+				require.NoError(t, os.WriteFile(filepath.Join(wsp, "terraform.tfstate"), b, 0644))
+			}
+
+			tf, err := tfexec.NewTerraform(wsp, tfexecutable)
+			require.NoError(t, err)
+
+			ctx := context.Background()
+			if os.Getenv(ENV_TFADD_DEV_PROVIDER) == "" {
+				b, err := Init([]string{"hashicorp/azurerm", "hashicorp/google", "hashicorp/aws", "azure/azapi"})
+				require.NoError(t, err)
+				require.NoError(t, os.WriteFile(filepath.Join(wsp, "terraform.tf"), b, 0644))
+				require.NoError(t, tf.Init(ctx))
+			}
+
+			if len(tt.targets) == 0 {
+				b, err := State(ctx, tf, tt.options...)
+				if tt.expectError != nil {
+					require.Regexp(t, tt.expectError, err.Error())
+					return
+				}
+				require.NoError(t, err)
+				require.Equal(t, tt.expect, string(b))
+				return
+			}
+
+			bs, err := StateForTargets(ctx, tf, tt.targets)
+			if tt.expectError != nil {
+				require.Regexp(t, tt.expectError, err.Error())
+				return
+			}
+			require.NoError(t, err)
+			b := bytes.Join(bs, nil)
+			require.Equal(t, tt.expect, string(b))
+		})
+	}
+}
+
 func TestTFAdd_resource(t *testing.T) {
 	if os.Getenv(ENV_TFADD_E2E) == "" {
 		t.Skipf("Skipping e2e test as %q is not set", ENV_TFADD_E2E)

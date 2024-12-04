@@ -61,8 +61,6 @@
             "default_route_table_id": "rtb-05ff6cc4de25bd1fd",
             "default_security_group_id": "sg-0cb1e2153869677f5",
             "dhcp_options_id": "dopt-9343b5eb",
-            "enable_classiclink": false,
-            "enable_classiclink_dns_support": false,
             "enable_dns_hostnames": false,
             "enable_dns_support": true,
             "id": "vpc-0c2b3f8d611d18656",

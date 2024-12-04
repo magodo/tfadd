@@ -9,6 +9,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 
 	"github.com/magodo/tfadd/addr"
+	"github.com/magodo/tfadd/schema"
 
 	"github.com/hashicorp/terraform-exec/tfexec"
 	tfjson "github.com/hashicorp/terraform-json"
@@ -93,10 +94,12 @@ func fromState(ctx context.Context, tf *tfexec.Terraform, targets []addr.Resourc
 		if !ok {
 			return nil, fmt.Errorf("no provider named %s found in provider schemas of current workspace", targetResource.ProviderName)
 		}
-		rsch, ok := psch.ResourceSchemas[targetResource.Type]
-		if !ok {
-			return nil, fmt.Errorf("no resource type %s found in provider's schema", targetResource.Type)
+
+		rsch, err := getResourceSchema(*targetResource, psch)
+		if err != nil {
+			return nil, err
 		}
+
 		b, err := GenerateForOneResource(rsch, *targetResource, opts...)
 		if err != nil {
 			return nil, fmt.Errorf("generate for one resource: %v", err)
@@ -116,10 +119,12 @@ func GenerateForOneModule(pschs *tfjson.ProviderSchemas, module tfstate.StateMod
 		if !ok {
 			return nil, fmt.Errorf("no provider named %s found in provider schemas of current workspace", res.ProviderName)
 		}
-		rsch, ok := psch.ResourceSchemas[res.Type]
-		if !ok {
-			return nil, fmt.Errorf("no resource type %s found in provider's schema", res.Type)
+
+		rsch, err := getResourceSchema(*res, psch)
+		if err != nil {
+			return nil, err
 		}
+
 		b, err := GenerateForOneResource(rsch, *res, opts...)
 		if err != nil {
 			return nil, err
@@ -152,7 +157,7 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, opts
 		MaskSensitive: opt.maskSensitive,
 	}
 
-	if res.Mode != tfjson.ManagedResourceMode {
+	if res.Mode != tfjson.ManagedResourceMode && res.Mode != tfjson.DataResourceMode {
 		return nil, nil
 	}
 	b, err := internal.StateToTpl(&res, rsch.Block, &iopt)
@@ -166,10 +171,12 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, opts
 			return b, nil
 		}
 		sdkPsch := pinfo.SDKSchema
-		sch, ok := sdkPsch.ResourceSchemas[res.Type]
-		if !ok {
-			return b, nil
+
+		sch, err := getTrackedResourceSchema(res, sdkPsch)
+		if err != nil {
+			return nil, err
 		}
+
 		if providerName == "azure/azapi" {
 			b, err = internal.TuneTpl(*sch, b, &internal.TuneOption{
 				RemoveOC:          true,
@@ -198,4 +205,42 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, opts
 
 func GenerateForProvider(name string, psch *tfjson.Schema, v cty.Value) ([]byte, error) {
 	return internal.ProviderTpl(name, v, psch.Block)
+}
+
+func getResourceSchema(res tfstate.StateResource, psch *tfjson.ProviderSchema) (*tfjson.Schema, error) {
+	var (
+		rsch *tfjson.Schema
+		ok   bool
+	)
+	switch res.Mode {
+	case tfjson.ManagedResourceMode:
+		rsch, ok = psch.ResourceSchemas[res.Type]
+	case tfjson.DataResourceMode:
+		rsch, ok = psch.DataSourceSchemas[res.Type]
+	default:
+		return nil, fmt.Errorf("unsupported resource mode %q for %q", res.Mode, res.Address)
+	}
+	if !ok {
+		return nil, fmt.Errorf("no resource type %q found in provider's schema for %s", res.Type, res.Address)
+	}
+	return rsch, nil
+}
+
+func getTrackedResourceSchema(res tfstate.StateResource, psch schema.ProviderSchema) (*schema.Schema, error) {
+	var (
+		rsch *schema.Schema
+		ok   bool
+	)
+	switch res.Mode {
+	case tfjson.ManagedResourceMode:
+		rsch, ok = psch.ResourceSchemas[res.Type]
+	case tfjson.DataResourceMode:
+		rsch, ok = psch.DatasourceSchemas[res.Type]
+	default:
+		return nil, fmt.Errorf("unsupported resource mode %q for %q", res.Mode, res.Address)
+	}
+	if !ok {
+		return nil, fmt.Errorf("no resource type %q found in provider's schema for %s", res.Type, res.Address)
+	}
+	return rsch, nil
 }

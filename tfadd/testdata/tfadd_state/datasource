@@ -1,0 +1,30 @@
+{
+  "version": 4,
+  "terraform_version": "1.11.0",
+  "serial": 3,
+  "lineage": "9f794345-f195-412f-c63e-555e956f960c",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "data",
+      "type": "azurerm_resource_group",
+      "name": "current",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/REDACTED/resourceGroups/foo",
+            "location": "westus2",
+            "managed_by": "",
+            "name": "foo",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

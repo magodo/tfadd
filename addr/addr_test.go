@@ -3,6 +3,7 @@ package addr
 import (
 	"testing"
 
+	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/stretchr/testify/require"
 )
 
@@ -104,6 +105,16 @@ func TestParseResourceAddr(t *testing.T) {
 			name:  "resource only",
 			input: "null_resource.test",
 			addr: ResourceAddr{
+				Mode: tfjson.ManagedResourceMode,
+				Type: "null_resource",
+				Name: "test",
+			},
+		},
+		{
+			name:  "data source only",
+			input: "data.null_resource.test",
+			addr: ResourceAddr{
+				Mode: tfjson.DataResourceMode,
 				Type: "null_resource",
 				Name: "test",
 			},
@@ -117,6 +128,21 @@ func TestParseResourceAddr(t *testing.T) {
 						Name: "mod1",
 					},
 				},
+				Mode: tfjson.ManagedResourceMode,
+				Type: "null_resource",
+				Name: "test",
+			},
+		},
+		{
+			name:  "data source with module",
+			input: "module.mod1.data.null_resource.test",
+			addr: ResourceAddr{
+				ModuleAddr: []ModuleStep{
+					{
+						Name: "mod1",
+					},
+				},
+				Mode: tfjson.DataResourceMode,
 				Type: "null_resource",
 				Name: "test",
 			},
@@ -131,6 +157,7 @@ func TestParseResourceAddr(t *testing.T) {
 						Key:  ptr("foo"),
 					},
 				},
+				Mode: tfjson.ManagedResourceMode,
 				Type: "null_resource",
 				Name: "test",
 			},
@@ -145,6 +172,7 @@ func TestParseResourceAddr(t *testing.T) {
 						Index: ptr(0),
 					},
 				},
+				Mode: tfjson.ManagedResourceMode,
 				Type: "null_resource",
 				Name: "test",
 			},
@@ -166,6 +194,7 @@ func TestParseResourceAddr(t *testing.T) {
 						Name: "mod3",
 					},
 				},
+				Mode: tfjson.ManagedResourceMode,
 				Type: "null_resource",
 				Name: "test",
 			},

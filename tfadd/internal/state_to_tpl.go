@@ -37,7 +37,13 @@ func StateToTpl(r *tfstate.StateResource, schema *tfjson.SchemaBlock, opt *Optio
 	if err != nil {
 		return nil, fmt.Errorf("parsing resource address: %v", err)
 	}
-	c.WriteString(fmt.Sprintf("resource %q %q {\n", addr.Type, addr.Name))
+
+	typ := "resource"
+	if r.Mode == tfjson.DataResourceMode {
+		typ = "data"
+	}
+
+	c.WriteString(fmt.Sprintf("%s %q %q {\n", typ, addr.Type, addr.Name))
 
 	// Special handling on attribute "id" to make it a Computed only attribute. This is mainly for the provider that is using the plugin sdk v2, where it is set to be O+C.
 	schema.Attributes["id"].Optional = false

@@ -21,7 +21,6 @@ func main() {
 
 func run() error {
 	resources := map[string]*schema.Resource{}
-
 	for _, service := range provider.SupportedTypedServices() {
 		for _, rs := range service.Resources() {
 			wrapper := sdk.NewResourceWrapper(rs)
@@ -37,13 +36,33 @@ func run() error {
 			resources[name] = rs
 		}
 	}
-
-	schemas := map[string]*tfschema.Schema{}
-	for name, res := range resources {
-		schemas[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2SchemaMap(res.Schema)}
+	rschs := map[string]*tfschema.Schema{}
+	for name, rs := range resources {
+		rschs[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2SchemaMap(rs.Schema)}
 	}
 
-	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: schemas}, "", "  ")
+	datasources := map[string]*schema.Resource{}
+	for _, service := range provider.SupportedTypedServices() {
+		for _, ds := range service.DataSources() {
+			wrapper := sdk.NewDataSourceWrapper(ds)
+			dsWrapper, err := wrapper.DataSource()
+			if err != nil {
+				return fmt.Errorf("wrapping DataSource %q: %+v", ds.ResourceType(), err)
+			}
+			datasources[ds.ResourceType()] = dsWrapper
+		}
+	}
+	for _, service := range provider.SupportedUntypedServices() {
+		for name, ds := range service.SupportedDataSources() {
+			datasources[name] = ds
+		}
+	}
+	dschs := map[string]*tfschema.Schema{}
+	for name, ds := range datasources {
+		dschs[name] = &tfschema.Schema{Block: tfpluginschema.FromSDKv2SchemaMap(ds.Schema)}
+	}
+
+	b, err := json.MarshalIndent(tfschema.ProviderSchema{ResourceSchemas: rschs, DatasourceSchemas: dschs}, "", "  ")
 	if err != nil {
 		return err
 	}

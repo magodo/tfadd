@@ -11,6 +11,7 @@ import (
 
 func Test_StateToTpl(t *testing.T) {
 	res := &tfstate.StateResource{
+		Mode:    tfjson.ManagedResourceMode,
 		Address: "test_instance.foo",
 		Value: cty.ObjectVal(map[string]cty.Value{
 			"id":  cty.StringVal("some-id"),
