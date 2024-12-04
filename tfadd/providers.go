@@ -3,6 +3,7 @@ package tfadd
 import (
 	"github.com/magodo/tfadd/providers/aws"
 	"github.com/magodo/tfadd/providers/azapi"
+	"github.com/magodo/tfadd/providers/azuread"
 	"github.com/magodo/tfadd/providers/azurerm"
 	"github.com/magodo/tfadd/providers/google"
 	"github.com/magodo/tfadd/schema"
@@ -21,6 +22,10 @@ var supportedProviders = map[string]providerInfo{
 	"hashicorp/azurerm": {
 		FQName:    "registry.terraform.io/hashicorp/azurerm",
 		SDKSchema: azurerm.ProviderSchemaInfo,
+	},
+	"hashicorp/azuread": {
+		FQName:    "registry.terraform.io/hashicorp/azuread",
+		SDKSchema: azuread.ProviderSchemaInfo,
 	},
 	"hashicorp/aws": {
 		FQName:    "registry.terraform.io/hashicorp/aws",

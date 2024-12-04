@@ -86,7 +86,7 @@ func TestTFAdd_datasource(t *testing.T) {
 
 			ctx := context.Background()
 			if os.Getenv(ENV_TFADD_DEV_PROVIDER) == "" {
-				b, err := Init([]string{"hashicorp/azurerm", "hashicorp/google", "hashicorp/aws", "azure/azapi"})
+				b, err := Init([]string{"hashicorp/azuread", "hashicorp/azurerm", "hashicorp/google", "hashicorp/aws", "azure/azapi"})
 				require.NoError(t, err)
 				require.NoError(t, os.WriteFile(filepath.Join(wsp, "terraform.tf"), b, 0644))
 				require.NoError(t, tf.Init(ctx))
@@ -251,7 +251,7 @@ resource "null_resource" "test" {
 
 			ctx := context.Background()
 			if os.Getenv(ENV_TFADD_DEV_PROVIDER) == "" {
-				b, err := Init([]string{"hashicorp/azurerm", "hashicorp/google", "hashicorp/aws", "azure/azapi"})
+				b, err := Init([]string{"hashicorp/azuread", "hashicorp/azurerm", "hashicorp/google", "hashicorp/aws", "azure/azapi"})
 				require.NoError(t, err)
 				require.NoError(t, os.WriteFile(filepath.Join(wsp, "terraform.tf"), b, 0644))
 				require.NoError(t, tf.Init(ctx))
