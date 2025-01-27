@@ -879,7 +879,17 @@ func init() {
             "computed": true
           },
           {
+            "name": "object_id",
+            "type": "string",
+            "computed": true
+          },
+          {
             "name": "subscription_id",
+            "type": "string",
+            "computed": true
+          },
+          {
+            "name": "subscription_resource_id",
             "type": "string",
             "computed": true
           },
@@ -1376,5 +1386,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azapi): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "2.0.1"
+    ProviderSchemaInfo.Version = "2.2.0"
 }

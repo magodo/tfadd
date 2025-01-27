@@ -1302,7 +1302,7 @@ func init() {
             "max_items": 1,
             "required": false,
             "optional": true,
-            "computed": true,
+            "computed": false,
             "force_new": false
           },
           {
@@ -2313,6 +2313,13 @@ func init() {
                     "string"
                   ],
                   "required": true,
+                  "force_new": false
+                },
+                {
+                  "name": "insider_risk_levels",
+                  "type": "string",
+                  "optional": true,
+                  "computed": true,
                   "force_new": false
                 },
                 {
@@ -4030,6 +4037,13 @@ func init() {
                   "force_new": false
                 },
                 {
+                  "name": "country_lookup_method",
+                  "type": "string",
+                  "optional": true,
+                  "default": "clientIpAddress",
+                  "force_new": false
+                },
+                {
                   "name": "include_unknown_countries_and_regions",
                   "type": "bool",
                   "optional": true,
@@ -5067,6 +5081,12 @@ func init() {
           },
           {
             "name": "division",
+            "type": "string",
+            "optional": true,
+            "force_new": false
+          },
+          {
+            "name": "employee_hire_date",
             "type": "string",
             "optional": true,
             "force_new": false
@@ -6588,6 +6608,7 @@ func init() {
                     "list",
                     "string"
                   ],
+                  "country_lookup_method": "string",
                   "include_unknown_countries_and_regions": "bool"
                 }
               ]
@@ -7080,6 +7101,12 @@ func init() {
             "force_new": false
           },
           {
+            "name": "employee_hire_date",
+            "type": "string",
+            "computed": true,
+            "force_new": false
+          },
+          {
             "name": "employee_id",
             "type": "string",
             "optional": true,
@@ -7471,5 +7498,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azuread): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.0.2"
+    ProviderSchemaInfo.Version = "3.1.0"
 }
