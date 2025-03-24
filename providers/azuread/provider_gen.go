@@ -3470,7 +3470,7 @@ func init() {
                   "max_items": 1,
                   "required": false,
                   "optional": true,
-                  "computed": false,
+                  "computed": true,
                   "force_new": false
                 }
               ]
@@ -3922,6 +3922,249 @@ func init() {
             "required": false,
             "optional": true,
             "computed": true,
+            "force_new": false
+          }
+        ]
+      }
+    },
+    "azuread_group_without_members": {
+      "block": {
+        "attributes": [
+          {
+            "name": "administrative_unit_ids",
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true,
+            "force_new": false
+          },
+          {
+            "name": "assignable_to_role",
+            "type": "bool",
+            "optional": true,
+            "force_new": true
+          },
+          {
+            "name": "auto_subscribe_new_members",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "behaviors",
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "optional": true,
+            "force_new": false
+          },
+          {
+            "name": "display_name",
+            "type": "string",
+            "required": true,
+            "force_new": false
+          },
+          {
+            "name": "external_senders_allowed",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "hide_from_address_lists",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "hide_from_outlook_clients",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "mail",
+            "type": "string",
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "mail_enabled",
+            "type": "bool",
+            "optional": true,
+            "force_new": false,
+            "at_least_one_of": [
+              "mail_enabled",
+              "security_enabled"
+            ]
+          },
+          {
+            "name": "mail_nickname",
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": true
+          },
+          {
+            "name": "object_id",
+            "type": "string",
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "onpremises_domain_name",
+            "type": "string",
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "onpremises_group_type",
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "onpremises_netbios_name",
+            "type": "string",
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "onpremises_sam_account_name",
+            "type": "string",
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "onpremises_security_identifier",
+            "type": "string",
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "onpremises_sync_enabled",
+            "type": "bool",
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "owners",
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true,
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "preferred_language",
+            "type": "string",
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "prevent_duplicate_names",
+            "type": "bool",
+            "optional": true,
+            "default": false,
+            "force_new": false
+          },
+          {
+            "name": "provisioning_options",
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
+          {
+            "name": "proxy_addresses",
+            "type": [
+              "list",
+              "string"
+            ],
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "security_enabled",
+            "type": "bool",
+            "optional": true,
+            "force_new": false,
+            "at_least_one_of": [
+              "mail_enabled",
+              "security_enabled"
+            ]
+          },
+          {
+            "name": "theme",
+            "type": "string",
+            "optional": true,
+            "force_new": false
+          },
+          {
+            "name": "types",
+            "type": [
+              "set",
+              "string"
+            ],
+            "optional": true,
+            "force_new": true
+          },
+          {
+            "name": "visibility",
+            "type": "string",
+            "optional": true,
+            "computed": true,
+            "force_new": false
+          },
+          {
+            "name": "writeback_enabled",
+            "type": "bool",
+            "optional": true,
+            "default": false,
+            "force_new": false
+          }
+        ],
+        "block_types": [
+          {
+            "type_name": "dynamic_membership",
+            "block": {
+              "attributes": [
+                {
+                  "name": "enabled",
+                  "type": "bool",
+                  "required": true,
+                  "force_new": false
+                },
+                {
+                  "name": "rule",
+                  "type": "string",
+                  "required": true,
+                  "force_new": false
+                }
+              ]
+            },
+            "nesting_mode": 2,
+            "max_items": 1,
+            "required": false,
+            "optional": true,
+            "computed": false,
             "force_new": false
           }
         ]
@@ -7498,5 +7741,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azuread): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.1.0"
+    ProviderSchemaInfo.Version = "3.2.0"
 }

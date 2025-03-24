@@ -640,6 +640,17 @@ func init() {
             "optional": true
           },
           {
+            "name": "sensitive_output",
+            "type": "dynamic",
+            "computed": true,
+            "sensitive": true
+          },
+          {
+            "name": "sensitive_response_export_values",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
             "name": "type",
             "type": "string",
             "required": true
@@ -1180,6 +1191,17 @@ func init() {
             "optional": true
           },
           {
+            "name": "sensitive_output",
+            "type": "dynamic",
+            "computed": true,
+            "sensitive": true
+          },
+          {
+            "name": "sensitive_response_export_values",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
             "name": "type",
             "type": "string",
             "required": true
@@ -1386,5 +1408,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azapi): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "2.2.0"
+    ProviderSchemaInfo.Version = "2.3.0"
 }
