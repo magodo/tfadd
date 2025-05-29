@@ -76,14 +76,14 @@ func TestTuneForBlock(t *testing.T) {
 				},
 			},
 			input: `resource "foo" "test" {
-  req = 1
-  opt = 2
-  comp = 3
-  oc = 4
+  req = 0
+  opt = 1
+  comp = 2
+  oc = 3
 }`,
 			expect: `resource "foo" "test" {
-  req = 1
-  opt = 2
+  req = 0
+  opt = 1
 }`,
 		},
 		{

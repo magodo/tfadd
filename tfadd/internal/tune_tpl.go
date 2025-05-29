@@ -125,7 +125,7 @@ func (t trimmer) tuneAttributes(parentAddr Addr, rb *hclwrite.Body, attrSchs tfp
 
 		// Removing Optional "zero" valued attribute
 		if t.Option.RemoveOZAttribute {
-			if sch.NestedType == nil {
+			if sch.NestedType == nil && sch.Optional {
 				ok, err := t.attributeIsDefaultOrZeroValue(attrName, attrVal, sch)
 				if err != nil {
 					return addr.NewErrorf("checking attribute value is default or zero: %v", err)
@@ -137,7 +137,7 @@ func (t trimmer) tuneAttributes(parentAddr Addr, rb *hclwrite.Body, attrSchs tfp
 			}
 		}
 
-		// TODO: Attributes that are kept (either kept O+C, O or R attributes), continue trim the nested objects, or trim the attribute by value.
+		// TODO(Proto6 only): Attributes that are kept (either kept O+C, O or R attributes), continue trim the nested objects, or trim the attribute by value.
 		if sch.NestedType != nil {
 		}
 	}
