@@ -7741,5 +7741,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azuread): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.2.0"
+    ProviderSchemaInfo.Version = "3.4.0"
 }

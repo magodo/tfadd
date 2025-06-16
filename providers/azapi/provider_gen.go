@@ -172,14 +172,14 @@ func init() {
                   "type": "number",
                   "optional": true,
                   "computed": true,
-                  "default": "1.5"
+                  "default": 1.5
                 },
                 {
                   "name": "randomization_factor",
                   "type": "number",
                   "optional": true,
                   "computed": true,
-                  "default": "0.5"
+                  "default": 0.5
                 }
               ],
               "Nesting": 1
@@ -409,14 +409,14 @@ func init() {
                   "type": "number",
                   "optional": true,
                   "computed": true,
-                  "default": "1.5"
+                  "default": 1.5
                 },
                 {
                   "name": "randomization_factor",
                   "type": "number",
                   "optional": true,
                   "computed": true,
-                  "default": "0.5"
+                  "default": 0.5
                 }
               ],
               "Nesting": 1
@@ -429,6 +429,11 @@ func init() {
             "optional": true,
             "computed": true,
             "default": true
+          },
+          {
+            "name": "sensitive_body",
+            "type": "dynamic",
+            "optional": true
           },
           {
             "name": "tags",
@@ -625,14 +630,14 @@ func init() {
                   "type": "number",
                   "optional": true,
                   "computed": true,
-                  "default": "1.5"
+                  "default": 1.5
                 },
                 {
                   "name": "randomization_factor",
                   "type": "number",
                   "optional": true,
                   "computed": true,
-                  "default": "0.5"
+                  "default": 0.5
                 }
               ],
               "Nesting": 1
@@ -808,18 +813,23 @@ func init() {
                   "type": "number",
                   "optional": true,
                   "computed": true,
-                  "default": "1.5"
+                  "default": 1.5
                 },
                 {
                   "name": "randomization_factor",
                   "type": "number",
                   "optional": true,
                   "computed": true,
-                  "default": "0.5"
+                  "default": 0.5
                 }
               ],
               "Nesting": 1
             },
+            "optional": true
+          },
+          {
+            "name": "sensitive_body",
+            "type": "dynamic",
             "optional": true
           },
           {
@@ -1408,5 +1418,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azapi): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "2.3.0"
+    ProviderSchemaInfo.Version = "2.4.0"
 }
