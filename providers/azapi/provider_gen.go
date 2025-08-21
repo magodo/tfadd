@@ -311,6 +311,13 @@ func init() {
             "default": true
           },
           {
+            "name": "ignore_null_property",
+            "type": "bool",
+            "optional": true,
+            "computed": true,
+            "default": false
+          },
+          {
             "name": "location",
             "type": "string",
             "optional": true,
@@ -433,6 +440,14 @@ func init() {
           {
             "name": "sensitive_body",
             "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "sensitive_body_version",
+            "type": [
+              "map",
+              "string"
+            ],
             "optional": true
           },
           {
@@ -830,6 +845,14 @@ func init() {
           {
             "name": "sensitive_body",
             "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "sensitive_body_version",
+            "type": [
+              "map",
+              "string"
+            ],
             "optional": true
           },
           {
@@ -1418,5 +1441,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azapi): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "2.4.0"
+    ProviderSchemaInfo.Version = "2.6.0"
 }

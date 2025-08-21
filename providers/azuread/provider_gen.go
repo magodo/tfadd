@@ -2422,6 +2422,33 @@ func init() {
                         "optional": true,
                         "force_new": false
                       }
+                    ],
+                    "block_types": [
+                      {
+                        "type_name": "filter",
+                        "block": {
+                          "attributes": [
+                            {
+                              "name": "mode",
+                              "type": "string",
+                              "required": true,
+                              "force_new": false
+                            },
+                            {
+                              "name": "rule",
+                              "type": "string",
+                              "required": true,
+                              "force_new": false
+                            }
+                          ]
+                        },
+                        "nesting_mode": 2,
+                        "max_items": 1,
+                        "required": false,
+                        "optional": true,
+                        "computed": false,
+                        "force_new": false
+                      }
                     ]
                   },
                   "nesting_mode": 2,
@@ -7741,5 +7768,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azuread): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "3.4.0"
+    ProviderSchemaInfo.Version = "3.5.0"
 }
