@@ -964,6 +964,11 @@ func init() {
       "block": {
         "attributes": [
           {
+            "name": "exists",
+            "type": "bool",
+            "computed": true
+          },
+          {
             "name": "headers",
             "type": [
               "map",
@@ -1007,6 +1012,11 @@ func init() {
               "Nesting": 2
             },
             "computed": true
+          },
+          {
+            "name": "ignore_not_found",
+            "type": "bool",
+            "optional": true
           },
           {
             "name": "location",
@@ -1441,5 +1451,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azapi): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "2.6.0"
+    ProviderSchemaInfo.Version = "2.8.0"
 }
