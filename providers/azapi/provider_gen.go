@@ -92,7 +92,8 @@ func init() {
           {
             "name": "name",
             "type": "string",
-            "required": true
+            "optional": true,
+            "computed": true
           },
           {
             "name": "output",
@@ -184,6 +185,19 @@ func init() {
               ],
               "Nesting": 1
             },
+            "optional": true
+          },
+          {
+            "name": "sensitive_body",
+            "type": "dynamic",
+            "optional": true
+          },
+          {
+            "name": "sensitive_body_version",
+            "type": [
+              "map",
+              "string"
+            ],
             "optional": true
           },
           {
@@ -316,6 +330,22 @@ func init() {
             "optional": true,
             "computed": true,
             "default": false
+          },
+          {
+            "name": "ignore_other_items_in_list",
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "list_unique_id_property",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
           },
           {
             "name": "location",
@@ -561,6 +591,11 @@ func init() {
             "optional": true
           },
           {
+            "name": "exist",
+            "type": "bool",
+            "computed": true
+          },
+          {
             "name": "headers",
             "type": [
               "map",
@@ -572,6 +607,11 @@ func init() {
             "name": "id",
             "type": "string",
             "computed": true
+          },
+          {
+            "name": "ignore_not_found",
+            "type": "bool",
+            "optional": true
           },
           {
             "name": "locks",
@@ -743,6 +783,22 @@ func init() {
             "default": true
           },
           {
+            "name": "ignore_other_items_in_list",
+            "type": [
+              "list",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "name": "list_unique_id_property",
+            "type": [
+              "map",
+              "string"
+            ],
+            "optional": true
+          },
+          {
             "name": "locks",
             "type": [
               "list",
@@ -784,6 +840,11 @@ func init() {
                 "string"
               ]
             ],
+            "optional": true
+          },
+          {
+            "name": "replace_triggers_external_values",
+            "type": "dynamic",
             "optional": true
           },
           {
@@ -1451,5 +1512,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azapi): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "2.8.0"
+    ProviderSchemaInfo.Version = "2.9.0"
 }
