@@ -18,6 +18,12 @@ jobs:
       with:
         go-version: 1.23.0
 
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.11.4
+        terraform_wrapper: false
+
     - name: Build
       run: go build -v ./...
 
