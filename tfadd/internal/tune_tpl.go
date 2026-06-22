@@ -123,14 +123,31 @@ func (t trimmer) tuneAttributes(parentAddr Addr, rb *hclwrite.Body, attrSchs tfp
 			}
 		}
 
-		// Removing Optional "zero" valued attribute
-		if t.Option.RemoveOZAttribute {
-			if sch.NestedType == nil && sch.Optional {
-				ok, err := t.attributeIsDefaultOrZeroValue(attrName, attrVal, sch)
+		// Optional only primitive types
+		if sch.Optional && sch.NestedType == nil {
+			// Removing Optional attribute whose value equals to its zero value
+			if sch.Default == nil && t.Option.RemoveOZeroAttribute {
+				aval, err := t.attrCty(attrName, attrVal, sch)
 				if err != nil {
-					return addr.NewErrorf("checking attribute value is default or zero: %v", err)
+					return addr.NewErrorf("parsing attribute value: %v", err)
 				}
-				if ok {
+				if attributeIsZeroValue(aval, sch) {
+					t.removeAttribute(rb, addr, attrName)
+					continue
+				}
+			}
+
+			// Removing Optional attribute whose value equals the schema-defined default.
+			if t.Option.RemoveODefaultAttribute {
+				aval, err := t.attrCty(attrName, attrVal, sch)
+				if err != nil {
+					return addr.NewErrorf("parsing attribute value: %v", err)
+				}
+				isDefault, err := attributeIsDefaultValue(aval, sch)
+				if err != nil {
+					return addr.NewErrorf("checking attribute equals schema default: %v", err)
+				}
+				if isDefault {
 					t.removeAttribute(rb, addr, attrName)
 					continue
 				}
@@ -191,69 +208,96 @@ func (t trimmer) tuneBlock(rb *hclwrite.Body, sch *tfpluginschema.SchemaBlock, p
 	return nil
 }
 
-// attributeIsDefaultOrZeroValue returns if the attribute is null, or equals to either its default value (defined in schema), or (default value undefined) zero value.
-func (t trimmer) attributeIsDefaultOrZeroValue(attrName string, attrVal *hclwrite.Attribute, attrSch *tfpluginschema.SchemaAttribute) (bool, error) {
+// attrCty parses the attribute value and, for collection types, normalizes
+// HCL tuple/object literals (e.g. `[]`, `{}`) into properly typed List/Set/Map
+// values so that they can be compared with their schema-defined defaults or
+// type zero values.
+func (t trimmer) attrCty(attrName string, attrVal *hclwrite.Attribute, attrSch *tfpluginschema.SchemaAttribute) (cty.Value, error) {
 	if attrSch.NestedType != nil {
 		panic("attributes of nested object are not supported")
 	}
 	aval, err := t.attrValue(attrName, attrVal)
 	if err != nil {
-		return false, err
+		return cty.NilVal, err
 	}
-	if aval.IsNull() {
-		return true, nil
+	if aval.IsNull() || attrSch.Type == nil {
+		return aval, nil
 	}
+	ty := *attrSch.Type
+	switch {
+	case ty.IsListType():
+		if len(aval.AsValueSlice()) == 0 {
+			return cty.ListValEmpty(ty.ElementType()), nil
+		}
+		return cty.ListVal(aval.AsValueSlice()), nil
+	case ty.IsSetType():
+		if len(aval.AsValueSlice()) == 0 {
+			return cty.SetValEmpty(ty.ElementType()), nil
+		}
+		return cty.SetVal(aval.AsValueSlice()), nil
+	case ty.IsMapType():
+		if len(aval.AsValueMap()) == 0 {
+			return cty.MapValEmpty(ty.ElementType()), nil
+		}
+		return cty.MapVal(aval.AsValueMap()), nil
+	}
+	return aval, nil
+}
 
-	// Non null attribute, continue checking whether it equals to the default value.
+// attributeIsZeroValue reports whether the given (parsed and normalized)
+// attribute value is the "zero" value for an Optional attribute.
+// Note that null is not a zero value.
+func attributeIsZeroValue(aval cty.Value, attrSch *tfpluginschema.SchemaAttribute) bool {
 	var dval cty.Value
+	if attrSch.Type == nil {
+		return false
+	}
 
-	if attrSch.Type != nil {
-		switch *attrSch.Type {
-		case cty.Number:
-			dval = cty.Zero
-		case cty.Bool:
-			dval = cty.False
-		case cty.String:
-			dval = cty.StringVal("")
-		default:
-			if attrSch.Type.IsListType() {
-				dval = cty.ListValEmpty(attrSch.Type.ElementType())
-				if len(aval.AsValueSlice()) == 0 {
-					aval = dval
-				} else {
-					aval = cty.ListVal(aval.AsValueSlice())
-				}
-				break
-			}
-			if attrSch.Type.IsSetType() {
-				dval = cty.SetValEmpty(attrSch.Type.ElementType())
-				if len(aval.AsValueSlice()) == 0 {
-					aval = dval
-				} else {
-					aval = cty.SetVal(aval.AsValueSlice())
-				}
-				break
-			}
-			if attrSch.Type.IsMapType() {
-				dval = cty.MapValEmpty(attrSch.Type.ElementType())
-				if len(aval.AsValueMap()) == 0 {
-					aval = dval
-				} else {
-					aval = cty.MapVal(aval.AsValueMap())
-				}
-				break
-			}
+	ty := *attrSch.Type
+
+	switch ty {
+	case cty.Number:
+		dval = cty.Zero
+	case cty.Bool:
+		dval = cty.False
+	case cty.String:
+		dval = cty.StringVal("")
+	default:
+		switch {
+		case ty.IsListType():
+			dval = cty.ListValEmpty(ty.ElementType())
+		case ty.IsSetType():
+			dval = cty.SetValEmpty(ty.ElementType())
+		case ty.IsMapType():
+			dval = cty.MapValEmpty(ty.ElementType())
 		}
 	}
 
-	if attrSch.Default != nil && attrSch.Type != nil {
-		var err error
-		dval, err = gocty.ToCtyValue(attrSch.Default, *attrSch.Type)
-		if err != nil {
-			return false, fmt.Errorf("converting cty value %v to Go: %v", attrSch.Default, err)
-		}
+	if dval.IsNull() {
+		return false
 	}
 
+	return aval.Equals(dval).True()
+}
+
+// attributeIsDefaultValue reports whether the given (parsed and normalized)
+// attribute value equals the schema-defined default value.
+// Note that null is the "default" default value when no default is defined.
+func attributeIsDefaultValue(aval cty.Value, attrSch *tfpluginschema.SchemaAttribute) (bool, error) {
+	if attrSch.Default == nil {
+		if aval.IsNull() {
+			return true, nil
+		} else {
+			return false, nil
+		}
+	}
+	if attrSch.Type == nil {
+		return false, nil
+	}
+	dval, err := gocty.ToCtyValue(attrSch.Default, *attrSch.Type)
+	if err != nil {
+		return false, fmt.Errorf("converting default value %v: %v", attrSch.Default, err)
+	}
 	return aval.Equals(dval).True(), nil
 }
 

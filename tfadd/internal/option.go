@@ -16,6 +16,10 @@ type TuneOption struct {
 	// For block, the address is separated by ".0.".
 	OCToKeep map[string]bool
 
-	// Whether to remove optional attributes, whose value equals to its default value or zero value (default not defined)
-	RemoveOZAttribute bool
+	// Whether to remove optional attributes whose value equals the type's zero value (used when the schema does not define a default).
+	// A null attribute value also counts as zero and is removed when this is enabled.
+	RemoveOZeroAttribute bool
+
+	// Whether to remove optional attributes whose value equals the schema-defined default value.
+	RemoveODefaultAttribute bool
 }
