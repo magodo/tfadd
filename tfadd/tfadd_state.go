@@ -164,41 +164,42 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, opts
 	if err != nil {
 		return nil, fmt.Errorf("generate template from state for %s: %v", res.Type, err)
 	}
-	if !opt.full {
-		providerName := strings.TrimPrefix(res.ProviderName, "registry.terraform.io/")
-		pinfo, ok := supportedProviders[providerName]
-		if !ok {
-			return b, nil
-		}
-		sdkPsch := pinfo.SDKSchema
 
-		sch, err := getTrackedResourceSchema(res, sdkPsch)
-		if err != nil {
-			return nil, err
-		}
+	keepOC := opt.keepOC || opt.full
+	keepZero := opt.keepZero || opt.full
+	keepDefault := opt.keepDefault || opt.full
 
-		if providerName == "azure/azapi" {
-			b, err = internal.TuneTpl(*sch, b, &internal.TuneOption{
-				RemoveOC:          true,
-				RemoveOZAttribute: true,
-				OCToKeep: map[string]bool{
-					"name":      true,
-					"parent_id": true,
-					"identity":  true,
-					"location":  true,
-					"tags":      true,
-					"body":      true,
-				},
-			})
-		} else {
-			b, err = internal.TuneTpl(*sch, b, &internal.TuneOption{
-				RemoveOC:          true,
-				RemoveOZAttribute: true,
-			})
+	providerName := strings.TrimPrefix(res.ProviderName, "registry.terraform.io/")
+	pinfo, ok := supportedProviders[providerName]
+	if !ok {
+		return b, nil
+	}
+	sdkPsch := pinfo.SDKSchema
+
+	sch, err := getTrackedResourceSchema(res, sdkPsch)
+	if err != nil {
+		return nil, err
+	}
+
+	tuneOpt := &internal.TuneOption{
+		RemoveOC:                !keepOC,
+		RemoveOZeroAttribute:    !keepZero,
+		RemoveODefaultAttribute: !keepDefault,
+	}
+	if providerName == "azure/azapi" {
+		tuneOpt.OCToKeep = map[string]bool{
+			"name":      true,
+			"parent_id": true,
+			"identity":  true,
+			"location":  true,
+			"tags":      true,
+			"body":      true,
 		}
-		if err != nil {
-			return nil, fmt.Errorf("tune template for %s: %v", res.Type, err)
-		}
+	}
+
+	b, err = internal.TuneTpl(*sch, b, tuneOpt)
+	if err != nil {
+		return nil, fmt.Errorf("tune template for %s: %v", res.Type, err)
 	}
 	return b, nil
 }

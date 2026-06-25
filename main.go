@@ -71,9 +71,17 @@ Usage: tfadd [global options] state [options]
 
   Generates resource template from Terraform state to standard output.
 
+  By default, several categories of attributes/blocks are trimmed from the
+  generated config
+
 Options:
 
-  -full               Output all non-computed properties in the generated config
+  -full               Shorthand for "-keep-oc -keep-zero -keep-default".
+  -keep-oc            Keep Optional+Computed (O+C) attributes/blocks
+  -keep-zero          Keep Optional attributes whose value equals the type's
+                      zero value (when no schema default is defined)
+  -keep-default       Keep Optional attributes whose value equals the
+                      schema-defined default
   -mask-sensitive     Mask sensitive properties
   -target=addr        Only generate for the specified resource (can specify multiple times)
   -chdir              Change the current working directory
@@ -83,7 +91,10 @@ Options:
 
 func (r *stateCommand) Run(args []string) int {
 	fset := defaultFlagSet("state")
-	flagFull := fset.Bool("full", false, "Whether to generate all non-computed properties")
+	flagFull := fset.Bool("full", false, "Shorthand for -keep-oc -keep-zero -keep-default")
+	flagKeepOC := fset.Bool("keep-oc", false, "Keep Optional+Computed (O+C) attributes/blocks")
+	flagKeepZero := fset.Bool("keep-zero", false, "Keep Optional attributes equal to the type's zero value")
+	flagKeepDefault := fset.Bool("keep-default", false, "Keep Optional attributes equal to the schema-defined default")
 	flagChdir := fset.String("chdir", ".", "Change the current working directory")
 	flagMaskSensitive := fset.Bool("mask-sensitive", false, "Whether to mask sensitive properties")
 	var flagTargets arrayFlag
@@ -109,6 +120,9 @@ func (r *stateCommand) Run(args []string) int {
 	}
 	opts := []tfadd.OptionSetter{
 		tfadd.Full(*flagFull),
+		tfadd.KeepOC(*flagKeepOC),
+		tfadd.KeepZero(*flagKeepZero),
+		tfadd.KeepDefault(*flagKeepDefault),
 		tfadd.MaskSenstitive(*flagMaskSensitive),
 	}
 

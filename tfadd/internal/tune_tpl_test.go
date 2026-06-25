@@ -35,12 +35,12 @@ func TestTuneTpl(t *testing.T) {
 	expect := `resource "foo" "test" {
   req {}
 }`
-	actual, err := TuneTpl(sch, []byte(input), &TuneOption{RemoveOC: true, RemoveOZAttribute: true})
+	actual, err := TuneTpl(sch, []byte(input), &TuneOption{RemoveOC: true, RemoveOZeroAttribute: true, RemoveODefaultAttribute: true})
 	require.NoError(t, err)
 	require.Equal(t, expect, string(actual))
 }
 
-func TestTuneForBlock(t *testing.T) {
+func TestTuneForBlock_removeAll(t *testing.T) {
 	cases := []struct {
 		name   string
 		schema tfpluginschema.SchemaBlock
@@ -87,7 +87,7 @@ func TestTuneForBlock(t *testing.T) {
 }`,
 		},
 		{
-			name: "optional attributes with default value",
+			name: "optional attributes with zero value",
 			schema: tfpluginschema.SchemaBlock{
 				Attributes: []*tfpluginschema.SchemaAttribute{
 					{
@@ -560,7 +560,7 @@ func TestTuneForBlock(t *testing.T) {
 	}
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			actual, err := TuneTpl(schema.Schema{Block: &c.schema}, []byte(c.input), &TuneOption{RemoveOC: true, RemoveOZAttribute: true, OCToKeep: c.ocKeep})
+			actual, err := TuneTpl(schema.Schema{Block: &c.schema}, []byte(c.input), &TuneOption{RemoveOC: true, RemoveOZeroAttribute: true, RemoveODefaultAttribute: true, OCToKeep: c.ocKeep})
 			require.NoError(t, err)
 			require.Equal(t, c.expect, string(actual))
 		})
@@ -569,4 +569,292 @@ func TestTuneForBlock(t *testing.T) {
 
 func ToPtr[T any](v T) *T {
 	return &v
+}
+
+func TestTuneForBlock_PerKeepOption(t *testing.T) {
+	mixedSchema := tfpluginschema.SchemaBlock{
+		Attributes: []*tfpluginschema.SchemaAttribute{
+			{Name: "oc", Type: ToPtr(cty.Number), Optional: true, Computed: true},
+			{Name: "opt_zero", Type: ToPtr(cty.Number), Optional: true},
+			{Name: "opt_nonzero", Type: ToPtr(cty.Number), Optional: true},
+			{Name: "opt_default", Type: ToPtr(cty.Number), Optional: true, Default: 5},
+			{Name: "opt_nondef", Type: ToPtr(cty.Number), Optional: true, Default: 5},
+		},
+	}
+	mixedInput := `resource "foo" "test" {
+  oc          = 1
+  opt_zero    = 0
+  opt_nonzero = 2
+  opt_default = 5
+  opt_nondef  = 7
+}`
+
+	cases := []struct {
+		name   string
+		option TuneOption
+		schema tfpluginschema.SchemaBlock
+		input  string
+		expect string
+	}{
+		{
+			name:   "all flags off keeps everything except C-only",
+			option: TuneOption{},
+			schema: tfpluginschema.SchemaBlock{
+				Attributes: []*tfpluginschema.SchemaAttribute{
+					{Name: "oc", Type: ToPtr(cty.Number), Optional: true, Computed: true},
+					{Name: "comp", Type: ToPtr(cty.Number), Computed: true},
+					{Name: "opt_zero", Type: ToPtr(cty.Number), Optional: true},
+					{Name: "opt_default", Type: ToPtr(cty.Number), Optional: true, Default: 5},
+				},
+			},
+			input: `resource "foo" "test" {
+  oc          = 1
+  comp        = 2
+  opt_zero    = 0
+  opt_default = 5
+}`,
+			expect: `resource "foo" "test" {
+  oc          = 1
+  opt_zero    = 0
+  opt_default = 5
+}`,
+		},
+
+		// ---- RemoveOC only ----
+		{
+			name:   "RemoveOC only removes O+C and keeps zero/default values",
+			option: TuneOption{RemoveOC: true},
+			schema: mixedSchema,
+			input:  mixedInput,
+			expect: `resource "foo" "test" {
+  opt_zero    = 0
+  opt_nonzero = 2
+  opt_default = 5
+  opt_nondef  = 7
+}`,
+		},
+		{
+			name:   "RemoveOC only honors OCToKeep override",
+			option: TuneOption{RemoveOC: true, OCToKeep: map[string]bool{"oc": true}},
+			schema: tfpluginschema.SchemaBlock{
+				Attributes: []*tfpluginschema.SchemaAttribute{
+					{Name: "oc", Type: ToPtr(cty.Number), Optional: true, Computed: true},
+					{Name: "oc2", Type: ToPtr(cty.Number), Optional: true, Computed: true},
+				},
+			},
+			input: `resource "foo" "test" {
+  oc  = 1
+  oc2 = 2
+}`,
+			expect: `resource "foo" "test" {
+  oc = 1
+}`,
+		},
+
+		// ---- RemoveOZeroAttribute only ----
+		{
+			name:   "RemoveOZeroAttribute only removes zero-valued O and keeps O+C/default",
+			option: TuneOption{RemoveOZeroAttribute: true},
+			schema: mixedSchema,
+			input:  mixedInput,
+			expect: `resource "foo" "test" {
+  oc          = 1
+  opt_nonzero = 2
+  opt_default = 5
+  opt_nondef  = 7
+}`,
+		},
+		{
+			name:   "RemoveOZeroAttribute only covers primitives and collections",
+			option: TuneOption{RemoveOZeroAttribute: true},
+			schema: tfpluginschema.SchemaBlock{
+				Attributes: []*tfpluginschema.SchemaAttribute{
+					{Name: "number", Type: ToPtr(cty.Number), Optional: true},
+					{Name: "bool", Type: ToPtr(cty.Bool), Optional: true},
+					{Name: "string", Type: ToPtr(cty.String), Optional: true},
+					{Name: "list", Type: ToPtr(cty.List(cty.Number)), Optional: true},
+					{Name: "set", Type: ToPtr(cty.Set(cty.Number)), Optional: true},
+					{Name: "map", Type: ToPtr(cty.Map(cty.Number)), Optional: true},
+				},
+			},
+			input: `resource "foo" "test" {
+  number = 0
+  bool   = false
+  string = ""
+  list   = []
+  set    = []
+  map    = {}
+}`,
+			expect: `resource "foo" "test" {
+}`,
+		},
+		{
+			name:   "RemoveOZeroAttribute only does NOT remove a defaulted attr that happens to be zero",
+			option: TuneOption{RemoveOZeroAttribute: true},
+			schema: tfpluginschema.SchemaBlock{
+				Attributes: []*tfpluginschema.SchemaAttribute{
+					// zero-valued, but schema default is also 0 — belongs to the
+					// "default" bucket, so RemoveOZero alone must NOT remove it.
+					{Name: "opt", Type: ToPtr(cty.Number), Optional: true, Default: 0},
+				},
+			},
+			input: `resource "foo" "test" {
+  opt = 0
+}`,
+			expect: `resource "foo" "test" {
+  opt = 0
+}`,
+		},
+
+		// ---- RemoveODefaultAttribute only ----
+		{
+			name:   "RemoveODefaultAttribute only removes default-valued O and keeps O+C/zero",
+			option: TuneOption{RemoveODefaultAttribute: true},
+			schema: mixedSchema,
+			input:  mixedInput,
+			expect: `resource "foo" "test" {
+  oc          = 1
+  opt_zero    = 0
+  opt_nonzero = 2
+  opt_nondef  = 7
+}`,
+		},
+		{
+			name:   "RemoveODefaultAttribute only covers all primitive/collection default types",
+			option: TuneOption{RemoveODefaultAttribute: true},
+			schema: tfpluginschema.SchemaBlock{
+				Attributes: []*tfpluginschema.SchemaAttribute{
+					{Name: "number", Type: ToPtr(cty.Number), Optional: true, Default: 1},
+					{Name: "bool", Type: ToPtr(cty.Bool), Optional: true, Default: true},
+					{Name: "string", Type: ToPtr(cty.String), Optional: true, Default: "default"},
+					{Name: "list", Type: ToPtr(cty.List(cty.Number)), Optional: true, Default: []interface{}{1}},
+					{Name: "set", Type: ToPtr(cty.Set(cty.Number)), Optional: true, Default: []int{1}},
+					{Name: "map", Type: ToPtr(cty.Map(cty.Number)), Optional: true, Default: map[string]interface{}{"default": 1}},
+				},
+			},
+			input: `resource "foo" "test" {
+  number = 1
+  bool   = true
+  string = "default"
+  list   = [1]
+  set    = [1]
+  map = {
+    default = 1
+  }
+}`,
+			expect: `resource "foo" "test" {
+}`,
+		},
+		{
+			name:   "RemoveODefaultAttribute only does NOT remove a non-default zero value",
+			option: TuneOption{RemoveODefaultAttribute: true},
+			schema: tfpluginschema.SchemaBlock{
+				Attributes: []*tfpluginschema.SchemaAttribute{
+					// zero-valued, no schema default — belongs to the "zero"
+					// bucket, so RemoveODefault alone must NOT remove it.
+					{Name: "opt", Type: ToPtr(cty.Number), Optional: true},
+				},
+			},
+			input: `resource "foo" "test" {
+  opt = 0
+}`,
+			expect: `resource "foo" "test" {
+  opt = 0
+}`,
+		},
+
+		// ---- Combinations of two flags ----
+		{
+			name:   "RemoveOC + RemoveOZeroAttribute keeps default-valued",
+			option: TuneOption{RemoveOC: true, RemoveOZeroAttribute: true},
+			schema: mixedSchema,
+			input:  mixedInput,
+			expect: `resource "foo" "test" {
+  opt_nonzero = 2
+  opt_default = 5
+  opt_nondef  = 7
+}`,
+		},
+		{
+			name:   "RemoveOC + RemoveODefaultAttribute keeps zero-valued",
+			option: TuneOption{RemoveOC: true, RemoveODefaultAttribute: true},
+			schema: mixedSchema,
+			input:  mixedInput,
+			expect: `resource "foo" "test" {
+  opt_zero    = 0
+  opt_nonzero = 2
+  opt_nondef  = 7
+}`,
+		},
+		{
+			name:   "RemoveOZeroAttribute + RemoveODefaultAttribute keeps O+C",
+			option: TuneOption{RemoveOZeroAttribute: true, RemoveODefaultAttribute: true},
+			schema: mixedSchema,
+			input:  mixedInput,
+			expect: `resource "foo" "test" {
+  oc          = 1
+  opt_nonzero = 2
+  opt_nondef  = 7
+}`,
+		},
+
+		// ---- All three flags on (parity with the legacy default mode) ----
+		{
+			name:   "all three flags on trims O+C, zero and default",
+			option: TuneOption{RemoveOC: true, RemoveOZeroAttribute: true, RemoveODefaultAttribute: true},
+			schema: mixedSchema,
+			input:  mixedInput,
+			expect: `resource "foo" "test" {
+  opt_nonzero = 2
+  opt_nondef  = 7
+}`,
+		},
+
+		// ---- Blocks: only RemoveOC affects O+C blocks; the zero/default
+		// flags target attributes only ----
+		{
+			name:   "RemoveOC removes O+C block; zero/default flags do not affect blocks",
+			option: TuneOption{RemoveOC: true},
+			schema: tfpluginschema.SchemaBlock{
+				BlockTypes: []*tfpluginschema.SchemaNestedBlock{
+					{TypeName: "req", Nesting: tfpluginschema.SchemaNestedBlockNestingModeSingle, Required: ToPtr(true)},
+					{TypeName: "oc", Nesting: tfpluginschema.SchemaNestedBlockNestingModeSingle, Optional: ToPtr(true), Computed: ToPtr(true)},
+				},
+			},
+			input: `resource "foo" "test" {
+  req {}
+  oc {}
+}`,
+			expect: `resource "foo" "test" {
+  req {}
+}`,
+		},
+		{
+			name:   "RemoveOZeroAttribute + RemoveODefaultAttribute do not remove O+C blocks",
+			option: TuneOption{RemoveOZeroAttribute: true, RemoveODefaultAttribute: true},
+			schema: tfpluginschema.SchemaBlock{
+				BlockTypes: []*tfpluginschema.SchemaNestedBlock{
+					{TypeName: "req", Nesting: tfpluginschema.SchemaNestedBlockNestingModeSingle, Required: ToPtr(true)},
+					{TypeName: "oc", Nesting: tfpluginschema.SchemaNestedBlockNestingModeSingle, Optional: ToPtr(true), Computed: ToPtr(true)},
+				},
+			},
+			input: `resource "foo" "test" {
+  req {}
+  oc {}
+}`,
+			expect: `resource "foo" "test" {
+  req {}
+  oc {}
+}`,
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			opt := c.option
+			actual, err := TuneTpl(schema.Schema{Block: &c.schema}, []byte(c.input), &opt)
+			require.NoError(t, err)
+			require.Equal(t, c.expect, string(actual))
+		})
+	}
 }
