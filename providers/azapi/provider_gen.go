@@ -1512,5 +1512,5 @@ func init() {
         fmt.Fprintf(os.Stderr, "unmarshalling the provider schema (azapi): %s", err)
 		os.Exit(1)
 	}
-    ProviderSchemaInfo.Version = "2.9.0"
+    ProviderSchemaInfo.Version = "2.10.0"
 }
