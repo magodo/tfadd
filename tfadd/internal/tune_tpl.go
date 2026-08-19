@@ -294,6 +294,13 @@ func attributeIsDefaultValue(aval cty.Value, attrSch *tfpluginschema.SchemaAttri
 	if attrSch.Type == nil {
 		return false, nil
 	}
+
+	// In case the schema type is dynamic, gocty can't convert a Go type (e.g. a Go map) dynamically to cty value.
+	// In this case, we can't tell whether the aval equals to the default value really.
+	if attrSch.Type.HasDynamicTypes() {
+		return false, nil
+	}
+
 	dval, err := gocty.ToCtyValue(attrSch.Default, *attrSch.Type)
 	if err != nil {
 		return false, fmt.Errorf("converting default value %v: %v", attrSch.Default, err)

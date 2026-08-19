@@ -134,7 +134,7 @@ func TestTuneForBlock_removeAll(t *testing.T) {
 }`,
 		},
 		{
-			name: "optional attributes with customized default value",
+			name: "optional attributes with customized default value (dynamic type rules out)",
 			schema: tfpluginschema.SchemaBlock{
 				Attributes: []*tfpluginschema.SchemaAttribute{
 					{
@@ -173,6 +173,12 @@ func TestTuneForBlock_removeAll(t *testing.T) {
 						Optional: true,
 						Default:  map[string]interface{}{"default": 1},
 					},
+					{
+						Name:     "dynamic_map",
+						Type:     &cty.DynamicPseudoType,
+						Optional: true,
+						Default:  map[string]any{},
+					},
 				},
 			},
 			input: `resource "foo" "test" {
@@ -184,8 +190,10 @@ func TestTuneForBlock_removeAll(t *testing.T) {
   map = {
     default = 1
   }
+  dynamic_map = {}
 }`,
 			expect: `resource "foo" "test" {
+  dynamic_map = {}
 }`,
 		},
 		{
