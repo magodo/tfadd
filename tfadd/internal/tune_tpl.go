@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/magodo/tfadd/schema"
+	"github.com/zclconf/go-cty/cty/convert"
 	"github.com/zclconf/go-cty/cty/function"
 	"github.com/zclconf/go-cty/cty/function/stdlib"
 
@@ -223,25 +224,7 @@ func (t trimmer) attrCty(attrName string, attrVal *hclwrite.Attribute, attrSch *
 	if aval.IsNull() || attrSch.Type == nil {
 		return aval, nil
 	}
-	ty := *attrSch.Type
-	switch {
-	case ty.IsListType():
-		if len(aval.AsValueSlice()) == 0 {
-			return cty.ListValEmpty(ty.ElementType()), nil
-		}
-		return cty.ListVal(aval.AsValueSlice()), nil
-	case ty.IsSetType():
-		if len(aval.AsValueSlice()) == 0 {
-			return cty.SetValEmpty(ty.ElementType()), nil
-		}
-		return cty.SetVal(aval.AsValueSlice()), nil
-	case ty.IsMapType():
-		if len(aval.AsValueMap()) == 0 {
-			return cty.MapValEmpty(ty.ElementType()), nil
-		}
-		return cty.MapVal(aval.AsValueMap()), nil
-	}
-	return aval, nil
+	return convert.Convert(aval, *attrSch.Type)
 }
 
 // attributeIsZeroValue reports whether the given (parsed and normalized)
