@@ -169,7 +169,7 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, opts
 	keepZero := opt.keepZero || opt.full
 	keepDefault := opt.keepDefault || opt.full
 
-	providerName := strings.TrimPrefix(res.ProviderName, "registry.terraform.io/")
+	providerName := providerShortName(res.ProviderName)
 	pinfo, ok := supportedProviders[providerName]
 	if !ok {
 		return b, nil
@@ -225,6 +225,23 @@ func getResourceSchema(res tfstate.StateResource, psch *tfjson.ProviderSchema) (
 		return nil, fmt.Errorf("no resource type %q found in provider's schema for %s", res.Type, res.Address)
 	}
 	return rsch, nil
+}
+
+// registryHosts are the provider registry hosts a state file can record for the
+// supported providers: Terraform writes registry.terraform.io, and OpenTofu
+// writes registry.opentofu.org for the same providers.
+var registryHosts = []string{"registry.terraform.io/", "registry.opentofu.org/"}
+
+// providerShortName returns the "namespace/type" key used by supportedProviders
+// for a provider address from state, e.g. "registry.opentofu.org/hashicorp/azurerm"
+// -> "hashicorp/azurerm". An address on any other host is returned unchanged.
+func providerShortName(providerName string) string {
+	for _, host := range registryHosts {
+		if strings.HasPrefix(providerName, host) {
+			return strings.TrimPrefix(providerName, host)
+		}
+	}
+	return providerName
 }
 
 func getTrackedResourceSchema(res tfstate.StateResource, psch schema.ProviderSchema) (*schema.Schema, error) {
