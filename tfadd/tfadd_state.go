@@ -169,7 +169,10 @@ func GenerateForOneResource(rsch *tfjson.Schema, res tfstate.StateResource, opts
 	keepZero := opt.keepZero || opt.full
 	keepDefault := opt.keepDefault || opt.full
 
-	providerName := strings.TrimPrefix(res.ProviderName, "registry.terraform.io/")
+	providerName := res.ProviderName
+	providerName = strings.TrimPrefix(providerName, "registry.terraform.io/")
+	providerName = strings.TrimPrefix(providerName, "registry.opentofu.org/")
+
 	pinfo, ok := supportedProviders[providerName]
 	if !ok {
 		return b, nil
